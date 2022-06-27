@@ -1,27 +1,47 @@
+/**
+ * index.tsx
+ *
+ * This is the entry file for the application, only setup and boilerplate
+ * code.
+ */
+
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
+
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import { Provider } from 'react-redux';
+
+// Use consistent styling
+import 'sanitize.css/sanitize.css';
+
 // Import root app
 import { App } from 'app';
+
 import { HelmetProvider } from 'react-helmet-async';
+
 import { configureAppStore } from 'store/configureStore';
+
+import { ThemeProvider } from 'styles/theme/ThemeProvider';
+
 import reportWebVitals from 'reportWebVitals';
+
 // Initialize languages
 import './locales/i18n';
 
 const store = configureAppStore();
+const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
-ReactDOM.render(
+ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </HelmetProvider>
+    <ThemeProvider>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HelmetProvider>
+    </ThemeProvider>
   </Provider>,
-  document.getElementById('root'),
 );
 
 // Hot reloadable translation json files
