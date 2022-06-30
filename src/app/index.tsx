@@ -1,12 +1,3 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
-// import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { GlobalStyle } from 'styles/global-styles';
 import React from 'react';
@@ -32,7 +23,7 @@ export function App() {
       </Helmet>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<CChainPage />} />
           <Route path="/cchain" element={<CChainPage />} />
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
