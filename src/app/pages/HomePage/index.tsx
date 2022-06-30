@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Box } from '@mui/material';
 
 export function HomePage() {
   return (
@@ -8,7 +9,14 @@ export function HomePage() {
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <span>My HomePage</span>
+      <Box
+        sx={{
+          display: 'flex',
+          backgroundColor: 'primary.main',
+        }}
+      >
+        HomePage
+      </Box>
     </>
   );
 }

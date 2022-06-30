@@ -7,7 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
   body {
-    background-color: ${p => p.theme.grey900};
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   *, *::after, *::before{
