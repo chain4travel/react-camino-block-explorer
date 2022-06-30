@@ -1,8 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-
 import { GlobalStyle } from 'styles/global-styles';
-
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';

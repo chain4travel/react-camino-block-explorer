@@ -6,16 +6,12 @@ import Box from '@mui/material/Box';
 import { useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useTheme } from '@mui/material';
 
 function OutlinedSearchInput() {
   return (
     <OutlinedInput
       placeholder="Search by Address / Hash / Block / Token"
-      startAdornment={
-        <InputAdornment position="start">
-          <SearchIcon />
-        </InputAdornment>
-      }
       sx={{
         width: '100%',
         height: '100%',
@@ -31,6 +27,11 @@ function OutlinedSearchInput() {
           height: '50px',
         },
       }}
+      startAdornment={
+        <InputAdornment position="start">
+          <SearchIcon />
+        </InputAdornment>
+      }
     />
   );
 }
@@ -40,6 +41,7 @@ export default function SearchInput() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const theme = useTheme();
 
   return (
     <>
@@ -57,7 +59,29 @@ export default function SearchInput() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={moadalStyle}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                bgcolor: 'primary.dark',
+                boxShadow: 24,
+                width: '100%',
+                maxWidth: '50%',
+                minWidth: '50%',
+                p: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+                borderRadius: '10px',
+                [theme.breakpoints.down('md')]: {
+                  maxWidth: '100%',
+                },
+              }}
+            >
               <Typography id="modal-modal-title" variant="h4" component="h2">
                 Search for anything
               </Typography>
@@ -78,25 +102,3 @@ export default function SearchInput() {
     </>
   );
 }
-
-const moadalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'primary.dark',
-  boxShadow: 24,
-  width: '100%',
-  maxWidth: '50%',
-  minWidth: '400px',
-  p: 4,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
-  borderRadius: '10px',
-  '@media (max-width:600px)': {
-    maxWidth: '100%',
-  },
-};

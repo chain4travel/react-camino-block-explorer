@@ -4,14 +4,25 @@ import Logo from './Logo';
 import SearchInput from './SearchInput';
 import ThemeSwitcherButton from './ThemeSwitcherButton';
 import NetworkSelect from './NetworkSelect';
-import { useMediaQuery } from '@mui/material';
+import { useTheme, useMediaQuery } from '@mui/material';
 import Links from './Links';
+import AppBar from '@mui/material/AppBar';
+import Drawer from './Drawer';
 
 export function NavBar() {
+  const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:1024px)');
+  const themeMode = theme.palette.mode === 'light' ? true : false;
 
   return (
-    <header>
+    <AppBar
+      position="static"
+      sx={{
+        transition: 'box-shadow 0s',
+        boxShadow: `0px 1px 0px ${themeMode ? '#eeeeee' : '#424242'}`,
+        marginBottom: '8px',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -21,9 +32,15 @@ export function NavBar() {
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: '1rem',
+          [theme.breakpoints.down('md')]: {
+            padding: '1rem 0.2rem',
+          },
         }}
       >
-        <Logo />
+        <Box sx={{ display: 'flex' }}>
+          {isMobile && <Drawer />}
+          <Logo />
+        </Box>
         <Box
           sx={{
             display: 'flex',
@@ -43,7 +60,7 @@ export function NavBar() {
           <ThemeSwitcherButton />
         </Box>
       </Box>
-      <Links />
-    </header>
+      {!isMobile && <Links />}
+    </AppBar>
   );
 }

@@ -2,17 +2,18 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-// import Brightness1Icon from '@mui/icons-material/Brightness1';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material';
 
 export default function NetworkSelect() {
+  const theme = useTheme();
   const [network, setNetwork] = React.useState('Columbus');
   const handleChange = (event: SelectChangeEvent) => {
     setNetwork(event.target.value as string);
   };
 
   return (
-    <Box sx={{ minWidth: '150px' }}>
+    <Box>
       <Select
         variant="outlined"
         value={network}
@@ -24,6 +25,9 @@ export default function NetworkSelect() {
           minWidth: '150px',
           borderRadius: '10px',
           padding: '8px 16px',
+          [theme.breakpoints.down('md')]: {
+            minWidth: '125px',
+          },
         }}
       >
         <MenuItem value="Columbus" divider>

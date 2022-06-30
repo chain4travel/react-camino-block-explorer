@@ -147,4 +147,5 @@ export const selectAllBlocks = state => state.cchain.blocks;
 export const selectAllTransactions = state => state.cchain.transactions;
 export const getCchainStatus = state => state.cchain.status;
 export const getCchainError = state => state.cchain.error;
+export const getCchainOverreview = state => state.cchain.ChainOverview;
 export default cchainSlice.reducer;

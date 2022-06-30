@@ -7,6 +7,7 @@ import {
   getCchainError,
   selectAllTransactions,
   getCchainStatus,
+  getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,8 +17,17 @@ export function CChainPage() {
   const transactions = useSelector(selectAllTransactions);
   const status = useSelector(getCchainStatus);
   const error = useSelector(getCchainError);
+  const {
+    numberOfTransactions,
+    totalGasFees,
+    numberOfActiveValidators,
+    numberOfValidators,
+    percentageOfActiveValidators,
+    gasFeesLoading,
+    transactionsLoading,
+    validatorsLoading,
+  } = useSelector(getCchainOverreview);
 
-  React.useEffect(() => {}, [transactions]);
   useEffectOnce(() => {
     dispatch(fetchBlocksTransactions());
   });

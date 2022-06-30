@@ -18,7 +18,17 @@ const grey = {
   A700: '#616161',
 };
 
-export const LightThemePalette: Partial<Palette> = {
+// extend the palette interface with our custom colors
+interface PaletteWithCustomColors extends Palette {
+  overviewCards: {
+    main: string;
+    dark: string;
+    light: string;
+    contrastText: string;
+  };
+}
+
+export const LightThemePalette: Partial<PaletteWithCustomColors> = {
   mode: 'light',
   primary: {
     main: '#F5F6FA',
@@ -27,8 +37,8 @@ export const LightThemePalette: Partial<Palette> = {
     contrastText: '#0F172A',
   },
   secondary: {
-    light: '#149EED',
-    main: '#B440FC',
+    main: '#149EED',
+    light: '#B440FC',
     dark: '#7E2DB0',
     contrastText: '#0F172A',
   },
@@ -59,7 +69,7 @@ export const LightThemePalette: Partial<Palette> = {
   grey: grey,
 };
 
-export const DarkThemePalette: Partial<Palette> = {
+export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   mode: 'dark',
   primary: {
     // main: '#242729',
@@ -69,10 +79,10 @@ export const DarkThemePalette: Partial<Palette> = {
     contrastText: '#FFFFFF',
   },
   secondary: {
-    light: '#149EED',
-    main: '#B440FC',
+    main: '#149EED',
+    light: '#B440FC',
     dark: '#7E2DB0',
-    contrastText: '#FFFFFF',
+    contrastText: '#0F172A',
   },
   error: {
     light: '#DD5E56',
@@ -99,6 +109,12 @@ export const DarkThemePalette: Partial<Palette> = {
     contrastText: '#FFFFFF',
   },
   grey: grey,
+  overviewCards: {
+    light: '#F5F6FA',
+    main: '#FFFFFF',
+    dark: '#E2E8F0',
+    contrastText: '#0F172A',
+  },
 };
 
 const defaultTheme = {
@@ -210,14 +226,17 @@ const defaultComponents = {
     styleOverrides: {
       root: {
         padding: '0rem 0.5rem',
-        width: 'max-content',
       },
     },
   },
   MuiTab: {
     styleOverrides: {
       root: {
-        padding: '0.5rem 0rem',
+        padding: '0rem',
+        textTransform: 'capitalize' as const,
+      },
+      indicator: {
+        backgroundColor: 'transparent',
       },
     },
   },
