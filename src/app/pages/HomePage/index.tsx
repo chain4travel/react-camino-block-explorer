@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Box } from '@mui/material';
 
 export function HomePage() {
+  React.useEffect(() => {
+    console.log('pikala');
+  }, []);
   return (
     <>
       <Helmet>

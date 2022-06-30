@@ -17,26 +17,29 @@ export default function Links() {
   };
 
   return (
-    <ul
-      style={{
+    <Box
+      sx={{
+        display: 'flex',
         cursor: 'pointer',
         width: '100%',
         height: '48px',
         padding: '0 8px',
         backgroundColor: 'primary.dark',
-        boxShadow: `0px 1px 0px`,
-        gap: '1rem',
-        listStyle: 'none',
-        alignItems: 'center',
       }}
     >
-      <Tabs variant="fullWidth" value={value} onChange={handleChange}>
-        <Tab className="tab" label="C-Chain" {...a11yProps(0)} />
-        <Tab className="tab" label="X-Chain" {...a11yProps(1)} />
-        <Tab className="tab" label="P-Chain" {...a11yProps(2)} />
-        <Tab className="tab" label="Docs" {...a11yProps(3)} />
-        <Tab className="tab" label="Wallet" {...a11yProps(4)} />
+      <Tabs
+        variant="fullWidth"
+        value={value}
+        onChange={handleChange}
+        textColor="secondary"
+        indicatorColor="secondary"
+      >
+        <Tab className="tab" disableRipple label="C-Chain" {...a11yProps(0)} />
+        <Tab className="tab" disableRipple label="X-Chain" {...a11yProps(1)} />
+        <Tab className="tab" disableRipple label="P-Chain" {...a11yProps(2)} />
+        <Tab className="tab" disableRipple label="Docs" {...a11yProps(3)} />
+        <Tab className="tab" disableRipple label="Wallet" {...a11yProps(4)} />
       </Tabs>
-    </ul>
+    </Box>
   );
 }
