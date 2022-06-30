@@ -10,6 +10,8 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Container } from '@mui/material';
+import OverviewCards from 'app/components/OverviewCards';
 
 export function CChainPage() {
   const dispatch = useDispatch();
@@ -32,14 +34,12 @@ export function CChainPage() {
     dispatch(fetchBlocksTransactions());
   });
   return (
-    <>
+    <Container maxWidth="xl">
       <Helmet>
         <title>CChainPage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <span>
-        {status === 'succeeded' ? transactions[0].block : <>loading</>}
-      </span>
-    </>
+      <span>{status === 'succeeded' ? <OverviewCards /> : <>loading</>}</span>
+    </Container>
   );
 }

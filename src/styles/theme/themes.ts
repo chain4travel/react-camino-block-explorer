@@ -18,12 +18,12 @@ const grey = {
   A700: '#616161',
 };
 
-// extend the palette interface with our custom colors
 interface PaletteWithCustomColors extends Palette {
-  overviewCards: {
-    main: string;
-    dark: string;
-    light: string;
+  overviewCard: {
+    background: string;
+    border: string;
+    title: string;
+    subValue: string;
     contrastText: string;
   };
 }
@@ -32,7 +32,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
   mode: 'light',
   primary: {
     main: '#F5F6FA',
-    dark: '#FFFFFF',
+    dark: '#F8FAFC',
     light: '#E2E8F0',
     contrastText: '#0F172A',
   },
@@ -67,12 +67,18 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#0F172A',
   },
   grey: grey,
+  overviewCard: {
+    background: '#F8FAFC',
+    border: '#CBD5E1',
+    title: '#0F172A',
+    subValue: '#334155',
+    contrastText: '#0F172A',
+  },
 };
 
 export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   mode: 'dark',
   primary: {
-    // main: '#242729',
     main: '#0F172A',
     dark: '#0F172A',
     light: '#1E293B',
@@ -109,11 +115,12 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#FFFFFF',
   },
   grey: grey,
-  overviewCards: {
-    light: '#F5F6FA',
-    main: '#FFFFFF',
-    dark: '#E2E8F0',
-    contrastText: '#0F172A',
+  overviewCard: {
+    background: '#0F172A',
+    border: '#1E293B',
+    title: '#64748B',
+    subValue: '#64748B',
+    contrastText: '#FFFFFF',
   },
 };
 
@@ -121,85 +128,84 @@ const defaultTheme = {
   typography: {
     fontSize: 16,
     h1: {
-      // fontFamily: 'DM Sans, serif',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: 'bold',
-      fontSize: '2.75rem',
-      '@media (min-width:600px)': {
-        fontSize: '3.5rem',
-      },
-      letterSpacing: '0.04em',
+      fontSize: '96px',
+      lineHeight: '96px',
+      letterSpacing: '-2px',
+      fontWeight: '400',
     },
     h2: {
-      // fontFamily: 'DM Sans, serif',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
-      fontSize: '2rem',
-      '@media (min-width:600px)': {
-        fontSize: '2.75rem',
-      },
+      fontSize: '60px',
+      lineHeight: '60px',
+      letterSpacing: '-0.5px',
+      fontWeight: '400',
     },
     h3: {
-      // fontFamily: 'DM Sans, serif',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
-      fontSize: '1.5rem',
-      '@media (min-width:600px)': {
-        fontSize: '2.25rem',
-      },
+      fontSize: '48px',
+      lineHeight: '50px',
+      fontWeight: '400',
     },
     h4: {
-      // fontFamily: "'DM Sans'",
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '700',
-      fontSize: '22px',
-      '@media (min-width:600px)': {
-        fontSize: '1.25rem',
-      },
-      lineHeight: '26px',
-      letterSpacing: '-0.726px',
+      fontSize: '34px',
+      lineHeight: '40px',
+      fontWeight: '400',
     },
     h5: {
-      // fontFamily: 'DM Sans',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '700',
-      fontSize: '12px',
-      lineHeight: '16px',
-      letterSpacing: '1.2px',
+      fontWeight: '400',
+      fontSize: '24px',
+      lineHeight: '32px',
     },
     h6: {
-      // fontFamily: 'DM Sans',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
       fontWeight: '400',
-      fontSize: '1rem',
-      '@media (min-width:600px)': {
-        fontSize: '1.25rem',
-      },
-      lineHeight: '21px',
-    },
-    body1: {
-      // fontFamily: "'DM Sans'",
-      fontStyle: 'normal',
-      fontWeight: '400',
-      fontSize: '1.25rem',
-      lineHeight: '2.125rem',
-      letterSpacing: '-0.66px',
-    },
-    body2: {
-      // fontFamily: "'DM Sans'",
-      fontStyle: 'normal',
-      fontWeight: '400',
-      fontSize: '1rem',
-      lineHeight: '1.75rem',
-      letterSpacing: '-0.528px',
+      fontSize: '18px',
+      lineHeight: '150%',
     },
     subtitle1: {
-      // fontFamily: 'DM Sans',
+      fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
       fontWeight: '400',
-      fontSize: '1rem',
-      lineHeight: '175%',
-      letterSpacing: '-0.5px',
+      fontSize: '16px',
+      lineHeight: '28px',
+    },
+    subtitle2: {
+      fontFamily: 'Plus Jakarta Sans',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      fontSize: '14px',
+      lineHeight: '22px',
+    },
+    body1: {
+      fontFamily: 'Plus Jakarta Sans',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      fontSize: '16px',
+      lineHeight: '24px',
+    },
+    body2: {
+      fontFamily: 'Plus Jakarta Sans',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      fontSize: '14px',
+      lineHeight: '20px',
+      letterSpacing: '-0.528px',
+    },
+    caption: {
+      fontFamily: 'Plus Jakarta Sans',
+      fontStyle: 'normal',
+      fontWeight: 400,
+      fontSize: '12px',
+      lineHeight: '16px',
     },
   },
 };
@@ -240,6 +246,14 @@ const defaultComponents = {
       },
     },
   },
+  MuiContainer: {
+    styleOverrides: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column' as const,
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
@@ -248,7 +262,7 @@ export const lightTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#F5F6FA',
+          backgroundColor: '#E2E8F0',
         },
       },
     },

@@ -9,6 +9,13 @@ import Links from './Links';
 import AppBar from '@mui/material/AppBar';
 import Drawer from './Drawer';
 
+/*
+ * ToDo
+ * Change the position for the navbar to fixed position
+ * Add suppot for the Toolbar component
+ * Change the structure of the component
+ */
+
 export function NavBar() {
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:1024px)');
@@ -20,7 +27,7 @@ export function NavBar() {
       sx={{
         transition: 'box-shadow 0s',
         boxShadow: `0px 1px 0px ${themeMode ? '#eeeeee' : '#424242'}`,
-        marginBottom: '8px',
+        marginBottom: '16px',
       }}
     >
       <Box
@@ -54,6 +61,9 @@ export function NavBar() {
             display: 'flex',
             alignItems: 'center',
             gap: '1rem',
+            [theme.breakpoints.down('md')]: {
+              gap: '0.5rem',
+            },
           }}
         >
           <NetworkSelect />
