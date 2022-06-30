@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import {
   fetchBlocksTransactions,
+  loadNumberOfTransactions,
+  loadTotalGasFess,
   selectAllBlocks,
   getCchainError,
   selectAllTransactions,
@@ -10,6 +12,7 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Timeframe } from 'store/cchainSlice';
 
 export function CChainPage() {
   const dispatch = useDispatch();
@@ -30,6 +33,8 @@ export function CChainPage() {
 
   useEffectOnce(() => {
     dispatch(fetchBlocksTransactions());
+    dispatch(loadNumberOfTransactions(Timeframe.MONTHS_1));
+    dispatch(loadTotalGasFess());
   });
   return (
     <>
