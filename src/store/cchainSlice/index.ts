@@ -1,65 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  BlockTableData,
+  initialStateType,
+  ChainOverviewType,
+  CTransaction,
+  MagellanAggregatesResponse,
+  MagellanTxFeeAggregatesResponse,
+} from './types';
 import axios from 'axios';
+import { DateTime } from 'luxon';
 
-const url = 'https://magellan.columbus.camino.foundation/v2';
+const BASE_URL = 'https://magellan.columbus.camino.foundation/v2';
+const CHAIN_ID = 'G52TJLLbDSxYXsijNMpKFB6kAyDVRd9DGWVWYBh86Z8sEXm1i';
+const URL = `${BASE_URL}/cblocks?limit=10&limit=10`;
 
-const URL = `${url}/cblocks?limit=10&limit=10`;
-
-export interface CTransaction {
-  hash: string;
-  status: string; // enum?
-  block: number;
-  index: number;
-  timestamp: Date;
-  from: string;
-  to: string;
-  value: number;
-  transactionCost: number;
-}
-
-export interface BlockTableData {
-  number: number;
-  timestamp: Date;
-  numberOfTransactions: number;
-  hash: string;
-  gasUsed?: number;
-  gasLimit?: number;
-  blockCost: number;
-}
-
-interface initialStateType {
-  transactionCount: number;
-  blockCount: number;
-  blocks: BlockTableData[];
-  transactions: CTransaction[];
-  status: string;
-  error: undefined | string;
-  ChainOverview: ChainOverviewType;
-}
-
-// {
-//   chainIds: {} as Record<string, string>,
-//   selectedTime: Timeframe.HOURS_24,
-//   validators: {} as MagellanValidatorsResponse,
-//   numberOfTransactions: 0 as number,
-//   totalGasFees: 0 as number,
-//   numberOfActiveValidators: 0 as number,
-//   numberOfValidators: 0 as number,
-//   percentageOfActiveValidators: '',
-//   gasFeesLoading: false as boolean,
-//   transactionsLoading: false as boolean,
-// }
-// interface over
-
-interface ChainOverviewType {
-  numberOfTransactions: number;
-  totalGasFees: number;
-  numberOfActiveValidators: number;
-  numberOfValidators: number;
-  percentageOfActiveValidators: number;
-  gasFeesLoading: string;
-  transactionsLoading: string;
-  validatorsLoading: string;
+export enum Timeframe {
+  HOURS_24 = 'HOURS_24',
+  DAYS_7 = 'DAYS_7',
+  MONTHS_1 = 'MONTHS_1',
 }
 
 const initialState: initialStateType = {
@@ -80,6 +38,65 @@ const initialState: initialStateType = {
     validatorsLoading: 'idle',
   } as ChainOverviewType,
 };
+
+export function getStartDate(
+  endDate: DateTime,
+  timeframe: Timeframe,
+): DateTime {
+  switch (timeframe) {
+    case Timeframe.DAYS_7:
+      return endDate.minus({ weeks: 1 });
+    case Timeframe.HOURS_24:
+      return endDate.minus({ days: 1 });
+    case Timeframe.MONTHS_1:
+      return endDate.minus({ months: 1 });
+  }
+}
+
+async function loadTransactionAggregates(
+  chainAlias: string,
+  startTime: string,
+  endTime: string,
+): Promise<MagellanAggregatesResponse> {
+  let url = `${BASE_URL}/aggregates?chainID=${CHAIN_ID}&startTime=${startTime}&endTime=${endTime}`;
+  return (await axios.get(url)).data;
+}
+async function loadTransactionFeesAggregates(
+  chainAlias: string,
+  startTime: string,
+  endTime: string,
+): Promise<MagellanTxFeeAggregatesResponse> {
+  const url = `${BASE_URL}/txfeeAggregates?chainID=${CHAIN_ID}&startTime=${startTime}&endTime=${endTime}`;
+  return (await axios.get(url)).data;
+}
+
+export const loadNumberOfTransactions = createAsyncThunk(
+  'cchain/loadNumberOfTransactions',
+  async (timeframe: Timeframe) => {
+    const currentDate = DateTime.now().setZone('utc');
+    const startDate = getStartDate(currentDate, Timeframe.HOURS_24);
+    const result = await loadTransactionAggregates(
+      'c',
+      startDate.toISO(),
+      currentDate.toISO(),
+    );
+    return result && result.aggregates && result.aggregates.transactionCount;
+  },
+);
+
+export const loadTotalGasFess = createAsyncThunk(
+  'cchain/loadTotalGasFess',
+  async () => {
+    const currentDate = DateTime.now().setZone('utc');
+    const startDate = getStartDate(currentDate, Timeframe.HOURS_24);
+    const result = await loadTransactionFeesAggregates(
+      'c',
+      startDate.toISO(),
+      currentDate.toISO(),
+    );
+    return result && result.aggregates && parseInt(result.aggregates.txfee);
+  },
+);
 
 export const fetchBlocksTransactions = createAsyncThunk(
   'cchain/fetchBlocks',
@@ -140,6 +157,26 @@ const cchainSlice = createSlice({
       .addCase(fetchBlocksTransactions.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(loadNumberOfTransactions.pending, (state, action) => {
+        state.ChainOverview.transactionsLoading = 'loading';
+      })
+      .addCase(loadNumberOfTransactions.fulfilled, (state, action) => {
+        state.ChainOverview.numberOfTransactions = action.payload;
+        state.ChainOverview.transactionsLoading = 'succeeded';
+      })
+      .addCase(loadNumberOfTransactions.rejected, (state, action) => {
+        state.ChainOverview.transactionsLoading = 'failed';
+      })
+      .addCase(loadTotalGasFess.pending, (state, action) => {
+        state.ChainOverview.gasFeesLoading = 'loading';
+      })
+      .addCase(loadTotalGasFess.fulfilled, (state, action) => {
+        state.ChainOverview.totalGasFees = action.payload;
+        state.ChainOverview.gasFeesLoading = 'succeeded';
+      })
+      .addCase(loadTotalGasFess.rejected, (state, action) => {
+        state.ChainOverview.gasFeesLoading = 'failed';
       });
   },
 });

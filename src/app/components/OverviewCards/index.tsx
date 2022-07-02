@@ -68,17 +68,17 @@ export default function OverviewCards() {
   return (
     <div style={{ flexGrow: 1 }}>
       <Grid container spacing={4}>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} md={4}>
           <OverviewCard
             title="Number Of Validators"
             value="7"
             subValue="(7 / 100% active)"
           />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} md={4}>
           <OverviewCard title="Number of Transactions" value="15,298" />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} md={4}>
           <OverviewCard title="Total Gas Fees" value="161.368 CAM" />
         </Grid>
       </Grid>

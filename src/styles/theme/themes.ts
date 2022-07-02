@@ -26,6 +26,15 @@ interface PaletteWithCustomColors extends Palette {
     subValue: string;
     contrastText: string;
   };
+  icon: {
+    background: string;
+    color: string;
+  };
+  link: {
+    color: string;
+    hover: string;
+    active: string;
+  };
 }
 
 export const LightThemePalette: Partial<PaletteWithCustomColors> = {
@@ -74,6 +83,10 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     subValue: '#334155',
     contrastText: '#0F172A',
   },
+  icon: {
+    background: '#E2E8F0',
+    color: '#2E3134',
+  },
 };
 
 export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
@@ -121,6 +134,10 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     title: '#64748B',
     subValue: '#64748B',
     contrastText: '#FFFFFF',
+  },
+  icon: {
+    background: '#1E293B',
+    color: '#FFFFFF',
   },
 };
 
@@ -246,14 +263,14 @@ const defaultComponents = {
       },
     },
   },
-  MuiContainer: {
-    styleOverrides: {
-      root: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-      },
-    },
-  },
+  // MuiContainer: {
+  //   styleOverrides: {
+  //     root: {
+  //       display: 'flex',
+  //       flexDirection: 'column' as const,
+  //     },
+  //   },
+  // },
 };
 
 export const lightTheme = createTheme({
