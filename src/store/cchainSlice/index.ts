@@ -142,8 +142,7 @@ const cchainSlice = createSlice({
           let result: BlockTableData = {
             hash: block.hash,
             number: parseInt(block.number),
-            timestamp: block.timestamp,
-            // timestamp: new Date(block.timestamp * 1000),
+            timestamp: new Date(block.timestamp * 1000),
             gasLimit: parseInt(block.gasLimit),
             gasUsed: parseInt(block.gasUsed),
             numberOfTransactions: block.evmTx ? block.evmTx : 0,
@@ -162,8 +161,7 @@ const cchainSlice = createSlice({
                 parseInt(element.status) === 1
                   ? 'Success'
                   : `Failed-${parseInt(element.status)}`,
-              timestamp: element.timestamp,
-              // timestamp: new Date(parseInt(element.timestamp) * 1000),
+              timestamp: new Date(parseInt(element.timestamp) * 1000),
               to: element.to,
               value: parseInt(element.value),
               transactionCost:
