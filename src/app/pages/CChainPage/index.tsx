@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, CircularProgress, Typography } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
-import { Timeframe } from 'store/cchainSlice';
+import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
 
@@ -38,8 +38,6 @@ export function CChainPage() {
 
   useEffectOnce(() => {
     dispatch(fetchBlocksTransactions());
-    dispatch(loadNumberOfTransactions(Timeframe.MONTHS_1));
-    dispatch(loadTotalGasFess());
     dispatch(loadValidators());
   });
 
@@ -52,19 +50,19 @@ export function CChainPage() {
         <meta name="description" content="chain-overview" />
       </Helmet>
       <Container fixed maxWidth="xl" sx={{ flex: 1 }}>
+        <GlobalReloadButton />
+        <OverviewCards
+          numberOfTransactions={numberOfTransactions}
+          totalGasFees={totalGasFees}
+          numberOfActiveValidators={numberOfActiveValidators}
+          numberOfValidators={numberOfValidators}
+          percentageOfActiveValidators={percentageOfActiveValidators}
+          gasFeesLoading={gasFeesLoading}
+          transactionsLoading={transactionsLoading}
+          validatorsLoading={validatorsLoading}
+        />
         {status === 'succeeded' ? (
           <>
-            <GlobalReloadButton />
-            <OverviewCards
-              numberOfTransactions={numberOfTransactions}
-              totalGasFees={totalGasFees}
-              numberOfActiveValidators={numberOfActiveValidators}
-              numberOfValidators={numberOfValidators}
-              percentageOfActiveValidators={percentageOfActiveValidators}
-              gasFeesLoading={gasFeesLoading}
-              transactionsLoading={transactionsLoading}
-              validatorsLoading={validatorsLoading}
-            />
             <LatestBlocksAndTransactionsList
               blocks={blocks}
               transactions={transactions}

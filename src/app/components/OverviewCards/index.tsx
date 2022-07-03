@@ -5,14 +5,14 @@ import { Grid } from '@mui/material';
 import RowRadioButtonsGroup from './RowRadioButtonsGroup';
 
 export default function OverviewCards(props: {
-  numberOfTransactions;
-  totalGasFees;
-  numberOfActiveValidators;
-  numberOfValidators;
-  percentageOfActiveValidators;
-  gasFeesLoading;
-  transactionsLoading;
-  validatorsLoading;
+  numberOfTransactions: number;
+  totalGasFees: number;
+  numberOfActiveValidators: number;
+  numberOfValidators: number;
+  percentageOfActiveValidators: string;
+  gasFeesLoading: string;
+  transactionsLoading: string;
+  validatorsLoading: string;
 }) {
   return (
     <>
@@ -25,7 +25,7 @@ export default function OverviewCards(props: {
         <Grid item xs={12} lg={4}>
           <OverviewCard
             title="Number Of Validators"
-            value={props.numberOfValidators}
+            value={props.numberOfValidators.toString()}
             loading={props.validatorsLoading}
             subValue={`(${props.numberOfActiveValidators} / ${props.percentageOfActiveValidators}% active)`}
           />

@@ -1,10 +1,27 @@
 import * as React from 'react';
 import Replay from '@mui/icons-material/Replay';
 import { Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchBlocksTransactions,
+  getTimeFrame,
+  loadNumberOfTransactions,
+  loadTotalGasFess,
+  loadValidators,
+} from 'store/cchainSlice';
 
 export default function GlobalReloadButton() {
+  const dispatch = useDispatch();
+  const frameTime = useSelector(getTimeFrame);
+  const handleClick = () => {
+    dispatch(fetchBlocksTransactions());
+    dispatch(loadValidators());
+    dispatch(loadNumberOfTransactions(frameTime));
+    dispatch(loadTotalGasFess(frameTime));
+  };
   return (
     <Button
+      onClick={handleClick}
       variant="outlined"
       color="secondary"
       sx={{ borderRadius: '25px', marginLeft: 'auto' }}

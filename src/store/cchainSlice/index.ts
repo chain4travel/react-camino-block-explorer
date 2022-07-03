@@ -11,16 +11,11 @@ import {
 import axios from 'axios';
 import { DateTime } from 'luxon';
 import { store } from '../../index';
+import { Timeframe } from 'types';
 
 const BASE_URL = 'https://magellan.columbus.camino.foundation/v2';
 const CHAIN_ID = 'G52TJLLbDSxYXsijNMpKFB6kAyDVRd9DGWVWYBh86Z8sEXm1i';
 const URL = `${BASE_URL}/cblocks?limit=10&limit=10`;
-
-export enum Timeframe {
-  HOURS_24 = 'HOURS_24',
-  DAYS_7 = 'DAYS_7',
-  MONTHS_1 = 'MONTHS_1',
-}
 
 const initialState: initialStateType = {
   transactionCount: NaN,
@@ -29,6 +24,7 @@ const initialState: initialStateType = {
   transactions: [],
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   error: undefined,
+  timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
@@ -41,10 +37,7 @@ const initialState: initialStateType = {
   } as ChainOverviewType,
 };
 
-export function getStartDate(
-  endDate: DateTime,
-  timeframe: Timeframe,
-): DateTime {
+export function getStartDate(endDate: DateTime, timeframe: string): DateTime {
   switch (timeframe) {
     case Timeframe.DAYS_7:
       return endDate.minus({ weeks: 1 });
@@ -53,6 +46,7 @@ export function getStartDate(
     case Timeframe.MONTHS_1:
       return endDate.minus({ months: 1 });
   }
+  return endDate.minus({ weeks: 1 });
 }
 
 async function loadTransactionAggregates(
@@ -74,9 +68,9 @@ async function loadTransactionFeesAggregates(
 
 export const loadNumberOfTransactions = createAsyncThunk(
   'cchain/loadNumberOfTransactions',
-  async (timeframe: Timeframe) => {
+  async (timeframe: string) => {
     const currentDate = DateTime.now().setZone('utc');
-    const startDate = getStartDate(currentDate, Timeframe.HOURS_24);
+    const startDate = getStartDate(currentDate, timeframe);
     const result = await loadTransactionAggregates(
       'c',
       startDate.toISO(),
@@ -88,9 +82,9 @@ export const loadNumberOfTransactions = createAsyncThunk(
 
 export const loadTotalGasFess = createAsyncThunk(
   'cchain/loadTotalGasFess',
-  async () => {
+  async (timeframe: string) => {
     const currentDate = DateTime.now().setZone('utc');
-    const startDate = getStartDate(currentDate, Timeframe.HOURS_24);
+    const startDate = getStartDate(currentDate, timeframe);
     const result = await loadTransactionFeesAggregates(
       'c',
       startDate.toISO(),
@@ -131,7 +125,12 @@ export const loadValidators = createAsyncThunk('validators', async () => {
 const cchainSlice = createSlice({
   name: 'blocks',
   initialState,
-  reducers: {},
+  reducers: {
+    changetimeFrame(state, action) {
+      console.log(state);
+      state.timeFrame = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchBlocksTransactions.pending, (state, action) => {
@@ -142,7 +141,8 @@ const cchainSlice = createSlice({
           let result: BlockTableData = {
             hash: block.hash,
             number: parseInt(block.number),
-            timestamp: new Date(block.timestamp * 1000),
+            // timestamp: new Date(block.timestamp * 1000),
+            timestamp: block.timestamp * 1000,
             gasLimit: parseInt(block.gasLimit),
             gasUsed: parseInt(block.gasUsed),
             numberOfTransactions: block.evmTx ? block.evmTx : 0,
@@ -161,7 +161,8 @@ const cchainSlice = createSlice({
                 parseInt(element.status) === 1
                   ? 'Success'
                   : `Failed-${parseInt(element.status)}`,
-              timestamp: new Date(parseInt(element.timestamp) * 1000),
+              // timestamp: new Date(parseInt(element.timestamp) * 1000),
+              timestamp: parseInt(element.timestamp) * 1000,
               to: element.to,
               value: parseInt(element.value),
               transactionCost:
@@ -223,4 +224,6 @@ export const selectAllTransactions = state => state.cchain.transactions;
 export const getCchainStatus = state => state.cchain.status;
 export const getCchainError = state => state.cchain.error;
 export const getCchainOverreview = state => state.cchain.ChainOverview;
+export const getTimeFrame = state => state.cchain.timeFrame;
+export const { changetimeFrame } = cchainSlice.actions;
 export default cchainSlice.reducer;
