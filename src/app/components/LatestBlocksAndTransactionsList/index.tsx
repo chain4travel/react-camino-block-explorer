@@ -14,6 +14,7 @@ import { ReactComponent as GasStationOutline } from './assets/gas-station-outlin
 import { getDisplayAmount } from '../../../utils/currency/currency-utils';
 import { getRelativeTime } from '../../../utils/display/display-utils';
 import OutlinedButton from '../OutlinedButton';
+import { Link } from 'react-router-dom';
 
 export interface BlockTableData {
   number: number;
@@ -46,9 +47,11 @@ const CamAmount = ({ amount }: { amount: number }) => {
 export function ListCard({
   title,
   items,
+  to,
 }: {
   title: string;
   items: Array<BlockTableData>;
+  to: string;
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:899px)');
@@ -163,7 +166,9 @@ export function ListCard({
           alignItems: 'center',
         }}
       >
-        <OutlinedButton>View Block</OutlinedButton>
+        <Link style={{ textDecoration: 'none' }} to={to}>
+          <OutlinedButton>View Block</OutlinedButton>
+        </Link>
       </Box>
     </Paper>
   );
@@ -177,10 +182,14 @@ export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
       columnSpacing={{ xs: 0, lg: 4 }}
     >
       <Grid item xs={12} lg={6}>
-        <ListCard title="Latest Blocks" items={blocks} />
+        <ListCard title="Latest Blocks" items={blocks} to="/c-chain/blocks" />
       </Grid>
       <Grid item xs={12} lg={6}>
-        <ListCard title="Latest Transactions" items={blocks} />
+        <ListCard
+          title="Latest Transactions"
+          items={blocks}
+          to="/transactions"
+        />
       </Grid>
     </Grid>
   );

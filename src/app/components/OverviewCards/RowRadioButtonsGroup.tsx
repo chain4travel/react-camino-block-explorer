@@ -12,6 +12,7 @@ import {
   loadTotalGasFess,
   getTimeFrame,
   changetimeFrame,
+  getCchainOverreview,
 } from 'store/cchainSlice';
 
 export default function RowRadioButtonsGroup() {
@@ -19,9 +20,15 @@ export default function RowRadioButtonsGroup() {
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
   const dispatch = useDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    if (
+      gasFeesLoading !== 'loading' &&
+      transactionsLoading !== 'loading' &&
+      validatorsLoading !== 'loading'
+    )
+      setValue((event.target as HTMLInputElement).value);
   };
-
+  const { gasFeesLoading, transactionsLoading, validatorsLoading } =
+    useSelector(getCchainOverreview);
   useEffect(() => {
     dispatch(loadNumberOfTransactions(timeFrame));
     dispatch(loadTotalGasFess(timeFrame));

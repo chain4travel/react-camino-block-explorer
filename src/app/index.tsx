@@ -8,6 +8,8 @@ import { XChainPage } from './pages/XChainPage';
 import { PChainPage } from './pages/PChainPage';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
+import { CChainPageBlocks } from './pages/CChainBlocks';
+import { BlockDetails } from './pages/CChainBlocks/BlockDetails';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -25,7 +27,9 @@ export function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<CChainPage />} />
-          <Route path="/c-chain" element={<CChainPage />} />
+          <Route path="/c-chain" element={<CChainPage />}></Route>
+          <Route path="/c-chain/blocks" element={<CChainPageBlocks />} />
+          <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
           <Route path="/x-chain" element={<XChainPage />} />
           <Route path="/p-chain" element={<PChainPage />} />
         </Route>
