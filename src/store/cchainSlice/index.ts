@@ -6,9 +6,11 @@ import {
   CTransaction,
   MagellanAggregatesResponse,
   MagellanTxFeeAggregatesResponse,
+  NodeValidator,
 } from './types';
 import axios from 'axios';
 import { DateTime } from 'luxon';
+import { store } from '../../index';
 
 const BASE_URL = 'https://magellan.columbus.camino.foundation/v2';
 const CHAIN_ID = 'G52TJLLbDSxYXsijNMpKFB6kAyDVRd9DGWVWYBh86Z8sEXm1i';
@@ -32,7 +34,7 @@ const initialState: initialStateType = {
     totalGasFees: 0,
     numberOfActiveValidators: 0,
     numberOfValidators: 0,
-    percentageOfActiveValidators: 0,
+    percentageOfActiveValidators: '0',
     gasFeesLoading: 'idle',
     transactionsLoading: 'idle',
     validatorsLoading: 'idle',
@@ -106,6 +108,26 @@ export const fetchBlocksTransactions = createAsyncThunk(
   },
 );
 
+export const loadValidators = createAsyncThunk('validators', async () => {
+  let networks = store.getState().networks;
+  let activeNetwork = networks.networks.find(
+    element => element.id === networks.activeNetwork,
+  );
+  const response = await axios.post(
+    `${activeNetwork?.protocol}://${activeNetwork?.host}:${activeNetwork?.port}/ext/bc/P`,
+    {
+      jsonrpc: '2.0',
+      method: 'platform.getCurrentValidators',
+      params: {
+        subnetID: null,
+        nodeIDs: [],
+      },
+      id: 1,
+    },
+  );
+  return response.data.result.validators;
+});
+
 const cchainSlice = createSlice({
   name: 'blocks',
   initialState,
@@ -177,6 +199,24 @@ const cchainSlice = createSlice({
       })
       .addCase(loadTotalGasFess.rejected, (state, action) => {
         state.ChainOverview.gasFeesLoading = 'failed';
+      })
+      .addCase(loadValidators.pending, (state, action) => {
+        state.ChainOverview.validatorsLoading = 'loading';
+      })
+      .addCase(loadValidators.fulfilled, (state, action) => {
+        state.ChainOverview.numberOfValidators = action.payload.length;
+        state.ChainOverview.numberOfActiveValidators = action.payload.filter(
+          (v: NodeValidator) => v.connected,
+        ).length;
+        state.ChainOverview.percentageOfActiveValidators = (
+          (state.ChainOverview.numberOfActiveValidators /
+            state.ChainOverview.numberOfValidators) *
+          100
+        ).toFixed(0);
+        state.ChainOverview.validatorsLoading = 'succeeded';
+      })
+      .addCase(loadValidators.rejected, (state, action) => {
+        state.ChainOverview.validatorsLoading = 'failed';
       });
   },
 });

@@ -23,7 +23,7 @@ export interface ChainOverviewType {
   totalGasFees: number;
   numberOfActiveValidators: number;
   numberOfValidators: number;
-  percentageOfActiveValidators: number;
+  percentageOfActiveValidators: string;
   gasFeesLoading: string;
   transactionsLoading: string;
   validatorsLoading: string;
@@ -66,4 +66,8 @@ export interface TxFeeAggregates {
   startTime: string;
   endTime: string;
   txfee: string;
+}
+
+export interface NodeValidator {
+  connected: boolean;
 }
