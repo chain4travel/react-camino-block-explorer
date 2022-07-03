@@ -15,7 +15,13 @@ function SelectedNetwork({
   networkStatus: string;
 }) {
   return (
-    <Box sx={{ display: 'flex', gap: 1 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 1,
+        alignItems: 'center',
+      }}
+    >
       <FiberManualRecordIcon
         color={networkStatus === 'failed' ? 'error' : 'success'}
         style={{ width: '12px' }}
