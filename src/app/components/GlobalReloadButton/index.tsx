@@ -4,20 +4,32 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchBlocksTransactions,
+  getCchainOverreview,
   getTimeFrame,
   loadNumberOfTransactions,
   loadTotalGasFess,
   loadValidators,
+  getCchainStatus,
 } from 'store/cchainSlice';
 
 export default function GlobalReloadButton() {
   const dispatch = useDispatch();
   const frameTime = useSelector(getTimeFrame);
+  const status = useSelector(getCchainStatus);
+  const { gasFeesLoading, transactionsLoading, validatorsLoading } =
+    useSelector(getCchainOverreview);
   const handleClick = () => {
-    dispatch(fetchBlocksTransactions());
-    dispatch(loadValidators());
-    dispatch(loadNumberOfTransactions(frameTime));
-    dispatch(loadTotalGasFess(frameTime));
+    if (
+      gasFeesLoading !== 'loading' &&
+      transactionsLoading !== 'loading' &&
+      validatorsLoading !== 'loading' &&
+      status !== 'loading'
+    ) {
+      dispatch(fetchBlocksTransactions());
+      dispatch(loadValidators());
+      dispatch(loadNumberOfTransactions(frameTime));
+      dispatch(loadTotalGasFess(frameTime));
+    }
   };
   return (
     <Button
