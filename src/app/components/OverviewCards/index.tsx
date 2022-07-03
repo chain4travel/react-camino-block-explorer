@@ -1,87 +1,41 @@
-import React, { FC } from 'react';
-import { Card, CardContent, Box, Typography } from '@mui/material';
-import { OverviewCardProps } from '../../../types/components/OverviewCards';
+import React from 'react';
+import { getDisplayValueForGewi } from '../../../utils/currency/currency-utils';
+import { OverviewCard } from './OverviewCard';
 import { Grid } from '@mui/material';
+import RowRadioButtonsGroup from './RowRadioButtonsGroup';
 
-const OverviewCard: FC<OverviewCardProps> = ({ title, value, subValue }) => {
+export default function OverviewCards(props: {
+  numberOfTransactions;
+  totalGasFees;
+}) {
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        display: 'flex',
-        flex: 1,
-        minHeight: '150px',
-        backgroundColor: 'overviewCard.background',
-        textAlign: 'center',
-        p: '1rem 2rem',
-      }}
-    >
-      <CardContent
-        sx={{
-          display: 'flex',
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          p: '0',
-        }}
+    <>
+      <RowRadioButtonsGroup />
+      <Grid
+        container
+        rowSpacing={{ xs: 4, lg: '0!important' }}
+        columnSpacing={{ xs: 0, lg: 4 }}
       >
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{ color: 'overviewCard.title' }}
-        >
-          {title}
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '10px',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Typography
-            variant="h4"
-            component="h4"
-            fontWeight="fontWeightBold"
-            sx={{ color: 'overviewCard.contrastText' }}
-          >
-            {value}
-          </Typography>
-          {subValue && (
-            <Typography
-              variant="h6"
-              component="h6"
-              sx={{ color: 'overviewCard.subValue' }}
-            >
-              {subValue}
-            </Typography>
-          )}
-        </Box>
-      </CardContent>
-    </Card>
-  );
-};
-
-export default function OverviewCards() {
-  return (
-    <div style={{ flexGrow: 1 }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} lg={4}>
           <OverviewCard
             title="Number Of Validators"
             value="7"
             subValue="(7 / 100% active)"
           />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <OverviewCard title="Number of Transactions" value="15,298" />
+        <Grid item xs={12} lg={4}>
+          <OverviewCard
+            title="Number of Transactions"
+            value={props.numberOfTransactions.toLocaleString('en-US')}
+          />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <OverviewCard title="Total Gas Fees" value="161.368 CAM" />
+        <Grid item xs={12} lg={4}>
+          <OverviewCard
+            title="Total Gas Fees"
+            value={getDisplayValueForGewi(props.totalGasFees)}
+          />
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }

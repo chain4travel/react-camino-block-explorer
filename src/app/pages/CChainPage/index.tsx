@@ -12,7 +12,7 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container } from '@mui/material';
+import { Container, CircularProgress, Box, Typography } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 import { Timeframe } from 'store/cchainSlice';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
@@ -39,22 +39,32 @@ export function CChainPage() {
     dispatch(loadNumberOfTransactions(Timeframe.MONTHS_1));
     dispatch(loadTotalGasFess());
   });
+
+  console.log(
+    'CChainPage',
+    numberOfTransactions.toLocaleString('en-US'),
+    totalGasFees,
+  );
+
   return (
-    <Container maxWidth="xl">
+    <>
       <Helmet>
         <title>CChainPage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <span>
+      <Container fixed maxWidth="xl" sx={{ flex: 1 }}>
         {status === 'succeeded' ? (
           <>
-            <OverviewCards />
+            <OverviewCards
+              numberOfTransactions={numberOfTransactions}
+              totalGasFees={totalGasFees}
+            />
             <LatestBlocksAndTransactionsList />
           </>
         ) : (
-          <>loading</>
+          <CircularProgress color="secondary" />
         )}
-      </span>
-    </Container>
+      </Container>
+    </>
   );
 }

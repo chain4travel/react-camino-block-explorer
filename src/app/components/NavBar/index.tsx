@@ -23,11 +23,13 @@ export function NavBar() {
 
   return (
     <AppBar
-      position="static"
+      position="fixed"
       sx={{
+        top: 0,
+        left: 0,
         transition: 'box-shadow 0s',
         boxShadow: `0px 1px 0px ${themeMode ? '#eeeeee' : '#424242'}`,
-        marginBottom: '16px',
+        // paddingBottom: '125px',
       }}
     >
       <Box

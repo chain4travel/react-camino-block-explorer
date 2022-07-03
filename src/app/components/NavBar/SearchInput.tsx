@@ -26,6 +26,9 @@ function OutlinedSearchInput() {
         '@media (max-width: 1024px)': {
           height: '50px',
         },
+        '.MuiOutlinedInput-notchedOutline': {
+          border: 'none',
+        },
       }}
       startAdornment={
         <InputAdornment position="start">

@@ -25,7 +25,6 @@ export function ListCard(props: {
   title: string;
   items: Array<BlockTableData>;
 }) {
-  console.log(props.items.length);
   return (
     <Box
       sx={{
@@ -34,7 +33,7 @@ export function ListCard(props: {
         borderWidth: '1px',
         borderColor: 'primary.light',
         borderStyle: 'solid',
-        marginTop: '2rem',
+        // marginTop: '2rem',
         p: '1rem 0.5rem',
       }}
     >
@@ -118,17 +117,21 @@ export function BlockList() {
 }
 
 export function CTransactionList() {
-  return <div>CTransactionList</div>;
+  return <ListCard title="Latest Transactions" items={Blocks} />;
 }
 
 export function LatestBlocksAndTransactionsList() {
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} md={6}>
+    <Grid
+      container
+      rowSpacing={{ xs: 4, lg: '0!important' }}
+      columnSpacing={{ xs: 0, lg: 4 }}
+    >
+      <Grid item xs={12} lg={6}>
         <BlockList />
       </Grid>
-      <Grid item xs={12} md={6}>
-        <BlockList />
+      <Grid item xs={12} lg={6}>
+        <CTransactionList />
       </Grid>
     </Grid>
   );

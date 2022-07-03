@@ -35,6 +35,9 @@ interface PaletteWithCustomColors extends Palette {
     hover: string;
     active: string;
   };
+  radioButton: {
+    main: string;
+  };
 }
 
 export const LightThemePalette: Partial<PaletteWithCustomColors> = {
@@ -87,6 +90,9 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     background: '#E2E8F0',
     color: '#2E3134',
   },
+  radioButton: {
+    main: '#149EED',
+  },
 };
 
 export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
@@ -138,6 +144,9 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   icon: {
     background: '#1E293B',
     color: '#FFFFFF',
+  },
+  radioButton: {
+    main: '#FFFFFF',
   },
 };
 
@@ -248,7 +257,7 @@ const defaultComponents = {
   MuiList: {
     styleOverrides: {
       root: {
-        padding: '0rem 0.5rem',
+        // padding: '0rem 0.5rem',
       },
     },
   },
@@ -263,14 +272,23 @@ const defaultComponents = {
       },
     },
   },
-  // MuiContainer: {
-  //   styleOverrides: {
-  //     root: {
-  //       display: 'flex',
-  //       flexDirection: 'column' as const,
-  //     },
-  //   },
-  // },
+  MuiContainer: {
+    styleOverrides: {
+      root: {
+        position: 'relative' as const,
+        display: 'flex',
+        flexDirection: 'column' as const,
+        margin: 'auto',
+        flex: 1,
+        alignItems: 'center',
+        marginTop: '140px',
+        gap: '20px',
+        '@media (max-width: 1024px)': {
+          marginTop: '100px',
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({
@@ -280,6 +298,16 @@ export const lightTheme = createTheme({
       styleOverrides: {
         body: {
           backgroundColor: '#E2E8F0',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          border: '1px solid  !important',
+          ':where(fieldset)': {
+            border: '1px solid #CBD5E1 !important',
+          },
         },
       },
     },
