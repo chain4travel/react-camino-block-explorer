@@ -5,7 +5,7 @@ import {
   FormControlLabel,
   FormControl,
 } from '@mui/material';
-import { Timeframe } from 'types';
+import { Timeframe, getLabel } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadNumberOfTransactions,
@@ -21,15 +21,20 @@ export default function RowRadioButtonsGroup() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
+  const timeOptions = [
+    { value: Timeframe.HOURS_24, label: getLabel(Timeframe.HOURS_24) },
+    { value: Timeframe.DAYS_7, label: getLabel(Timeframe.DAYS_7) },
+    { value: Timeframe.MONTHS_1, label: getLabel(Timeframe.MONTHS_1) },
+  ];
 
   useEffect(() => {
     dispatch(loadNumberOfTransactions(timeFrame));
     dispatch(loadTotalGasFess(timeFrame));
-  }, [timeFrame]);
+  }, [timeFrame]); // eslint-disable-line
 
   useEffect(() => {
     dispatch(changetimeFrame(value));
-  }, [value]);
+  }, [value]); // eslint-disable-line
 
   return (
     <FormControl sx={{ marginLeft: 'auto', marginright: 0 }}>
@@ -40,51 +45,22 @@ export default function RowRadioButtonsGroup() {
         value={value}
         onChange={handleChange}
       >
-        <FormControlLabel
-          value={Timeframe.HOURS_24}
-          control={
-            <Radio
-              sx={{
-                color: 'secondary',
-                '&.Mui-checked': {
-                  color: 'red',
-                },
-              }}
-            />
-          }
-          label="24 Hours"
-          color="secondary"
-        />
-        <FormControlLabel
-          value={Timeframe.DAYS_7}
-          control={
-            <Radio
-              sx={{
-                color: 'secondary',
-                '&.Mui-checked': {
-                  color: 'red',
-                },
-              }}
-            />
-          }
-          label="7 Days"
-          color="secondary"
-        />
-        <FormControlLabel
-          value={Timeframe.MONTHS_1}
-          control={
-            <Radio
-              sx={{
-                color: 'secondary',
-                '&.Mui-checked': {
-                  color: 'red',
-                },
-              }}
-            />
-          }
-          label="1 Month"
-          color="secondary"
-        />
+        {timeOptions.map(({ value, label }) => (
+          <FormControlLabel
+            key={value}
+            value={value}
+            control={
+              <Radio
+                sx={{
+                  '&.Mui-checked': {
+                    color: 'secondary.main',
+                  },
+                }}
+              />
+            }
+            label={label}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   );
