@@ -1,15 +1,23 @@
 import React, { FC } from 'react';
-import { Card, CardContent, Box, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Box,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 
 type OverviewCardProps = {
   title: string;
   value: string;
+  loading: string;
   subValue?: string;
 };
 
 export const OverviewCard: FC<OverviewCardProps> = ({
   title,
   value,
+  loading,
   subValue,
 }) => {
   return (
@@ -22,6 +30,7 @@ export const OverviewCard: FC<OverviewCardProps> = ({
         backgroundColor: 'overviewCard.background',
         textAlign: 'center',
         p: '1rem 2rem',
+        borderRadius: '12px',
       }}
     >
       <CardContent
@@ -49,25 +58,50 @@ export const OverviewCard: FC<OverviewCardProps> = ({
             alignItems: 'center',
           }}
         >
-          <Typography
-            variant="h4"
-            component="h4"
-            fontWeight="fontWeightBold"
-            sx={{ color: 'overviewCard.contrastText' }}
-          >
-            {value}
-          </Typography>
-          {subValue && (
+          <LoadingWrapper loading={loading} failedLoadingMsg="-">
             <Typography
-              variant="h6"
-              component="h6"
-              sx={{ color: 'overviewCard.subValue' }}
+              variant="h4"
+              component="h4"
+              fontWeight="fontWeightBold"
+              sx={{ color: 'overviewCard.contrastText' }}
             >
-              {subValue}
+              {value}
             </Typography>
-          )}
+            {subValue && (
+              <Typography
+                variant="h6"
+                component="h6"
+                sx={{ color: 'overviewCard.subValue' }}
+              >
+                {subValue}
+              </Typography>
+            )}
+          </LoadingWrapper>
         </Box>
       </CardContent>
     </Card>
   );
+};
+
+// create a component that renders a the children if loading props is succeeded
+// if loading props is failed, render a Typography Failed
+// if loading props is loading, render a CircularProgress
+
+const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
+  if (loading === 'succeeded') {
+    return <>{children}</>;
+  } else if (loading === 'failed') {
+    return (
+      <Typography
+        variant="h4"
+        component="h4"
+        fontWeight="fontWeightBold"
+        sx={{ color: 'overviewCard.subValue' }}
+      >
+        {failedLoadingMsg}
+      </Typography>
+    );
+  } else {
+    return <CircularProgress color="secondary" />;
+  }
 };
