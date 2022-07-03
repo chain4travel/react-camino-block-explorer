@@ -28,8 +28,7 @@ export function NavBar() {
         top: 0,
         left: 0,
         transition: 'box-shadow 0s',
-        boxShadow: `0px 1px 0px ${themeMode ? '#eeeeee' : '#424242'}`,
-        // paddingBottom: '125px',
+        boxShadow: `0px 1px 3px ${themeMode ? '#eeeeee' : '#424242'}`,
       }}
     >
       <Box

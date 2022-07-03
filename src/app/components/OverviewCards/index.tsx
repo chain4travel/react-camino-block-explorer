@@ -7,6 +7,12 @@ import RowRadioButtonsGroup from './RowRadioButtonsGroup';
 export default function OverviewCards(props: {
   numberOfTransactions;
   totalGasFees;
+  numberOfActiveValidators;
+  numberOfValidators;
+  percentageOfActiveValidators;
+  gasFeesLoading;
+  transactionsLoading;
+  validatorsLoading;
 }) {
   return (
     <>
@@ -19,20 +25,23 @@ export default function OverviewCards(props: {
         <Grid item xs={12} lg={4}>
           <OverviewCard
             title="Number Of Validators"
-            value="7"
-            subValue="(7 / 100% active)"
+            value={props.numberOfValidators}
+            loading={props.validatorsLoading}
+            subValue={`(${props.numberOfActiveValidators} / ${props.percentageOfActiveValidators}% active)`}
           />
         </Grid>
         <Grid item xs={12} lg={4}>
           <OverviewCard
             title="Number of Transactions"
             value={props.numberOfTransactions.toLocaleString('en-US')}
+            loading={props.transactionsLoading}
           />
         </Grid>
         <Grid item xs={12} lg={4}>
           <OverviewCard
             title="Total Gas Fees"
             value={getDisplayValueForGewi(props.totalGasFees)}
+            loading={props.gasFeesLoading}
           />
         </Grid>
       </Grid>

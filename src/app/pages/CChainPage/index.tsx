@@ -13,7 +13,7 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, CircularProgress, Button, Icon } from '@mui/material';
+import { Container, CircularProgress } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 import { Timeframe } from 'store/cchainSlice';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
