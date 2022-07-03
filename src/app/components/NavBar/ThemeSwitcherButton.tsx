@@ -12,10 +12,7 @@ export default function ThemeSwitcherButton() {
 
   return (
     <Button
-      sx={{
-        p: '0px',
-        minWidth: '36px',
-      }}
+      sx={{ p: '0px', minWidth: '36px' }}
       disableRipple
       onClick={() => {
         if (themeContext.toggleColorMode) {
@@ -24,17 +21,9 @@ export default function ThemeSwitcherButton() {
       }}
     >
       {themeMode ? (
-        <DarkModeOutlinedIcon
-          sx={{
-            color: 'primary.contrastText',
-          }}
-        />
+        <DarkModeOutlinedIcon sx={{ color: 'primary.contrastText' }} />
       ) : (
-        <WbSunnyOutlinedIcon
-          sx={{
-            color: 'primary.contrastText',
-          }}
-        />
+        <WbSunnyOutlinedIcon sx={{ color: 'primary.contrastText' }} />
       )}
     </Button>
   );
