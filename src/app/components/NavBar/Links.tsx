@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function a11yProps(index: number) {
   return {
@@ -10,16 +10,31 @@ function a11yProps(index: number) {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
+const activeTab = (path: string): number => {
+  switch (path) {
+    case 'c-chain':
+      return 0;
+    case 'x-chain':
+      return 1;
+    case 'p-chain':
+      return 2;
+  }
+  return 0;
+};
 
 export default function Links() {
-  const [value, setValue] = useState(0);
+  const location = useLocation();
+  const [value, setValue] = useState(
+    activeTab(location.pathname.split('/')[1]),
+  );
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (newValue !== 3 && newValue !== 4) setValue(newValue);
-    if (newValue === 0) navigate('/c-chain');
-    else if (newValue === 1) navigate('/x-chain');
+    if (newValue === 0) navigate('c-chain');
+    else if (newValue === 1) navigate('x-chain');
     else if (newValue === 2) navigate('p-chain');
   };
   let navigate = useNavigate();
+
   return (
     <Box
       sx={{
