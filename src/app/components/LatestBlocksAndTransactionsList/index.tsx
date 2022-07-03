@@ -1,126 +1,175 @@
 import {
   Box,
   Typography,
-  List,
-  ListItem,
-  ListItemIcon,
   Grid,
+  Paper,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import * as React from 'react';
 import { mdiCubeOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import Divider from '@mui/material/Divider';
+import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg';
+import { getDisplayAmount } from '../../../utils/currency/currency-utils';
+import { getRelativeTime } from '../../../utils/display/display-utils';
+import OutlinedButton from '../OutlinedButton';
 
 export interface BlockTableData {
   number: number;
-  timestamp: string;
+  timestamp: number;
   numberOfTransactions: number;
   hash: string;
-  gasUsed?: number;
+  gasUsed: number;
   gasLimit?: number;
   blockCost: number;
 }
 
-export function ListCard(props: {
+// create camAmount component
+const CamAmount = ({ amount }: { amount: number }) => {
+  return (
+    <>
+      <Typography variant="body1">
+        {getDisplayAmount(amount).value.toLocaleString('en-US')}
+      </Typography>
+      <GasStationOutline
+        style={{
+          width: '26px',
+          height: '26px',
+          marginLeft: '5px',
+        }}
+      />
+    </>
+  );
+};
+
+export function ListCard({
+  title,
+  items,
+}: {
   title: string;
   items: Array<BlockTableData>;
 }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery('@media (max-width:899px)');
+  console.log(
+    'timestamp',
+    getRelativeTime(new Date(items[0].timestamp * 1000)),
+  );
   return (
-    <Box
+    <Paper
+      variant="outlined"
+      square
       sx={{
         backgroundColor: 'primary.dark',
         borderRadius: '12px',
         borderWidth: '1px',
         borderColor: 'primary.light',
         borderStyle: 'solid',
-        // marginTop: '2rem',
-        p: '1rem 0.5rem',
+        p: '1.5rem 2rem 1.5rem 2rem',
+        [theme.breakpoints.down('md')]: {
+          p: '1rem 1.5rem 1rem 1.5rem',
+        },
       }}
     >
-      {props.title && (
+      {title && (
         <Typography
           variant="h5"
           component="h5"
           fontWeight="fontWeightBold"
-          sx={{ padding: '0rem 1.5rem 2rem 1.5rem' }}
+          sx={{ paddingBottom: '1rem' }}
         >
-          {props.title}
+          {title}
         </Typography>
       )}
-      {props.items.length > 0 ? (
-        <List sx={{ width: '100%' }}>
-          {props.items.map((item, index) => (
-            <>
-              <ListItem
-                key={index}
-                alignItems="flex-start"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
+      {items.length > 0 ? (
+        <>
+          {items.map((item, index) => (
+            <div key={index}>
+              <Grid
+                container
+                rowSpacing={2}
+                justifyContent="space-between"
+                sx={{ padding: '0.5rem 0rem 0.5rem 0rem' }}
               >
-                <Box
-                  sx={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 2fr 4fr 2fr',
-                    width: '100%',
-                    alignItems: 'center',
-                  }}
+                {!isMobile && (
+                  <Grid item xs="auto" sx={{ paddingRight: '5px' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'latestList.iconBackground',
+                        borderRadius: '12px',
+                        minWidth: '50px',
+                        minHeight: '50px',
+                        width: '50px',
+                        height: '50px',
+                      }}
+                    >
+                      <Icon
+                        path={mdiCubeOutline}
+                        size={1}
+                        color="latestList.iconColor"
+                      />
+                    </Box>
+                  </Grid>
+                )}
+                <Grid item xs={12} md={2} justifyContent="flex-start">
+                  {/* // Todo: create a component that redirects to the correct page if it's a link */}
+                  <Typography variant="body1" color="latestList.blockNumber">
+                    {item.number}
+                  </Typography>
+                  <Typography variant="subtitle2" color="latestList.timestamp">
+                    {getRelativeTime(item.timestamp) + ' ago'}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} md={6} lg={5} xl={6}>
+                  <Typography variant="body1">
+                    {item.numberOfTransactions} txs
+                  </Typography>
+                  <Typography variant="body1" noWrap={true}>
+                    {item.hash}
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  container
+                  xs={12}
+                  md={2}
+                  lg={3}
+                  xl={2}
+                  alignItems="center"
+                  justifyContent={isMobile ? 'flex-start' : 'flex-end'}
                 >
-                  <ListItemIcon
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: 'icon.background',
-                      borderRadius: '12px',
-                      minWidth: '50px',
-                      minHeight: '50px',
-                      width: '50px',
-                      height: '50px',
-                    }}
-                  >
-                    <Icon path={mdiCubeOutline} size={1} color="icon.color" />
-                  </ListItemIcon>
-                  <Box sx={{}}>
-                    <Typography variant="body1">{item.number}</Typography>
-                    <Typography variant="body1">{item.timestamp}</Typography>
-                  </Box>
-                  <Box sx={{}}>
-                    <Typography variant="body1">
-                      {item.numberOfTransactions} txs
-                    </Typography>
-                    <Typography variant="body1">{item.hash}</Typography>
-                  </Box>
-                  <Box sx={{}}>
-                    <Typography variant="body1">{item.gasUsed}</Typography>
-                  </Box>
-                </Box>
-              </ListItem>
-              {index !== props.items.length - 1 && (
-                <Divider variant="fullWidth" />
-              )}
-            </>
+                  <CamAmount amount={item.gasUsed} />
+                </Grid>
+              </Grid>
+              {index !== items.length - 1 && <Divider variant="fullWidth" />}
+            </div>
           ))}
-        </List>
+        </>
       ) : (
         <Typography variant="body1" component="p">
           No items
         </Typography>
       )}
-    </Box>
+      <Box
+        sx={{
+          marginTop: '1rem',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <OutlinedButton>View Block</OutlinedButton>
+      </Box>
+    </Paper>
   );
 }
 
-export function BlockList() {
-  return <ListCard title="Latest Blocks" items={Blocks} />;
-}
-
-export function CTransactionList() {
-  return <ListCard title="Latest Transactions" items={Blocks} />;
-}
-
-export function LatestBlocksAndTransactionsList() {
+export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
   return (
     <Grid
       container
@@ -128,104 +177,11 @@ export function LatestBlocksAndTransactionsList() {
       columnSpacing={{ xs: 0, lg: 4 }}
     >
       <Grid item xs={12} lg={6}>
-        <BlockList />
+        <ListCard title="Latest Blocks" items={blocks} />
       </Grid>
       <Grid item xs={12} lg={6}>
-        <CTransactionList />
+        <ListCard title="Latest Transactions" items={blocks} />
       </Grid>
     </Grid>
   );
 }
-
-const Blocks = [
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '2s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '3s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '5s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '7s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '20s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '50s',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '1min',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '1min',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '1min',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-  {
-    hash: '0x2ef924...747870',
-    number: 335115,
-    timestamp: '2min',
-    gasLimit: 8000000,
-    gasUsed: 233084,
-    numberOfTransactions: 1,
-    blockCost: 11654200000000000,
-  },
-];
