@@ -26,9 +26,12 @@ interface PaletteWithCustomColors extends Palette {
     subValue: string;
     contrastText: string;
   };
-  icon: {
-    background: string;
-    color: string;
+  latestList: {
+    iconBackground: string;
+    iconColor: string;
+    blockNumber: string;
+    timestamp: string;
+    contrastText: string;
   };
   link: {
     color: string;
@@ -55,9 +58,9 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#0F172A',
   },
   error: {
-    light: '#DD5E56',
+    light: '#C23F38',
     dark: '#B63831',
-    main: '#C23F38',
+    main: '#DD5E56',
     contrastText: '#0F172A',
   },
   warning: {
@@ -73,8 +76,8 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#0F172A',
   },
   success: {
-    light: '#67AD5B',
-    main: '#457B3B',
+    light: '#457B3B',
+    main: '#67AD5B',
     dark: '#2F5D28',
     contrastText: '#0F172A',
   },
@@ -86,9 +89,12 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     subValue: '#334155',
     contrastText: '#0F172A',
   },
-  icon: {
-    background: '#E2E8F0',
-    color: '#2E3134',
+  latestList: {
+    iconBackground: '#E2E8F0',
+    iconColor: '#2E3134',
+    blockNumber: '#149EED',
+    timestamp: '#334155',
+    contrastText: '#0F172A',
   },
   radioButton: {
     main: '#149EED',
@@ -141,9 +147,12 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     subValue: '#64748B',
     contrastText: '#FFFFFF',
   },
-  icon: {
-    background: '#1E293B',
-    color: '#FFFFFF',
+  latestList: {
+    iconBackground: '#1E293B',
+    iconColor: '#FFFFFF',
+    blockNumber: '#149EED',
+    timestamp: '#64748B',
+    contrastText: '#0F172A',
   },
   radioButton: {
     main: '#FFFFFF',
