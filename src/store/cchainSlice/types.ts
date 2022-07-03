@@ -1,6 +1,6 @@
 export interface BlockTableData {
   number: number;
-  timestamp: Date;
+  timestamp: number;
   numberOfTransactions: number;
   hash: string;
   gasUsed?: number;
@@ -15,6 +15,7 @@ export interface initialStateType {
   transactions: CTransaction[];
   status: string;
   error: undefined | string;
+  timeFrame: string;
   ChainOverview: ChainOverviewType;
 }
 
@@ -33,7 +34,7 @@ export interface CTransaction {
   status: string; // enum?
   block: number;
   index: number;
-  timestamp: Date;
+  timestamp: number;
   from: string;
   to: string;
   value: number;
