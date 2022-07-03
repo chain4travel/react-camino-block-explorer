@@ -95,7 +95,7 @@ export default function SearchInput() {
       ) : (
         <Box
           sx={{
-            width: '480px',
+            width: '450px',
             height: '40px',
           }}
         >

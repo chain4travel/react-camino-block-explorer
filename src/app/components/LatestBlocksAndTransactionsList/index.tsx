@@ -55,10 +55,6 @@ export function ListCard({
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:899px)');
-  console.log(
-    'timestamp',
-    getRelativeTime(new Date(items[0].timestamp * 1000)),
-  );
   return (
     <Paper
       variant="outlined"

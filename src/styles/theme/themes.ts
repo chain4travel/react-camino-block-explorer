@@ -263,13 +263,6 @@ const defaultComponents = {
       },
     },
   },
-  MuiList: {
-    styleOverrides: {
-      root: {
-        // padding: '0rem 0.5rem',
-      },
-    },
-  },
   MuiTab: {
     styleOverrides: {
       root: {
@@ -289,6 +282,7 @@ const defaultComponents = {
         flexDirection: 'column' as const,
         margin: 'auto',
         flex: 1,
+        // justifyContent: 'center',
         alignItems: 'center',
         marginTop: '140px',
         gap: '20px',

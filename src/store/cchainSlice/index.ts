@@ -127,7 +127,6 @@ const cchainSlice = createSlice({
   initialState,
   reducers: {
     changetimeFrame(state, action) {
-      console.log(state);
       state.timeFrame = action.payload;
     },
   },

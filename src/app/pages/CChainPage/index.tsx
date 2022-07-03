@@ -41,8 +41,6 @@ export function CChainPage() {
     dispatch(loadValidators());
   });
 
-  console.log(error);
-
   return (
     <>
       <Helmet>
