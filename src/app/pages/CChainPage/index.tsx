@@ -13,10 +13,11 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, CircularProgress, Box, Typography } from '@mui/material';
+import { Container, CircularProgress, Button, Icon } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 import { Timeframe } from 'store/cchainSlice';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
+import GlobalReloadButton from 'app/components/GlobalReloadButton';
 
 export function CChainPage() {
   const dispatch = useDispatch();
@@ -42,12 +43,6 @@ export function CChainPage() {
     dispatch(loadValidators());
   });
 
-  console.log(
-    'CChainPage',
-    numberOfTransactions.toLocaleString('en-US'),
-    totalGasFees,
-  );
-
   return (
     <>
       <Helmet>
@@ -57,11 +52,21 @@ export function CChainPage() {
       <Container fixed maxWidth="xl" sx={{ flex: 1 }}>
         {status === 'succeeded' ? (
           <>
+            <GlobalReloadButton />
             <OverviewCards
               numberOfTransactions={numberOfTransactions}
               totalGasFees={totalGasFees}
+              numberOfActiveValidators={numberOfActiveValidators}
+              numberOfValidators={numberOfValidators}
+              percentageOfActiveValidators={percentageOfActiveValidators}
+              gasFeesLoading={gasFeesLoading}
+              transactionsLoading={transactionsLoading}
+              validatorsLoading={validatorsLoading}
             />
-            <LatestBlocksAndTransactionsList />
+            <LatestBlocksAndTransactionsList
+              blocks={blocks}
+              transactions={transactions}
+            />
           </>
         ) : (
           <CircularProgress color="secondary" />
