@@ -12,6 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import { createReducer } from './reducers';
 import blocksSlice from './cchainSlice';
+import networks from './networkSlice/';
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -31,6 +32,7 @@ export function configureAppStore() {
   const store = configureStore({
     reducer: {
       cchain: blocksSlice,
+      networks,
     },
     middleware: [...getDefaultMiddleware(), ...middlewares],
     devTools: process.env.NODE_ENV !== 'production',

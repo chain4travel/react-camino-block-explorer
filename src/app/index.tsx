@@ -3,8 +3,9 @@ import { GlobalStyle } from 'styles/global-styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
 import { CChainPage } from './pages/CChainPage';
+import { XChainPage } from './pages/XChainPage';
+import { PChainPage } from './pages/PChainPage';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 
@@ -15,16 +16,18 @@ export function App() {
     <BrowserRouter>
       <CssBaseline enableColorScheme />
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        titleTemplate="Camino Block Explorer %s"
+        defaultTitle="Camino Block Explorer"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="A React Boilerplate application" />
+        <meta name="description" content="Camino Block Explorer" />
       </Helmet>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<CChainPage />} />
-          <Route path="/cchain" element={<CChainPage />} />
+          <Route path="/c-chain" element={<CChainPage />} />
+          <Route path="/x-chain" element={<XChainPage />} />
+          <Route path="/p-chain" element={<PChainPage />} />
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>

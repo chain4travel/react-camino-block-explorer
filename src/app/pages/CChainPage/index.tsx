@@ -4,6 +4,7 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import {
   fetchBlocksTransactions,
   loadNumberOfTransactions,
+  loadValidators,
   loadTotalGasFess,
   selectAllBlocks,
   getCchainError,
@@ -38,6 +39,7 @@ export function CChainPage() {
     dispatch(fetchBlocksTransactions());
     dispatch(loadNumberOfTransactions(Timeframe.MONTHS_1));
     dispatch(loadTotalGasFess());
+    dispatch(loadValidators());
   });
 
   console.log(
@@ -49,8 +51,8 @@ export function CChainPage() {
   return (
     <>
       <Helmet>
-        <title>CChainPage</title>
-        <meta name="description" content="A Boilerplate application homepage" />
+        <title>c-chain</title>
+        <meta name="description" content="chain-overview" />
       </Helmet>
       <Container fixed maxWidth="xl" sx={{ flex: 1 }}>
         {status === 'succeeded' ? (

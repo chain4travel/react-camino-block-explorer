@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 function a11yProps(index: number) {
   return {
@@ -14,8 +15,11 @@ export default function Links() {
   const [value, setValue] = useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (newValue !== 3 && newValue !== 4) setValue(newValue);
+    if (newValue === 0) navigate('/c-chain');
+    else if (newValue === 1) navigate('/x-chain');
+    else if (newValue === 2) navigate('p-chain');
   };
-
+  let navigate = useNavigate();
   return (
     <Box
       sx={{
