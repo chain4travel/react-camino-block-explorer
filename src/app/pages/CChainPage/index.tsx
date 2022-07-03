@@ -13,7 +13,7 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, CircularProgress } from '@mui/material';
+import { Container, CircularProgress, Typography } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 import { Timeframe } from 'store/cchainSlice';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
@@ -43,6 +43,8 @@ export function CChainPage() {
     dispatch(loadValidators());
   });
 
+  console.log(error);
+
   return (
     <>
       <Helmet>
@@ -69,7 +71,22 @@ export function CChainPage() {
             />
           </>
         ) : (
-          <CircularProgress color="secondary" />
+          <>
+            {error ? (
+              <Typography
+                variant="h6"
+                color="error"
+                sx={{
+                  textAlign: 'center',
+                  marginTop: '1rem',
+                }}
+              >
+                {error}
+              </Typography>
+            ) : (
+              <CircularProgress color="secondary" />
+            )}
+          </>
         )}
       </Container>
     </>
