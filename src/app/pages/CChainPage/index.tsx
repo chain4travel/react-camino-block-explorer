@@ -59,31 +59,25 @@ export function CChainPage() {
           transactionsLoading={transactionsLoading}
           validatorsLoading={validatorsLoading}
         />
-        {status === 'succeeded' ? (
-          <>
+        <>
+          {error ? (
+            <Typography
+              variant="h6"
+              color="error"
+              sx={{
+                textAlign: 'center',
+                marginTop: '1rem',
+              }}
+            >
+              {error}
+            </Typography>
+          ) : (
             <LatestBlocksAndTransactionsList
               blocks={blocks}
               transactions={transactions}
             />
-          </>
-        ) : (
-          <>
-            {error ? (
-              <Typography
-                variant="h6"
-                color="error"
-                sx={{
-                  textAlign: 'center',
-                  marginTop: '1rem',
-                }}
-              >
-                {error}
-              </Typography>
-            ) : (
-              <CircularProgress color="secondary" />
-            )}
-          </>
-        )}
+          )}
+        </>
       </Container>
     </>
   );

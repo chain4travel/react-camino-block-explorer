@@ -134,7 +134,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#FFFFFF',
   },
   success: {
-    light: '#67AD5B',
+    light: '#35E9AD',
     main: '#457B3B',
     dark: '#2F5D28',
     contrastText: '#FFFFFF',

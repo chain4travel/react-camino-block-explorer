@@ -13,7 +13,7 @@ import { DateTime } from 'luxon';
 import { store } from '../../index';
 import { Timeframe } from 'types';
 
-const BASE_URL = 'https://magellan.columbus.camino.foundation/v2';
+const BASE_URL = 'http://localhost:8080/v2';
 const CHAIN_ID = 'G52TJLLbDSxYXsijNMpKFB6kAyDVRd9DGWVWYBh86Z8sEXm1i';
 const URL = `${BASE_URL}/cblocks?limit=10&limit=10`;
 

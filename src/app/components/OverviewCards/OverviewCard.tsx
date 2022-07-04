@@ -83,10 +83,6 @@ export const OverviewCard: FC<OverviewCardProps> = ({
   );
 };
 
-// create a component that renders a the children if loading props is succeeded
-// if loading props is failed, render a Typography Failed
-// if loading props is loading, render a CircularProgress
-
 const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
   if (loading === 'succeeded') {
     return <>{children}</>;

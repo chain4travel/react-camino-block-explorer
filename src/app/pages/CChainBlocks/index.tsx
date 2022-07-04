@@ -16,7 +16,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { ListCard } from 'app/components/LatestBlocksAndTransactionsList';
 import { selectAllBlocks } from 'store/cchainSlice';
 import { useSelector } from 'react-redux';
 // import ColumnGroupingTable from './Table';
@@ -167,22 +166,6 @@ export function CChainPageBlocks() {
         <title>c-chain</title>
         <meta name="description" content="blocks c-chain" />
       </Helmet>
-      {/* <Grid
-        container
-        rowSpacing={{ xs: 4, lg: '0!important' }}
-        columnSpacing={{ xs: 0, lg: 4 }}
-      >
-        {blocks && blocks.length > 0 && (
-          <Grid item xs={12} lg={12}>
-            <ListCard
-              title="Latest Blocks"
-              items={blocks}
-              to="/c-chain/blocks"
-            />
-            <ColumnGroupingTable />
-          </Grid>
-        )}
-      </Grid> */}
       <Grid
         container
         rowSpacing={{ xs: 4, lg: '0!important' }}
