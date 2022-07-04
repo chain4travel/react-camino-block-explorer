@@ -3,19 +3,19 @@ import { Helmet } from 'react-helmet-async';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import {
   fetchBlocksTransactions,
-  loadNumberOfTransactions,
+  // loadNumberOfTransactions,
   loadValidators,
-  loadTotalGasFess,
+  // loadTotalGasFess,
   selectAllBlocks,
   getCchainError,
   selectAllTransactions,
-  getCchainStatus,
+  // getCchainStatus,
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, CircularProgress, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
-import { Timeframe } from 'types';
+// import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
 
@@ -23,7 +23,7 @@ export function CChainPage() {
   const dispatch = useDispatch();
   const blocks = useSelector(selectAllBlocks);
   const transactions = useSelector(selectAllTransactions);
-  const status = useSelector(getCchainStatus);
+  // const status = useSelector(getCchainStatus);
   const error = useSelector(getCchainError);
   const {
     numberOfTransactions,
@@ -48,21 +48,10 @@ export function CChainPage() {
         <meta name="description" content="chain-overview" />
       </Helmet>
       <Container fixed maxWidth="xl" sx={{ flex: 1 }}>
-        <GlobalReloadButton />
-        <OverviewCards
-          numberOfTransactions={numberOfTransactions}
-          totalGasFees={totalGasFees}
-          numberOfActiveValidators={numberOfActiveValidators}
-          numberOfValidators={numberOfValidators}
-          percentageOfActiveValidators={percentageOfActiveValidators}
-          gasFeesLoading={gasFeesLoading}
-          transactionsLoading={transactionsLoading}
-          validatorsLoading={validatorsLoading}
-        />
         <>
           {error ? (
             <Typography
-              variant="h6"
+              variant="h4"
               color="error"
               sx={{
                 textAlign: 'center',
@@ -72,10 +61,23 @@ export function CChainPage() {
               {error}
             </Typography>
           ) : (
-            <LatestBlocksAndTransactionsList
-              blocks={blocks}
-              transactions={transactions}
-            />
+            <>
+              <GlobalReloadButton />
+              <OverviewCards
+                numberOfTransactions={numberOfTransactions}
+                totalGasFees={totalGasFees}
+                numberOfActiveValidators={numberOfActiveValidators}
+                numberOfValidators={numberOfValidators}
+                percentageOfActiveValidators={percentageOfActiveValidators}
+                gasFeesLoading={gasFeesLoading}
+                transactionsLoading={transactionsLoading}
+                validatorsLoading={validatorsLoading}
+              />
+              <LatestBlocksAndTransactionsList
+                blocks={blocks}
+                transactions={transactions}
+              />
+            </>
           )}
         </>
       </Container>
