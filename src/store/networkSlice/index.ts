@@ -1,12 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const getNetworkFromLocalStorage = () => {
+  let activeNetwork = localStorage.getItem('activeNetwork');
+  if (activeNetwork) return JSON.parse(activeNetwork);
+  return 'camino-testnet';
+};
+
 let initialState = {
-  activeNetwork: 'camino-testnet',
-  activeNetworkName: 'Columbus Network',
+  activeNetwork: getNetworkFromLocalStorage(),
   networks: [
     {
       id: 'camino-testnet',
-      displayName: 'Columbus Network',
+      displayName: 'Columbus',
       protocol: 'http',
       host: 'localhost',
       magellanAddress: 'http://localhost:8080',
@@ -15,7 +20,11 @@ let initialState = {
     },
     {
       id: 'mainnet-testnet',
-      displayName: 'Mainnet Network',
+      displayName: 'Mainnet',
+      protocol: 'http',
+      host: 'localhost',
+      magellanAddress: 'http://localhost:8080',
+      port: 9650,
       predefined: true,
     },
   ],
@@ -24,7 +33,18 @@ let initialState = {
 const networkSlice = createSlice({
   name: 'networks',
   initialState,
-  reducers: {},
+  reducers: {
+    changeNetwork: (state, action) => {
+      let active = state.networks.find(
+        item => item.displayName === action.payload,
+      );
+      state.activeNetwork = active?.id;
+      localStorage.setItem('activeNetwork', JSON.stringify(active?.id));
+    },
+  },
 });
 
+export const getActiveNetwork = state => state.networks.activeNetwork;
+export const getNetworks = state => state.networks.networks;
+export const { changeNetwork } = networkSlice.actions;
 export default networkSlice.reducer;

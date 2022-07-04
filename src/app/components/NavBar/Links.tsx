@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -28,13 +28,18 @@ export default function Links() {
     activeTab(location.pathname.split('/')[1]),
   );
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    if (newValue !== 3 && newValue !== 4) setValue(newValue);
-    if (newValue === 0) navigate('c-chain');
-    else if (newValue === 1) navigate('x-chain');
-    else if (newValue === 2) navigate('p-chain');
+    if (location.pathname !== '/mainnet') {
+      if (newValue !== 3 && newValue !== 4) setValue(newValue);
+      if (newValue === 0) navigate('c-chain');
+      else if (newValue === 1) navigate('x-chain');
+      else if (newValue === 2) navigate('p-chain');
+    }
   };
-  let navigate = useNavigate();
+  useEffect(() => {
+    if (location.pathname === '/mainnet') setValue(0);
+  }, [location]);
 
+  let navigate = useNavigate();
   return (
     <Box
       sx={{

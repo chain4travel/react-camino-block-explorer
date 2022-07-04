@@ -10,6 +10,7 @@ import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { CChainPageBlocks } from './pages/CChainBlocks';
 import { BlockDetails } from './pages/CChainBlocks/BlockDetails';
+import { ComingSoonPage } from './pages/ComingSoon';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -32,6 +33,7 @@ export function App() {
           <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
           <Route path="/x-chain" element={<XChainPage />} />
           <Route path="/p-chain" element={<PChainPage />} />
+          <Route path="/mainnet" element={<ComingSoonPage />} />
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>

@@ -5,7 +5,13 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import { Box } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { getCchainStatus } from 'store/cchainSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {
+  getActiveNetwork,
+  getNetworks,
+  changeNetwork,
+} from '../../../store/networkSlice/index';
 
 function SelectedNetwork({
   value,
@@ -38,13 +44,28 @@ function SelectedNetwork({
   );
 }
 
-export default function NetworkSelect() {
-  const [network, setNetwork] = React.useState('Columbus');
-  const status = useSelector(getCchainStatus);
+const nameOfActiveNetwork = (networks, id) => {
+  let active = networks.find(item => item.id === id);
+  return active?.displayName;
+};
 
+export default function NetworkSelect() {
+  const status = useSelector(getCchainStatus);
+  const navigate = useNavigate();
+  const networks = useSelector(getNetworks);
+  const activeNetwork = useSelector(getActiveNetwork);
+  const [network, setNetwork] = React.useState(
+    nameOfActiveNetwork(networks, activeNetwork),
+  );
+  const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
-    setNetwork(event.target.value as string);
+    dispatch(changeNetwork(event.target.value));
   };
+  React.useEffect(() => {
+    setNetwork(nameOfActiveNetwork(networks, activeNetwork));
+    if (activeNetwork === 'camino-testnet') navigate('/');
+    else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+  }, [activeNetwork]);
 
   return (
     <Box
@@ -52,11 +73,11 @@ export default function NetworkSelect() {
     >
       <Select
         variant="outlined"
-        value={network}
         onChange={handleChange}
+        value={activeNetwork}
         IconComponent={KeyboardArrowDownRoundedIcon}
         renderValue={value => {
-          return <SelectedNetwork value={value} networkStatus={status} />;
+          return <SelectedNetwork value={network} networkStatus={status} />;
         }}
         sx={{
           height: '40px',
@@ -70,10 +91,13 @@ export default function NetworkSelect() {
           },
         }}
       >
-        <MenuItem value="Columbus" divider>
-          Columbus
-        </MenuItem>
-        <MenuItem value="Mainnet">Mainnet</MenuItem>
+        {networks.map((item, index) => {
+          return (
+            <MenuItem key={index} value={item.displayName}>
+              {item.displayName}
+            </MenuItem>
+          );
+        })}
       </Select>
     </Box>
   );
