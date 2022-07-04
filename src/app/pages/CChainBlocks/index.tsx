@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import {
+  Button,
   Container,
   Grid,
   Paper,
@@ -24,6 +25,7 @@ import { BlockTableData } from '../../../store/cchainSlice/types';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { TableCellProps } from '@mui/material';
 import { getRelativeTime } from 'utils/display/display-utils';
+import { Replay } from '@mui/icons-material';
 
 export async function loadBlocksAndTransactions(
   startingBlock = NaN,
@@ -66,22 +68,22 @@ const columns: ColumnType[] = [
     name: 'block',
     label: 'Block',
     field: 'number',
-    minWidth: 170,
+    minWidth: 140,
     align: 'left',
   },
   {
     name: 'age',
     label: 'Age',
     field: 'timestamp',
-    minWidth: 170,
-    align: 'right',
+    minWidth: 140,
+    align: 'left',
   },
   {
     name: 'transactions',
     label: '# of tx',
     field: 'numberOfTransactions',
-    align: 'right',
-    minWidth: 170,
+    align: 'left',
+    minWidth: 50,
   },
   {
     name: 'hash',
@@ -92,13 +94,13 @@ const columns: ColumnType[] = [
   },
   {
     name: 'gasUsed',
-    minWidth: 170,
+    minWidth: 50,
     label: 'Gas Used',
     field: 'gasUsed',
     align: 'right',
   },
   {
-    minWidth: 170,
+    minWidth: 50,
     name: 'gasLimit',
     label: 'Gas Limit',
     field: 'gasLimit',
@@ -160,7 +162,7 @@ export function CChainPageBlocks() {
     });
   });
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ marginTop: '15rem' }}>
       <Helmet>
         <title>c-chain</title>
         <meta name="description" content="blocks c-chain" />
@@ -202,10 +204,38 @@ export function CChainPageBlocks() {
               },
             }}
           >
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ paddingBottom: '1rem' }}
+            >
+              <Typography
+                variant="h5"
+                component="h5"
+                fontWeight="fontWeightBold"
+                sx={{ paddingBottom: '1rem' }}
+              >
+                C-Blocks
+              </Typography>
+              <Button
+                variant="outlined"
+                color="secondary"
+                sx={{
+                  borderRadius: '25px',
+                  marginLeft: 'auto',
+                  // width: '15px',
+                  // height: '15px',
+                }}
+              >
+                <Replay sx={{ width: '25px', height: '25px' }} />
+              </Button>
+            </Grid>
             <TableContainer sx={{ height: '500px' }} ref={tableEl}>
               <Table stickyHeader aria-label="caption table">
                 <TableHead>
-                  <TableRow>
+                  <TableRow sx={{ backgroundColor: 'red' }}>
                     {columns.map(column => (
                       <TableCell
                         key={column.name}
@@ -229,14 +259,18 @@ export function CChainPageBlocks() {
                         <TableCell component="th" scope="row">
                           {row.number}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                           {getRelativeTime(row.timestamp) + ' ago'}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell sx={{ maxWidth: '50px' }} align="center">
                           {row.numberOfTransactions}
                         </TableCell>
-                        <TableCell align="right">
-                          <Typography variant="body1" noWrap={true}>
+                        <TableCell align="left">
+                          <Typography
+                            variant="body1"
+                            // sx={{ maxWidth: '240px' }}
+                            noWrap={true}
+                          >
                             {row.hash}
                           </Typography>
                         </TableCell>
