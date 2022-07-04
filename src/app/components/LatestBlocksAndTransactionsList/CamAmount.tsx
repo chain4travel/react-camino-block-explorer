@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typography, Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg';
 import { ReactComponent as ACamIcon } from './assets/a-cam.svg';
 import { ReactComponent as NCamIcon } from './assets/n-cam.svg';
@@ -16,6 +16,7 @@ export function AmountIcon({ currency }) {
         width: '26px',
         height: '26px',
         marginLeft: '5px',
+        marginRight: '5px',
       }}
     >
       {currency === 'nCam' ? (
