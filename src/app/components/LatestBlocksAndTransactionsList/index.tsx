@@ -149,10 +149,12 @@ export function TransactionList({
   title,
   items,
   to,
+  link,
 }: {
   title: string;
   items: Array<CTransaction>;
   to: string;
+  link: boolean;
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:899px)');
@@ -274,19 +276,21 @@ export function TransactionList({
           No items
         </Typography>
       )}
-      <Box
-        sx={{
-          marginTop: '1rem',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Link style={{ textDecoration: 'none' }} to={to}>
-          <OutlinedButton>Show All</OutlinedButton>
-        </Link>
-      </Box>
+      {link && (
+        <Box
+          sx={{
+            marginTop: '1rem',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Link style={{ textDecoration: 'none' }} to={to}>
+            <OutlinedButton>Show All</OutlinedButton>
+          </Link>
+        </Box>
+      )}
     </Paper>
   );
 }
@@ -306,6 +310,7 @@ export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
           title="Latest Transactions"
           items={transactions}
           to="/transactions"
+          link
         />
       </Grid>
     </Grid>
