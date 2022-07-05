@@ -2,21 +2,19 @@ import React from 'react';
 import { getDisplayValueForGewi } from '../../../utils/currency/currency-utils';
 import { OverviewCard } from './OverviewCard';
 import { Grid } from '@mui/material';
-import RowRadioButtonsGroup from './RowRadioButtonsGroup';
 
 export default function OverviewCards(props: {
   numberOfTransactions: number;
   totalGasFees: number;
   numberOfActiveValidators: number;
   numberOfValidators: number;
-  percentageOfActiveValidators: string;
+  percentageOfActiveValidators: number;
   gasFeesLoading: string;
   transactionsLoading: string;
   validatorsLoading: string;
 }) {
   return (
     <>
-      <RowRadioButtonsGroup />
       <Grid
         container
         rowSpacing={{ xs: 4, lg: '0!important' }}
