@@ -5,17 +5,20 @@ import {
   Paper,
   useTheme,
   useMediaQuery,
+  CircularProgress,
 } from '@mui/material';
 import * as React from 'react';
 import { mdiCubeOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import Divider from '@mui/material/Divider';
 import { getRelativeTime } from '../../../utils/display/display-utils';
-import OutlinedButton from '../OutlinedButton';
 import { Link } from 'react-router-dom';
 import AddressLink from './AddressLink';
 import { GasAmount, CamAmount } from './CamAmount';
 import { CTransaction, BlockTableData } from '../../../store/cchainSlice/types';
+import { getCchainStatus } from 'store/cchainSlice';
+import { useSelector } from 'react-redux';
+import MainButton from '../MainButton';
 
 export function BlockList({
   title,
@@ -124,9 +127,16 @@ export function BlockList({
           ))}
         </>
       ) : (
-        <Typography variant="body1" component="p">
-          No items
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '600px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress color="secondary" />
+        </Box>
       )}
       <Box
         sx={{
@@ -138,7 +148,7 @@ export function BlockList({
         }}
       >
         <Link style={{ textDecoration: 'none' }} to={to}>
-          <OutlinedButton>Show All</OutlinedButton>
+          <MainButton variant="outlined" buttonLabel="Show All" />
         </Link>
       </Box>
     </Paper>
@@ -271,9 +281,16 @@ export function TransactionList({
           ))}
         </>
       ) : (
-        <Typography variant="body1" component="p">
-          No items
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '600px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress color="secondary" />
+        </Box>
       )}
       <Box
         sx={{
@@ -285,7 +302,7 @@ export function TransactionList({
         }}
       >
         <Link style={{ textDecoration: 'none' }} to={to}>
-          <OutlinedButton>Show All</OutlinedButton>
+          <MainButton variant="outlined" buttonLabel="Show All" />
         </Link>
       </Box>
     </Paper>
