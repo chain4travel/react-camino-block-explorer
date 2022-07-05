@@ -16,8 +16,6 @@ import { Link } from 'react-router-dom';
 import AddressLink from './AddressLink';
 import { GasAmount, CamAmount } from './CamAmount';
 import { CTransaction, BlockTableData } from '../../../store/cchainSlice/types';
-import { getCchainStatus } from 'store/cchainSlice';
-import { useSelector } from 'react-redux';
 import MainButton from '../MainButton';
 
 export function BlockList({
