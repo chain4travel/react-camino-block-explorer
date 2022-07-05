@@ -13,11 +13,12 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Grid } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 // import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
+import RowRadioButtonsGroup from 'app/components/OverviewCards/RowRadioButtonsGroup';
 
 export function CChainPage() {
   const dispatch = useDispatch();
@@ -62,7 +63,16 @@ export function CChainPage() {
             </Typography>
           ) : (
             <>
-              <GlobalReloadButton />
+              <Grid container spacing={{ xs: 3, md: 1 }}>
+                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+                  <RowRadioButtonsGroup />
+                </Grid>
+                <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+                  <GlobalReloadButton
+                    style={{ display: 'flex', marginLeft: 'auto' }}
+                  />
+                </Grid>
+              </Grid>
               <OverviewCards
                 numberOfTransactions={numberOfTransactions}
                 totalGasFees={totalGasFees}
