@@ -4,6 +4,8 @@ import { ReactComponent as ComingSoonSvg } from './assets/comingsoon.svg';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeNetwork } from 'store/networkSlice';
+import MainButton from 'app/components/MainButton';
+import AlignedContainer from 'app/components/AlignedContainer';
 
 export function ComingSoonPage() {
   const dispatch = useDispatch();
@@ -11,7 +13,7 @@ export function ComingSoonPage() {
     dispatch(changeNetwork('Columbus'));
   };
   return (
-    <Container maxWidth="xl">
+    <AlignedContainer maxWidth="xl">
       <Helmet>
         <title>mainnet</title>
         <meta name="description" content="mainnet" />
@@ -34,27 +36,12 @@ export function ComingSoonPage() {
         >
           The Camino Mainnet is not available yet.
         </Typography>
-        <Button
-          onClick={handleClick}
-          sx={[
-            {
-              borderRadius: '20px',
-              backgroundColor: 'secondary.main',
-              color: 'primary.main',
-              textTransform: 'none',
-            },
-            {
-              '&:hover': {
-                color: 'secondary.main',
-                backgroundColor: 'primary.main',
-              },
-            },
-          ]}
+        <MainButton
           variant="contained"
-        >
-          Switch to Columbus network
-        </Button>
+          onClick={handleClick}
+          buttonLabel="Switch to Columbus Network"
+        />
       </Grid>
-    </Container>
+    </AlignedContainer>
   );
 }
