@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { Container } from '@mui/material';
+import { Box } from '@mui/system';
 
 export function BlockDetails() {
   return (
@@ -10,7 +11,7 @@ export function BlockDetails() {
         <title>c-BlockDetails</title>
         <meta name="description" content="chain-overviewBlockDetails" />
       </Helmet>
-      <span>BlockDetails</span>
+      <Box>tu connais le sfkja dfjn</Box>
     </Container>
   );
 }
