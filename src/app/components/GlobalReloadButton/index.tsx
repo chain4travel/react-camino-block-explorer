@@ -12,7 +12,11 @@ import {
   getCchainStatus,
 } from 'store/cchainSlice';
 
-export default function GlobalReloadButton() {
+export default function GlobalReloadButton({
+  style,
+}: {
+  style?: React.CSSProperties;
+}) {
   const dispatch = useDispatch();
   const frameTime = useSelector(getTimeFrame);
   const status = useSelector(getCchainStatus);
@@ -36,7 +40,7 @@ export default function GlobalReloadButton() {
       onClick={handleClick}
       variant="outlined"
       color="secondary"
-      sx={{ borderRadius: '25px', marginLeft: 'auto' }}
+      sx={{ borderRadius: '25px', maxHeight: '40px', ...style }}
     >
       <Replay />
     </Button>

@@ -15,7 +15,11 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 
-export default function RowRadioButtonsGroup() {
+export default function RowRadioButtonsGroup({
+  style,
+}: {
+  style?: React.CSSProperties;
+}) {
   const timeFrame = useSelector(getTimeFrame);
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
   const dispatch = useDispatch();
@@ -45,7 +49,7 @@ export default function RowRadioButtonsGroup() {
   }, [value]); // eslint-disable-line
 
   return (
-    <FormControl sx={{ marginLeft: 'auto', marginright: 0 }}>
+    <FormControl sx={{ ...style }}>
       <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
