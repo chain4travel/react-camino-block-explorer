@@ -11,12 +11,12 @@ import * as React from 'react';
 import { mdiCubeOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import Divider from '@mui/material/Divider';
-import { getRelativeTime } from '../../../utils/display/display-utils';
 import { Link } from 'react-router-dom';
-import AddressLink from './AddressLink';
-import { GasAmount, CamAmount } from './CamAmount';
+import AddressLink from '../AddressLink';
+import { GasAmount, CamAmount } from '../CamAmount';
 import { CTransaction, BlockTableData } from '../../../store/cchainSlice/types';
 import MainButton from '../MainButton';
+import RelativeTime from '../RelativeTime';
 
 export function BlockList({
   title,
@@ -35,7 +35,6 @@ export function BlockList({
       square
       sx={{
         backgroundColor: 'primary.dark',
-        borderRadius: '12px',
         borderWidth: '1px',
         borderColor: 'primary.light',
         borderStyle: 'solid',
@@ -95,9 +94,7 @@ export function BlockList({
                     typographyVariant="body1"
                     truncate={false}
                   />
-                  <Typography variant="subtitle2" color="latestList.timestamp">
-                    {getRelativeTime(item.timestamp) + ' ago'}
-                  </Typography>
+                  <RelativeTime value={item.timestamp} />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5} xl={6}>
                   <Typography variant="body1">
@@ -146,7 +143,7 @@ export function BlockList({
         }}
       >
         <Link style={{ textDecoration: 'none' }} to={to}>
-          <MainButton variant="outlined" buttonLabel="Show All" />
+          <MainButton variant="outlined">Show All</MainButton>
         </Link>
       </Box>
     </Paper>
@@ -170,7 +167,6 @@ export function TransactionList({
       square
       sx={{
         backgroundColor: 'primary.dark',
-        borderRadius: '12px',
         borderWidth: '1px',
         borderColor: 'primary.light',
         borderStyle: 'solid',
@@ -196,7 +192,7 @@ export function TransactionList({
             <div key={index}>
               <Grid
                 container
-                rowSpacing={2}
+                rowSpacing={{ xs: 1, md: 2 }}
                 justifyContent="space-between"
                 sx={{ padding: '0.5rem 0rem 0.5rem 0rem' }}
               >
@@ -230,12 +226,10 @@ export function TransactionList({
                     typographyVariant="body1"
                     truncate={true}
                   />
-                  <Typography variant="subtitle2" color="latestList.timestamp">
-                    {getRelativeTime(item.timestamp) + ' ago'}
-                  </Typography>
+                  <RelativeTime value={item.timestamp} />
                 </Grid>
                 <Grid item xs={9} md={4} xl={5}>
-                  <Grid container spacing={1} direction="row">
+                  <Grid container direction="row">
                     <Grid item xs={2} md={4} xl={3}>
                       <Typography variant="subtitle2">From</Typography>
                     </Grid>
@@ -248,7 +242,7 @@ export function TransactionList({
                       />
                     </Grid>
                   </Grid>
-                  <Grid container spacing={1} direction="row">
+                  <Grid container direction="row">
                     <Grid item xs={2} md={4} xl={3}>
                       <Typography variant="subtitle2">To</Typography>
                     </Grid>
@@ -267,7 +261,7 @@ export function TransactionList({
                   container
                   xs={12}
                   md={3}
-                  xl={2}
+                  xl="auto"
                   alignItems="center"
                   justifyContent={isMobile ? 'flex-start' : 'flex-end'}
                 >
@@ -300,7 +294,7 @@ export function TransactionList({
         }}
       >
         <Link style={{ textDecoration: 'none' }} to={to}>
-          <MainButton variant="outlined" buttonLabel="Show All" />
+          <MainButton variant="outlined">Show All</MainButton>
         </Link>
       </Box>
     </Paper>
