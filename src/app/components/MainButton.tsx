@@ -2,14 +2,15 @@ import * as React from 'react';
 import { Button } from '@mui/material';
 
 export default function MainButton({
-  buttonLabel,
   variant,
   onClick,
+  children,
   ...customStyle
 }: {
-  buttonLabel: string;
   variant: 'contained' | 'outlined';
   onClick?: () => void;
+  children: React.ReactNode;
+  customStyle?: React.CSSProperties;
 }) {
   return (
     <Button
@@ -32,7 +33,7 @@ export default function MainButton({
         ...customStyle,
       }}
     >
-      {buttonLabel}
+      {children}
     </Button>
   );
 }
