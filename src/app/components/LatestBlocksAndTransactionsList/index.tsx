@@ -309,7 +309,7 @@ export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
         <TransactionList
           title="Latest Transactions"
           items={transactions}
-          to="/transactions"
+          to="/c-chain/transactions"
           link
         />
       </Grid>

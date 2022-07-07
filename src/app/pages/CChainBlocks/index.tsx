@@ -249,11 +249,7 @@ export function CChainPageBlocks() {
                           {row.numberOfTransactions}
                         </TableCell>
                         <TableCell align="left">
-                          <Typography
-                            variant="body1"
-                            // sx={{ maxWidth: '240px' }}
-                            noWrap={true}
-                          >
+                          <Typography variant="body1" noWrap={true}>
                             {row.hash}
                           </Typography>
                         </TableCell>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { RowContainer } from './RowContainer';
+import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
 
 import {
   Button,
@@ -26,12 +26,25 @@ interface BlockDetail {
   parentHash: string;
   baseGaseFee: number;
   fees: number;
-  gasUsed: number;
+  gasUsed: string;
   time: string;
   transactionsCount: number;
   extData: string;
   transactions: any;
 }
+
+// blockNumber: parseInt(block.header.number),
+// hash: block.header.hash,
+// parentHash: block.header.parentHash,
+// parentBlockNumber: parseInt(block.header.number)
+// ? parseInt(block.header.number) - 1
+// : undefined,
+// fees: 0, //parseInt(block.header.gasUsed) * parseInt(block.header.baseFeePerGas), //We overwrite this field with the aggregated cost of transactions
+// baseGaseFee: parseInt(block.header.baseFeePerGas),
+// transactionCount: block.transactions ? block.transactions.length : 0,
+// gasLimit: parseInt(block.header.gasLimit),
+// gasUsed: parseInt(block.header.gasUsed),
+// timestamp: new Date(parseInt(block.header.timestamp) * 1000),
 
 export function BlockDetails() {
   const theme = useTheme();
@@ -44,13 +57,14 @@ export function BlockDetails() {
       `https://magellan.columbus.camino.foundation/v2/ctxdata/${number}`,
     );
     let block: BlockDetail = {
-      hash: res.data.hash,
-      number: res.data.header.number,
-      parentHash: res.data.header.parentHash,
-      baseGaseFee: res.data.header.baseFeePerGas,
+      hash: res.data.hash, //done
+      number: parseInt(res.data.header.number), //done
+      parentHash: res.data.header.parentHash, //done
+      // parentBlockNumber: parseInt(res.data.header.number), to review
+      baseGaseFee: parseInt(res.data.header.baseFeePerGas), //done
       fees: 0,
-      gasUsed: res.data.header.gasUsed,
-      time: res.data.header.timestamp,
+      gasUsed: parseInt(res.data.header.gasUsed).toLocaleString('en-US'),
+      time: new Date(parseInt(res.data.header.timestamp) * 1000).toString(),
       transactionsCount: res.data.transactions
         ? res.data.transactions.length
         : 0,
@@ -176,19 +190,12 @@ export function BlockDetails() {
         rowSpacing={{ xs: 4, lg: '0!important' }}
         columnSpacing={{ xs: 0, lg: 4 }}
       >
-        {/* <Grid item xs={12} lg={6}>
-          <BlockList
-            title="Latest Blocks"
-            items={blocks}
-            to="/c-chain/blocks"
-          />
-        </Grid> */}
         {result && (
           <Grid item xs={12} lg={12}>
             <TransactionList
               title="Block Transactions"
               items={result?.transactions}
-              to="/transactions"
+              to="/c-chain/transactions"
               link={false}
             />
           </Grid>
