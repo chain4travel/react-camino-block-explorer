@@ -16,6 +16,7 @@ import {
   loadNumberOfTransactions,
   loadTotalGasFess,
 } from 'store/cchainSlice/utils';
+import useWidth from 'app/hooks/useWidth';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -47,6 +48,8 @@ export default function RowRadioButtonsGroup({
     dispatch(changetimeFrame(value));
   }, [value]); // eslint-disable-line
 
+  const { isMobile } = useWidth();
+
   return (
     <FormControl sx={{ ...style }}>
       <RadioGroup
@@ -56,7 +59,7 @@ export default function RowRadioButtonsGroup({
         value={value}
         onChange={handleChange}
       >
-        {timeOptions.map(({ value, label }) => (
+        {timeOptions.map(({ value, label, miniLabel }) => (
           <FormControlLabel
             key={value}
             value={value}
@@ -69,7 +72,7 @@ export default function RowRadioButtonsGroup({
                 }}
               />
             }
-            label={label}
+            label={isMobile ? miniLabel : label}
           />
         ))}
       </RadioGroup>
