@@ -2,31 +2,28 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import {
-  fetchBlocksTransactions,
-  // loadNumberOfTransactions,
-  loadValidators,
-  // loadTotalGasFess,
   selectAllBlocks,
   getCchainError,
   selectAllTransactions,
-  // getCchainStatus,
   getCchainOverreview,
 } from 'store/cchainSlice';
-import { useSelector } from 'react-redux';
 import { Container, Typography, Grid } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 // import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
 import RowRadioButtonsGroup from 'app/components/RowRadioButtonsGroup';
-import { useAppDispatch } from 'store/configureStore';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  fetchBlocksTransactions,
+  loadValidators,
+} from 'store/cchainSlice/utils';
 
 export function CChainPage() {
   const dispatch = useAppDispatch();
-  const blocks = useSelector(selectAllBlocks);
-  const transactions = useSelector(selectAllTransactions);
-  // const status = useSelector(getCchainStatus);
-  const error = useSelector(getCchainError);
+  const blocks = useAppSelector(selectAllBlocks);
+  const transactions = useAppSelector(selectAllTransactions);
+  const error = useAppSelector(getCchainError);
   const {
     numberOfTransactions,
     totalGasFees,
@@ -36,7 +33,7 @@ export function CChainPage() {
     gasFeesLoading,
     transactionsLoading,
     validatorsLoading,
-  } = useSelector(getCchainOverreview);
+  } = useAppSelector(getCchainOverreview);
 
   useEffectOnce(() => {
     dispatch(fetchBlocksTransactions());

@@ -17,14 +17,13 @@ import {
   useTheme,
 } from '@mui/material';
 import { selectAllBlocks } from 'store/cchainSlice';
-import { useSelector } from 'react-redux';
-// import ColumnGroupingTable from './Table';
 import axios from 'axios';
-import { BlockTableData } from '../../../store/cchainSlice/types';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { TableCellProps } from '@mui/material';
 import { Replay } from '@mui/icons-material';
 import RelativeTime from 'app/components/RelativeTime';
+import { BlockTableData } from 'types/block';
+import { useAppSelector } from 'store/configureStore';
 
 export async function loadBlocksAndTransactions(
   startingBlock = NaN,
@@ -108,7 +107,7 @@ const columns: ColumnType[] = [
 
 export function CChainPageBlocks() {
   const tableEl = React.useRef<HTMLDivElement>(null);
-  const blocks = useSelector(selectAllBlocks);
+  const blocks = useAppSelector(selectAllBlocks);
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:899px)');
   const [distanceBottom, setDistanceBottom] = React.useState(0);

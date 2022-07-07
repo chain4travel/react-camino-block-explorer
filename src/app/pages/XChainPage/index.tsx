@@ -24,8 +24,33 @@ import { CamAmount } from '../../components/CamAmount';
 import { mdiCubeOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import RelativeTime from 'app/components/RelativeTime';
+import { fetchXTransactions } from 'store/xchainSlice/utils';
+import { useEffectOnce } from 'app/hooks/useEffectOnce';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  selectAllXTransactions,
+  getXchainStatus,
+  getXchainError,
+  getXchainOverreview,
+} from 'store/xchainSlice';
 
 export function XChainPage() {
+  const dispatch = useAppDispatch();
+  // const transactions = useAppSelector(selectAllXTransactions);
+  // const error = useAppSelector(getXchainError);
+  // const {
+  //   numberOfTransactions,
+  //   totalGasFees,
+  //   numberOfActiveValidators,
+  //   numberOfValidators,
+  //   percentageOfActiveValidators,
+  //   gasFeesLoading,
+  //   transactionsLoading,
+  //   validatorsLoading,
+  // } = useAppSelector(getXchainOverreview);
+  useEffectOnce(() => {
+    dispatch(fetchXTransactions());
+  });
   return (
     <Container fixed maxWidth="xl">
       <Helmet>

@@ -125,7 +125,6 @@ const columns: ColumnType[] = [
 export function TableDetials() {
   const theme = useTheme();
   const tableEl = React.useRef<HTMLDivElement>(null);
-  // const blocks = useSelector(selectAllBlocks);
   const isMobile = useMediaQuery('@media (max-width:1200px)');
   const [distanceBottom, setDistanceBottom] = React.useState(0);
   const [hasMore] = React.useState(true);

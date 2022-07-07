@@ -14,9 +14,10 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 import AddressLink from '../AddressLink';
 import { GasAmount, CamAmount } from '../CamAmount';
-import { CTransaction, BlockTableData } from '../../../store/cchainSlice/types';
 import MainButton from '../MainButton';
 import RelativeTime from '../RelativeTime';
+import { BlockTableData } from 'types/block';
+import { CTransaction } from 'types/transaction';
 
 export function BlockList({
   title,

@@ -5,6 +5,14 @@ export enum Timeframe {
   MONTHS_1 = 'MONTHS_1',
 }
 
+// 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+export enum status {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
+}
+
 export function getLabel(timeframe: Timeframe) {
   switch (timeframe) {
     case Timeframe.HOURS_24:
