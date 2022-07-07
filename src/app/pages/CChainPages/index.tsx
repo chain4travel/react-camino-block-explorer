@@ -19,9 +19,14 @@ import OverviewCards from 'app/components/OverviewCards';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
 import RowRadioButtonsGroup from 'app/components/RowRadioButtonsGroup';
+import { configureAppStore } from 'store/configureStore';
 
+export const store = configureAppStore();
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export function CChainPage() {
-  const dispatch = useDispatch();
+  // export const useAppDispatch: () => AppDispatch = useDispatch;
+  const dispatch = useAppDispatch();
   const blocks = useSelector(selectAllBlocks);
   const transactions = useSelector(selectAllTransactions);
   // const status = useSelector(getCchainStatus);
