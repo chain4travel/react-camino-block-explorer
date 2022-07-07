@@ -30,19 +30,6 @@ interface BlockDetail {
   transactions: any;
 }
 
-// blockNumber: parseInt(block.header.number),
-// hash: block.header.hash,
-// parentHash: block.header.parentHash,
-// parentBlockNumber: parseInt(block.header.number)
-// ? parseInt(block.header.number) - 1
-// : undefined,
-// fees: 0, //parseInt(block.header.gasUsed) * parseInt(block.header.baseFeePerGas), //We overwrite this field with the aggregated cost of transactions
-// baseGaseFee: parseInt(block.header.baseFeePerGas),
-// transactionCount: block.transactions ? block.transactions.length : 0,
-// gasLimit: parseInt(block.header.gasLimit),
-// gasUsed: parseInt(block.header.gasUsed),
-// timestamp: new Date(parseInt(block.header.timestamp) * 1000),
-
 export function BlockDetails() {
   const theme = useTheme();
   const [result, setResult] = React.useState<BlockDetail>();
@@ -176,6 +163,7 @@ export function BlockDetails() {
                       )}
                     </Grid>
                   );
+                return <div key={index}></div>;
               })}
           </Grid>
         </Grid>

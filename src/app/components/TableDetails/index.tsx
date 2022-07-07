@@ -135,6 +135,7 @@ export function TableDetials() {
   const loadMore = React.useCallback(() => {
     setLoading(true);
     loadItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows]);
 
   const loadItems = async () => {

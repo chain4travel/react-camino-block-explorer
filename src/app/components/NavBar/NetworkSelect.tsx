@@ -63,8 +63,9 @@ export default function NetworkSelect() {
   };
   React.useEffect(() => {
     setNetwork(nameOfActiveNetwork(networks, activeNetwork));
-    // if (activeNetwork === 'camino-testnet') navigate('/');
+    if (activeNetwork === 'camino-testnet') navigate('/');
     if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeNetwork]);
 
   return (
