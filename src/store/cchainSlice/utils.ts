@@ -71,3 +71,17 @@ export const fetchBlocksTransactions = createAsyncThunk(
     return response.data;
   },
 );
+
+export const fetchCBlockDetail = createAsyncThunk(
+  'cchain/blockDetail',
+  async (number: number) => {
+    let networks = store.getState().networks;
+    let activeNetwork = networks.networks.find(
+      element => element.id === networks.activeNetwork,
+    );
+    const res = (
+      await axios.get(`${activeNetwork?.magellanAddress}/v2/ctxdata/${number}`)
+    ).data;
+    return res;
+  },
+);

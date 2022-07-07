@@ -346,7 +346,12 @@ export function TableDetials() {
                       ]}
                     >
                       <TableCell component="th" scope="row">
-                        {row.number}
+                        <AddressLink
+                          to={`/c-chain/blocks/${row.number}`}
+                          value={row.number}
+                          typographyVariant="body1"
+                          truncate={true}
+                        />
                       </TableCell>
                       <TableCell align="left">
                         {getRelativeTime(row.timestamp) + ' ago'}

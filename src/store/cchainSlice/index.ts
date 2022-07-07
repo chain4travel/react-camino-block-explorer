@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { status, Timeframe } from 'types';
-import { BlockTableData } from 'types/block';
+import { BlockDetail, BlockTableData } from 'types/block';
 import { CTransaction } from 'types/transaction';
 import { ChainOverviewType, initialCchainStateType } from 'types/store';
 import { RootState } from 'store/configureStore';
 import {
   fetchBlocksTransactions,
+  fetchCBlockDetail,
   loadNumberOfTransactions,
   loadTotalGasFess,
   loadValidators,
@@ -21,6 +22,7 @@ const initialState: initialCchainStateType = {
   transactions: [],
   status: status.IDLE,
   error: undefined,
+  blockDetail: undefined,
   timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
@@ -132,7 +134,51 @@ const cchainSlice = createSlice({
       })
       .addCase(loadValidators.rejected, state => {
         state.ChainOverview.validatorsLoading = status.FAILED;
-      });
+      })
+      .addCase(fetchCBlockDetail.pending, (state, action) => {})
+      .addCase(fetchCBlockDetail.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        let block: BlockDetail = {
+          hash: action.payload.hash, //done
+          number: parseInt(action.payload.header.number), //done
+          parentHash: action.payload.header.parentHash, //done
+          // parentBlockNumber: parseInt(action.payload.header.number), to review
+          baseGaseFee: parseInt(action.payload.header.baseFeePerGas), //done
+          fees: 0,
+          gasUsed: parseInt(action.payload.header.gasUsed).toLocaleString(
+            'en-US',
+          ),
+          time: new Date(
+            parseInt(action.payload.header.timestamp) * 1000,
+          ).toString(),
+          transactionsCount: action.payload.transactions
+            ? action.payload.transactions.length
+            : 0,
+          extData: action.payload.header.extraData,
+          transactions: action.payload.transactions
+            ? action.payload.transactions.map(item => ({
+                block: item.block,
+                index: parseInt(item.receipt.transactionIndex),
+                from: item.fromAddr,
+                hash: item.hash,
+                status: item.receipt.status,
+                timestamp: new Date(item.createdAt),
+                to: item.toAddr,
+                transactionCost: item.receipt.gasUsed
+                  ? parseInt(item.receipt.gasUsed) *
+                    parseInt(item.receipt.effectiveGasPrice)
+                  : parseInt(item.maxFeePerGas) *
+                    parseInt(item.receipt.effectiveGasPrice),
+                value: parseInt(item.value),
+              }))
+            : [],
+        };
+        block.fees += block.transactions
+          .map(e => e.transactionCost)
+          .reduce((pv, cv) => pv + cv, 0);
+        state.blockDetail = block;
+      })
+      .addCase(fetchCBlockDetail.rejected, (state, action) => {});
   },
 });
 export const selectAllBlocks = (state: RootState) => state.cchain.blocks;
@@ -142,6 +188,7 @@ export const getCchainStatus = (state: RootState) => state.cchain.status;
 export const getCchainError = (state: RootState) => state.cchain.error;
 export const getCchainOverreview = (state: RootState) =>
   state.cchain.ChainOverview;
+export const getCBlockDetail = (state: RootState) => state.cchain.blockDetail;
 export const getTimeFrame = (state: RootState) => state.cchain.timeFrame;
 export const { changetimeFrame } = cchainSlice.actions;
 export default cchainSlice.reducer;

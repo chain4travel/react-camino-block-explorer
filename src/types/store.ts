@@ -1,5 +1,5 @@
 import { status } from 'types';
-import { BlockTableData } from './block';
+import { BlockDetail, BlockTableData } from './block';
 import { CTransaction, XPTransaction } from './transaction';
 
 export interface ChainOverviewType {
@@ -21,6 +21,7 @@ export interface initialCchainStateType {
   status: status;
   error: undefined | string;
   timeFrame: string;
+  blockDetail?: BlockDetail;
   ChainOverview: ChainOverviewType;
 }
 

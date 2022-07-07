@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'store/configureStore';
 
 const getNetworkFromLocalStorage = () => {
   let activeNetwork = localStorage.getItem('activeNetwork');
@@ -12,19 +13,19 @@ let initialState = {
     {
       id: 'camino-testnet',
       displayName: 'Columbus',
-      protocol: 'http',
+      protocol: 'https',
       host: 'columbus.camino.foundation',
       magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 9650,
+      port: 443,
       predefined: true,
     },
     {
       id: 'mainnet-testnet',
       displayName: 'Mainnet',
-      protocol: 'http',
+      protocol: 'https',
       host: 'columbus.camino.foundation',
-      magellanAddress: 'https://magellan.columbus.camino.foundation/mainnet',
-      port: 9650,
+      magellanAddress: 'https://magellan.columbus.camino.foundation',
+      port: 443,
       predefined: true,
     },
   ],
@@ -44,7 +45,8 @@ const networkSlice = createSlice({
   },
 });
 
-export const getActiveNetwork = state => state.networks.activeNetwork;
-export const getNetworks = state => state.networks.networks;
+export const getActiveNetwork = (state: RootState) =>
+  state.networks.activeNetwork;
+export const getNetworks = (state: RootState) => state.networks.networks;
 export const { changeNetwork } = networkSlice.actions;
 export default networkSlice.reducer;

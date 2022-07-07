@@ -10,6 +10,19 @@ export interface BlockTableData {
   blockCost: number;
 }
 
+export interface BlockDetail {
+  hash: string;
+  number: number;
+  parentHash: string;
+  baseGaseFee: number;
+  fees: number;
+  gasUsed: string;
+  time: string;
+  transactionsCount: number;
+  extData: string;
+  transactions: any;
+}
+
 export interface BlockDetails {
   blockNumber: number;
   timestamp: Date;
