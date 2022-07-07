@@ -65,7 +65,7 @@ export default function NetworkSelect() {
     setNetwork(nameOfActiveNetwork(networks, activeNetwork));
     if (activeNetwork === 'camino-testnet') navigate('/');
     else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
-  }, [activeNetwork]);
+  }, [activeNetwork]); // eslint-disable-line
 
   return (
     <Box
@@ -74,7 +74,7 @@ export default function NetworkSelect() {
       <Select
         variant="outlined"
         onChange={handleChange}
-        value={activeNetwork}
+        value={network}
         IconComponent={KeyboardArrowDownRoundedIcon}
         renderValue={value => {
           return <SelectedNetwork value={network} networkStatus={status} />;
