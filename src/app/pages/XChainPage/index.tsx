@@ -52,7 +52,11 @@ export function XChainPage() {
       />
       <XPTransactionList ShowAllLink="/">
         {transactions.map((transaction, index) => (
-          <XPItemDivider index={index} max={transactions.length - 1}>
+          <XPItemDivider
+            key={index}
+            index={index}
+            max={transactions.length - 1}
+          >
             <XPTransactionItem data={transaction} />
           </XPItemDivider>
         ))}
