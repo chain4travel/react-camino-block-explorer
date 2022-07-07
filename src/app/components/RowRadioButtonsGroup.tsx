@@ -6,7 +6,7 @@ import {
   FormControl,
 } from '@mui/material';
 import { Timeframe, timeOptions } from 'types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   loadNumberOfTransactions,
   loadTotalGasFess,
@@ -14,6 +14,7 @@ import {
   changetimeFrame,
   getCchainOverreview,
 } from 'store/cchainSlice';
+import { useAppDispatch } from 'store/configureStore';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -24,7 +25,7 @@ export default function RowRadioButtonsGroup({
 }) {
   const timeFrame = useSelector(getTimeFrame);
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       gasFeesLoading !== 'loading' &&

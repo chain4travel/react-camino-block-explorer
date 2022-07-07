@@ -2,32 +2,17 @@
  * Create the store with dynamic reducers
  */
 
-import {
-  configureStore,
-  getDefaultMiddleware,
-  StoreEnhancer,
-} from '@reduxjs/toolkit';
-import { createInjectorsEnhancer } from 'redux-injectors';
-import createSagaMiddleware from 'redux-saga';
+import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 
-import { createReducer } from './reducers';
 import blocksSlice from './cchainSlice';
 import networks from './app-config';
+import { store } from 'index';
+import { useDispatch } from 'react-redux';
 
 export function configureAppStore() {
-  const reduxSagaMonitorOptions = {};
-  const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
-  const { run: runSaga } = sagaMiddleware;
-
-  // Create the store with saga middleware
   // const middlewares = [sagaMiddleware];
 
-  const enhancers = [
-    createInjectorsEnhancer({
-      createReducer,
-      runSaga,
-    }),
-  ] as StoreEnhancer[];
+  const enhancers = [] as StoreEnhancer[];
 
   const store = configureStore({
     reducer: {
@@ -35,9 +20,13 @@ export function configureAppStore() {
       networks,
     },
     // middleware: [...getDefaultMiddleware(), ...middlewares],
-    // devTools: process.env.NODE_ENV !== 'production',
+    devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });
 
   return store;
 }
+
+// export const store = configureAppStore();
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
