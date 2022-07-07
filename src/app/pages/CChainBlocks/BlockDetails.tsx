@@ -15,8 +15,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { TransactionList } from 'app/components/LatestBlocksAndTransactionsList';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNetworks } from 'store/app-config';
 import { Link } from 'react-router-dom';
 // xs, sm, md, lg, and xl.
 interface BlockDetail {
@@ -49,8 +47,6 @@ export function BlockDetails() {
   const theme = useTheme();
   const [result, setResult] = React.useState<BlockDetail>();
   const location = useLocation();
-  const dispatch = useDispatch();
-  const networks = useSelector(getNetworks);
   async function fetchBlockDetail(number: number) {
     const res = await axios.get(
       `https://magellan.columbus.camino.foundation/v2/ctxdata/${number}`,
