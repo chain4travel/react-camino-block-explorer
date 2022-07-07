@@ -12,16 +12,17 @@ import {
   // getCchainStatus,
   getCchainOverreview,
 } from 'store/cchainSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Container, Typography, Grid } from '@mui/material';
 import OverviewCards from 'app/components/OverviewCards';
 // import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
 import RowRadioButtonsGroup from 'app/components/RowRadioButtonsGroup';
+import { useAppDispatch } from 'store/configureStore';
 
 export function CChainPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const blocks = useSelector(selectAllBlocks);
   const transactions = useSelector(selectAllTransactions);
   // const status = useSelector(getCchainStatus);

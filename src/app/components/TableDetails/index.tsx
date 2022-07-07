@@ -15,8 +15,6 @@ import {
 } from '@mui/material';
 import { Replay } from '@mui/icons-material';
 import styled from 'styled-components/macro';
-import { selectAllBlocks } from 'store/cchainSlice';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { getRelativeTime } from 'utils/display/display-utils';
@@ -127,7 +125,7 @@ const columns: ColumnType[] = [
 export function TableDetials() {
   const theme = useTheme();
   const tableEl = React.useRef<HTMLDivElement>(null);
-  const blocks = useSelector(selectAllBlocks);
+  // const blocks = useSelector(selectAllBlocks);
   const isMobile = useMediaQuery('@media (max-width:1200px)');
   const [distanceBottom, setDistanceBottom] = React.useState(0);
   const [hasMore] = React.useState(true);

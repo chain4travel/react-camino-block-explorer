@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';
-import { CamAmount, GasAmount } from 'app/components/CamAmount';
+import { CamAmount } from 'app/components/CamAmount';
 import { Link } from 'react-router-dom';
 
 function getNameFromType(type: string): string {

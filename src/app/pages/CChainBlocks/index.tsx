@@ -33,7 +33,6 @@ export async function loadBlocksAndTransactions(
   blockCount = 10,
   transactionCount = 0,
 ) {
-  console.log(startingBlock);
   return await axios.get(
     `https://magellan.columbus.camino.foundation/v2/cblocks?limit=${50}&limit=${transactionCount}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
   );
