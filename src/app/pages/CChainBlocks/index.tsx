@@ -23,8 +23,8 @@ import axios from 'axios';
 import { BlockTableData } from '../../../store/cchainSlice/types';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { TableCellProps } from '@mui/material';
-import { getRelativeTime } from 'utils/display/display-utils';
 import { Replay } from '@mui/icons-material';
+import RelativeTime from 'app/components/RelativeTime';
 
 export async function loadBlocksAndTransactions(
   startingBlock = NaN,
@@ -177,7 +177,6 @@ export function CChainPageBlocks() {
             square
             sx={{
               backgroundColor: 'primary.dark',
-              borderRadius: '12px',
               borderWidth: '1px',
               borderColor: 'primary.light',
               borderStyle: 'solid',
@@ -243,7 +242,7 @@ export function CChainPageBlocks() {
                           {row.number}
                         </TableCell>
                         <TableCell align="left">
-                          {getRelativeTime(row.timestamp) + ' ago'}
+                          <RelativeTime value={row.timestamp} />
                         </TableCell>
                         <TableCell sx={{ maxWidth: '50px' }} align="center">
                           {row.numberOfTransactions}

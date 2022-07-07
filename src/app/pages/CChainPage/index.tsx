@@ -18,7 +18,7 @@ import OverviewCards from 'app/components/OverviewCards';
 // import { Timeframe } from 'types';
 import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
 import GlobalReloadButton from 'app/components/GlobalReloadButton';
-import RowRadioButtonsGroup from 'app/components/OverviewCards/RowRadioButtonsGroup';
+import RowRadioButtonsGroup from 'app/components/RowRadioButtonsGroup';
 
 export function CChainPage() {
   const dispatch = useDispatch();
