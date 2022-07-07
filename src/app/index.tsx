@@ -3,7 +3,7 @@ import { GlobalStyle } from 'styles/global-styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { CChainPage } from './pages/CChainPages';
+import { CChainPage } from './pages/CChainPage';
 import { XChainPage } from './pages/XChainPage';
 import { PChainPage } from './pages/PChainPage';
 import MainLayout from './Layout/MainLayout.tsx';
@@ -12,7 +12,7 @@ import { CChainPageBlocks } from './pages/CChainBlocks';
 import { BlockDetails } from './pages/CChainBlocks/BlockDetails';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
-import { TransactionDetails } from './pages/CChainPages/TransactionDetails';
+import { TransactionDetails } from './pages/CChainPage/TransactionDetails';
 import { PChainDetailPage } from './pages/PChainPage/PChainDetialPage';
 export function App() {
   const { i18n } = useTranslation();
