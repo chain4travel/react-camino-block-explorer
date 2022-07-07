@@ -11,7 +11,7 @@ import {
   getActiveNetwork,
   getNetworks,
   changeNetwork,
-} from '../../../store/networkSlice/index';
+} from '../../../store/app-config';
 
 function SelectedNetwork({
   value,
