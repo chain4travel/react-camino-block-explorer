@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Replay from '@mui/icons-material/Replay';
 import { Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   fetchBlocksTransactions,
   getCchainOverreview,
@@ -11,13 +11,14 @@ import {
   loadValidators,
   getCchainStatus,
 } from 'store/cchainSlice';
+import { useAppDispatch } from 'store/configureStore';
 
 export default function GlobalReloadButton({
   style,
 }: {
   style?: React.CSSProperties;
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const frameTime = useSelector(getTimeFrame);
   const status = useSelector(getCchainStatus);
   const { gasFeesLoading, transactionsLoading, validatorsLoading } =

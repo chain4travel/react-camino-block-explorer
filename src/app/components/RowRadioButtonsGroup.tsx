@@ -6,7 +6,7 @@ import {
   FormControl,
 } from '@mui/material';
 import { Timeframe, timeOptions } from 'types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   loadNumberOfTransactions,
   loadTotalGasFess,
@@ -14,6 +14,8 @@ import {
   changetimeFrame,
   getCchainOverreview,
 } from 'store/cchainSlice';
+import { useAppDispatch } from 'store/configureStore';
+import useWidth from 'app/hooks/useWidth';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -24,7 +26,7 @@ export default function RowRadioButtonsGroup({
 }) {
   const timeFrame = useSelector(getTimeFrame);
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       gasFeesLoading !== 'loading' &&
@@ -45,6 +47,8 @@ export default function RowRadioButtonsGroup({
     dispatch(changetimeFrame(value));
   }, [value]); // eslint-disable-line
 
+  const { isMobile } = useWidth();
+
   return (
     <FormControl sx={{ ...style }}>
       <RadioGroup
@@ -54,7 +58,7 @@ export default function RowRadioButtonsGroup({
         value={value}
         onChange={handleChange}
       >
-        {timeOptions.map(({ value, label }) => (
+        {timeOptions.map(({ value, label, miniLabel }) => (
           <FormControlLabel
             key={value}
             value={value}
@@ -67,7 +71,7 @@ export default function RowRadioButtonsGroup({
                 }}
               />
             }
-            label={label}
+            label={isMobile ? miniLabel : label}
           />
         ))}
       </RadioGroup>
