@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { PaletteMode } from '@mui/material';
 
 import { lightTheme, darkTheme } from './themes';
@@ -16,10 +16,16 @@ export const ColorModeContext = React.createContext<{
   toggleColorMode?: () => void;
 }>({});
 
-export const ThemeProvider = (props: { children: React.ReactChild }) => {
-  const [mode, setMode] = React.useState<PaletteMode>('light'); // light or dark default mode is light
+const getColorModeFromLocalStorage = () => {
+  const localStorageMode = localStorage.getItem('colorMode');
+  if (localStorageMode) return JSON.parse(localStorageMode);
+  return 'dark';
+};
 
-  const colorMode = React.useMemo(
+export const ThemeProvider = (props: { children: React.ReactChild }) => {
+  const [mode, setMode] = useState<PaletteMode>(getColorModeFromLocalStorage()); // light or dark default mode is light
+
+  const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
@@ -31,8 +37,12 @@ export const ThemeProvider = (props: { children: React.ReactChild }) => {
     [],
   );
 
+  useEffect(() => {
+    localStorage.setItem('colorMode', JSON.stringify(mode));
+  }, [mode]);
+
   // Update the theme only if the mode changes
-  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
