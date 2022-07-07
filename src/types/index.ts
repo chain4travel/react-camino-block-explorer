@@ -19,9 +19,21 @@ export function getLabel(timeframe: Timeframe) {
 }
 
 export const timeOptions = [
-  { value: Timeframe.HOURS_24, label: getLabel(Timeframe.HOURS_24) },
-  { value: Timeframe.DAYS_7, label: getLabel(Timeframe.DAYS_7) },
-  { value: Timeframe.MONTHS_1, label: getLabel(Timeframe.MONTHS_1) },
+  {
+    value: Timeframe.HOURS_24,
+    label: getLabel(Timeframe.HOURS_24),
+    miniLabel: '24 H',
+  },
+  {
+    value: Timeframe.DAYS_7,
+    label: getLabel(Timeframe.DAYS_7),
+    miniLabel: '7 D',
+  },
+  {
+    value: Timeframe.MONTHS_1,
+    label: getLabel(Timeframe.MONTHS_1),
+    miniLabel: '1 M',
+  },
 ];
 
 export type { RootState };

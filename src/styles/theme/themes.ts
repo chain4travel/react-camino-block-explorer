@@ -283,12 +283,21 @@ const defaultComponents = {
         flexDirection: 'column' as const,
         margin: 'auto',
         flex: 1,
-        // justifyContent: 'center',
         alignItems: 'center',
         marginTop: '140px',
         gap: '20px',
         '@media (max-width: 1024px)': {
           marginTop: '100px',
+        },
+      },
+    },
+  },
+  MuiSvgIcon: {
+    styleOverrides: {
+      root: {
+        '@media (max-width: 400px)': {
+          width: '0.75em',
+          height: '0.75em',
         },
       },
     },
