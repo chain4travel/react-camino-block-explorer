@@ -154,10 +154,12 @@ export function TransactionList({
   title,
   items,
   to,
+  link,
 }: {
   title: string;
   items: Array<CTransaction>;
   to: string;
+  link: boolean;
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery('@media (max-width:899px)');
@@ -284,19 +286,21 @@ export function TransactionList({
           <CircularProgress color="secondary" />
         </Box>
       )}
-      <Box
-        sx={{
-          marginTop: '1rem',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Link style={{ textDecoration: 'none' }} to={to}>
-          <MainButton variant="outlined">Show All</MainButton>
-        </Link>
-      </Box>
+      {link && (
+        <Box
+          sx={{
+            marginTop: '1rem',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Link style={{ textDecoration: 'none' }} to={to}>
+            <MainButton variant="outlined">Show All</MainButton>
+          </Link>
+        </Box>
+      )}
     </Paper>
   );
 }
@@ -315,7 +319,8 @@ export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
         <TransactionList
           title="Latest Transactions"
           items={transactions}
-          to="/transactions"
+          to="/c-chain/transactions"
+          link
         />
       </Grid>
     </Grid>

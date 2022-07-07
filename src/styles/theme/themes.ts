@@ -142,7 +142,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   grey: grey,
   overviewCard: {
     background: '#0F172A',
-    border: '#1E293B',
+    border: '#64748B',
     title: '#64748B',
     subValue: '#64748B',
     contrastText: '#FFFFFF',
