@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import { createReducer } from './reducers';
 import blocksSlice from './cchainSlice';
-import networks from './networkSlice/';
+import networks from './app-config';
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -20,7 +20,7 @@ export function configureAppStore() {
   const { run: runSaga } = sagaMiddleware;
 
   // Create the store with saga middleware
-  const middlewares = [sagaMiddleware];
+  // const middlewares = [sagaMiddleware];
 
   const enhancers = [
     createInjectorsEnhancer({
@@ -34,8 +34,8 @@ export function configureAppStore() {
       cchain: blocksSlice,
       networks,
     },
-    middleware: [...getDefaultMiddleware(), ...middlewares],
-    devTools: process.env.NODE_ENV !== 'production',
+    // middleware: [...getDefaultMiddleware(), ...middlewares],
+    // devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });
 
