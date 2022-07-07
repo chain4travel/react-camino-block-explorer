@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ReactComponent as ComingSoonSvg } from './assets/comingsoon.svg';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { changeNetwork } from 'store/networkSlice';
+import { changeNetwork } from 'store/app-config';
 import MainButton from 'app/components/MainButton';
 import AlignedContainer from 'app/components/AlignedContainer';
 
@@ -36,11 +36,9 @@ export function ComingSoonPage() {
         >
           The Camino Mainnet is not available yet.
         </Typography>
-        <MainButton
-          variant="contained"
-          onClick={handleClick}
-          buttonLabel="Switch to Columbus Network"
-        />
+        <MainButton variant="contained" onClick={handleClick}>
+          Switch to Columbus Network
+        </MainButton>
       </Grid>
     </AlignedContainer>
   );
