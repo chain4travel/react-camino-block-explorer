@@ -69,6 +69,6 @@ jobs:
           context: ./
           tags: |
             ${{ steps.setTagVariables.outputs.branch }}
-            c4tplatform/camino-block-explorer:${{ needs.bump-version.outputs.version }}
+            c4tplatform/camino-block-explorer-dev:${{ needs.bump-version.outputs.version }}
             ${{ steps.setTagVariables.outputs.stable }}
           push: ${{ github.ref == 'refs/heads/main' }}
