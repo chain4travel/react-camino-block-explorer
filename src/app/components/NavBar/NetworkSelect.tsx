@@ -5,13 +5,14 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import { Box } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { getCchainStatus } from 'store/cchainSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   getActiveNetwork,
   getNetworks,
   changeNetwork,
 } from '../../../store/app-config';
+import { useAppSelector } from 'store/configureStore';
 
 function SelectedNetwork({
   value,
@@ -50,10 +51,10 @@ const nameOfActiveNetwork = (networks, id) => {
 };
 
 export default function NetworkSelect() {
-  const status = useSelector(getCchainStatus);
+  const status = useAppSelector(getCchainStatus);
   const navigate = useNavigate();
-  const networks = useSelector(getNetworks);
-  const activeNetwork = useSelector(getActiveNetwork);
+  const networks = useAppSelector(getNetworks);
+  const activeNetwork = useAppSelector(getActiveNetwork);
   const [network, setNetwork] = React.useState(
     nameOfActiveNetwork(networks, activeNetwork),
   );
@@ -64,9 +65,8 @@ export default function NetworkSelect() {
   React.useEffect(() => {
     setNetwork(nameOfActiveNetwork(networks, activeNetwork));
     if (activeNetwork === 'camino-testnet') navigate('/');
-    if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeNetwork]);
+    else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+  }, [activeNetwork]); // eslint-disable-line
 
   return (
     <Box
@@ -75,7 +75,7 @@ export default function NetworkSelect() {
       <Select
         variant="outlined"
         onChange={handleChange}
-        value={activeNetwork}
+        value={network}
         IconComponent={KeyboardArrowDownRoundedIcon}
         renderValue={value => {
           return <SelectedNetwork value={network} networkStatus={status} />;

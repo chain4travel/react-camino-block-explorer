@@ -125,7 +125,6 @@ const columns: ColumnType[] = [
 export function TableDetials() {
   const theme = useTheme();
   const tableEl = React.useRef<HTMLDivElement>(null);
-  // const blocks = useSelector(selectAllBlocks);
   const isMobile = useMediaQuery('@media (max-width:1200px)');
   const [distanceBottom, setDistanceBottom] = React.useState(0);
   const [hasMore] = React.useState(true);
@@ -348,7 +347,12 @@ export function TableDetials() {
                       ]}
                     >
                       <TableCell component="th" scope="row">
-                        {row.number}
+                        <AddressLink
+                          to={`/c-chain/blocks/${row.number}`}
+                          value={row.number}
+                          typographyVariant="body1"
+                          truncate={true}
+                        />
                       </TableCell>
                       <TableCell align="left">
                         {getRelativeTime(row.timestamp) + ' ago'}

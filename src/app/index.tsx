@@ -8,7 +8,7 @@ import { XChainPage } from './pages/XChainPage';
 import { PChainPage } from './pages/PChainPage';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
-import { BlockDetails } from './pages/CChainBlocks/BlockDetails';
+import { BlockDetails } from './pages/CChainPages/BlockDetails';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
 import { TransactionDetails } from './pages/CChainPages/TransactionDetails';

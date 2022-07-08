@@ -12,74 +12,24 @@ import {
   useTheme,
 } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import axios from 'axios';
 import { TransactionList } from 'app/components/LatestBlocksAndTransactionsList';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// xs, sm, md, lg, and xl.
-interface BlockDetail {
-  hash: string;
-  number: number;
-  parentHash: string;
-  baseGaseFee: number;
-  fees: number;
-  gasUsed: string;
-  time: string;
-  transactionsCount: number;
-  extData: string;
-  transactions: any;
-}
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import { fetchCBlockDetail } from 'store/cchainSlice/utils';
+import { getCBlockDetail } from 'store/cchainSlice';
 
 export function BlockDetails() {
   const theme = useTheme();
-  const [result, setResult] = React.useState<BlockDetail>();
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  async function fetchBlockDetail(number: number) {
-    const res = await axios.get(
-      `https://magellan.columbus.camino.foundation/v2/ctxdata/${number}`,
-    );
-    let block: BlockDetail = {
-      hash: res.data.hash, //done
-      number: parseInt(res.data.header.number), //done
-      parentHash: res.data.header.parentHash, //done
-      // parentBlockNumber: parseInt(res.data.header.number), to review
-      baseGaseFee: parseInt(res.data.header.baseFeePerGas), //done
-      fees: 0,
-      gasUsed: parseInt(res.data.header.gasUsed).toLocaleString('en-US'),
-      time: new Date(parseInt(res.data.header.timestamp) * 1000).toString(),
-      transactionsCount: res.data.transactions
-        ? res.data.transactions.length
-        : 0,
-      extData: res.data.header.extraData,
-      transactions: res.data.transactions
-        ? res.data.transactions.map(item => ({
-            block: item.block,
-            index: parseInt(item.receipt.transactionIndex),
-            from: item.fromAddr,
-            hash: item.hash,
-            status: item.receipt.status,
-            timestamp: new Date(item.createdAt),
-            to: item.toAddr,
-            transactionCost: item.receipt.gasUsed
-              ? parseInt(item.receipt.gasUsed) *
-                parseInt(item.receipt.effectiveGasPrice)
-              : parseInt(item.maxFeePerGas) *
-                parseInt(item.receipt.effectiveGasPrice),
-            value: parseInt(item.value),
-          }))
-        : [],
-    };
-    block.fees += block.transactions
-      .map(e => e.transactionCost)
-      .reduce((pv, cv) => pv + cv, 0);
-    setResult(block);
-  }
-  React.useEffect(() => {
-    // console.log(location.pathname.split('/')[3]);
-    fetchBlockDetail(parseInt(location.pathname.split('/')[3]));
-  }, [location]);
+  const blockDetails = useAppSelector(getCBlockDetail);
 
-  // const isMobile = useMediaQuery('@media (max-width:899px)');
+  React.useEffect(() => {
+    dispatch(fetchCBlockDetail(parseInt(location.pathname.split('/')[3])));
+  }, [location, dispatch]);
+  React.useEffect(() => {}, [blockDetails]);
+
   return (
     <Container maxWidth="xl">
       <Helmet>
@@ -128,10 +78,10 @@ export function BlockDetails() {
               C-Chain Block {location.pathname.split('/')[3]}
             </Typography>
           </Grid>
-          {result && (
+          {blockDetails && (
             <RowContainer
               type="hash"
-              content={result['hash']}
+              content={blockDetails['hash']}
               theme={theme}
               head={true}
               parent
@@ -143,11 +93,11 @@ export function BlockDetails() {
             alignItems="center"
             sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
           >
-            {result &&
-              Object.entries(result).map((item, index) => {
+            {blockDetails &&
+              Object.entries(blockDetails).map((item, index) => {
                 if (
                   item[0] !== 'hash' &&
-                  index < Object.entries(result).length - 1
+                  index < Object.entries(blockDetails).length - 1
                 )
                   return (
                     <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
@@ -158,7 +108,7 @@ export function BlockDetails() {
                         theme={theme}
                         parent={parseInt(location.pathname.split('/')[3]) - 1}
                       />
-                      {index !== Object.entries(result).length - 1 && (
+                      {index !== Object.entries(blockDetails).length - 1 && (
                         <Divider variant="fullWidth" />
                       )}
                     </Grid>
@@ -173,11 +123,11 @@ export function BlockDetails() {
         rowSpacing={{ xs: 4, lg: '0!important' }}
         columnSpacing={{ xs: 0, lg: 4 }}
       >
-        {result && (
+        {blockDetails && (
           <Grid item xs={12} lg={12}>
             <TransactionList
               title="Block Transactions"
-              items={result?.transactions}
+              items={blockDetails?.transactions}
               to="/c-chain/transactions"
               link={false}
             />
