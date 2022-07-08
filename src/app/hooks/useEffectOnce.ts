@@ -4,8 +4,7 @@ export const useEffectOnce = (effect: () => void | (() => void)) => {
   const destroyFunc = useRef<void | (() => void)>();
   const effectCalled = useRef(false);
   const renderAfterCalled = useRef(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setVal] = useState<number>(0);
+  const [, setVal] = useState<number>(0);
 
   if (effectCalled.current) {
     renderAfterCalled.current = true;
