@@ -108,9 +108,7 @@ function createFundFromOutput(magellanOutput: MagellanXPOutput): Fund {
   };
 }
 
-export function getInputFunds(
-  magellanTransaction: MagellanXPTransaction,
-): Fund[] {
+function getInputFunds(magellanTransaction: MagellanXPTransaction): Fund[] {
   const inputfunds: Fund[] = [];
   if (magellanTransaction.inputs) {
     for (const input of magellanTransaction.inputs) {
@@ -121,9 +119,7 @@ export function getInputFunds(
   }
   return inputfunds.sort(sortByAddress);
 }
-export function getOutputFunds(
-  magellanTransaction: MagellanXPTransaction,
-): Fund[] {
+function getOutputFunds(magellanTransaction: MagellanXPTransaction): Fund[] {
   const outputfunds: Fund[] = [];
   for (const output of magellanTransaction.outputs || []) {
     outputfunds.push(createFundFromOutput(output));
