@@ -28,26 +28,26 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   selectAllXTransactions,
-  getXchainStatus,
-  getXchainError,
-  getXchainOverreview,
+  // getXchainStatus,
+  // getXchainError,
+  // getXchainOverreview,
 } from 'store/xchainSlice';
 import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types';
 
 export function XChainPage() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectAllXTransactions);
-  const error = useAppSelector(getXchainError);
-  const {
-    numberOfTransactions,
-    totalGasFees,
-    numberOfActiveValidators,
-    numberOfValidators,
-    percentageOfActiveValidators,
-    gasFeesLoading,
-    transactionsLoading,
-    validatorsLoading,
-  } = useAppSelector(getXchainOverreview);
+  // const error = useAppSelector(getXchainError);
+  // const {
+  //   numberOfTransactions,
+  //   totalGasFees,
+  //   numberOfActiveValidators,
+  //   numberOfValidators,
+  //   percentageOfActiveValidators,
+  //   gasFeesLoading,
+  //   transactionsLoading,
+  //   validatorsLoading,
+  // } = useAppSelector(getXchainOverreview);
   useEffectOnce(() => {
     dispatch(fetchXTransactions());
   });
