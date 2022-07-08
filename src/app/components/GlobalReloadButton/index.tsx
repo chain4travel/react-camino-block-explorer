@@ -1,17 +1,18 @@
 import * as React from 'react';
 import Replay from '@mui/icons-material/Replay';
 import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  getCchainOverreview,
+  getCchainStatus,
+  getTimeFrame,
+} from 'store/cchainSlice';
 import {
   fetchBlocksTransactions,
-  getCchainOverreview,
-  getTimeFrame,
   loadNumberOfTransactions,
   loadTotalGasFess,
   loadValidators,
-  getCchainStatus,
-} from 'store/cchainSlice';
-import { useAppDispatch } from 'store/configureStore';
+} from 'store/cchainSlice/utils';
 
 export default function GlobalReloadButton({
   style,
@@ -19,10 +20,10 @@ export default function GlobalReloadButton({
   style?: React.CSSProperties;
 }) {
   const dispatch = useAppDispatch();
-  const frameTime = useSelector(getTimeFrame);
-  const status = useSelector(getCchainStatus);
+  const frameTime = useAppSelector(getTimeFrame);
+  const status = useAppSelector(getCchainStatus);
   const { gasFeesLoading, transactionsLoading, validatorsLoading } =
-    useSelector(getCchainOverreview);
+    useAppSelector(getCchainOverreview);
   const handleClick = () => {
     if (
       gasFeesLoading !== 'loading' &&
