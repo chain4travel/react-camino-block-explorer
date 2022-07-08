@@ -62,7 +62,7 @@ jobs:
           if [[ "${{ github.ref_name }}" == "main" ]]; then
               echo "::set-output name=stable::c4tplatform/camino-block-explorer-dev:stable"
           fi
-          echo "::set-output name=branch::c4tplatform/camino-block-explorer:${BRANCH_NAME////-}-${{ github.run_id }}"
+          echo "::set-output name=branch::c4tplatform/camino-block-explorer-dev:${BRANCH_NAME////-}-${{ github.run_id }}"
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
