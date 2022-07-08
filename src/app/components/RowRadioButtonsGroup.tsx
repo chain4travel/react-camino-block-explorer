@@ -6,15 +6,16 @@ import {
   FormControl,
 } from '@mui/material';
 import { Timeframe, timeOptions } from 'types';
-import { useSelector } from 'react-redux';
 import {
-  loadNumberOfTransactions,
-  loadTotalGasFess,
   getTimeFrame,
   changetimeFrame,
   getCchainOverreview,
 } from 'store/cchainSlice';
-import { useAppDispatch } from 'store/configureStore';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  loadNumberOfTransactions,
+  loadTotalGasFess,
+} from 'store/cchainSlice/utils';
 import useWidth from 'app/hooks/useWidth';
 
 export default function RowRadioButtonsGroup({
@@ -24,7 +25,7 @@ export default function RowRadioButtonsGroup({
   chainType?: string;
   style?: React.CSSProperties;
 }) {
-  const timeFrame = useSelector(getTimeFrame);
+  const timeFrame = useAppSelector(getTimeFrame);
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
   const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +37,7 @@ export default function RowRadioButtonsGroup({
       setValue((event.target as HTMLInputElement).value);
   };
   const { gasFeesLoading, transactionsLoading, validatorsLoading } =
-    useSelector(getCchainOverreview);
+    useAppSelector(getCchainOverreview);
 
   useEffect(() => {
     dispatch(loadNumberOfTransactions(timeFrame));

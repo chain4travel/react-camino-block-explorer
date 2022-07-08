@@ -1,4 +1,5 @@
-import { Duration } from 'luxon';
+import { DateTime, Duration } from 'luxon';
+import { Timeframe } from 'types';
 
 export interface Fund {
   address: string;
@@ -6,6 +7,17 @@ export interface Fund {
   signature?: string;
 }
 
+export function getStartDate(endDate: DateTime, timeframe: string): DateTime {
+  switch (timeframe) {
+    case Timeframe.DAYS_7:
+      return endDate.minus({ weeks: 1 });
+    case Timeframe.HOURS_24:
+      return endDate.minus({ days: 1 });
+    case Timeframe.MONTHS_1:
+      return endDate.minus({ months: 1 });
+  }
+  return endDate.minus({ weeks: 1 });
+}
 // Todo: Update the getRelativeTime function
 export function getRelativeTime(timestamp: Date | number | string): string {
   const time = getTime(timestamp);
