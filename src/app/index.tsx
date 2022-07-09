@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { CChainPage } from './pages/CChainPages';
-import { XChainPage } from './pages/XChainPage';
+import { XChainPage, XAddressDetail } from './pages/XChainPages';
 import { PChainPage } from './pages/PChainPage';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
@@ -19,7 +19,7 @@ export function App() {
     <BrowserRouter>
       <CssBaseline enableColorScheme />
       <Helmet
-        titleTemplate="Camino Block Explorer %s"
+        titleTemplate="%s | Camino Block Explorer"
         defaultTitle="Camino Block Explorer"
         htmlAttributes={{ lang: i18n.language }}
       >
@@ -27,7 +27,7 @@ export function App() {
       </Helmet>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<CChainPage />} />
+          <Route path="/" element={<Navigate to="/c-chain" />} />
           <Route path="/c-chain" element={<CChainPage />} />
           <Route path="/c-chain/blocks" element={<TableDetials />} />
           <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
@@ -36,7 +36,10 @@ export function App() {
             element={<TransactionDetails />}
           />
           <Route path="/x-chain" element={<XChainPage />} />
-          <Route path="x-chain/details/address/:id" element={<XChainPage />} />
+          <Route
+            path="x-chain/details/address/:id"
+            element={<XAddressDetail />}
+          />
           <Route path="/p-chain" element={<PChainPage />} />
           <Route
             path="/p-chain/transactions/:is"

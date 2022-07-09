@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Container, Grid } from '@mui/material';
+import PageContainer from 'app/components/PageConatiner';
 import OverviewCards from '../../components/OverviewCards';
 import RowRadioButtonsGroup from '../../components/RowRadioButtonsGroup';
 import GlobalReloadButton from '../../components/GlobalReloadButton';
+import { Grid } from '@mui/material';
 import { fetchXTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -18,7 +18,7 @@ import XPTransactionItem from 'app/components/XChainPageComponents/XPTransaction
 import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
 import { ChainType } from 'utils/types/chain-type';
 
-export function XChainPage() {
+export default function XChainPage() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectAllXTransactions);
   // const error = useAppSelector(getXchainError);
@@ -37,11 +37,7 @@ export function XChainPage() {
   });
 
   return (
-    <Container fixed maxWidth="xl">
-      <Helmet>
-        <title>x-chain</title>
-        <meta name="description" content="chain-overview x-chain" />
-      </Helmet>
+    <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
       <Grid container spacing={{ xs: 3, md: 1 }}>
         <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
           <RowRadioButtonsGroup />
@@ -74,6 +70,6 @@ export function XChainPage() {
           </XPItemDivider>
         ))}
       </XPTransactionList>
-    </Container>
+    </PageContainer>
   );
 }
