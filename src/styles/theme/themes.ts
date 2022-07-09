@@ -1,5 +1,6 @@
 import { Palette } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import '@fontsource/plus-jakarta-sans';
 
 const grey = {
   50: '#F8FAFC',
@@ -162,6 +163,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
 const defaultTheme = {
   typography: {
     fontSize: 16,
+    fontFamily: '"Plus Jakarta Sans", sans-serif',
     h1: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',

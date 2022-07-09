@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { GlobalStyle } from 'styles/global-styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -46,7 +45,6 @@ export function App() {
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
-      <GlobalStyle />
     </BrowserRouter>
   );
 }
