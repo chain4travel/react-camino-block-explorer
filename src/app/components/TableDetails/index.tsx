@@ -252,11 +252,8 @@ export function TableDetials() {
                             container
                             rowSpacing={2}
                             justifyContent="space-between"
-                            sx={{
-                              padding: '0.5rem 0rem 0.5rem 0rem',
-                            }}
                           >
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12}>
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -270,7 +267,7 @@ export function TableDetials() {
                                 truncate={true}
                               />
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -281,7 +278,7 @@ export function TableDetials() {
                                 {getRelativeTime(row.timestamp) + ' ago'}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -292,14 +289,7 @@ export function TableDetials() {
                                 {row.numberOfTransactions}
                               </Typography>
                             </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              md={6}
-                              lg={5}
-                              xl={6}
-                              justifyContent="flex-start"
-                            >
+                            <Grid item xs={12} md={6} lg={5} xl={6}>
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -310,7 +300,7 @@ export function TableDetials() {
                                 {row.hash}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -321,7 +311,7 @@ export function TableDetials() {
                                 {row.gasUsed}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"

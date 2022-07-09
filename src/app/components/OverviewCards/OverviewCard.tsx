@@ -6,6 +6,7 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material';
+import { status } from 'types';
 
 type OverviewCardProps = {
   title: string;
@@ -83,10 +84,10 @@ export const OverviewCard: FC<OverviewCardProps> = ({
   );
 };
 
-const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
-  if (loading === 'succeeded') {
+export const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
+  if (loading === status.SUCCEEDED) {
     return <>{children}</>;
-  } else if (loading === 'failed') {
+  } else if (loading === status.FAILED) {
     return (
       <Typography
         variant="h4"

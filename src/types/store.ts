@@ -22,6 +22,7 @@ export interface initialCchainStateType {
   error: undefined | string;
   timeFrame: string;
   blockDetail?: BlockDetail;
+  loadBlockDetial: status;
   ChainOverview: ChainOverviewType;
 }
 
