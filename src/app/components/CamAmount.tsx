@@ -4,10 +4,7 @@ import { ReactComponent as GasStationOutline } from './assets/gas-station-outlin
 import { ReactComponent as ACamIcon } from './assets/a-cam.svg';
 import { ReactComponent as NCamIcon } from './assets/n-cam.svg';
 import { ReactComponent as CamIcon } from './assets/cam.svg';
-import {
-  getDisplayAmount,
-  getACamAmount,
-} from '../../utils/currency/currency-utils';
+import { getDisplayAmount, getACamAmount } from '../../utils/currency-utils';
 
 export function AmountIcon({ currency }) {
   return (

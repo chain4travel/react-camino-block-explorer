@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDisplayValueForGewi } from '../../../utils/currency/currency-utils';
+import { getDisplayValueForGewi } from '../../../utils/currency-utils';
 import { OverviewCard } from './OverviewCard';
 import { Grid } from '@mui/material';
 

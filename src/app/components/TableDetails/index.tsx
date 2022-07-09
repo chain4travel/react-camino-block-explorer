@@ -17,7 +17,7 @@ import { Replay } from '@mui/icons-material';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { getRelativeTime } from 'utils/display/display-utils';
+import { getRelativeTime } from 'utils/display-utils';
 import { TableCellProps } from '@mui/material';
 import AddressLink from '../AddressLink';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
