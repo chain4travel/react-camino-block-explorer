@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { GlobalStyle } from 'styles/global-styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -29,7 +28,7 @@ export function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<CChainPage />} />
-          <Route path="/c-chain" element={<CChainPage />}></Route>
+          <Route path="/c-chain" element={<CChainPage />} />
           <Route path="/c-chain/blocks" element={<TableDetials />} />
           <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
           <Route
@@ -37,6 +36,7 @@ export function App() {
             element={<TransactionDetails />}
           />
           <Route path="/x-chain" element={<XChainPage />} />
+          <Route path="x-chain/details/address/:id" element={<XChainPage />} />
           <Route path="/p-chain" element={<PChainPage />} />
           <Route
             path="/p-chain/transactions/:is"
@@ -46,7 +46,6 @@ export function App() {
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
-      <GlobalStyle />
     </BrowserRouter>
   );
 }
