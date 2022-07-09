@@ -117,9 +117,10 @@ const XPTransactionSecondSection = ({
                   style={{
                     marginLeft: !isMobile ? 'auto' : '',
                     color:
-                      from && from[0] && tx.address === from[0].address
-                        ? '#616161'
-                        : 'white',
+                      from &&
+                      from[0] &&
+                      tx.address === from[0].address &&
+                      '#616161',
                   }}
                 />
               </Grid>
