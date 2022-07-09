@@ -24,7 +24,7 @@ jobs:
         uses: codacy/git-version@2.4.0
         name: Git Version
         with:
-          release-branch: main
+          release-branch: master
           dev-branch: develop
       - id: output
         run: echo "::set-output name=version::${{ steps.setversion.outputs.version }}"
@@ -32,7 +32,7 @@ jobs:
   tag-commit:
     runs-on: ubuntu-latest
     needs: bump-version
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
       - name: Create Git tag
@@ -74,4 +74,4 @@ jobs:
             ${{ steps.setTagVariables.outputs.branch }}
             c4tplatform/camino-block-explorer-dev:${{ needs.bump-version.outputs.version }}
             ${{ steps.setTagVariables.outputs.stable }}
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: ${{ github.ref == 'refs/heads/master' }}
