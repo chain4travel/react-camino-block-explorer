@@ -1,6 +1,6 @@
 import { status } from 'types';
 import { BlockDetail, BlockTableData } from './block';
-import { CTransaction, XPTransaction } from './transaction';
+import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 
 export interface ChainOverviewType {
   numberOfTransactions: number;
@@ -23,6 +23,8 @@ export interface initialCchainStateType {
   timeFrame: string;
   blockDetail?: BlockDetail;
   loadBlockDetial: status;
+  loadTransactionDetails: status;
+  transcationDetails?: TranscationDetails;
   ChainOverview: ChainOverviewType;
 }
 

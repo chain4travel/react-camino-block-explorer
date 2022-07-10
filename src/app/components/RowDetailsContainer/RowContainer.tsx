@@ -79,53 +79,6 @@ function checkWei(type: string): boolean {
   return false;
 }
 
-// function getContentFromType(
-//   type: string,
-//   value: string,
-// ): string | number | Date | any {
-//   switch (type) {
-//     case 'hash':
-//       return value;
-//     case 'transaction':
-//       return value;
-//     case 'number':
-//       return parseInt(value);
-//     case 'parentHash':
-//       return value;
-//     case 'baseGaseFee':
-//       return parseInt(value);
-//     case 'fees':
-//       return parseInt(value);
-//     //   return '0.12';
-//     case 'gasUsed':
-//       return getDisplayAmount(parseInt(value)).value.toLocaleString('en-US');
-//     //   return parseInt(value);
-//     case 'time':
-//       //   return `${getRelativeTime(
-//       //     new Date(parseInt(value) * 1000),
-//       //   )} ago    ${new Date(parseInt(value) * 1000)}`;
-//       return new Date(parseInt(value) * 1000);
-//     //   return 'pikala';
-//     case 'transactionsCount':
-//       return value;
-//     case 'extData':
-//       return value;
-//     // transaction
-//     //first part
-//     case 'type':
-//       return value;
-//     case 'createdAt':
-//       return value;
-//     case 'fromAddr':
-//       return value;
-//     case 'toAddr':
-//       return value;
-//     case 'block':
-//       return value;
-//   }
-//   return '';
-// }
-
 function checkHash(type: string): boolean {
   if (
     type === 'hash' ||
@@ -210,7 +163,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
             </Grid>
           ) : (
             <Typography variant="body1" noWrap>
-              {content.toString()}
+              {content.toLocaleString('en-US')}
             </Typography>
           )}
         </Grid>

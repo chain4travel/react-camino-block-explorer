@@ -85,3 +85,19 @@ export const fetchCBlockDetail = createAsyncThunk(
     return res;
   },
 );
+
+export const fetchTransactionDetails = createAsyncThunk(
+  'cchain/transactionDetail',
+  async (adress: string) => {
+    let networks = store.getState().networks;
+    let activeNetwork = networks.networks.find(
+      element => element.id === networks.activeNetwork,
+    );
+    const res = (
+      await axios.get(
+        `${activeNetwork?.magellanAddress}/v2/ctransactions?hash=${adress}`,
+      )
+    ).data.Transactions[0];
+    return res;
+  },
+);

@@ -83,3 +83,23 @@ export interface CAddressTransactionTableData {
   txnFee: number;
   direction: 'out' | 'in';
 }
+
+export interface TransactionInformations {
+  type: number;
+  block: number;
+  createdAt: Date;
+  fromAddr: string;
+  toAddr: string;
+}
+
+export interface TransactionCurrencuy {
+  maxFeePerGas: number;
+  maxPriorityFeePerGas: number;
+  gasUsed: number;
+  effectiveGasPrice: number;
+  transactionCost: number;
+}
+export interface TranscationDetails {
+  transactionInformations: TransactionInformations;
+  transactionCurrencuy: TransactionCurrencuy;
+}
