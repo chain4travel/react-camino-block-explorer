@@ -3,7 +3,7 @@ import React from 'react';
 import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import { CChainPage } from './pages/CChainPages';
+import { CChainPage } from './pages/CChainPage';
 import {
   XChainPage,
   XAddressDetail,
@@ -12,10 +12,9 @@ import {
 import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
-import { BlockDetails } from './pages/CChainPages/BlockDetails';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
-import { TransactionDetails } from './pages/CChainPages/TransactionDetails';
+import { TransactionDetails, BlockDetails } from './pages/CChainPage';
 export function App() {
   const { i18n } = useTranslation();
 
@@ -57,6 +56,7 @@ export function App() {
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
+      <GlobalStyle />
     </BrowserRouter>
   );
 }

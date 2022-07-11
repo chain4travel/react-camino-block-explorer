@@ -1,5 +1,5 @@
 import React from 'react';
-import PageContainer from 'app/components/PageConatiner';
+import PageContainer from 'app/components/PageContainer';
 import {
   Typography,
   Box,

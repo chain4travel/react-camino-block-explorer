@@ -1,9 +1,6 @@
 import * as React from 'react';
-import PageContainer from 'app/components/PageConatiner';
+import PageContainer from 'app/components/PageContainer';
 import OverviewCards from '../../components/OverviewCards';
-import RowRadioButtonsGroup from '../../components/RowRadioButtonsGroup';
-import GlobalReloadButton from '../../components/GlobalReloadButton';
-import { Grid } from '@mui/material';
 import { fetchXPTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -16,6 +13,7 @@ import {
 import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
 import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
 import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
+import DataControllers from 'app/components/DataControllers';
 import { ChainType } from 'utils/types/chain-type';
 import { LoadingWrapper } from 'app/components/LoadingWrapper';
 
@@ -45,14 +43,7 @@ export default function XChainPage() {
 
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <Grid container spacing={{ xs: 3, md: 1 }}>
-        <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
-          <RowRadioButtonsGroup />
-        </Grid>
-        <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-          <GlobalReloadButton style={{ display: 'flex', marginLeft: 'auto' }} />
-        </Grid>
-      </Grid>
+      <DataControllers />
       <OverviewCards
         numberOfTransactions={0}
         totalGasFees={0}

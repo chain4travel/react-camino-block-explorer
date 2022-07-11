@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PageContainer from 'app/components/PageConatiner';
+import PageContainer from 'app/components/PageContainer';
 import OverviewCards from '../../components/OverviewCards';
 import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
 import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
