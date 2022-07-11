@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { transactions } from './fakeData';
 
 import { Link } from 'react-router-dom';
 
@@ -24,8 +23,35 @@ import { CamAmount } from '../../components/CamAmount';
 import { mdiCubeOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import RelativeTime from 'app/components/RelativeTime';
+import { fetchXTransactions } from 'store/xchainSlice/utils';
+import { useEffectOnce } from 'app/hooks/useEffectOnce';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  selectAllXTransactions,
+  // getXchainStatus,
+  // getXchainError,
+  // getXchainOverreview,
+} from 'store/xchainSlice';
+import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types';
 
 export function XChainPage() {
+  const dispatch = useAppDispatch();
+  const transactions = useAppSelector(selectAllXTransactions);
+  // const error = useAppSelector(getXchainError);
+  // const {
+  //   numberOfTransactions,
+  //   totalGasFees,
+  //   numberOfActiveValidators,
+  //   numberOfValidators,
+  //   percentageOfActiveValidators,
+  //   gasFeesLoading,
+  //   transactionsLoading,
+  //   validatorsLoading,
+  // } = useAppSelector(getXchainOverreview);
+  useEffectOnce(() => {
+    dispatch(fetchXTransactions());
+  });
+
   return (
     <Container fixed maxWidth="xl">
       <Helmet>
@@ -51,7 +77,7 @@ export function XChainPage() {
         validatorsLoading="succeeded"
       />
       <XPTransactionList ShowAllLink="/">
-        {transactions.map((transaction, index) => (
+        {transactions?.map((transaction, index) => (
           <XPItemDivider index={index} max={transactions.length - 1}>
             <XPTransactionItem data={transaction} />
           </XPItemDivider>
@@ -65,22 +91,31 @@ const XPTransactionItem = ({ data }) => {
   return (
     <Grid container columnSpacing={{ md: 2 }} rowSpacing={{ xs: 2, md: 0 }}>
       <Grid container item xs={12} md={4}>
-        <TransactionFirstSection />
+        <TransactionFirstSection
+          id={data.id}
+          timestamp={data.timestamp}
+          type={data.type}
+        />
       </Grid>
       <Grid container item xs={12} md={8} columnSpacing={2}>
         <Grid item xs={12} lg={8}>
-          <TransactionSecondSection type="From" data={data['inputs']} />
-          <TransactionSecondSection type="To" data={data['outputs']} />
+          <TransactionSecondSection type="From" data={data.from} />
+          <TransactionSecondSection
+            type="To"
+            data={data.to}
+            from={data.from}
+            to={data.to.address}
+          />
         </Grid>
         <Grid item xs={12} lg={4}>
-          <TransactionThirdSection />
+          <TransactionThirdSection value={data.fee} />
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-const TransactionFirstSection = () => {
+const TransactionFirstSection = ({ id, timestamp, type }) => {
   const isMobile = useMediaQuery('@media (max-width:600px)');
   return (
     <>
@@ -92,14 +127,14 @@ const TransactionFirstSection = () => {
       <Grid item xs={8} sm={6}>
         <AddressLink
           to={`/chain`}
-          value={`Qiu6CeNctLShkSfyRELkgivc3bfHffGmiCQZHMj3JU1nM4c3f`}
+          value={id}
           typographyVariant="body1"
           truncate={true}
         />
-        <RelativeTime value={1657161269000} />
+        <RelativeTime value={timestamp} />
       </Grid>
       <Grid item xs={4} md={3} lg={4}>
-        <Chip label="export" />
+        <Chip label={type} style={{ minWidth: '61px' }} />
       </Grid>
     </>
   );
@@ -107,10 +142,14 @@ const TransactionFirstSection = () => {
 
 const TransactionSecondSection = ({
   type,
+  to,
+  from,
   data,
 }: {
   type: string;
-  data: object[];
+  data: MagellanXPInput[] | MagellanXPOutput[];
+  to?: MagellanXPInput;
+  from?: MagellanXPOutput;
 }) => {
   const isMobile = useMediaQuery('@media (max-width:600px)');
   return (
@@ -126,18 +165,25 @@ const TransactionSecondSection = ({
               style={{ padding: '0rem 0rem .5rem 0rem' }}
               key={index}
             >
-              <Grid item xs={12} sm={7} xl={7}>
+              <Grid item xs={12} sm={6} xl={7}>
                 <AddressLink
                   to={`/chain`}
-                  value={`Qiu6CeNctLShkSfyRELkgivc3bfHffGmiCQZHMj3JU1nM4c3f`}
+                  value={tx.address}
                   typographyVariant="body1"
                   truncate={true}
                 />
               </Grid>
-              <Grid item xs={12} sm={5} xl={5}>
+              <Grid item xs={12} sm={6} xl={5}>
                 <CamAmount
-                  amount={986323974000000}
-                  style={{ marginLeft: !isMobile ? 'auto' : '' }}
+                  amount={tx.value}
+                  currency="nCam"
+                  style={{
+                    marginLeft: !isMobile ? 'auto' : '',
+                    color:
+                      from && from[0] && tx.address === from[0].address
+                        ? '#616161'
+                        : 'white',
+                  }}
                 />
               </Grid>
             </Grid>
@@ -149,7 +195,7 @@ const TransactionSecondSection = ({
   );
 };
 
-const TransactionThirdSection = () => {
+const TransactionThirdSection = ({ value }) => {
   const isMobile = useMediaQuery('@media (max-width:1199px)');
   return (
     <>
@@ -166,7 +212,11 @@ const TransactionThirdSection = () => {
           </Grid>
         )}
         <Grid item xs={6} lg={12}>
-          <CamAmount amount={9998298250} style={{ marginLeft: 'auto' }} />
+          <CamAmount
+            amount={value}
+            currency="nCam"
+            style={{ marginLeft: 'auto' }}
+          />
         </Grid>
       </Grid>
     </>
@@ -270,20 +320,25 @@ const XPItemDivider = ({
 ////      CHIP COMPONENT      ////
 //////////////////////////////////
 
-const Chip = ({ label }: { label: string }) => {
+const Chip = ({
+  label,
+  style,
+}: {
+  label: string;
+  style: React.CSSProperties;
+}) => {
   return (
     <Box
       sx={{
         display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'latestList.iconBackground',
         width: 'min-content',
-        padding: '5px 10px 5px 10px',
+        padding: '3px 10px 3px 10px',
         borderRadius: '12px',
-        // textFont: '10px',
-        // height: '25px',
         marginLeft: 'auto',
+        ...style,
       }}
     >
       <Typography variant="caption" component="span">

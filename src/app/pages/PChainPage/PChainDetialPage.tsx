@@ -15,23 +15,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { Link } from 'react-router-dom';
-// xs, sm, md, lg, and xl.
-
-// export function createTransaction(
-// magellanTransaction: MagellanXPTransaction
-//   ): XPTransaction {
-// return <XPTransaction>{
-//   id: magellanTransaction.id,
-//   timestamp: new Date(Date.parse(magellanTransaction.timestamp)),
-//   type: magellanTransaction.type,
-//   from: getInputFunds(magellanTransaction),
-//   to: getOutputFunds(magellanTransaction),
-//   fee: magellanTransaction.txFee,
-//   inputTotals: magellanTransaction.inputTotals,
-//   outputTotals: magellanTransaction.outputTotals,
-//   status: 'accepted', //TODO: set dynamically when magellan delivers this information
-//   memo: convertMemo(magellanTransaction.memo),
-// };
 
 function sortByAddress(a: Fund, b: Fund): number {
   return a.address.localeCompare(b.address);
@@ -108,9 +91,7 @@ function createFundFromOutput(magellanOutput: MagellanXPOutput): Fund {
   };
 }
 
-export function getInputFunds(
-  magellanTransaction: MagellanXPTransaction,
-): Fund[] {
+function getInputFunds(magellanTransaction: MagellanXPTransaction): Fund[] {
   const inputfunds: Fund[] = [];
   if (magellanTransaction.inputs) {
     for (const input of magellanTransaction.inputs) {
@@ -121,9 +102,7 @@ export function getInputFunds(
   }
   return inputfunds.sort(sortByAddress);
 }
-export function getOutputFunds(
-  magellanTransaction: MagellanXPTransaction,
-): Fund[] {
+function getOutputFunds(magellanTransaction: MagellanXPTransaction): Fund[] {
   const outputfunds: Fund[] = [];
   for (const output of magellanTransaction.outputs || []) {
     outputfunds.push(createFundFromOutput(output));
@@ -187,9 +166,6 @@ export function PChainDetailPage() {
     fetchTransactionDetail();
   });
 
-  //   React.useEffect(() => {
-  //     if (result) console.log(result['hash']);
-  //   }, [result]);
   return (
     <Container maxWidth="xl">
       <Helmet>
@@ -245,7 +221,6 @@ export function PChainDetailPage() {
               theme={theme}
               head={true}
               parent
-              //   p-x={{ transaction: transaction }}
             />
           )}
           <Grid
@@ -256,7 +231,7 @@ export function PChainDetailPage() {
           >
             {details &&
               Object.entries(details).map((item, index) => {
-                if (index === 0) return;
+                if (index === 0) return <div key={index}></div>;
                 return (
                   <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
                     <RowContainer
