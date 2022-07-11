@@ -5,14 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { CChainPage } from './pages/CChainPages';
 import { XChainPage, XAddressDetail } from './pages/XChainPages';
-import { PChainPage } from './pages/PChainPage';
+import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { BlockDetails } from './pages/CChainPages/BlockDetails';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
 import { TransactionDetails } from './pages/CChainPages/TransactionDetails';
-import { PChainDetailPage } from './pages/PChainPage/PChainDetialPage';
 export function App() {
   const { i18n } = useTranslation();
 
