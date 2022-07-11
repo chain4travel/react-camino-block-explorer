@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material';
 import * as React from 'react';
-import { mdiCubeOutline } from '@mdi/js';
-import Icon from '@mdi/react';
+// import { mdiCubeOutline } from '@mdi/js';
+// import Icon from '@mdi/react';
 import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';

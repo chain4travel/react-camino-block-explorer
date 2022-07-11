@@ -3,13 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
 
 import {
-  Box,
   Button,
   Container,
   Divider,
   Grid,
   Paper,
-  Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -17,10 +15,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { Link } from 'react-router-dom';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { CamAmount } from 'app/components/CamAmount';
 
 function sortByAddress(a: Fund, b: Fund): number {
   return a.address.localeCompare(b.address);
