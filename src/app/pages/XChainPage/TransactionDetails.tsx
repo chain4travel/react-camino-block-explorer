@@ -3,13 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
 
 import {
-  Box,
   Button,
   Container,
   Divider,
   Grid,
   Paper,
-  Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -17,10 +15,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { Link } from 'react-router-dom';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { CamAmount } from 'app/components/CamAmount';
 
 function sortByAddress(a: Fund, b: Fund): number {
   return a.address.localeCompare(b.address);
@@ -133,187 +127,6 @@ function convertMemo(memo: string): string {
   }
 }
 
-const tooltips: { [key: string]: string } = {
-  // Contracts
-  Type: 'Defines a transaction type that is an envelope for current and future transaction types',
-  Block: 'The number of the block in which the transaction was recorded',
-  Date: 'The date and time at which a transaction is validated',
-  'Gas Price':
-    'Cost per unit of gas specified for the transaction, in Cam and nCam (nano cam) and aCam (atto cam). The higher the gas price the higher chance of getting included in a block',
-  'Max fee per gas':
-    'The maximum fee per gas that the transaction is willing to pay in total',
-  'Max Priority fee per gas':
-    'The maximum fee per gas to give miners to incentivize them to include the transaction (Priority fee)',
-  'Gas Limit': 'The maximum gas allowed in this transaction',
-  Value: 'The value being transacted',
-  From: 'The sending party of the transaction',
-  To: 'The receiving party of the transaction',
-  'Gas Used': 'The  gas used in this transaction',
-  'Contract Address': 'The address of the contract that was created',
-  'Transaction Cost':
-    "The cost of the transaction, calculated using ('Effective Gas Price' * 'Gas Limit')",
-  'Effective Gas Price': 'The gas price that the transaction is willing to pay',
-  //C-BLOCKS
-  Number: 'The block number',
-  'Parent Hash': 'The Hash of the parent block',
-  'Base Gas Fee':
-    'The minimum gas fee required for a transaction to be included in a block',
-  Fees: 'The total transaction fees for this block. This is calculated by adding up all the transaction costs.',
-  Timestamp: 'The date and time at which a transaction is validated',
-  'Transaction Count': 'The amount of transactions in this block',
-  'Extra Data': 'Additional data in this block',
-  //C-BLOCKS
-  Status: 'The transaction status',
-  Fee: 'The fee of the transaction',
-  Memo: 'The memo that was added to the transaction',
-  Signature: 'The signature of the input',
-};
-
-const Field = ({
-  type,
-  value,
-}: {
-  type: string;
-  value: string | number | object;
-}) => {
-  if (type === 'string') {
-    return (
-      <Typography
-        variant="body2"
-        component="span"
-        noWrap={true}
-        sx={{ width: '100%', display: 'block' }}
-      >
-        {value as string}
-      </Typography>
-    );
-  } else if (type === 'gwei') {
-    return <CamAmount amount={value as number} currency="CAM" />;
-  } else return <></>;
-};
-
-const DetailsField = ({
-  field,
-  value,
-  type,
-  icon,
-  tooltip,
-  detailsLink,
-  allowCopy,
-}: {
-  field: string;
-  value: string | number | object;
-  type: string;
-  icon: string;
-  tooltip: string;
-  detailsLink?: string;
-  allowCopy?: boolean;
-}) => {
-  const getTooltip = (field: string): string | undefined => {
-    if (Object.keys(tooltips).includes(field)) {
-      return tooltips[field];
-    }
-    return undefined;
-  };
-  return (
-    <Grid container spacing={2} alignItems="center">
-      <Grid container item xs={6} md={4} lg={5} alignItems="center" order={1}>
-        {(tooltip || getTooltip(field)) && (
-          <Tooltip title={getTooltip(field) as string}>
-            <HelpOutlineOutlinedIcon style={{ fontSize: '15px' }} />
-          </Tooltip>
-        )}
-        <Typography
-          variant="body2"
-          component="span"
-          fontWeight="fontWeightBold"
-          sx={{
-            paddingLeft: '10px',
-          }}
-        >
-          {field}
-        </Typography>
-      </Grid>
-      <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-        <Field type={type} value={value} />
-      </Grid>
-      <>
-        {(detailsLink || allowCopy) &&
-          value !== undefined &&
-          value !== '' &&
-          parseInt(value as string) !== 0 && (
-            <Grid item xs={6} md="auto" order={{ xs: 2, md: 3 }}>
-              {detailsLink && (
-                <Link to={detailsLink}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    startIcon={<OpenInNewIcon />}
-                  >
-                    Open
-                  </Button>
-                </Link>
-              )}
-              {allowCopy && value && (
-                <Box sx={{ marginLeft: 'auto', width: 'min-content' }}>
-                  {/* <CopyToClipboardButton value={value.toString()} /> */}
-                </Box>
-              )}
-            </Grid>
-          )}
-      </>
-    </Grid>
-  );
-};
-
-const FundCard = () => {
-  return (
-    <Paper
-      sx={{
-        width: 1,
-        padding: '15px',
-        gap: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'primary.light',
-        marginBottom: '1rem',
-      }}
-    >
-      <Typography
-        variant="body1"
-        component="h5"
-        fontWeight="fontWeightBold"
-        sx={{ marginBottom: '15px' }}
-      >
-        Input
-      </Typography>
-      <DetailsField
-        field="From"
-        value="columbus1zawetvfggky6yvx5wdcn0tjsalw9ql9dz537x7"
-        type="string"
-        icon="icon"
-        tooltip="Fee"
-        allowCopy={true}
-      />
-      <DetailsField
-        field="Signature"
-        value="dsfdsfgdgsdfjbsadfckjsadncksuadhcnikasdujcnjaskducbnasjkcb"
-        type="string"
-        icon="icon"
-        tooltip="Fee"
-      />
-      <DetailsField
-        field="Value"
-        value={227773}
-        type="gwei"
-        icon="icon"
-        tooltip="Fee"
-      />
-    </Paper>
-  );
-};
-
 const Helper = ({ item, theme }) => {
   return (
     <>
@@ -376,7 +189,7 @@ export function PChainDetailPage() {
   React.useEffect(() => {
     console.log(result);
     if (result) {
-      console.log(result.from[0]);
+      // console.log(result.from);
       // result.from.map(item => {
       // console.log(Object.entries(result.from[0]));
       // });
@@ -460,7 +273,7 @@ export function PChainDetailPage() {
                     />
                     {item[0] === 'memo' && (
                       <Grid
-                        sx={{ padding: '1rem 2rem' }}
+                        sx={{ gap: '20px', padding: '1rem 2rem' }}
                         container
                         item
                         xs={12}
@@ -470,51 +283,45 @@ export function PChainDetailPage() {
                       >
                         <Grid
                           sx={{
-                            padding: '1rem',
+                            backgroundColor: 'overviewCard.border',
+                            height: 'auto',
+                            padding: '1rem 1rem',
                           }}
                           item
                           xs={12}
-                          md={6}
-                          lg={6}
-                          xl={6}
-                          // rowSpacing={2}
+                          md
+                          lg
+                          xl
                           container
-                          direction="column"
-                          alignItems="center"
-                          justifyContent="flex-start"
                         >
                           {result?.from.map(item => (
                             <>
-                              {/* <Typography
+                              <Typography
                                 sx={{ margin: '1rem' }}
                                 variant="body1"
                               >
                                 Input
                               </Typography>
-                              <Helper item={item} theme={theme} /> */}
-                              <FundCard />
+                              <Helper item={item} theme={theme} />
                             </>
                           ))}
                         </Grid>
                         <Grid
                           sx={{
-                            padding: '1rem',
+                            backgroundColor: 'overviewCard.border',
+                            height: 'auto',
+                            padding: '1rem 1rem',
                           }}
                           item
                           xs={12}
-                          md={6}
-                          lg={6}
-                          xl={6}
-                          // rowSpacing={2}
+                          md
+                          lg
+                          xl
                           container
-                          direction="column"
-                          alignItems="center"
-                          justifyContent="flex-start"
                         >
                           {result?.to.map(item => (
                             <>
-                              {/* <Helper item={item} theme={theme} /> */}
-                              <FundCard />
+                              <Helper item={item} theme={theme} />
                             </>
                           ))}
                         </Grid>

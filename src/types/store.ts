@@ -29,8 +29,13 @@ export interface initialCchainStateType {
 }
 
 export interface initialXPchainStateType {
-  transactions: XPTransaction[];
-  status: status;
+  xTransactions?: XPTransaction[];
+  pTransactions?: XPTransaction[];
+  xTransactionDetails?: XPTransaction;
+  pTransactionDetails?: XPTransaction;
+  loadXPTransactions: status;
+  loadXTransactionDetials: status;
+  loadPTransactionDetials: status;
   error: undefined | string;
   timeFrame: string;
   ChainOverview: ChainOverviewType;

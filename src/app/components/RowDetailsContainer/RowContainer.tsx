@@ -62,6 +62,8 @@ function getNameFromType(type: string): string {
       return 'Status';
     case 'memo':
       return 'Memo';
+    case 'address':
+      return 'address';
   }
   return '';
 }
@@ -145,7 +147,6 @@ export function RowContainer({ theme, head, type, content, parent }) {
             )}
           </Box>
         )}
-        {/* {React.createElement(Typography, { variant: 'body1' }, 'bigola')} */}
         <Typography variant="body1">{getNameFromType(type)}</Typography>
       </Grid>
       {type !== 'memo' ? (
@@ -172,43 +173,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
           Discord faucet UID: 975692841227534347
         </Grid>
       )}
-      {type === 'memo' && (
-        <Grid
-          sx={{ gap: '20px' }}
-          container
-          item
-          xs={12}
-          md={12}
-          lg={12}
-          xl={12}
-        >
-          <Grid
-            sx={{
-              backgroundColor: 'overviewCard.border',
-              height: 'auto',
-              padding: '1rem 1rem',
-            }}
-            item
-            xs={12}
-            md
-            lg
-            xl
-            container
-          >
-            <Typography sx={{ margin: '1rem' }} variant="body1">
-              Input
-            </Typography>
-            <RowContainer
-              parent
-              theme={theme}
-              head={false}
-              type="hash"
-              content="ahah"
-            />
-          </Grid>
-          <Grid sx={{ backgroundColor: 'blue' }} item xs={12} md lg xl></Grid>
-        </Grid>
-      )}
+
       {checkHash(type) && (
         <Grid
           container
