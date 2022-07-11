@@ -1,4 +1,4 @@
-import { Amount } from '../types/currency-typings';
+import { Amount } from './types/currency-type';
 
 const conversionACamPerCam = 1000000000000000000;
 

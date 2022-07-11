@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
-import {
-  Card,
-  CardContent,
-  Box,
-  Typography,
-  CircularProgress,
-} from '@mui/material';
-import { status } from 'types';
+import { Card, CardContent, Box, Typography } from '@mui/material';
+import { LoadingWrapper } from 'app/components/LoadingWrapper';
 
 type OverviewCardProps = {
   title: string;
@@ -82,23 +76,4 @@ export const OverviewCard: FC<OverviewCardProps> = ({
       </CardContent>
     </Card>
   );
-};
-
-export const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
-  if (loading === status.SUCCEEDED) {
-    return <>{children}</>;
-  } else if (loading === status.FAILED) {
-    return (
-      <Typography
-        variant="h4"
-        component="h4"
-        fontWeight="fontWeightBold"
-        sx={{ color: 'overviewCard.subValue' }}
-      >
-        {failedLoadingMsg}
-      </Typography>
-    );
-  } else {
-    return <CircularProgress color="secondary" />;
-  }
 };

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 import { store } from '../../index';
-import { getStartDate } from 'utils/display/display-utils';
+import { getStartDate } from 'utils/display-utils';
 import {
   loadTransactionAggregates,
   loadTransactionFeesAggregates,

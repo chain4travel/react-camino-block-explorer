@@ -260,7 +260,7 @@ const defaultComponents = {
     styleOverrides: {
       root: {
         boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-        borderRadius: '12px',
+        borderRadius: '7px',
       },
     },
   },
@@ -283,7 +283,6 @@ const defaultComponents = {
         flexDirection: 'column' as const,
         margin: 'auto',
         flex: 1,
-        alignItems: 'center',
         marginTop: '140px',
         gap: '20px',
         '@media (max-width: 1024px)': {

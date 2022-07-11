@@ -110,7 +110,8 @@ const xchainSlice = createSlice({
 export const selectAllXTransactions = (state: RootState) =>
   state.xchain.xTransactions;
 // Select Loading Status
-// export const getXchainStatus = (state: RootState) => state.xchain.status;
+export const getXPchainStatus = (state: RootState) =>
+  state.xchain.loadXPTransactions;
 export const getXchainError = (state: RootState) => state.xchain.error;
 // Select ChainOverreview data
 export const getXchainOverreview = (state: RootState) =>
