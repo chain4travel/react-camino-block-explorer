@@ -17,30 +17,34 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
-import { getCBlockDetail } from 'store/cchainSlice';
+import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
+// import { LoadingWrapper } from 'app/components/OverviewCards/OverviewCard';
+import { LoadingWrapper } from 'app/components/LoadingWrapper';
 
 export function BlockDetails() {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const blockDetails = useAppSelector(getCBlockDetail);
+  const loading = useAppSelector(getCBlockDetailStatus);
 
   React.useEffect(() => {
     dispatch(fetchCBlockDetail(parseInt(location.pathname.split('/')[3])));
   }, [location, dispatch]);
+
   React.useEffect(() => {}, [blockDetails]);
 
   return (
     <Container maxWidth="xl">
       <Helmet>
-        <title>c-BlockDetails</title>
+        <title>C-BlockDetails</title>
         <meta name="description" content="chain-overviewBlockDetails" />
       </Helmet>
       <Paper
         variant="outlined"
         square
         sx={{
-          minHeight: '680px',
+          minHeight: '730px',
           width: 1,
           backgroundColor: 'primary.dark',
           borderRadius: '12px',
@@ -54,7 +58,16 @@ export function BlockDetails() {
           },
         }}
       >
-        <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
+        <Grid
+          container
+          direction="column"
+          sx={{
+            width: 1,
+            minHeight: '730px',
+            gap: '20px',
+            // backgroundColor: 'red',
+          }}
+        >
           <Grid
             item
             container
@@ -78,44 +91,47 @@ export function BlockDetails() {
               C-Chain Block {location.pathname.split('/')[3]}
             </Typography>
           </Grid>
-          {blockDetails && (
-            <RowContainer
-              type="hash"
-              content={blockDetails['hash']}
-              theme={theme}
-              head={true}
-              parent
-            />
-          )}
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
-          >
-            {blockDetails &&
-              Object.entries(blockDetails).map((item, index) => {
-                if (
-                  item[0] !== 'hash' &&
-                  index < Object.entries(blockDetails).length - 1
-                )
-                  return (
-                    <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
-                      <RowContainer
-                        type={item[0]}
-                        content={item[1]}
-                        head={false}
-                        theme={theme}
-                        parent={parseInt(location.pathname.split('/')[3]) - 1}
-                      />
-                      {index !== Object.entries(blockDetails).length - 1 && (
-                        <Divider variant="fullWidth" />
-                      )}
-                    </Grid>
-                  );
-                return <div key={index}></div>;
-              })}
-          </Grid>
+
+          <LoadingWrapper loading={loading} failedLoadingMsg="-">
+            {blockDetails && (
+              <RowContainer
+                type="hash"
+                content={blockDetails['hash']}
+                theme={theme}
+                head={true}
+                parent
+              />
+            )}
+            <Grid
+              item
+              container
+              alignItems="center"
+              sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
+            >
+              {blockDetails &&
+                Object.entries(blockDetails).map((item, index) => {
+                  if (
+                    item[0] !== 'hash' &&
+                    index < Object.entries(blockDetails).length - 1
+                  )
+                    return (
+                      <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
+                        <RowContainer
+                          type={item[0]}
+                          content={item[1]}
+                          head={false}
+                          theme={theme}
+                          parent={parseInt(location.pathname.split('/')[3]) - 1}
+                        />
+                        {index !== Object.entries(blockDetails).length - 1 && (
+                          <Divider variant="fullWidth" />
+                        )}
+                      </Grid>
+                    );
+                  return <div key={index}></div>;
+                })}
+            </Grid>
+          </LoadingWrapper>
         </Grid>
       </Paper>
       <Grid

@@ -11,8 +11,6 @@ import { store } from 'index';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 
 export function configureAppStore() {
-  // const middlewares = [sagaMiddleware];
-
   const enhancers = [] as StoreEnhancer[];
 
   const store = configureStore({
@@ -21,7 +19,10 @@ export function configureAppStore() {
       xchain: xchainSlice,
       networks,
     },
-    // middleware: [...getDefaultMiddleware(), ...middlewares],
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
     devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });

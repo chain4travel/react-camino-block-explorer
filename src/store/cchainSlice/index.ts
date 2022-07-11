@@ -2,12 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { status, Timeframe } from 'types';
 import { BlockDetail, BlockTableData } from 'types/block';
-import { CTransaction } from 'types/transaction';
+import {
+  CTransaction,
+  TransactionCurrencuy,
+  TransactionInformations,
+} from 'types/transaction';
 import { ChainOverviewType, initialCchainStateType } from 'types/store';
 import { RootState } from 'store/configureStore';
 import {
   fetchBlocksTransactions,
   fetchCBlockDetail,
+  fetchTransactionDetails,
   loadNumberOfTransactions,
   loadTotalGasFess,
   loadValidators,
@@ -23,6 +28,9 @@ const initialState: initialCchainStateType = {
   status: status.IDLE,
   error: undefined,
   blockDetail: undefined,
+  transcationDetails: undefined,
+  loadTransactionDetails: status.IDLE,
+  loadBlockDetial: status.IDLE,
   timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
@@ -135,15 +143,16 @@ const cchainSlice = createSlice({
       .addCase(loadValidators.rejected, state => {
         state.ChainOverview.validatorsLoading = status.FAILED;
       })
-      .addCase(fetchCBlockDetail.pending, (state, action) => {})
+      .addCase(fetchCBlockDetail.pending, state => {
+        state.loadBlockDetial = status.LOADING;
+      })
       .addCase(fetchCBlockDetail.fulfilled, (state, action) => {
-        // console.log(action.payload);
         let block: BlockDetail = {
-          hash: action.payload.hash, //done
-          number: parseInt(action.payload.header.number), //done
-          parentHash: action.payload.header.parentHash, //done
+          hash: action.payload.hash,
+          number: parseInt(action.payload.header.number),
+          parentHash: action.payload.header.parentHash,
           // parentBlockNumber: parseInt(action.payload.header.number), to review
-          baseGaseFee: parseInt(action.payload.header.baseFeePerGas), //done
+          baseGaseFee: parseInt(action.payload.header.baseFeePerGas),
           fees: 0,
           gasUsed: parseInt(action.payload.header.gasUsed).toLocaleString(
             'en-US',
@@ -177,18 +186,77 @@ const cchainSlice = createSlice({
           .map(e => e.transactionCost)
           .reduce((pv, cv) => pv + cv, 0);
         state.blockDetail = block;
+        state.loadBlockDetial = status.SUCCEEDED;
       })
-      .addCase(fetchCBlockDetail.rejected, (state, action) => {});
+      .addCase(fetchCBlockDetail.rejected, state => {
+        state.loadBlockDetial = status.FAILED;
+      })
+      .addCase(fetchTransactionDetails.pending, state => {
+        state.loadTransactionDetails = status.LOADING;
+      })
+      .addCase(fetchTransactionDetails.fulfilled, (state, { payload }) => {
+        // console.log(action.payload);
+        let transactionInformations: TransactionInformations = {
+          type: payload.type,
+          block: payload.block,
+          createdAt: new Date(payload.createdAt),
+          fromAddr: payload.fromAddr,
+          toAddr: payload.toAddr,
+        };
+        console.log(payload);
+        let transactionCurrencuy: TransactionCurrencuy = {
+          maxFeePerGas: parseInt(payload.maxFeePerGas),
+          maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
+          gasUsed: parseInt(payload.receipt.gasUsed),
+          effectiveGasPrice: parseInt(payload.receipt.effectiveGasPrice),
+          transactionCost:
+            parseInt(payload.receipt.gasUsed) *
+            parseInt(payload.receipt.effectiveGasPrice),
+        };
+        state.transcationDetails = {
+          transactionInformations,
+          transactionCurrencuy,
+        };
+        state.loadTransactionDetails = status.SUCCEEDED;
+      })
+      .addCase(fetchTransactionDetails.rejected, (state, action) => {
+        state.loadTransactionDetails = status.FAILED;
+      });
   },
 });
+
+// Select Blocks
 export const selectAllBlocks = (state: RootState) => state.cchain.blocks;
+
+// Select Transactions
 export const selectAllTransactions = (state: RootState) =>
   state.cchain.transactions;
+
+// Select Request Status
 export const getCchainStatus = (state: RootState) => state.cchain.status;
 export const getCchainError = (state: RootState) => state.cchain.error;
+
+// Select Chain overreview Data
 export const getCchainOverreview = (state: RootState) =>
   state.cchain.ChainOverview;
-export const getCBlockDetail = (state: RootState) => state.cchain.blockDetail;
+// Select TimeFrame for chainoverreview
 export const getTimeFrame = (state: RootState) => state.cchain.timeFrame;
+
+// Select Block Details
+export const getCBlockDetail = (state: RootState) => state.cchain.blockDetail;
+export const getCBlockDetailStatus = (state: RootState) =>
+  state.cchain.loadBlockDetial;
+
+// Select Transaction Details
+
+export const getCTransactionInformations = (state: RootState) =>
+  state.cchain.transcationDetails?.transactionInformations;
+export const getCTransactionCurrencuy = (state: RootState) =>
+  state.cchain.transcationDetails?.transactionCurrencuy;
+export const getCTransactionDetailsStatus = (state: RootState) =>
+  state.cchain.loadTransactionDetails;
+
+// actions
 export const { changetimeFrame } = cchainSlice.actions;
+// reduceer
 export default cchainSlice.reducer;

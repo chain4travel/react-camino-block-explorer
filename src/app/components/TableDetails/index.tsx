@@ -17,10 +17,11 @@ import { Replay } from '@mui/icons-material';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { getRelativeTime } from 'utils/display/display-utils';
+import { getRelativeTime } from 'utils/display-utils';
 import { TableCellProps } from '@mui/material';
 import AddressLink from '../AddressLink';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Link } from 'react-router-dom';
 
 interface BlockTableData {
   number: number;
@@ -252,11 +253,8 @@ export function TableDetials() {
                             container
                             rowSpacing={2}
                             justifyContent="space-between"
-                            sx={{
-                              padding: '0.5rem 0rem 0.5rem 0rem',
-                            }}
                           >
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12}>
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -270,7 +268,7 @@ export function TableDetials() {
                                 truncate={true}
                               />
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -281,7 +279,7 @@ export function TableDetials() {
                                 {getRelativeTime(row.timestamp) + ' ago'}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -292,25 +290,18 @@ export function TableDetials() {
                                 {row.numberOfTransactions}
                               </Typography>
                             </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              md={6}
-                              lg={5}
-                              xl={6}
-                              justifyContent="flex-start"
-                            >
+                            <Grid item xs md={6} lg={5} xl={6}>
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
                               >
                                 Hash
                               </Typography>
-                              <Typography variant="body1" noWrap={true}>
+                              <Typography variant="body1">
                                 {row.hash}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -321,7 +312,7 @@ export function TableDetials() {
                                 {row.gasUsed}
                               </Typography>
                             </Grid>
-                            <Grid item xs={9} justifyContent="flex-start">
+                            <Grid item xs={12} justifyContent="flex-start">
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
@@ -384,18 +375,20 @@ export function TableDetials() {
           alignItems="end"
           sx={{ paddingTop: '1rem' }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            sx={{
-              borderRadius: '25px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <ArrowBackIosIcon sx={{ width: '20px', height: '20px' }} />
-          </Button>
+          <Link to="/c-chain">
+            <Button
+              variant="outlined"
+              color="secondary"
+              sx={{
+                borderRadius: '25px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <ArrowBackIosIcon sx={{ width: '20px', height: '20px' }} />
+            </Button>
+          </Link>
         </Grid>
       </Paper>
     </Wrraper>

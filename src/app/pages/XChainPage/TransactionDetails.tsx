@@ -127,6 +127,27 @@ function convertMemo(memo: string): string {
   }
 }
 
+const Helper = ({ item, theme }) => {
+  return (
+    <>
+      <Typography sx={{ margin: '1rem' }} variant="body1">
+        Output
+      </Typography>
+      {Object.entries(item).map(t => {
+        return (
+          <RowContainer
+            type={t[0]}
+            content={t[1]}
+            head={false}
+            theme={theme}
+            parent
+          />
+        );
+      })}
+    </>
+  );
+};
+
 export function PChainDetailPage() {
   const theme = useTheme();
   const [result, setResult] = React.useState<XPTransaction>();
@@ -135,7 +156,7 @@ export function PChainDetailPage() {
   async function fetchTransactionDetail(): Promise<void> {
     const res = (
       await axios.get(
-        'https://magellan.columbus.camino.foundation/v2/transactions/2URFh5knSJjXDuZUPsPYwAXuDgSGPS7VSH3yMCDpQDzopfofRX',
+        'https://magellan.columbus.camino.foundation/v2/transactions/tpLdRwBsVdYsoZpd9aeyRCGgp6mzG6YaN5t92hjrMrT6s5831',
       )
     ).data;
     let transaction: XPTransaction = {
@@ -165,7 +186,15 @@ export function PChainDetailPage() {
   useEffectOnce(() => {
     fetchTransactionDetail();
   });
-
+  React.useEffect(() => {
+    console.log(result);
+    if (result) {
+      // console.log(result.from);
+      // result.from.map(item => {
+      // console.log(Object.entries(result.from[0]));
+      // });
+    }
+  }, [result]);
   return (
     <Container maxWidth="xl">
       <Helmet>
@@ -242,6 +271,63 @@ export function PChainDetailPage() {
                       parent
                       //   parent={parseInt(location.pathname.split('/')[3]) - 1}
                     />
+                    {item[0] === 'memo' && (
+                      <Grid
+                        sx={{ gap: '20px', padding: '1rem 2rem' }}
+                        container
+                        item
+                        xs={12}
+                        md={12}
+                        lg={12}
+                        xl={12}
+                      >
+                        <Grid
+                          sx={{
+                            backgroundColor: 'overviewCard.border',
+                            height: 'auto',
+                            padding: '1rem 1rem',
+                          }}
+                          item
+                          xs={12}
+                          md
+                          lg
+                          xl
+                          container
+                        >
+                          {result?.from.map(item => (
+                            <>
+                              <Typography
+                                sx={{ margin: '1rem' }}
+                                variant="body1"
+                              >
+                                Input
+                              </Typography>
+                              <Helper item={item} theme={theme} />
+                            </>
+                          ))}
+                        </Grid>
+                        <Grid
+                          sx={{
+                            backgroundColor: 'overviewCard.border',
+                            height: 'auto',
+                            padding: '1rem 1rem',
+                          }}
+                          item
+                          xs={12}
+                          md
+                          lg
+                          xl
+                          container
+                        >
+                          {result?.to.map(item => (
+                            <>
+                              <Helper item={item} theme={theme} />
+                            </>
+                          ))}
+                        </Grid>
+                      </Grid>
+                    )}
+
                     {index !== Object.entries(details).length - 1 && (
                       <Divider variant="fullWidth" />
                     )}

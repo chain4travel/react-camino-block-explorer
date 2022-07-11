@@ -12,111 +12,35 @@ import {
   useTheme,
 } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { Link } from 'react-router-dom';
-// xs, sm, md, lg, and xl.
-export interface TranscationDetail {
-  hash: string;
-  type: number;
-  block: number;
-  createdAt: Date;
-  nonce: number;
-  gasPrice: number;
-  maxFeePerGas: number;
-  maxPriorityFeePerGas: number;
-  gasLimit: number;
-  value: number;
-  fromAddr: string;
-  toAddr: string;
-  v: string;
-  r: string;
-  s: string;
-  gasUsed: number;
-  contractAddress: string;
-  transactionCost: number;
-  effectiveGasPrice: number;
-}
-
-interface TransactionInformations {
-  type: number;
-  block: number;
-  createdAt: Date;
-  fromAddr: string;
-  toAddr: string;
-}
-
-interface TransactionCurrencuy {
-  maxFeePerGas: number;
-  maxPriorityFeePerGas: number;
-  gasUsed: number;
-  effectiveGasPrice: number;
-  transactionCost: number;
-}
+import { Link, useLocation } from 'react-router-dom';
+// import { TranscationDetail } from 'types/transaction';
+import { fetchTransactionDetails } from 'store/cchainSlice/utils';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import {
+  getCTransactionCurrencuy,
+  getCTransactionDetailsStatus,
+  getCTransactionInformations,
+} from 'store/cchainSlice';
+import { status } from 'types';
 
 export function TransactionDetails() {
   const theme = useTheme();
-  const [result, setResult] = React.useState<TranscationDetail>();
-  const [detailTr, setDetailTr] = React.useState<TransactionInformations>();
-  const [detailCr, setDetailCr] = React.useState<TransactionCurrencuy>();
-
-  async function fetchTransactionDetail(): Promise<void> {
-    const res = (
-      await axios.get(
-        'https://magellan.columbus.camino.foundation/v2/ctransactions?hash=0x500fa9a3b0668483817ad40ac80e3cbd3ad6a5a207c8449d77684d003d162f0d',
-      )
-    ).data.Transactions[0];
-    let transaction: TranscationDetail = {
-      block: res.block,
-      contractAddress: res.receipt.contractAddress,
-      createdAt: new Date(res.createdAt),
-      fromAddr: res.fromAddr,
-      gasLimit: res.gasLimit,
-      gasPrice: parseInt(res.gasPrice),
-      gasUsed: parseInt(res.receipt.gasUsed),
-      hash: res.hash,
-      maxFeePerGas: parseInt(res.maxFeePerGas),
-      maxPriorityFeePerGas: parseInt(res.maxPriorityFeePerGas),
-      nonce: res.nonce,
-      r: res.r,
-      s: res.s,
-      v: res.v,
-      toAddr: res.toAddr,
-      type: res.type,
-      value: parseInt(res.value),
-      transactionCost:
-        parseInt(res.receipt.gasUsed) * parseInt(res.receipt.effectiveGasPrice),
-      effectiveGasPrice: parseInt(res.receipt.effectiveGasPrice),
-    };
-    setDetailTr({
-      type: transaction.type,
-      block: transaction.block,
-      createdAt: transaction.createdAt,
-      fromAddr: transaction.fromAddr,
-      toAddr: transaction.toAddr,
-    });
-    setDetailCr({
-      maxFeePerGas: transaction.maxFeePerGas,
-      maxPriorityFeePerGas: transaction.maxPriorityFeePerGas,
-      gasUsed: transaction.gasUsed,
-      effectiveGasPrice: transaction.effectiveGasPrice,
-      transactionCost: transaction.transactionCost,
-    });
-    // let TransactionInformations
-    setResult(transaction);
-  }
-
+  const detailTr = useAppSelector(getCTransactionInformations);
+  const detailCr = useAppSelector(getCTransactionCurrencuy);
+  const loading = useAppSelector(getCTransactionDetailsStatus);
+  const location = useLocation();
+  const adress = location.pathname.split('/')[3];
+  const dispatch = useAppDispatch();
   useEffectOnce(() => {
-    fetchTransactionDetail();
+    dispatch(fetchTransactionDetails(adress));
   });
 
-  //   React.useEffect(() => {
-  //     if (result) console.log(result['hash']);
-  //   }, [result]);
   return (
     <Container maxWidth="xl">
       <Helmet>
-        <title>c-TransactionDetails</title>
+        <title>C-TransactionDetails</title>
         <meta name="description" content="chain-overviewBlockDetails" />
       </Helmet>
       <Paper
@@ -161,10 +85,10 @@ export function TransactionDetails() {
               C-Chain Transaction
             </Typography>
           </Grid>
-          {result && (
+          {loading === status.SUCCEEDED && (
             <RowContainer
               type="transaction"
-              content={result['hash']}
+              content={adress}
               theme={theme}
               head={true}
               parent
@@ -185,8 +109,7 @@ export function TransactionDetails() {
                       content={item[1]}
                       head={false}
                       theme={theme}
-                      parent
-                      //   parent={parseInt(location.pathname.split('/')[3]) - 1}
+                      parent={detailTr.block}
                     />
                     {index !== Object.entries(detailTr).length - 1 && (
                       <Divider variant="fullWidth" />
@@ -211,7 +134,6 @@ export function TransactionDetails() {
                       head={false}
                       theme={theme}
                       parent
-                      //   parent={parseInt(location.pathname.split('/')[3]) - 1}
                     />
                     {index !== Object.entries(detailCr).length - 1 && (
                       <Divider variant="fullWidth" />
@@ -225,23 +147,29 @@ export function TransactionDetails() {
           item
           container
           alignItems="center"
+          justifyContent="center"
           sx={{
             gap: '20px',
             mt: '10px',
           }}
-          md
-          lg
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            sx={{
-              borderRadius: '25px',
-              width: 1,
-            }}
-          >
-            Back
-          </Button>
+          <Grid item md={6} lg={6}>
+            <Link
+              style={{ textDecoration: 'none', width: '100%' }}
+              to="/c-chain"
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                sx={{
+                  borderRadius: '12px',
+                  width: '1',
+                }}
+              >
+                Back
+              </Button>
+            </Link>
+          </Grid>
         </Grid>
       </Paper>
     </Container>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Typography, Tooltip } from '@mui/material';
-import { getRelativeTime } from 'utils/display/display-utils';
+import { getRelativeTime } from 'utils/display-utils';
 
 export default function RelativeTime({
   variant,

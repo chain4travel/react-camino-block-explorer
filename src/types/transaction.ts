@@ -13,7 +13,7 @@ export interface CTransaction {
 export interface XPTransaction {
   id: string;
   type: string;
-  timestamp?: string;
+  timestamp?: Date;
   from: Fund[];
   to: Fund[];
   fee: number;
@@ -24,8 +24,8 @@ export interface XPTransaction {
 
 export interface Fund {
   address: string;
-  value?: number;
-  signature?: string;
+  value: number;
+  signature: string;
 }
 
 export interface TransactionTableData {
@@ -82,4 +82,24 @@ export interface CAddressTransactionTableData {
   value: number;
   txnFee: number;
   direction: 'out' | 'in';
+}
+
+export interface TransactionInformations {
+  type: number;
+  block: number;
+  createdAt: Date;
+  fromAddr: string;
+  toAddr: string;
+}
+
+export interface TransactionCurrencuy {
+  maxFeePerGas: number;
+  maxPriorityFeePerGas: number;
+  gasUsed: number;
+  effectiveGasPrice: number;
+  transactionCost: number;
+}
+export interface TranscationDetails {
+  transactionInformations: TransactionInformations;
+  transactionCurrencuy: TransactionCurrencuy;
 }
