@@ -43,16 +43,21 @@ export const loadTotalPXGasFess = createAsyncThunk(
   },
 );
 
+interface transactionsArg {
+  chainID: string;
+  chainType: string;
+}
+
 export const fetchXPTransactions = createAsyncThunk(
   'xchain/fetchTransactions',
-  async (chainID: string) => {
+  async (chain: transactionsArg) => {
     let networks = store.getState().networks;
     let activeNetwork = networks.networks.find(
       element => element.id === networks.activeNetwork,
     );
     const response = await axios.get(
-      `${activeNetwork?.magellanAddress}/v2/transactions?chainID=${chainID}&offset=0&limit=10&sort=timestamp-desc`,
+      `${activeNetwork?.magellanAddress}/v2/transactions?chainID=${chain.chainID}&offset=0&limit=10&sort=timestamp-desc`,
     );
-    return { transactions: response.data.transactions, type: 'x' };
+    return { transactions: response.data.transactions, type: chain.chainType };
   },
 );

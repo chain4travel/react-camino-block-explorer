@@ -40,7 +40,7 @@ export default function XChainPage() {
   //   validatorsLoading,
   // } = useAppSelector(getXchainOverreview);
   useEffectOnce(() => {
-    dispatch(fetchXPTransactions(CHAIN_ID));
+    dispatch(fetchXPTransactions({ chainID: CHAIN_ID, chainType: 'x' }));
   });
 
   return (

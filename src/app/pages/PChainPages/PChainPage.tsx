@@ -21,7 +21,7 @@ export default function PChainPage() {
   const transactions = useAppSelector(selectAllXTransactions);
   const status = useAppSelector(getXPchainStatus);
   useEffectOnce(() => {
-    dispatch(fetchXPTransactions(CHAIN_ID));
+    dispatch(fetchXPTransactions({ chainID: CHAIN_ID, chainType: 'p' }));
   });
 
   return (
