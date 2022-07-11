@@ -9,7 +9,7 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   selectAllXTransactions,
-  // getXchainStatus,
+  getXchainStatus,
   // getXchainError,
   // getXchainOverreview,
 } from 'store/xchainSlice';
@@ -17,10 +17,15 @@ import XPTransactionList from 'app/components/XChainPageComponents/XPTransaction
 import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
 import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
 import { ChainType } from 'utils/types/chain-type';
+import { LoadingWrapper } from 'app/components/LoadingWrapper';
 
 export default function XChainPage() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectAllXTransactions);
+  const status = useAppSelector(getXchainStatus);
+  React.useEffect(() => {
+    console.log('XChainPage: useEffect', status);
+  }, [status]);
   // const error = useAppSelector(getXchainError);
   // const {
   //   numberOfTransactions,
@@ -57,18 +62,23 @@ export default function XChainPage() {
         validatorsLoading="succeeded"
       />
       <XPTransactionList ShowAllLink="/transactions">
-        {transactions?.map((transaction, index) => (
-          <XPItemDivider
-            index={index}
-            max={transactions.length - 1}
-            key={index}
-          >
-            <XPTransactionItem
-              chainType={ChainType.X_CHAIN}
-              data={transaction}
-            />
-          </XPItemDivider>
-        ))}
+        <LoadingWrapper
+          loading={status}
+          failedLoadingMsg="Failed to load transactions"
+        >
+          {transactions?.map((transaction, index) => (
+            <XPItemDivider
+              index={index}
+              max={transactions.length - 1}
+              key={index}
+            >
+              <XPTransactionItem
+                chainType={ChainType.X_CHAIN}
+                data={transaction}
+              />
+            </XPItemDivider>
+          ))}
+        </LoadingWrapper>
       </XPTransactionList>
     </PageContainer>
   );
