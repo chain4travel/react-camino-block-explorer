@@ -6,7 +6,7 @@ export default function Chip({
   style,
 }: {
   label: string;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 }) {
   return (
     <Box
@@ -18,7 +18,6 @@ export default function Chip({
         width: 'min-content',
         padding: '3px 10px 3px 10px',
         borderRadius: '12px',
-        marginLeft: 'auto',
         ...style,
       }}
     >
