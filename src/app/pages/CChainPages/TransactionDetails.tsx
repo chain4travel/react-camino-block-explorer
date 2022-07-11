@@ -12,8 +12,10 @@ import {
   useTheme,
 } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { Link, useLocation } from 'react-router-dom';
+import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {

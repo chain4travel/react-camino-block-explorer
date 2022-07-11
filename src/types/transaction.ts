@@ -13,7 +13,7 @@ export interface CTransaction {
 export interface XPTransaction {
   id: string;
   type: string;
-  timestamp?: string;
+  timestamp?: Date;
   from: Fund[];
   to: Fund[];
   fee: number;
@@ -24,8 +24,8 @@ export interface XPTransaction {
 
 export interface Fund {
   address: string;
-  value?: number;
-  signature?: string;
+  value: number;
+  signature: string;
 }
 
 export interface TransactionTableData {

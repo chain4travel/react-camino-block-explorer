@@ -4,7 +4,11 @@ import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { CChainPage } from './pages/CChainPages';
-import { XChainPage, XAddressDetail } from './pages/XChainPages';
+import {
+  XChainPage,
+  XAddressDetail,
+  XTransactionDetails,
+} from './pages/XChainPages';
 import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
@@ -39,6 +43,10 @@ export function App() {
           <Route
             path="x-chain/details/address/:id"
             element={<XAddressDetail />}
+          />
+          <Route
+            path="x-chain/details/transactions/:id"
+            element={<XTransactionDetails />}
           />
           <Route path="/p-chain" element={<PChainPage />} />
           <Route

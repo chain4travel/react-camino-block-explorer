@@ -7,6 +7,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';
 import { CamAmount } from 'app/components/CamAmount';
 import { Link } from 'react-router-dom';
+import BlockTxIcon from '../XChainPageComponents/BlockTxIcon';
 
 function getNameFromType(type: string): string {
   switch (type) {
@@ -137,11 +138,12 @@ export function RowContainer({ theme, head, type, content, parent }) {
             }}
           >
             {head ? (
-              <Icon
-                path={mdiCubeOutline}
-                size={1}
-                color="latestList.iconColor"
-              />
+              // <BlockTxIcon iconType="transaction" />
+              type === 'transaction' ? (
+                <BlockTxIcon iconType="transaction" />
+              ) : (
+                <BlockTxIcon iconType="block" />
+              )
             ) : (
               <HelpOutlineOutlinedIcon />
             )}
@@ -185,9 +187,9 @@ export function RowContainer({ theme, head, type, content, parent }) {
           justifyContent="end"
           sx={{
             paddingRight: '5px',
-            [theme.breakpoints.down('md')]: {
-              justifyContent: 'start',
-            },
+            // [theme.breakpoints.down('md')]: {
+            //   justifyContent: 'start',
+            // },
           }}
         >
           <Box
