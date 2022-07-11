@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, useTheme } from '@mui/material';
+import { Paper, Typography, useTheme, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MainButton from '../MainButton';
 
@@ -32,7 +32,15 @@ export default function XPTransactionList({
       <ListTitle style={{ paddingBottom: '1.5rem' }}>
         Latest Transactions
       </ListTitle>
-      {children}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {children}
+      </Box>
       <Link
         to={ShowAllLink}
         style={{

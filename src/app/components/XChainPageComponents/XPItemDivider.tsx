@@ -13,9 +13,7 @@ export default function XPItemDivider({
   return (
     <>
       {children}
-      {index < max && (
-        <Divider variant="fullWidth" sx={{ marginBottom: '1rem' }} />
-      )}
+      {index < max && <Divider sx={{ marginBottom: '1rem', width: '100%' }} />}
     </>
   );
 }

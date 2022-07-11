@@ -71,7 +71,7 @@ const XPTransactionFirstSection = ({
         <RelativeTime value={timestamp} />
       </Grid>
       <Grid item xs={4} md={3} lg={4}>
-        <Chip label={type} style={{ minWidth: '61px' }} />
+        <Chip label={type} style={{ minWidth: '61px', marginLeft: 'auto' }} />
       </Grid>
     </>
   );
