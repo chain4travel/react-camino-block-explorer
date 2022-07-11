@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PageContainer from 'app/components/PageConatiner';
+import PageContainer from 'app/components/PageContainer';
 import OverviewCards from '../../components/OverviewCards';
 import { fetchXPTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';

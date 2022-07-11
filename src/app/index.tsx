@@ -12,10 +12,9 @@ import {
 import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
-import { BlockDetails } from './pages/CChainPage/BlockDetails';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
-import { TransactionDetails } from './pages/CChainPage/TransactionDetails';
+import { TransactionDetails, BlockDetails } from './pages/CChainPage';
 export function App() {
   const { i18n } = useTranslation();
 

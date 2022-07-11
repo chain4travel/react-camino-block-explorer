@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
 
 import {
   Button,
-  Container,
   Divider,
   Grid,
   Paper,
@@ -24,8 +22,9 @@ import {
   getCTransactionInformations,
 } from 'store/cchainSlice';
 import { status } from 'types';
+import PageContainer from 'app/components/PageContainer';
 
-export function TransactionDetails() {
+export default function TransactionDetails() {
   const theme = useTheme();
   const detailTr = useAppSelector(getCTransactionInformations);
   const detailCr = useAppSelector(getCTransactionCurrencuy);
@@ -38,11 +37,10 @@ export function TransactionDetails() {
   });
 
   return (
-    <Container maxWidth="xl">
-      <Helmet>
-        <title>C-TransactionDetails</title>
-        <meta name="description" content="chain-overviewBlockDetails" />
-      </Helmet>
+    <PageContainer
+      pageTitle="C TransactionDetails"
+      metaContent="chain-overview c-chain"
+    >
       <Paper
         variant="outlined"
         square
@@ -172,6 +170,6 @@ export function TransactionDetails() {
           </Grid>
         </Grid>
       </Paper>
-    </Container>
+    </PageContainer>
   );
 }

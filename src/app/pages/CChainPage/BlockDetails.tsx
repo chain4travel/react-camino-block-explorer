@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
 
 import {
   Button,
-  Container,
   Divider,
   Grid,
   Paper,
@@ -18,10 +16,10 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
-// import { LoadingWrapper } from 'app/components/OverviewCards/OverviewCard';
 import { LoadingWrapper } from 'app/components/LoadingWrapper';
+import PageContainer from 'app/components/PageContainer';
 
-export function BlockDetails() {
+export default function BlockDetails() {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -35,11 +33,10 @@ export function BlockDetails() {
   React.useEffect(() => {}, [blockDetails]);
 
   return (
-    <Container maxWidth="xl">
-      <Helmet>
-        <title>C-BlockDetails</title>
-        <meta name="description" content="chain-overviewBlockDetails" />
-      </Helmet>
+    <PageContainer
+      pageTitle="C BlockDetails"
+      metaContent="chain-overview c-chain"
+    >
       <Paper
         variant="outlined"
         square
@@ -150,6 +147,6 @@ export function BlockDetails() {
           </Grid>
         )}
       </Grid>
-    </Container>
+    </PageContainer>
   );
 }
