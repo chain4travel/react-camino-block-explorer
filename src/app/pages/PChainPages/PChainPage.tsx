@@ -10,7 +10,12 @@ import { LoadingWrapper } from 'app/components/LoadingWrapper';
 import { fetchXPTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import { selectAllXTransactions, getXPchainStatus } from 'store/xchainSlice';
+import {
+  selectAllXTransactions,
+  getXPchainStatus,
+  getXPchainOverreview,
+} from 'store/xchainSlice';
+import { loadValidators } from 'store/cchainSlice/utils';
 
 const CHAIN_ID = '11111111111111111111111111111111LpoYY';
 
@@ -18,22 +23,33 @@ export default function PChainPage() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectAllXTransactions);
   const status = useAppSelector(getXPchainStatus);
+  const {
+    numberOfTransactions,
+    totalGasFees,
+    numberOfActiveValidators,
+    numberOfValidators,
+    percentageOfActiveValidators,
+    gasFeesLoading,
+    transactionsLoading,
+    validatorsLoading,
+  } = useAppSelector(getXPchainOverreview);
   useEffectOnce(() => {
     dispatch(fetchXPTransactions({ chainID: CHAIN_ID, chainType: 'p' }));
+    dispatch(loadValidators());
   });
 
   return (
     <PageContainer pageTitle="P chain" metaContent="chain-overview p-chain">
       <DataControllers />
       <OverviewCards
-        numberOfTransactions={0}
-        totalGasFees={0}
-        numberOfActiveValidators={0}
-        numberOfValidators={0}
-        percentageOfActiveValidators={0}
-        gasFeesLoading="succeeded"
-        transactionsLoading="succeeded"
-        validatorsLoading="succeeded"
+        numberOfTransactions={numberOfTransactions}
+        totalGasFees={totalGasFees}
+        numberOfActiveValidators={numberOfActiveValidators}
+        numberOfValidators={numberOfValidators}
+        percentageOfActiveValidators={percentageOfActiveValidators}
+        gasFeesLoading={gasFeesLoading}
+        transactionsLoading={transactionsLoading}
+        validatorsLoading={validatorsLoading}
       />
       <XPTransactionList ShowAllLink="/transactions">
         <LoadingWrapper

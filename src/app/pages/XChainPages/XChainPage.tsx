@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   selectAllXTransactions,
   getXPchainStatus,
+  getXPchainOverreview,
   // getXchainError,
   // getXchainOverreview,
 } from 'store/xchainSlice';
@@ -16,6 +17,7 @@ import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
 import DataControllers from 'app/components/DataControllers';
 import { ChainType } from 'utils/types/chain-type';
 import { LoadingWrapper } from 'app/components/LoadingWrapper';
+import { loadValidators } from 'store/cchainSlice/utils';
 
 const CHAIN_ID = '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
 
@@ -23,36 +25,34 @@ export default function XChainPage() {
   const dispatch = useAppDispatch();
   const transactions = useAppSelector(selectAllXTransactions);
   const status = useAppSelector(getXPchainStatus);
-  React.useEffect(() => {
-    console.log('XChainPage: useEffect', status);
-  }, [status]);
   // const error = useAppSelector(getXchainError);
-  // const {
-  //   numberOfTransactions,
-  //   totalGasFees,
-  //   numberOfActiveValidators,
-  //   numberOfValidators,
-  //   percentageOfActiveValidators,
-  //   gasFeesLoading,
-  //   transactionsLoading,
-  //   validatorsLoading,
-  // } = useAppSelector(getXchainOverreview);
+  const {
+    numberOfTransactions,
+    totalGasFees,
+    numberOfActiveValidators,
+    numberOfValidators,
+    percentageOfActiveValidators,
+    gasFeesLoading,
+    transactionsLoading,
+    validatorsLoading,
+  } = useAppSelector(getXPchainOverreview);
   useEffectOnce(() => {
     dispatch(fetchXPTransactions({ chainID: CHAIN_ID, chainType: 'x' }));
+    dispatch(loadValidators());
   });
 
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
       <DataControllers />
       <OverviewCards
-        numberOfTransactions={0}
-        totalGasFees={0}
-        numberOfActiveValidators={0}
-        numberOfValidators={0}
-        percentageOfActiveValidators={0}
-        gasFeesLoading="succeeded"
-        transactionsLoading="succeeded"
-        validatorsLoading="succeeded"
+        numberOfTransactions={numberOfTransactions}
+        totalGasFees={totalGasFees}
+        numberOfActiveValidators={numberOfActiveValidators}
+        numberOfValidators={numberOfValidators}
+        percentageOfActiveValidators={percentageOfActiveValidators}
+        gasFeesLoading={gasFeesLoading}
+        transactionsLoading={transactionsLoading}
+        validatorsLoading={validatorsLoading}
       />
       <XPTransactionList ShowAllLink="/transactions">
         <LoadingWrapper

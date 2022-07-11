@@ -79,17 +79,12 @@ export function XTransactionDetails() {
       fee: res.txFee,
       memo: convertMemo(res.memo),
     });
-    // console.log(transaction);
   }
 
   useEffectOnce(() => {
     fetchTransactionDetail();
   });
-  React.useEffect(() => {
-    if (result) {
-      console.log(result.to[0]);
-    }
-  }, [result]);
+
   return (
     <Container maxWidth="xl">
       <Helmet>

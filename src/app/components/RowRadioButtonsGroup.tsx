@@ -17,6 +17,12 @@ import {
   loadTotalGasFess,
 } from 'store/cchainSlice/utils';
 import useWidth from 'app/hooks/useWidth';
+import { useLocation } from 'react-router-dom';
+import { changetimeFrameXPchain, getTimeFrameXPchain } from 'store/xchainSlice';
+import {
+  loadNumberOfPXTransactions,
+  loadTotalPXGasFess,
+} from 'store/xchainSlice/utils';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -25,7 +31,9 @@ export default function RowRadioButtonsGroup({
   chainType?: string;
   style?: React.CSSProperties;
 }) {
+  const location = useLocation();
   const timeFrame = useAppSelector(getTimeFrame);
+  const timeFrameXPchain = useAppSelector(getTimeFrameXPchain);
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
   const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +53,28 @@ export default function RowRadioButtonsGroup({
   }, [timeFrame]); // eslint-disable-line
 
   useEffect(() => {
-    dispatch(changetimeFrame(value));
+    let chainId =
+      location.pathname.split('/')[1] === 'x-chain'
+        ? '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV'
+        : '11111111111111111111111111111111LpoYY';
+    dispatch(
+      loadNumberOfPXTransactions({
+        timeframe: timeFrameXPchain,
+        chainId,
+      }),
+    );
+    dispatch(
+      loadTotalPXGasFess({
+        timeframe: timeFrameXPchain,
+        chainId,
+      }),
+    );
+  }, [timeFrameXPchain]); // eslint-disable-line
+
+  useEffect(() => {
+    if (location.pathname.split('/')[1] === 'c-chain')
+      dispatch(changetimeFrame(value));
+    else dispatch(changetimeFrameXPchain(value));
   }, [value]); // eslint-disable-line
 
   const { isMobile } = useWidth();

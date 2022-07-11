@@ -23,7 +23,7 @@ const initialState: initialXPchainStateType = {
   loadXTransactionDetials: status.IDLE,
   loadPTransactionDetials: status.IDLE,
   error: undefined,
-  timeFrame: Timeframe.MONTHS_1,
+  timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
@@ -40,7 +40,7 @@ const xchainSlice = createSlice({
   name: 'xchaine',
   initialState,
   reducers: {
-    changetimeFrameXchain(state, action) {
+    changetimeFrameXPchain(state, action) {
       state.timeFrame = action.payload;
     },
   },
@@ -66,7 +66,6 @@ const xchainSlice = createSlice({
         state.ChainOverview.transactionsLoading = status.LOADING;
       })
       .addCase(loadNumberOfPXTransactions.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.ChainOverview.numberOfTransactions = action.payload;
         state.ChainOverview.transactionsLoading = status.SUCCEEDED;
       })
@@ -114,11 +113,11 @@ export const getXPchainStatus = (state: RootState) =>
   state.xchain.loadXPTransactions;
 export const getXchainError = (state: RootState) => state.xchain.error;
 // Select ChainOverreview data
-export const getXchainOverreview = (state: RootState) =>
+export const getXPchainOverreview = (state: RootState) =>
   state.xchain.ChainOverview;
 // Select TimeFrime
-export const getTimeFrame = (state: RootState) => state.xchain.timeFrame;
+export const getTimeFrameXPchain = (state: RootState) => state.xchain.timeFrame;
 // Actions
-export const { changetimeFrameXchain } = xchainSlice.actions;
+export const { changetimeFrameXPchain } = xchainSlice.actions;
 // Reducer
 export default xchainSlice.reducer;
