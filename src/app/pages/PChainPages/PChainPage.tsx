@@ -1,12 +1,10 @@
 import * as React from 'react';
 import PageContainer from 'app/components/PageConatiner';
 import OverviewCards from '../../components/OverviewCards';
-import RowRadioButtonsGroup from '../../components/RowRadioButtonsGroup';
-import GlobalReloadButton from '../../components/GlobalReloadButton';
 import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
 import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
 import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
-import { Grid } from '@mui/material';
+import DataControllers from 'app/components/DataControllers';
 import { ChainType } from 'utils/types/chain-type';
 import { LoadingWrapper } from 'app/components/LoadingWrapper';
 import { fetchXPTransactions } from 'store/xchainSlice/utils';
@@ -26,14 +24,7 @@ export default function PChainPage() {
 
   return (
     <PageContainer pageTitle="P chain" metaContent="chain-overview p-chain">
-      <Grid container spacing={{ xs: 3, md: 1 }}>
-        <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
-          <RowRadioButtonsGroup />
-        </Grid>
-        <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-          <GlobalReloadButton style={{ display: 'flex', marginLeft: 'auto' }} />
-        </Grid>
-      </Grid>
+      <DataControllers />
       <OverviewCards
         numberOfTransactions={0}
         totalGasFees={0}
