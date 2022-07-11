@@ -51,7 +51,9 @@ export function CamAmount({
           'en-US',
         )}
       </Typography>
-      <AmountIcon currency={currency} />
+      <AmountIcon
+        currency={getDisplayAmount(getACamAmount(amount, currency)).currency}
+      />
       <Typography variant="caption">
         {getDisplayAmount(getACamAmount(amount, currency)).currency}
       </Typography>
