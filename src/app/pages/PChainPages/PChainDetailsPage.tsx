@@ -127,7 +127,7 @@ function convertMemo(memo: string): string {
   }
 }
 
-export function PChainDetailPage() {
+export default function PChainDetailPage() {
   const theme = useTheme();
   const [result, setResult] = React.useState<XPTransaction>();
   const [details, setDetails] = React.useState<XPTransactionDetail>();
