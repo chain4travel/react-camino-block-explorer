@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import React from 'react';
+import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { CChainPage } from './pages/CChainPages';
@@ -49,6 +50,7 @@ export function App() {
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
+      <GlobalStyle />
     </BrowserRouter>
   );
 }
