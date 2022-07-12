@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Divider, Grid, Paper, Typography, useTheme, Box } from '@mui/material';
+import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
 // import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
