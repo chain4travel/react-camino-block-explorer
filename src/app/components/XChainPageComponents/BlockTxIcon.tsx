@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
-import { ReactComponent as TxIcon } from '../../components/assets/transaction.svg';
 import { mdiCubeOutline } from '@mdi/js';
 import { mdiTransfer } from '@mdi/js';
 import Icon from '@mdi/react';
