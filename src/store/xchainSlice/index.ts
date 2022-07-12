@@ -7,14 +7,21 @@ import { NodeValidator } from 'types/node-types';
 import { ChainOverviewType, initialXPchainStateType } from 'types/store';
 import { createTransaction } from 'utils/magellan';
 import {
-  fetchXTransactions,
-  loadNumberOfXTransactions,
-  loadTotalXGasFess,
+  fetchXPTransactions,
+  loadNumberOfPXTransactions,
+  loadTotalPXGasFess,
+  // fetchXTransactions,
+  // loadNumberOfXTransactions,
 } from './utils';
 
 const initialState: initialXPchainStateType = {
-  transactions: [],
-  status: status.IDLE,
+  xTransactions: undefined,
+  pTransactions: undefined,
+  xTransactionDetails: undefined,
+  pTransactionDetails: undefined,
+  loadXPTransactions: status.IDLE,
+  loadXTransactionDetials: status.IDLE,
+  loadPTransactionDetials: status.IDLE,
   error: undefined,
   timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
@@ -33,41 +40,46 @@ const xchainSlice = createSlice({
   name: 'xchaine',
   initialState,
   reducers: {
-    changetimeFrameXchain(state, action) {
+    changetimeFrameXPchain(state, action) {
       state.timeFrame = action.payload;
     },
   },
   extraReducers(builder) {
-    builder.addCase(fetchXTransactions.pending, state => {
-      state.status = status.FAILED;
-    });
     builder
-      .addCase(fetchXTransactions.fulfilled, (state, action) => {
-        state.status = status.SUCCEEDED;
-        state.transactions = action.payload.transactions.map(createTransaction);
+      .addCase(fetchXPTransactions.pending, (state, action) => {
+        state.loadXPTransactions = status.LOADING;
       })
-      .addCase(fetchXTransactions.rejected, (state, action) => {
-        state.status = status.FAILED;
+      .addCase(fetchXPTransactions.fulfilled, (state, action) => {
+        state.loadXPTransactions = status.SUCCEEDED;
+        if (action.payload.type === 'x')
+          state.xTransactions =
+            action.payload.transactions.map(createTransaction);
+        else if (action.payload.type === 'p')
+          state.pTransactions =
+            action.payload.transactions.map(createTransaction);
+      })
+      .addCase(fetchXPTransactions.rejected, (state, action) => {
+        state.loadXPTransactions = status.FAILED;
         state.error = action.error.message;
       })
-      .addCase(loadNumberOfXTransactions.pending, state => {
+      .addCase(loadNumberOfPXTransactions.pending, state => {
         state.ChainOverview.transactionsLoading = status.LOADING;
       })
-      .addCase(loadNumberOfXTransactions.fulfilled, (state, action) => {
+      .addCase(loadNumberOfPXTransactions.fulfilled, (state, action) => {
         state.ChainOverview.numberOfTransactions = action.payload;
         state.ChainOverview.transactionsLoading = status.SUCCEEDED;
       })
-      .addCase(loadNumberOfXTransactions.rejected, state => {
+      .addCase(loadNumberOfPXTransactions.rejected, state => {
         state.ChainOverview.transactionsLoading = status.FAILED;
       })
-      .addCase(loadTotalXGasFess.pending, state => {
+      .addCase(loadTotalPXGasFess.pending, state => {
         state.ChainOverview.gasFeesLoading = status.LOADING;
       })
-      .addCase(loadTotalXGasFess.fulfilled, (state, action) => {
+      .addCase(loadTotalPXGasFess.fulfilled, (state, action) => {
         state.ChainOverview.totalGasFees = action.payload;
         state.ChainOverview.gasFeesLoading = status.SUCCEEDED;
       })
-      .addCase(loadTotalXGasFess.rejected, state => {
+      .addCase(loadTotalPXGasFess.rejected, state => {
         state.ChainOverview.gasFeesLoading = status.FAILED;
       })
       .addCase(loadValidators.pending, state => {
@@ -92,12 +104,20 @@ const xchainSlice = createSlice({
       });
   },
 });
+
+// Select All X Transactions
 export const selectAllXTransactions = (state: RootState) =>
-  state.xchain.transactions;
-export const getXchainStatus = (state: RootState) => state.xchain.status;
+  state.xchain.xTransactions;
+// Select Loading Status
+export const getXPchainStatus = (state: RootState) =>
+  state.xchain.loadXPTransactions;
 export const getXchainError = (state: RootState) => state.xchain.error;
-export const getXchainOverreview = (state: RootState) =>
+// Select ChainOverreview data
+export const getXPchainOverreview = (state: RootState) =>
   state.xchain.ChainOverview;
-export const getTimeFrame = (state: RootState) => state.xchain.timeFrame;
-export const { changetimeFrameXchain } = xchainSlice.actions;
+// Select TimeFrime
+export const getTimeFrameXPchain = (state: RootState) => state.xchain.timeFrame;
+// Actions
+export const { changetimeFrameXPchain } = xchainSlice.actions;
+// Reducer
 export default xchainSlice.reducer;

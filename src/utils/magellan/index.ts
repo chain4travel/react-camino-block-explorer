@@ -35,7 +35,7 @@ export function createTransaction(
 ): XPTransaction {
   return {
     id: magellanTransaction.id,
-    timestamp: new Date(Date.parse(magellanTransaction.timestamp)).toString(),
+    timestamp: new Date(Date.parse(magellanTransaction.timestamp)),
     type: magellanTransaction.type,
     from: getInputFunds(magellanTransaction),
     to: getOutputFunds(magellanTransaction),

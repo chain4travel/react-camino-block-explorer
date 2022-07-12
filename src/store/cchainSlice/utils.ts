@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { DateTime } from 'luxon';
 import { store } from '../../index';
-import { getStartDate } from 'utils/display/display-utils';
+import { getStartDate } from 'utils/display-utils';
 import {
   loadTransactionAggregates,
   loadTransactionFeesAggregates,
@@ -82,6 +82,22 @@ export const fetchCBlockDetail = createAsyncThunk(
     const res = (
       await axios.get(`${activeNetwork?.magellanAddress}/v2/ctxdata/${number}`)
     ).data;
+    return res;
+  },
+);
+
+export const fetchTransactionDetails = createAsyncThunk(
+  'cchain/transactionDetail',
+  async (adress: string) => {
+    let networks = store.getState().networks;
+    let activeNetwork = networks.networks.find(
+      element => element.id === networks.activeNetwork,
+    );
+    const res = (
+      await axios.get(
+        `${activeNetwork?.magellanAddress}/v2/ctransactions?hash=${adress}`,
+      )
+    ).data.Transactions[0];
     return res;
   },
 );

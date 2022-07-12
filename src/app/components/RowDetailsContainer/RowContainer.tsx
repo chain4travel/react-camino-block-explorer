@@ -1,12 +1,13 @@
 import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material';
 import * as React from 'react';
-import { mdiCubeOutline } from '@mdi/js';
-import Icon from '@mdi/react';
+// import { mdiCubeOutline } from '@mdi/js';
+// import Icon from '@mdi/react';
 import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';
 import { CamAmount } from 'app/components/CamAmount';
 import { Link } from 'react-router-dom';
+import BlockTxIcon from '../XChainPageComponents/BlockTxIcon';
 
 function getNameFromType(type: string): string {
   switch (type) {
@@ -62,6 +63,8 @@ function getNameFromType(type: string): string {
       return 'Status';
     case 'memo':
       return 'Memo';
+    case 'address':
+      return 'address';
   }
   return '';
 }
@@ -78,53 +81,6 @@ function checkWei(type: string): boolean {
     return true;
   return false;
 }
-
-// function getContentFromType(
-//   type: string,
-//   value: string,
-// ): string | number | Date | any {
-//   switch (type) {
-//     case 'hash':
-//       return value;
-//     case 'transaction':
-//       return value;
-//     case 'number':
-//       return parseInt(value);
-//     case 'parentHash':
-//       return value;
-//     case 'baseGaseFee':
-//       return parseInt(value);
-//     case 'fees':
-//       return parseInt(value);
-//     //   return '0.12';
-//     case 'gasUsed':
-//       return getDisplayAmount(parseInt(value)).value.toLocaleString('en-US');
-//     //   return parseInt(value);
-//     case 'time':
-//       //   return `${getRelativeTime(
-//       //     new Date(parseInt(value) * 1000),
-//       //   )} ago    ${new Date(parseInt(value) * 1000)}`;
-//       return new Date(parseInt(value) * 1000);
-//     //   return 'pikala';
-//     case 'transactionsCount':
-//       return value;
-//     case 'extData':
-//       return value;
-//     // transaction
-//     //first part
-//     case 'type':
-//       return value;
-//     case 'createdAt':
-//       return value;
-//     case 'fromAddr':
-//       return value;
-//     case 'toAddr':
-//       return value;
-//     case 'block':
-//       return value;
-//   }
-//   return '';
-// }
 
 function checkHash(type: string): boolean {
   if (
@@ -182,17 +138,17 @@ export function RowContainer({ theme, head, type, content, parent }) {
             }}
           >
             {head ? (
-              <Icon
-                path={mdiCubeOutline}
-                size={1}
-                color="latestList.iconColor"
-              />
+              // <BlockTxIcon iconType="transaction" />
+              type === 'transaction' ? (
+                <BlockTxIcon iconType="transaction" />
+              ) : (
+                <BlockTxIcon iconType="block" />
+              )
             ) : (
               <HelpOutlineOutlinedIcon />
             )}
           </Box>
         )}
-        {/* {React.createElement(Typography, { variant: 'body1' }, 'bigola')} */}
         <Typography variant="body1">{getNameFromType(type)}</Typography>
       </Grid>
       {type !== 'memo' ? (
@@ -210,7 +166,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
             </Grid>
           ) : (
             <Typography variant="body1" noWrap>
-              {content.toString()}
+              {content.toLocaleString('en-US')}
             </Typography>
           )}
         </Grid>
@@ -219,43 +175,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
           Discord faucet UID: 975692841227534347
         </Grid>
       )}
-      {type === 'memo' && (
-        <Grid
-          sx={{ gap: '20px' }}
-          container
-          item
-          xs={12}
-          md={12}
-          lg={12}
-          xl={12}
-        >
-          <Grid
-            sx={{
-              backgroundColor: 'overviewCard.border',
-              height: 'auto',
-              padding: '1rem 1rem',
-            }}
-            item
-            xs={12}
-            md
-            lg
-            xl
-            container
-          >
-            <Typography sx={{ margin: '1rem' }} variant="body1">
-              Input
-            </Typography>
-            <RowContainer
-              parent
-              theme={theme}
-              head={false}
-              type="hash"
-              content="ahah"
-            />
-          </Grid>
-          <Grid sx={{ backgroundColor: 'blue' }} item xs={12} md lg xl></Grid>
-        </Grid>
-      )}
+
       {checkHash(type) && (
         <Grid
           container
@@ -267,9 +187,9 @@ export function RowContainer({ theme, head, type, content, parent }) {
           justifyContent="end"
           sx={{
             paddingRight: '5px',
-            [theme.breakpoints.down('md')]: {
-              justifyContent: 'start',
-            },
+            // [theme.breakpoints.down('md')]: {
+            //   justifyContent: 'start',
+            // },
           }}
         >
           <Box
