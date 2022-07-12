@@ -20,7 +20,7 @@ import useWidth from 'app/hooks/useWidth';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { useAppDispatch } from 'store/configureStore';
+// import { useAppDispatch } from 'store/configureStore';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 // import { loadAssets } from 'store/xchainSlice/utils';
 
@@ -89,7 +89,7 @@ export default function XAddressDetail() {
   // getting the address from the url by getting what comes after the last slash
   const address = window.location.pathname.split('/').pop() as string;
   const [value, setValue] = React.useState(0);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   useEffectOnce(() => {
     // dispatch(loadAssets());
   });
