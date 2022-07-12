@@ -287,6 +287,7 @@ const defaultComponents = {
         flex: 1,
         marginTop: '140px',
         gap: '20px',
+        marginBottom: '30px',
         '@media (max-width: 1024px)': {
           marginTop: '100px',
         },

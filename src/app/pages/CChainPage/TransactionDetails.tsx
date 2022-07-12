@@ -1,18 +1,8 @@
 import * as React from 'react';
-import { RowContainer } from '../../components/RowDetailsContainer/RowContainer';
-
-import {
-  Button,
-  Divider,
-  Grid,
-  Paper,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Divider, Grid, Paper, Typography, useTheme, Box } from '@mui/material';
 // import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -23,6 +13,12 @@ import {
 } from 'store/cchainSlice';
 import { status } from 'types';
 import PageContainer from 'app/components/PageContainer';
+import BackButton from 'app/components/BackButton';
+import OutlinedContainer from 'app/components/OutlinedContainer';
+import { DetailsField } from 'app/components/DetailsField';
+import Icon from '@mdi/react';
+import { mdiCubeOutline } from '@mdi/js';
+import TransactionDetailView from './TransactionDetailView';
 
 export default function TransactionDetails() {
   const theme = useTheme();
@@ -30,10 +26,10 @@ export default function TransactionDetails() {
   const detailCr = useAppSelector(getCTransactionCurrencuy);
   const loading = useAppSelector(getCTransactionDetailsStatus);
   const location = useLocation();
-  const adress = location.pathname.split('/')[3];
+  const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
   useEffectOnce(() => {
-    dispatch(fetchTransactionDetails(adress));
+    dispatch(fetchTransactionDetails(address));
   });
 
   return (
@@ -68,107 +64,35 @@ export default function TransactionDetails() {
               gap: '20px',
             }}
           >
-            <Link to="/c-chain">
-              <Button
-                variant="outlined"
-                color="secondary"
-                sx={{
-                  borderRadius: '25px',
-                }}
-              >
-                <ArrowBackIosIcon sx={{ width: '20px', height: '25px' }} />
-              </Button>
-            </Link>
+            <BackButton />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
               C-Chain Transaction
             </Typography>
           </Grid>
           {loading === status.SUCCEEDED && (
-            <RowContainer
-              type="transaction"
-              content={adress}
-              theme={theme}
-              head={true}
-              parent
-            />
+            <OutlinedContainer transparent={false}>
+              <DetailsField
+                field="transaction"
+                value={address}
+                type="string"
+                icon={
+                  <Icon
+                    path={mdiCubeOutline}
+                    color="latestList.iconColor"
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                }
+                allowCopy={true}
+              />
+            </OutlinedContainer>
           )}
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
-          >
-            {detailTr &&
-              Object.entries(detailTr).map((item, index) => {
-                return (
-                  <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
-                    <RowContainer
-                      type={item[0]}
-                      content={item[1]}
-                      head={false}
-                      theme={theme}
-                      parent={detailTr.block}
-                    />
-                    {index !== Object.entries(detailTr).length - 1 && (
-                      <Divider variant="fullWidth" />
-                    )}
-                  </Grid>
-                );
-              })}
-          </Grid>
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
-          >
-            {detailCr &&
-              Object.entries(detailCr).map((item, index) => {
-                return (
-                  <Grid key={index} item xs={12} md={12} lg={12} xl={12}>
-                    <RowContainer
-                      type={item[0]}
-                      content={item[1]}
-                      head={false}
-                      theme={theme}
-                      parent
-                    />
-                    {index !== Object.entries(detailCr).length - 1 && (
-                      <Divider variant="fullWidth" />
-                    )}
-                  </Grid>
-                );
-              })}
-          </Grid>
+          <TransactionDetailView detailTr={detailTr} detailCr={detailCr} />
         </Grid>
-        <Grid
-          item
-          container
-          alignItems="center"
-          justifyContent="center"
-          sx={{
-            gap: '20px',
-            mt: '10px',
-          }}
-        >
-          <Grid item md={6} lg={6}>
-            <Link
-              style={{ textDecoration: 'none', width: '100%' }}
-              to="/c-chain"
-            >
-              <Button
-                variant="outlined"
-                color="secondary"
-                sx={{
-                  borderRadius: '12px',
-                  width: '1',
-                }}
-              >
-                Back
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
+        {(detailTr || detailCr) && (
+          <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
+            <BackButton />
+          </Box>
+        )}
       </Paper>
     </PageContainer>
   );
