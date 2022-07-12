@@ -11,7 +11,7 @@ import { fetchXPTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
-  selectAllXTransactions,
+  selectAllPTransactions,
   getXPchainStatus,
   getXPchainOverreview,
 } from 'store/xchainSlice';
@@ -21,7 +21,7 @@ const CHAIN_ID = '11111111111111111111111111111111LpoYY';
 
 export default function PChainPage() {
   const dispatch = useAppDispatch();
-  const transactions = useAppSelector(selectAllXTransactions);
+  const transactions = useAppSelector(selectAllPTransactions);
   const status = useAppSelector(getXPchainStatus);
   const {
     numberOfTransactions,

@@ -49,7 +49,7 @@ export function App() {
           />
           <Route path="/p-chain" element={<PChainPage />} />
           <Route
-            path="/p-chain/transactions/:id"
+            path="/p-chain/details/transactions/:id"
             element={<PChainDetailPage />}
           />
           <Route path="/mainnet" element={<ComingSoonPage />} />

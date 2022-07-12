@@ -22,8 +22,7 @@ export default function TransactionDetailView({ detailTr, detailCr }) {
                 field="Block"
                 value={detailTr['block']}
                 type="string"
-                // detailsLink={getBlockDetailsPath(type, content.block)}
-                detailsLink="/chain"
+                detailsLink={`/c-chain/blocks/${detailTr.block}`}
               />
               <Divider variant="fullWidth" />
             </Grid>

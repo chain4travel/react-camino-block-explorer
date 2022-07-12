@@ -119,6 +119,9 @@ const xchainSlice = createSlice({
 // Select All X Transactions
 export const selectAllXTransactions = (state: RootState) =>
   state.xchain.xTransactions;
+// Select All P Transactions
+export const selectAllPTransactions = (state: RootState) =>
+  state.xchain.pTransactions;
 // Select Loading Status
 export const getXPchainStatus = (state: RootState) =>
   state.xchain.loadXPTransactions;

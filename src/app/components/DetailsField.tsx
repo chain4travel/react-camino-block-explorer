@@ -93,7 +93,7 @@ export const DetailsField = ({
               sx={{ justifyContent: 'flex-end', gap: '10px' }}
             >
               {detailsLink && (
-                <Link to={detailsLink}>
+                <Link style={{ textDecoration: 'none' }} to={detailsLink}>
                   <Button
                     variant="outlined"
                     color="secondary"

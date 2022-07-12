@@ -5,8 +5,6 @@ import { DetailsField } from 'app/components/DetailsField';
 import { mdiCubeOutline } from '@mdi/js';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import Icon from '@mdi/react';
-// import { getBlockDetailsPath } from 'utils/route-utils';
-// import { ChainType } from 'utils/types/chain-type';
 
 export default function BlockDetailView({ blockDetails, loading }) {
   return (
@@ -46,15 +44,7 @@ export default function BlockDetailView({ blockDetails, loading }) {
                   value={blockDetails['parentHash']}
                   type="string"
                   allowCopy={true}
-                  // detailsLink={
-                  //   blockDetails['parentBlockNumber']
-                  //     ? getBlockDetailsPath(
-                  //         ChainType.C_CHAIN,
-                  //         blockDetails['parentBlockNumber'],
-                  //       )
-                  //     : undefined
-                  // }
-                  detailsLink="/c-chain/block/0x"
+                  detailsLink={`/c-chain/blocks/${blockDetails.number - 1}`}
                 />
                 <Divider variant="fullWidth" />
               </Grid>

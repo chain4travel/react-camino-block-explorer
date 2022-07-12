@@ -22,7 +22,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useAppDispatch } from 'store/configureStore';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { loadAssets } from 'store/xchainSlice/utils';
+// import { loadAssets } from 'store/xchainSlice/utils';
 
 function a11yProps(index: number) {
   return {
@@ -91,7 +91,7 @@ export default function XAddressDetail() {
   const [value, setValue] = React.useState(0);
   const dispatch = useAppDispatch();
   useEffectOnce(() => {
-    dispatch(loadAssets());
+    // dispatch(loadAssets());
   });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

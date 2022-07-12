@@ -290,14 +290,14 @@ export function TableDetials() {
                                 {row.numberOfTransactions}
                               </Typography>
                             </Grid>
-                            <Grid item xs md={6} lg={5} xl={6}>
+                            <Grid item xs={5} md={6} lg={5} xl={6}>
                               <Typography
                                 variant="subtitle2"
                                 color="latestList.timestamp"
                               >
                                 Hash
                               </Typography>
-                              <Typography variant="body1">
+                              <Typography variant="body1" noWrap={true}>
                                 {row.hash}
                               </Typography>
                             </Grid>
