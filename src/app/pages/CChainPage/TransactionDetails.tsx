@@ -17,7 +17,7 @@ import BackButton from 'app/components/BackButton';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import { DetailsField } from 'app/components/DetailsField';
 import Icon from '@mdi/react';
-import { mdiCubeOutline } from '@mdi/js';
+import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './TransactionDetailView';
 
 export default function TransactionDetails() {
@@ -72,12 +72,12 @@ export default function TransactionDetails() {
           {loading === status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
-                field="transaction"
+                field="Transaction"
                 value={address}
                 type="string"
                 icon={
                   <Icon
-                    path={mdiCubeOutline}
+                    path={mdiTransfer}
                     color="latestList.iconColor"
                     style={{ width: '20px', height: '20px' }}
                   />

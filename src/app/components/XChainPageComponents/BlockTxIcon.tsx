@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import { ReactComponent as TxIcon } from '../../components/assets/transaction.svg';
 import { mdiCubeOutline } from '@mdi/js';
+import { mdiTransfer } from '@mdi/js';
 import Icon from '@mdi/react';
 
 export default function BlockTxIcon({ iconType }: { iconType?: string }) {
@@ -22,7 +23,7 @@ export default function BlockTxIcon({ iconType }: { iconType?: string }) {
       {iconType === 'block' ? (
         <Icon path={mdiCubeOutline} size={1} color="latestList.iconColor" />
       ) : (
-        <TxIcon style={{ fill: 'black' }} />
+        <Icon path={mdiTransfer} size={1} color="latestList.iconColor" />
       )}
     </Box>
   );

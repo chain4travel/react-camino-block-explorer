@@ -47,7 +47,7 @@ export const DetailsField = ({
       >
         {!isMobile && (
           <>
-            {(tooltip?.toLowerCase() || getTooltip(field?.toLowerCase())) && (
+            {tooltip?.toLowerCase() || getTooltip(field?.toLowerCase()) ? (
               <Grid item xs={2}>
                 <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
                   {icon || (
@@ -56,6 +56,10 @@ export const DetailsField = ({
                     />
                   )}
                 </Tooltip>
+              </Grid>
+            ) : (
+              <Grid item xs={2}>
+                {icon}
               </Grid>
             )}
           </>
