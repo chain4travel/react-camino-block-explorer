@@ -222,7 +222,7 @@ export function TransactionList({
                     </Box>
                   </Grid>
                 )}
-                <Grid item xs={9} md={3} justifyContent="flex-start">
+                <Grid item xs={12} md={3} justifyContent="flex-start">
                   <AddressLink
                     to={`${to}/${item.hash}`}
                     value={item.hash}
@@ -231,7 +231,7 @@ export function TransactionList({
                   />
                   <RelativeTime value={item.timestamp} />
                 </Grid>
-                <Grid item xs={9} md={4} xl={5}>
+                <Grid item xs={12} md={4} xl={5}>
                   <Grid container direction="row">
                     <Grid item xs={2} md={4} xl={3}>
                       <Typography variant="subtitle2">From</Typography>

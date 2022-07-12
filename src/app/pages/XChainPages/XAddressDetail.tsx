@@ -372,7 +372,8 @@ const InputOutputSection = () => {
   );
 };
 
-const DetailsField = ({
+// ToDo: to be removed and replaced with details field component in components folder
+export const DetailsField = ({
   field,
   value,
   type,
