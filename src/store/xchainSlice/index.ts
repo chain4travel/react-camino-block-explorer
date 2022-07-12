@@ -8,10 +8,9 @@ import { ChainOverviewType, initialXPchainStateType } from 'types/store';
 import { createTransaction } from 'utils/magellan';
 import {
   fetchXPTransactions,
+  loadAssets,
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
-  // fetchXTransactions,
-  // loadNumberOfXTransactions,
 } from './utils';
 
 const initialState: initialXPchainStateType = {
@@ -23,6 +22,7 @@ const initialState: initialXPchainStateType = {
   loadXTransactionDetials: status.IDLE,
   loadPTransactionDetials: status.IDLE,
   error: undefined,
+  assets: undefined,
   timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
@@ -101,6 +101,17 @@ const xchainSlice = createSlice({
       })
       .addCase(loadValidators.rejected, state => {
         state.ChainOverview.validatorsLoading = status.FAILED;
+      })
+      .addCase(loadAssets.pending, state => {
+        // state.ChainOverview.validatorsLoading = status.FAILED;
+      })
+      .addCase(loadAssets.fulfilled, (state, action) => {
+        // state.assets = action.payload;
+        // state.ChainOverview.validatorsLoading = status.FAILED;
+        console.log(action.payload);
+      })
+      .addCase(loadAssets.rejected, state => {
+        // state.ChainOverview.validatorsLoading = status.FAILED;
       });
   },
 });
@@ -108,6 +119,9 @@ const xchainSlice = createSlice({
 // Select All X Transactions
 export const selectAllXTransactions = (state: RootState) =>
   state.xchain.xTransactions;
+// Select All P Transactions
+export const selectAllPTransactions = (state: RootState) =>
+  state.xchain.pTransactions;
 // Select Loading Status
 export const getXPchainStatus = (state: RootState) =>
   state.xchain.loadXPTransactions;

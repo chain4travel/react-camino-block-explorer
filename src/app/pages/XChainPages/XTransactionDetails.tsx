@@ -16,7 +16,7 @@ import {
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { XPTransaction } from 'types/transaction';
 import { XPTransactionDetail } from '../PChainPages/PChainDetailsPage';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
@@ -52,10 +52,16 @@ export function XTransactionDetails() {
   const [result, setResult] = React.useState<XPTransaction>();
   const [details, setDetails] = React.useState<XPTransactionDetail>();
 
+  const location = useLocation();
+  // React.useEffect(() => {
+  //   console.log(location.pathname.split('/')[4]);
+  // }, []);
   async function fetchTransactionDetail(): Promise<void> {
     const res = (
       await axios.get(
-        'https://magellan.columbus.camino.foundation/v2/transactions/tpLdRwBsVdYsoZpd9aeyRCGgp6mzG6YaN5t92hjrMrT6s5831',
+        `https://magellan.columbus.camino.foundation/v2/transactions/${
+          location.pathname.split('/')[4]
+        }`,
       )
     ).data;
     let transaction: XPTransaction = {

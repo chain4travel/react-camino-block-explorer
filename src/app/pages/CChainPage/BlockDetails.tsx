@@ -8,7 +8,6 @@ import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
 import { LoadingWrapper } from 'app/components/LoadingWrapper';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import BlockDetailView from './BlockDetailView';
 
 export default function BlockDetails() {
@@ -21,10 +20,6 @@ export default function BlockDetails() {
   React.useEffect(() => {
     dispatch(fetchCBlockDetail(parseInt(location.pathname.split('/')[3])));
   }, [location, dispatch]);
-
-  useEffectOnce(() => {
-    console.log(blockDetails);
-  });
 
   return (
     <PageContainer
@@ -59,7 +54,6 @@ export default function BlockDetails() {
               width: 1,
               minHeight: '600px',
               gap: '20px',
-              // backgroundColor: 'red',
             }}
           >
             <Grid item container alignItems="center" sx={{ gap: '20px' }}>

@@ -61,3 +61,37 @@ export const fetchXPTransactions = createAsyncThunk(
     return { transactions: response.data.transactions, type: chain.chainType };
   },
 );
+
+export const loadAssets = createAsyncThunk('xchain/loadAssets', async () => {
+  let networks = store.getState().networks;
+  let activeNetwork = networks.networks.find(
+    element => element.id === networks.activeNetwork,
+  );
+  const response = (
+    await axios.get(`${activeNetwork?.magellanAddress}/v2/assets`)
+  ).data;
+  const newElements = new Map();
+  if (response.assets) {
+    response.assets.forEach(element => {
+      newElements.set(element.id, {
+        name: element.name,
+        symbol: element.symbol,
+      });
+    });
+  }
+  return newElements;
+});
+
+// export const loadXpTransactions = createAsyncThunk(
+//   'xchain/loadXpTransactions',
+
+//   async () => {
+//     let networks = store.getState().networks;
+//     let activeNetwork = networks.networks.find(
+//       element => element.id === networks.activeNetwork,
+//     );
+//     const toandfromAddressTxs = await axios.get(
+//       `${getMagellanBaseUrl()}${cBlocksApi}?address=${address}&limit=0&${limitAndOffsetQueryString}`,
+//     );
+//   },
+// );
