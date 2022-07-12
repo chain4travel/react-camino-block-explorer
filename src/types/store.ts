@@ -1,5 +1,6 @@
 import { status } from 'types';
 import { BlockDetail, BlockTableData } from './block';
+import { MagellanTransactionDetail } from './magellan-types';
 import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 
 export interface ChainOverviewType {
@@ -28,6 +29,10 @@ export interface initialCchainStateType {
   ChainOverview: ChainOverviewType;
 }
 
+interface assets {
+  name: string;
+  symbol: string;
+}
 export interface initialXPchainStateType {
   xTransactions?: XPTransaction[];
   pTransactions?: XPTransaction[];
@@ -38,5 +43,6 @@ export interface initialXPchainStateType {
   loadPTransactionDetials: status;
   error: undefined | string;
   timeFrame: string;
+  assets?: assets[];
   ChainOverview: ChainOverviewType;
 }
