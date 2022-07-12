@@ -52,7 +52,6 @@ export default function TransactionDetailView({ detailTr, detailCr }) {
                 type="hexdata"
                 allowCopy={true}
               />
-              <Divider variant="fullWidth" />
             </Grid>
           </Grid>
         </OutlinedContainer>
@@ -98,7 +97,6 @@ export default function TransactionDetailView({ detailTr, detailCr }) {
                 value={detailCr['transactionCost']}
                 type="wei"
               />
-              <Divider variant="fullWidth" />
             </Grid>
           </Grid>
         </OutlinedContainer>

@@ -104,7 +104,6 @@ export default function BlockDetailView({ blockDetails, loading }) {
                   value={blockDetails['extData']}
                   type="hexdata"
                 />
-                <Divider variant="fullWidth" />
               </Grid>
             </>
           )}
