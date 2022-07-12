@@ -7,7 +7,6 @@ import Chip from 'app/components/Chip';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-// import { nCamToACam } from 'utils/currency-utils';
 import { getRelativeTime } from 'utils/display-utils';
 
 export const DetailsField = ({
@@ -20,7 +19,7 @@ export const DetailsField = ({
   allowCopy,
 }: {
   field: string;
-  value: string | number | object;
+  value: string | number | object | undefined;
   type: string;
   icon?: React.ReactElement;
   tooltip?: string;
@@ -121,12 +120,12 @@ export const DetailsField = ({
   );
 };
 
-const Field = ({
+export const Field = ({
   type,
   value,
 }: {
   type: string;
-  value: string | number | object;
+  value: string | number | object | undefined;
 }) => {
   const { isMobile } = useWidth();
   if (type === 'string' || type === 'number' || type === 'monospace') {

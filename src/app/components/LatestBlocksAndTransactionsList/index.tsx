@@ -143,7 +143,7 @@ export function BlockList({
           alignItems: 'center',
         }}
       >
-        <Link style={{ textDecoration: 'none' }} to={to}>
+        <Link style={{ textDecoration: 'none' }} to="/all/c-chain/blocks">
           <MainButton variant="outlined">Show All</MainButton>
         </Link>
       </Box>

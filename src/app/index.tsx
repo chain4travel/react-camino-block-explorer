@@ -3,7 +3,7 @@ import React from 'react';
 import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import { CChainPage } from './pages/CChainPage';
+import { CChainPage, CShowAllBlocks } from './pages/CChainPage';
 import {
   XChainPage,
   XAddressDetail,
@@ -15,6 +15,7 @@ import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
 import { TransactionDetails, BlockDetails } from './pages/CChainPage';
+// import CShowAllBlocks from './pages/CChainPage/ShowAllBlocks';
 export function App() {
   const { i18n } = useTranslation();
 
@@ -53,6 +54,7 @@ export function App() {
             element={<PChainDetailPage />}
           />
           <Route path="/mainnet" element={<ComingSoonPage />} />
+          <Route path="all/c-chain/blocks" element={<CShowAllBlocks />}></Route>
         </Route>
         {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
