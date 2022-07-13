@@ -4,7 +4,6 @@ import {
   Paper,
   Typography,
   useTheme,
-  Box,
   TableCellProps,
   TableContainer,
   Table,
@@ -12,30 +11,15 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Divider,
 } from '@mui/material';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { useLocation } from 'react-router-dom';
-import { fetchTransactionDetails } from 'store/cchainSlice/utils';
-import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import {
-  getCTransactionCurrencuy,
-  getCTransactionDetailsStatus,
-  getCTransactionInformations,
-} from 'store/cchainSlice';
-import { status } from 'types';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
-import OutlinedContainer from 'app/components/OutlinedContainer';
-import { DetailsField, Field } from 'app/components/DetailsField';
-import Icon from '@mdi/react';
-import { mdiTransfer } from '@mdi/js';
-import TransactionDetailView from './TransactionDetailView';
+import { Field } from 'app/components/DetailsField';
 import { BlockTableData } from 'types/block';
 import axios from 'axios';
 import { getRelativeTime } from 'utils/display-utils';
 import useWidth from 'app/hooks/useWidth';
-import { Link } from 'react-router-dom';
 import AddressLink from 'app/components/AddressLink';
 
 export interface ColumnType {
@@ -314,7 +298,13 @@ const CustomTable = ({ rows, columns }) => {
             return (
               <TableRow key={index}>
                 <TableCell>
-                  <Field type="number" value={row.number} />
+                  <AddressLink
+                    to={`/`}
+                    value={row.number}
+                    typographyVariant="body1"
+                    truncate={false}
+                  />
+                  {/* <Field type="number" value={row.number} /> */}
                 </TableCell>
                 <TableCell align="left">
                   <Typography variant="body2" component="span" noWrap={true}>

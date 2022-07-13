@@ -195,7 +195,6 @@ const cchainSlice = createSlice({
         state.loadTransactionDetails = status.LOADING;
       })
       .addCase(fetchTransactionDetails.fulfilled, (state, { payload }) => {
-        // console.log(action.payload);
         let transactionInformations: TransactionInformations = {
           type: payload.type,
           block: payload.block,

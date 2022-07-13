@@ -297,7 +297,10 @@ export function TransactionList({
             alignItems: 'center',
           }}
         >
-          <Link style={{ textDecoration: 'none' }} to={to}>
+          <Link
+            style={{ textDecoration: 'none' }}
+            to="/all/c-chain/transactions"
+          >
             <MainButton variant="outlined">Show All</MainButton>
           </Link>
         </Box>
