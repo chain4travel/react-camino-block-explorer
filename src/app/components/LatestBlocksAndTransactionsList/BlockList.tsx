@@ -4,7 +4,6 @@ import {
   Grid,
   Paper,
   useTheme,
-  useMediaQuery,
   CircularProgress,
 } from '@mui/material';
 import * as React from 'react';
@@ -29,7 +28,6 @@ export default function BlockList({
   to: string;
 }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery('@media (max-width:899px)');
   return (
     <Paper
       variant="outlined"
