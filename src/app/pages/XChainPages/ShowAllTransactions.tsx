@@ -17,10 +17,55 @@ import BackButton from 'app/components/BackButton';
 import { Field } from 'app/components/DetailsField';
 import { BlockTableData } from 'types/block';
 import axios from 'axios';
-import { getRelativeTime } from 'utils/display-utils';
+import { Fund, getRelativeTime } from 'utils/display-utils';
 import useWidth from 'app/hooks/useWidth';
 import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
+// import { createTransaction } from 'utils/magellan';
+import { XPTransaction, XPTransactionTableData } from 'types/transaction';
+import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
+import { MagellanXPTransaction } from 'types/magellan-types';
+import { alignProperty } from '@mui/material/styles/cssUtils';
+
+function getValue(outputTotal?: object, inputTotal?: object): number {
+  const output = outputTotal
+    ? Object.entries(outputTotal)
+        .map(([, value]) => parseInt(value))
+        .reduce((pv, cv) => pv + cv, 0)
+    : 0;
+  const input = inputTotal
+    ? Object.entries(inputTotal)
+        .map(([, value]) => parseInt(value))
+        .reduce((pv, cv) => pv + cv, 0)
+    : 0;
+  return output - input;
+}
+
+export function createTransaction(magellanTransaction: MagellanXPTransaction) {
+  return {
+    id: magellanTransaction.id,
+    timestamp: new Date(Date.parse(magellanTransaction.timestamp)),
+    type: magellanTransaction.type,
+    from: getInputFunds(magellanTransaction),
+    to: getOutputFunds(magellanTransaction),
+    fee: magellanTransaction.txFee,
+    inputTotals: magellanTransaction.inputTotals,
+    outputTotals: magellanTransaction.outputTotals,
+    status: 'accepted', //TODO: set dynamically when magellan delivers this information
+    memo: convertMemo(magellanTransaction.memo),
+  };
+}
+function mapToTableData(transaction: XPTransaction): XPTransactionTableData {
+  return {
+    from: transaction.from,
+    hash: transaction.id,
+    type: transaction.type,
+    timestamp: transaction.timestamp,
+    to: transaction.to,
+    value: getValue(transaction.outputTotals, transaction.inputTotals),
+    fee: transaction.fee,
+  };
+}
 
 export default function XPShowAllTransactions() {
   const theme = useTheme();
@@ -73,6 +118,9 @@ export default function XPShowAllTransactions() {
       setRows(res);
     });
   });
+  //   React.useEffect(() => {
+  //     if (rows) console.log(rows[0]);
+  //   }, [rows]);
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer
@@ -131,12 +179,12 @@ export default function XPShowAllTransactions() {
 
 const columns = [
   {
-    name: 'blockNumber',
-    label: 'Block',
-    field: 'blockNumber',
+    name: 'hash',
+    label: 'Hash',
+    field: 'hash',
     align: 'center',
     type: 'hash',
-    // detailsLink: blockDetails,
+    // detailsLink: transactionDetails,
   },
   {
     name: 'from',
@@ -155,39 +203,22 @@ const columns = [
     // detailsLink: addressDetails,
   },
   {
-    name: 'hash',
-    label: 'Hash',
-    field: 'hash',
-    align: 'center',
-    type: 'hash',
-    // detailsLink: transactionDetails,
-  },
-  {
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'center',
+    align: 'start',
     type: 'timestamp',
   },
   {
-    name: 'status',
-    label: 'Status',
-    field: 'status',
-    align: 'center',
-    type: 'status',
+    name: 'type',
+    label: 'Type',
+    field: 'Type',
+    align: 'start',
   },
   {
-    value: 'transactionCost',
-    label: 'Transaction Cost',
-    field: 'transactionCost',
-    align: 'center',
-    type: 'currency',
-  },
-  {
-    value: 'value',
-    label: 'Value',
-    field: 'value',
-    align: 'center',
+    value: 'fee',
+    label: 'Fee',
+    align: 'start',
     type: 'currency',
   },
 ];
@@ -200,30 +231,28 @@ export async function loadBlocksAndTransactions(
   transactionCount = 0,
 ) {
   return await axios.get(
-    `https://magellan.columbus.camino.foundation/v2/cblocks?limit=${0}&limit=${50}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
+    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV&offset=100&limit=50&sort=timestamp-desc`,
   );
+  //   return await axios.get(
+  //     `https://magellan.columbus.camino.foundation/v2/transactions?chainID=28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV&offset=0&limit=10&sort=timestamp-desc`,
+  //   );
+  //   ${activeNetwork?.magellanAddress}/v2/transactions?chainID=${chain.chainID}&offset=0&limit=10&sort=timestamp-desc`
+}
+
+export function getDisplayAddress(funds: Fund[]): string {
+  if (!funds || funds.length === 0) {
+    return '';
+  }
+  if (funds.length > 1) {
+    return funds[0].address + ` (+ ${funds.length - 1} more)`;
+  }
+  return funds[0].address;
 }
 
 export async function loadTransactions(startBlock) {
   let res = (await loadBlocksAndTransactions(startBlock)).data;
-  return res.transactions.map(transaction => {
-    return {
-      blockNumber: parseInt(transaction.block),
-      transactionIndex: parseInt(transaction.index),
-      from: transaction.from,
-      hash: transaction.hash,
-      status:
-        parseInt(transaction.status) === 1
-          ? 'Success'
-          : `Failed-${parseInt(transaction.status)}`,
-      timestamp: parseInt(transaction.timestamp) * 1000,
-      // timestamp: parseInt(transaction.timestamp) * 1000,
-      to: transaction.to,
-      value: parseInt(transaction.value),
-      transactionCost:
-        parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
-    };
-  });
+  let newItems = res.transactions.map(item => createTransaction(item));
+  return newItems.map(mapToTableData);
 }
 
 const CustomTable = ({ rows, columns }) => {
@@ -236,6 +265,7 @@ const CustomTable = ({ rows, columns }) => {
               <TableCell
                 sx={{ backgroundColor: 'primary.dark', wrap: 'nowrap' }}
                 key={column.name}
+                align={column.align}
               >
                 <Field type="string" value={column.label} />
               </TableCell>
@@ -246,26 +276,23 @@ const CustomTable = ({ rows, columns }) => {
           {rows?.map((row, index) => {
             return (
               <TableRow key={index}>
-                <TableCell>
-                  <Field type="number" value={row.blockNumber} />
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-                >
-                  <Field type="string" value={row.from} />
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-                >
-                  <Field type="string" value={row.to} />
-                </TableCell>
                 <TableCell
                   align="center"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
                   <Field type="string" value={row.hash} />
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+                >
+                  <Field type="string" value={row.from[0].address} />
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+                >
+                  <Field type="string" value={row.to[0].address} />
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" component="span" noWrap={true}>
@@ -274,15 +301,12 @@ const CustomTable = ({ rows, columns }) => {
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={row.status}
+                    label={row.type}
                     style={{ minWidth: '61px', height: 'min-content' }}
                   />
                 </TableCell>
                 <TableCell>
-                  <Field type="gwei" value={row.transactionCost} />
-                </TableCell>
-                <TableCell>
-                  <Field type="gwei" value={row.value} />
+                  <Field type="gwei" value={row.fee} />
                 </TableCell>
               </TableRow>
             );
@@ -314,32 +338,21 @@ const SmallSizes = ({ rows }) => {
             >
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
-                  Block
+                  Hash
                 </Typography>
-                <AddressLink
-                  to={`/`}
-                  value={row.blockNumber}
-                  typographyVariant="body1"
-                  truncate={false}
-                />
+                <Field type="string" value={row.hash} />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   From
                 </Typography>
-                <Field type="number" value={row.from} />
+                <Field type="string" value={row.from[0].address} />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   To
                 </Typography>
-                <Field type="number" value={row.from} />
-              </Grid>
-              <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Typography variant="subtitle2" color="latestList.timestamp">
-                  Hash
-                </Typography>
-                <Field type="number" value={row.hash} />
+                <Field type="string" value={row.to[0].address} />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
@@ -349,10 +362,10 @@ const SmallSizes = ({ rows }) => {
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
-                  Status
+                  Type
                 </Typography>
                 <Chip
-                  label={row.status}
+                  label={row.type}
                   style={{
                     minWidth: '61px',
                     height: 'min-content',
@@ -362,15 +375,9 @@ const SmallSizes = ({ rows }) => {
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
-                  Transaction Cost
+                  Fee
                 </Typography>
-                <Field type="gwei" value={row.transactionCost} />
-              </Grid>
-              <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Typography variant="subtitle2" color="latestList.timestamp">
-                  Value
-                </Typography>
-                <Field type="gwei" value={row.value} />
+                <Field type="gwei" value={row.fee} />
               </Grid>
             </Paper>
           );
