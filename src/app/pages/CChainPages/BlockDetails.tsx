@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-import { TransactionList } from 'app/components/LatestBlocksAndTransactionsList';
+import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
@@ -111,7 +111,7 @@ const TransactionsView = ({ loading, blockDetails }) => {
     >
       {blockDetails && (
         <Grid item xs={12} lg={12}>
-          <TransactionList
+          <TransactionsList
             title="Block Transactions"
             items={blockDetails?.transactions}
             to="/c-chain/transactions"
