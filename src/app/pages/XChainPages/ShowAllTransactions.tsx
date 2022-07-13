@@ -118,13 +118,11 @@ export default function XPShowAllTransactions() {
       setRows(res);
     });
   });
-  //   React.useEffect(() => {
-  //     if (rows) console.log(rows[0]);
-  //   }, [rows]);
+
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer
-      pageTitle="C Transactions"
+      pageTitle="X Transactions"
       metaContent="chain-overview c-chain"
     >
       <Paper
@@ -161,7 +159,7 @@ export default function XPShowAllTransactions() {
           >
             <BackButton />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Transactions
+              X-Transactions
             </Typography>
           </Grid>
           <TableContainer ref={tableEl} sx={{ height: '750px' }}>
