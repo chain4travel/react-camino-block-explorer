@@ -51,7 +51,7 @@ export default function PChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="/transactions">
+      <XPTransactionList ShowAllLink="/all/p-chain/transactions">
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"
