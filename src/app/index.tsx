@@ -14,7 +14,11 @@ import {
   XTransactionDetails,
   XPShowAllTransactions,
 } from './pages/XChainPages';
-import { PChainPage, PChainDetailPage } from './pages/PChainPages';
+import {
+  PChainPage,
+  PChainDetailPage,
+  PShowAllTransactions,
+} from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
@@ -46,8 +50,12 @@ export function App() {
           />
           <Route path="/x-chain" element={<XChainPage />} />
           <Route
-            path="/x-chain/transactions"
+            path="all/x-chain/transactions"
             element={<XPShowAllTransactions />}
+          />
+          <Route
+            path="all/p-chain/transactions"
+            element={<PShowAllTransactions />}
           />
           <Route
             path="x-chain/details/address/:id"
