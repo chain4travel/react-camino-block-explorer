@@ -68,7 +68,7 @@ const XPTransactionFirstSection = ({
           typographyVariant="body1"
           truncate={true}
         />
-        <RelativeTime value={timestamp} />
+        <RelativeTime value={timestamp} variant="subtitle2" />
       </Grid>
       <Grid item xs={4} md={3} lg={4}>
         <Chip label={type} style={{ minWidth: '61px', marginLeft: 'auto' }} />
