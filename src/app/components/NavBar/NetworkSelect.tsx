@@ -12,6 +12,7 @@ import {
   getNetworks,
   changeNetwork,
   addCustomNetwork,
+  Network,
 } from '../../../store/app-config';
 import { useAppSelector } from 'store/configureStore';
 import { Typography, Modal, TextField } from '@mui/material';
@@ -124,7 +125,7 @@ const NewNetwork = () => {
   const { isDesktop } = useWidth();
 
   const [NewNetwork, setNewNetwork] = React.useState({
-    id: 'newNetwork',
+    id: '',
     displayName: 'My New Network',
     protocol: 'http',
     host: '127.0.0.1',
@@ -134,7 +135,32 @@ const NewNetwork = () => {
   });
   const dispatch = useDispatch();
 
+  // handle duplicate network id
+  const handleDuplicateNetworkId = (
+    NewNetwork: Network,
+    networks: Network[],
+  ) => {
+    if (
+      networks.find(
+        item => item.id === NewNetwork.id && item.predefined === false,
+      )
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const networks = useAppSelector(getNetworks);
+  const [error, setError] = React.useState('');
+
   const handleSubmit = event => {
+    // generate a network id from the display name
+    NewNetwork.id = NewNetwork.displayName.replace(/\s/g, '-').toLowerCase();
+    if (handleDuplicateNetworkId(NewNetwork, networks)) {
+      setError('Network id already exists');
+      return;
+    }
+    setError('');
     if (NewNetwork.magellanAddress.length === 0)
       NewNetwork.magellanAddress = `${NewNetwork.protocol}//${NewNetwork.host}:${NewNetwork.port}`;
     const ll = localStorage.getItem('customNetworks') as string;
@@ -174,6 +200,8 @@ const NewNetwork = () => {
               defaultValue="My New Network"
               color="secondary"
               fullWidth
+              error={handleDuplicateNetworkId(NewNetwork, networks)}
+              helperText={error}
               onChange={e =>
                 setNewNetwork({ ...NewNetwork, displayName: e.target.value })
               }
