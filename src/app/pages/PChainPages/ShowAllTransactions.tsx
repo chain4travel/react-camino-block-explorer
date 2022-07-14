@@ -157,7 +157,7 @@ export default function XPShowAllTransactions() {
           >
             <BackButton />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              X-Transactions
+              P-Transactions
             </Typography>
           </Grid>
           <TableContainer ref={tableEl} sx={{ height: '750px' }}>
@@ -202,7 +202,7 @@ const columns = [
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'center',
+    align: 'left',
     type: 'timestamp',
   },
   {
@@ -221,12 +221,8 @@ const columns = [
 
 export async function loadBlocksAndTransactions(offset: number) {
   return await axios.get(
-    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV&offset=${offset}&limit=50&sort=timestamp-desc`,
+    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=11111111111111111111111111111111LpoYY&offset=${offset}&limit=50&sort=timestamp-desc`,
   );
-  //   return await axios.get(
-  //     `https://magellan.columbus.camino.foundation/v2/transactions?chainID=28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV&offset=0&limit=10&sort=timestamp-desc`,
-  //   );
-  //   ${activeNetwork?.magellanAddress}/v2/transactions?chainID=${chain.chainID}&offset=0&limit=10&sort=timestamp-desc`
 }
 
 export function getDisplayAddress(funds: Fund[]): string {
@@ -290,18 +286,18 @@ const CustomTable = ({ rows, columns }) => {
                     value={row.to[0]?.address ? row.to[0]?.address : 'NaN'}
                   />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell>
                   <Typography variant="body2" component="span" noWrap={true}>
                     {getRelativeTime(row.timestamp as number) + ' ago '}
                   </Typography>
                 </TableCell>
-                <TableCell align="left">
+                <TableCell>
                   <Chip
                     label={row.type}
                     style={{ minWidth: '61px', height: 'min-content' }}
                   />
                 </TableCell>
-                <TableCell align="left">
+                <TableCell>
                   <Field type="gwei" value={row.fee} />
                 </TableCell>
               </TableRow>
