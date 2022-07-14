@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Divider, useMediaQuery } from '@mui/material';
+import { Grid, Divider } from '@mui/material';
 import { CamAmount } from '../CamAmount';
 import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types';
 import { getAddressLink, getTransactionDetailsPath } from 'utils/route-utils';
@@ -91,7 +91,7 @@ const XPTransactionSecondSection = ({
   from?: MagellanXPOutput;
   chainType: ChainType;
 }) => {
-  const isMobile = useMediaQuery('@media (max-width:600px)');
+  const { isMobile } = useWidth();
   return (
     <div style={{ width: '100%', padding: '0rem 0rem .5rem 0rem' }}>
       <Grid container direction="row" style={{ width: '100%' }}>
@@ -137,17 +137,17 @@ const XPTransactionSecondSection = ({
 };
 
 const XPTransactionThirdSection = ({ value }: { value: number }) => {
-  const isMobile = useMediaQuery('@media (max-width:1199px)');
+  const { isWideScreenDown } = useWidth();
   return (
     <>
-      {isMobile && (
+      {isWideScreenDown && (
         <Divider
           variant="fullWidth"
           sx={{ width: '100%', marginBottom: '1rem' }}
         />
       )}
       <Grid container>
-        {isMobile && (
+        {isWideScreenDown && (
           <Grid item xs={6} sx={{ marginBottom: '16px' }}>
             Fees
           </Grid>
