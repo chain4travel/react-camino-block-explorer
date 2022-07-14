@@ -8,6 +8,7 @@ import RelativeTime from 'app/components/RelativeTime';
 import AddressLink from '../AddressLink';
 import BlockTxIcon from './BlockTxIcon';
 import Chip from '../Chip';
+import useWidth from 'app/hooks/useWidth';
 
 export default function XPTransactionItem({ chainType, data }) {
   return (
@@ -53,7 +54,7 @@ const XPTransactionFirstSection = ({
   type: string;
   to: string;
 }) => {
-  const isMobile = useMediaQuery('@media (max-width:600px)');
+  const { isMobile } = useWidth();
   return (
     <>
       {!isMobile && (
@@ -61,17 +62,19 @@ const XPTransactionFirstSection = ({
           <BlockTxIcon iconType="transaction" />
         </Grid>
       )}
-      <Grid item xs={8} sm={6}>
-        <AddressLink
-          to={to}
-          value={id}
-          typographyVariant="body1"
-          truncate={true}
-        />
-        <RelativeTime value={timestamp} />
-      </Grid>
-      <Grid item xs={4} md={3} lg={4}>
-        <Chip label={type} style={{ minWidth: '61px', marginLeft: 'auto' }} />
+      <Grid container xs={12} md={9} lg={10}>
+        <Grid item xs={8} md={6} lg={8}>
+          <AddressLink
+            to={to}
+            value={id}
+            typographyVariant="body1"
+            truncate={true}
+          />
+          <RelativeTime value={timestamp} />
+        </Grid>
+        <Grid item xs={4} md={6} lg={4}>
+          <Chip label={type} style={{ minWidth: '61px', marginLeft: 'auto' }} />
+        </Grid>
       </Grid>
     </>
   );
