@@ -1,10 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'store/configureStore';
 
+export interface Network {
+  id: string;
+  displayName: string;
+  protocol: string;
+  host: string;
+  port: number;
+  predefined?: boolean;
+  magellanAddress: string;
+}
+
 const getNetworkFromLocalStorage = () => {
   let activeNetwork = localStorage.getItem('activeNetwork');
   if (activeNetwork) return JSON.parse(activeNetwork);
-  return 'camino-testnet';
+  else {
+    localStorage.setItem('activeNetwork', JSON.stringify('camino-testnet'));
+    return 'camino-testnet';
+  }
+};
+
+const getCustomNetworksFromLocalStorage = () => {
+  let customNetworks = localStorage.getItem('customNetworks');
+  if (customNetworks) {
+    return JSON.parse(customNetworks);
+  }
+  return [];
 };
 
 let initialState = {
@@ -28,6 +49,7 @@ let initialState = {
       port: 443,
       predefined: true,
     },
+    ...(getCustomNetworksFromLocalStorage() as Network[]),
   ],
 };
 
@@ -42,11 +64,14 @@ const networkSlice = createSlice({
       state.activeNetwork = active?.id;
       localStorage.setItem('activeNetwork', JSON.stringify(active?.id));
     },
+    addCustomNetwork: (state, action) => {
+      state.networks = [...state.networks, action.payload];
+    },
   },
 });
 
 export const getActiveNetwork = (state: RootState) =>
   state.networks.activeNetwork;
 export const getNetworks = (state: RootState) => state.networks.networks;
-export const { changeNetwork } = networkSlice.actions;
+export const { changeNetwork, addCustomNetwork } = networkSlice.actions;
 export default networkSlice.reducer;
