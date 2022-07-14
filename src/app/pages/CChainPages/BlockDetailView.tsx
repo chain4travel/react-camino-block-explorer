@@ -8,7 +8,10 @@ import Icon from '@mdi/react';
 
 export default function BlockDetailView({ blockDetails, loading }) {
   return (
-    <LoadingWrapper loading={loading} failedLoadingMsg="-">
+    <LoadingWrapper
+      loading={loading}
+      failedLoadingMsg="Failed to load the block detail"
+    >
       {blockDetails && (
         <OutlinedContainer transparent={false}>
           <DetailsField

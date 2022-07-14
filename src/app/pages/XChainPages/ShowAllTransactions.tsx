@@ -19,13 +19,11 @@ import { BlockTableData } from 'types/block';
 import axios from 'axios';
 import { Fund, getRelativeTime } from 'utils/display-utils';
 import useWidth from 'app/hooks/useWidth';
-import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
 // import { createTransaction } from 'utils/magellan';
 import { XPTransaction, XPTransactionTableData } from 'types/transaction';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
 import { MagellanXPTransaction } from 'types/magellan-types';
-import { alignProperty } from '@mui/material/styles/cssUtils';
 
 function getValue(outputTotal?: object, inputTotal?: object): number {
   const output = outputTotal

@@ -5,12 +5,12 @@ export default function MainButton({
   variant,
   onClick,
   children,
-  ...customStyle
+  ...style
 }: {
   variant: 'contained' | 'outlined';
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
-  customStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
 }) {
   return (
     <Button
@@ -30,7 +30,7 @@ export default function MainButton({
             variant === 'outlined' ? 'transparent' : 'secondary.main',
           borderColor: variant === 'outlined' ? 'secondary.main' : 'white',
         },
-        ...customStyle,
+        ...style,
       }}
     >
       {children}
