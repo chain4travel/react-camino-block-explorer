@@ -202,19 +202,19 @@ const columns = [
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'right',
+    align: 'center',
     type: 'timestamp',
   },
   {
     name: 'type',
     label: 'Type',
     field: 'Type',
-    align: 'right',
+    align: 'left',
   },
   {
     value: 'fee',
     label: 'Fee',
-    align: 'right',
+    align: 'left',
     type: 'currency',
   },
 ];
@@ -290,18 +290,18 @@ const CustomTable = ({ rows, columns }) => {
                     value={row.to[0]?.address ? row.to[0]?.address : 'NaN'}
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <Typography variant="body2" component="span" noWrap={true}>
                     {getRelativeTime(row.timestamp as number) + ' ago '}
                   </Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell align="left">
                   <Chip
                     label={row.type}
                     style={{ minWidth: '61px', height: 'min-content' }}
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell align="left">
                   <Field type="gwei" value={row.fee} />
                 </TableCell>
               </TableRow>

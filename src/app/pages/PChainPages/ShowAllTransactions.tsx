@@ -202,19 +202,19 @@ const columns = [
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'right',
+    align: 'left',
     type: 'timestamp',
   },
   {
     name: 'type',
     label: 'Type',
     field: 'Type',
-    align: 'right',
+    align: 'left',
   },
   {
     value: 'fee',
     label: 'Fee',
-    align: 'right',
+    align: 'left',
     type: 'currency',
   },
 ];
