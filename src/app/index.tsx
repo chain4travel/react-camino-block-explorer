@@ -23,7 +23,11 @@ import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TableDetials } from 'app/components/TableDetails';
-import { TransactionDetails, BlockDetails } from './pages/CChainPages';
+import {
+  TransactionDetails,
+  BlockDetails,
+  CAddressDetails,
+} from './pages/CChainPages';
 // import CShowAllBlocks from './pages/CChainPage/ShowAllBlocks';
 export function App() {
   const { i18n } = useTranslation();
@@ -48,6 +52,7 @@ export function App() {
             path="/c-chain/transactions/:id"
             element={<TransactionDetails />}
           />
+          <Route path="/c-chain/address/:id" element={<CAddressDetails />} />
           <Route path="/x-chain" element={<XChainPage />} />
           <Route
             path="all/x-chain/transactions"
