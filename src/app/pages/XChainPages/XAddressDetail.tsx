@@ -5,8 +5,6 @@ import {
   Box,
   Grid,
   Paper,
-  Tab,
-  Tabs,
   Divider,
   Tooltip,
   Button,
@@ -17,19 +15,13 @@ import { CamAmount } from 'app/components/CamAmount';
 import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
 import useWidth from 'app/hooks/useWidth';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 // import { useAppDispatch } from 'store/configureStore';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 // import { loadAssets } from 'store/xchainSlice/utils';
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+import CopyAddressTitle from 'app/components/CopyAddressTitle';
+import TabsHeader from 'app/components/TabComponent/TabsHeader';
+import TabPanel from 'app/components/TabComponent/TabPanel';
 
 const tabOptions = [
   {
@@ -41,13 +33,6 @@ const tabOptions = [
     value: 'blocks',
   },
 ];
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-  style?: React.CSSProperties;
-}
 
 const tooltips: { [key: string]: string } = {
   // Contracts
@@ -89,52 +74,26 @@ export default function XAddressDetail() {
   // getting the address from the url by getting what comes after the last slash
   const address = window.location.pathname.split('/').pop() as string;
   const [value, setValue] = React.useState(0);
-  // const dispatch = useAppDispatch();
-  useEffectOnce(() => {
-    // dispatch(loadAssets());
-  });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <CopyAddress showAddressLabel={true} value={address} />
-      <Divider variant="fullWidth" />
+      <CopyAddressTitle showAddressLabel={true} value={address} />
       <AddressOverviewCard balance={987704018599999} />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
-        <TabsHeader tabValue={value} changeAction={handleChange}>
+        <TabsHeader
+          tabValue={value}
+          changeAction={handleChange}
+          tabOptions={tabOptions}
+        >
           <Panels value={value} />
         </TabsHeader>
       </Paper>
     </PageContainer>
   );
 }
-
-const TabsHeader = ({ tabValue, changeAction, children }) => {
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={tabValue}
-          onChange={changeAction}
-          textColor="secondary"
-          indicatorColor="secondary"
-        >
-          {tabOptions.map((option, index) => (
-            <Tab
-              key={index}
-              label={option.label}
-              {...a11yProps(index)}
-              sx={{ paddingLeft: '10px', paddingRight: '10px' }}
-            />
-          ))}
-        </Tabs>
-      </Box>
-      <>{children}</>
-    </Box>
-  );
-};
 
 const Panels = ({ value }: { value: number }) => {
   return (
@@ -159,31 +118,11 @@ const Panels = ({ value }: { value: number }) => {
   );
 };
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-      style={{
-        minHeight: '600px',
-        ...props.style,
-      }}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
-
 const AddressOverviewCard = ({ balance }: { balance: number }) => {
   return (
     <Paper variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
       <Box p={2}>
-        <Typography
+        {/* <Typography
           variant="h5"
           component="h5"
           fontWeight="fontWeightBold"
@@ -191,7 +130,7 @@ const AddressOverviewCard = ({ balance }: { balance: number }) => {
           sx={{ marginBottom: '25px' }}
         >
           Overview
-        </Typography>
+        </Typography> */}
         <Grid container spacing={2}>
           <Grid item xs md={6}>
             <Typography
@@ -272,74 +211,6 @@ const AddressSection = () => {
         </Grid>
       </Grid>
     </>
-  );
-};
-
-/////////////////////////////////////////////////////////////////////
-
-const CopyAddress = ({
-  showAddressLabel,
-  value,
-}: {
-  showAddressLabel: boolean;
-  value: string;
-}) => {
-  return (
-    <Grid
-      container
-      spacing={2}
-      sx={{ display: 'flex', alignItems: 'flex-end' }}
-      wrap="nowrap"
-    >
-      {showAddressLabel && (
-        <Grid
-          container
-          item
-          xs="auto"
-          direction="row"
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <InsertDriveFileOutlinedIcon
-            sx={{ color: 'primary.contrastText', fontSize: '23px' }}
-          />
-          <Typography
-            variant="h5"
-            component="h5"
-            color="textPrimary"
-            fontWeight="fontWeightBold"
-            sx={{ marginLeft: '10px' }}
-          >
-            Address
-          </Typography>
-        </Grid>
-      )}
-      <Grid
-        item
-        xs
-        zeroMinWidth
-        sx={{
-          display: 'flex',
-          alignItems: 'flex-end',
-        }}
-      >
-        <Typography
-          variant="h6"
-          component="span"
-          fontWeight="fontWeightBold"
-          color="latestList.timestamp"
-          noWrap={true}
-          sx={{
-            display: 'inline-block',
-            width: '100%',
-          }}
-        >
-          {value}
-        </Typography>
-      </Grid>
-      <Grid item xs="auto">
-        <CopyToClipboardButton value={value} />
-      </Grid>
-    </Grid>
   );
 };
 
