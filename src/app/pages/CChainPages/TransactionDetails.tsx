@@ -15,7 +15,7 @@ import { status } from 'types';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import OutlinedContainer from 'app/components/OutlinedContainer';
-import { DetailsField } from 'app/components/DetailsField';
+import DetailsField from 'app/components/DetailsField';
 import Icon from '@mdi/react';
 import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './TransactionDetailView';

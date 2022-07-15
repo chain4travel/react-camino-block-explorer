@@ -7,6 +7,7 @@ import {
   CChainPage,
   CShowAllBlocks,
   CShowAllTransactions,
+  CChainAdress,
 } from './pages/CChainPages';
 import {
   XChainPage,
@@ -75,6 +76,7 @@ export function App() {
             path="/p-chain/details/transactions/:id"
             element={<PChainDetailPage />}
           />
+          <Route path="c-chain/details/adress/:id" element={<CChainAdress />} />
           <Route path="/mainnet" element={<ComingSoonPage />} />
           <Route path="all/c-chain/blocks" element={<CShowAllBlocks />} />
           <Route
