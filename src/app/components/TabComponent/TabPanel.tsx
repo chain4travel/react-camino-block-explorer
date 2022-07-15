@@ -19,7 +19,7 @@ export default function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
       style={{
-        minHeight: '600px',
+        minHeight: '700px',
         ...props.style,
       }}
     >
