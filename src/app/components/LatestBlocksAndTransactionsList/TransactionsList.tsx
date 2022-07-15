@@ -143,7 +143,7 @@ const TransactionItem = ({ tx, to }) => {
           </Grid>
           <Grid item xs={10} md={8}>
             <AddressLink
-              to={`${to}/${tx.from}`}
+              to={`address/${tx.from}`}
               value={tx.from}
               typographyVariant="body1"
               truncate={true}
@@ -156,7 +156,7 @@ const TransactionItem = ({ tx, to }) => {
           </Grid>
           <Grid item xs={10} md={8}>
             <AddressLink
-              to={`${to}/${tx.to}`}
+              to={`address/${tx.to}`}
               value={tx.to}
               typographyVariant="body1"
               truncate={true}
