@@ -51,14 +51,14 @@ const columns: ColumnType[] = [
     name: 'Block',
     label: 'Block',
     field: 'Block',
-    align: 'center',
+    align: 'left',
     minWidth: 50,
   },
   {
     name: 'Age',
     label: 'Age',
     field: 'Age',
-    align: 'center',
+    align: 'left',
     minWidth: 170,
   },
   {
@@ -124,7 +124,7 @@ export default function CChainAdress() {
   const theme = useTheme();
   const tableEl = React.useRef<HTMLDivElement>(null);
   const [distanceBottom, setDistanceBottom] = React.useState(0);
-  const [hasMore] = React.useState(true);
+  const [address, setAddress] = React.useState<string>();
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<BlockTableData[]>([]);
   const location = useLocation();
@@ -153,15 +153,11 @@ export default function CChainAdress() {
         // calculate distanceBottom that works for you
         setDistanceBottom(Math.round((bottom / 100) * 20));
       }
-      if (
-        tableEl.current.scrollTop > bottom - distanceBottom &&
-        hasMore &&
-        !loading
-      ) {
+      if (tableEl.current.scrollTop > bottom - distanceBottom && !loading) {
         loadMore();
       }
     }
-  }, [hasMore, loadMore, loading, distanceBottom]);
+  }, [loadMore, loading, distanceBottom]);
   React.useLayoutEffect(() => {
     const tableRef = tableEl.current;
     tableRef?.addEventListener('scroll', scrollListener);
@@ -172,11 +168,11 @@ export default function CChainAdress() {
   useEffectOnce(() => {
     loadBlocks({ address: location.pathname.split('/')[4], offset: 50 }).then(
       res => {
+        setAddress(location.pathname.split('/')[4]);
         setRows(res);
       },
     );
   });
-  // React.useEffect(() => {}, [rows]);
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer
@@ -218,7 +214,7 @@ export default function CChainAdress() {
           ></Grid>
           <TableContainer ref={tableEl} sx={{ height: '750px' }}>
             {isWidescreen || isDesktop ? (
-              <CustomTable rows={rows} columns={columns} />
+              <CustomTable address={address} rows={rows} columns={columns} />
             ) : (
               <SmallSizes rows={rows} />
             )}
@@ -261,17 +257,22 @@ const SmallSizes = ({ rows }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   Txn Hash
                 </Typography>
-                <Field type="number" value={row.hash} />
+                <AddressLink
+                  to={`/c-chain/transactions/${row.hash}`}
+                  value={row.hash}
+                  typographyVariant="body2"
+                  truncate={true}
+                />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   Block
                 </Typography>
                 <AddressLink
-                  to={`/`}
-                  value={row.number}
-                  typographyVariant="body1"
-                  truncate={false}
+                  to={`/c-chain/blocks/${row.blockNumber}`}
+                  value={row.blockNumber}
+                  typographyVariant="body2"
+                  truncate={true}
                 />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -284,13 +285,23 @@ const SmallSizes = ({ rows }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   From
                 </Typography>
-                <Field type="number" value={row.from} />
+                <AddressLink
+                  to={`/c-chain/details/adress/${row.from}`}
+                  value={row.from}
+                  typographyVariant="body2"
+                  truncate={true}
+                />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                   To
                 </Typography>
-                <Field type="number" value={row.from} />
+                <AddressLink
+                  to={`/c-chain/details/adress/${row.to}`}
+                  value={row.to}
+                  typographyVariant="body2"
+                  truncate={true}
+                />
               </Grid>
               <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
@@ -311,7 +322,7 @@ const SmallSizes = ({ rows }) => {
   );
 };
 
-const CustomTable = ({ rows, columns }) => {
+const CustomTable = ({ rows, columns, address }) => {
   return (
     <>
       <Table stickyHeader>
@@ -334,7 +345,7 @@ const CustomTable = ({ rows, columns }) => {
               <TableRow key={index}>
                 <TableCell>
                   <Chip
-                    label={row.direction}
+                    label={row.from === address ? 'out' : 'in'}
                     style={{ minWidth: '61px', height: 'min-content' }}
                   />
                 </TableCell>
@@ -342,11 +353,21 @@ const CustomTable = ({ rows, columns }) => {
                   align="center"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.hash} />
+                  <AddressLink
+                    to={`/c-chain/transactions/${row.hash}`}
+                    value={row.hash}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
 
                 <TableCell>
-                  <Field type="number" value={row.blockNumber} />
+                  <AddressLink
+                    to={`/c-chain/blocks/${row.blockNumber}`}
+                    value={row.blockNumber}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" component="span" noWrap={true}>
@@ -357,13 +378,23 @@ const CustomTable = ({ rows, columns }) => {
                   align="left"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.from} />
+                  <AddressLink
+                    to={`/c-chain/details/adress/${row.from}`}
+                    value={row.from}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell
                   align="left"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.to} />
+                  <AddressLink
+                    to={`/c-chain/details/adress/${row.to}`}
+                    value={row.to}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell>
                   <Field type="gwei" value={row.value} />
