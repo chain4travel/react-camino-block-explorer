@@ -9,7 +9,7 @@ interface TabPanelProps {
 }
 
 export default function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, style, ...other } = props;
 
   return (
     <div
@@ -20,10 +20,9 @@ export default function TabPanel(props: TabPanelProps) {
       {...other}
       style={{
         minHeight: '700px',
-        ...props.style,
       }}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, ...style }}>{children}</Box>}
     </div>
   );
 }

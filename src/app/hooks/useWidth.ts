@@ -6,6 +6,7 @@ const useWidth = () => {
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const isWideScreenDown = useMediaQuery(theme.breakpoints.down('lg'));
   const isWidescreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   return {
@@ -13,6 +14,7 @@ const useWidth = () => {
     isMobile,
     isTablet,
     isDesktop,
+    isWideScreenDown,
     isWidescreen,
   };
 };

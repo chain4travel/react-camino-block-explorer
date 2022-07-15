@@ -7,7 +7,6 @@ import {
   CChainPage,
   CShowAllBlocks,
   CShowAllTransactions,
-  CChainAdress,
 } from './pages/CChainPages';
 import {
   XChainPage,
@@ -15,11 +14,7 @@ import {
   XTransactionDetails,
   XPShowAllTransactions,
 } from './pages/XChainPages';
-import {
-  PChainPage,
-  PChainDetailPage,
-  PShowAllTransactions,
-} from './pages/PChainPages';
+import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
