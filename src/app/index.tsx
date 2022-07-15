@@ -23,13 +23,13 @@ import {
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
-import { TableDetails } from 'app/components/TableDetails';
 import {
   TransactionDetails,
   BlockDetails,
   CAddressDetails,
 } from './pages/CChainPages';
-// import CShowAllBlocks from './pages/CChainPage/ShowAllBlocks';
+// import CShowAllBlocks from './pages/CChainPage/ShowAllBlocks';;
+
 export function App() {
   const { i18n } = useTranslation();
 
@@ -44,47 +44,38 @@ export function App() {
         <meta name="description" content="Camino Block Explorer" />
       </Helmet>
       <Routes>
-        <Route element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Navigate to="/c-chain" />} />
-          <Route path="/c-chain" element={<CChainPage />} />
-          <Route path="/c-chain/blocks" element={<TableDetails />} />
-          <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
-          <Route
-            path="/c-chain/transactions/:id"
-            element={<TransactionDetails />}
-          />
-          <Route path="/c-chain/address/:id" element={<CAddressDetails />} />
-          <Route path="/x-chain" element={<XChainPage />} />
-          <Route
-            path="all/x-chain/transactions"
-            element={<XPShowAllTransactions />}
-          />
-          <Route
-            path="all/p-chain/transactions"
-            element={<PShowAllTransactions />}
-          />
-          <Route
-            path="x-chain/details/address/:id"
-            element={<XAddressDetail />}
-          />
-          <Route
-            path="x-chain/details/transactions/:id"
-            element={<XTransactionDetails />}
-          />
-          <Route path="/p-chain" element={<PChainPage />} />
-          <Route
-            path="/p-chain/details/transactions/:id"
-            element={<PChainDetailPage />}
-          />
-          <Route path="c-chain/details/adress/:id" element={<CChainAdress />} />
+          <Route path="c-chain">
+            <Route index element={<CChainPage />} />
+            <Route path="blocks">
+              <Route index element={<CShowAllBlocks />} />
+              <Route path=":id" element={<BlockDetails />} />
+            </Route>
+            <Route path="transactions">
+              <Route index element={<CShowAllTransactions />} />
+              <Route path=":id" element={<TransactionDetails />} />
+            </Route>
+            <Route path="address/:id" element={<CAddressDetails />} />
+          </Route>
+          <Route path="x-chain">
+            <Route index element={<XChainPage />} />
+            <Route path="transactions">
+              <Route index element={<XPShowAllTransactions />} />
+              <Route path=":id" element={<XTransactionDetails />} />
+            </Route>
+            <Route path="address/:id" element={<XAddressDetail />} />
+          </Route>
+          <Route path="p-chain">
+            <Route index element={<PChainPage />} />
+            <Route path="transactions">
+              <Route index element={<XPShowAllTransactions />} />
+              <Route path=":id" element={<PChainDetailPage />} />
+            </Route>
+            <Route path="address/:id" element={<XAddressDetail />} />
+          </Route>
           <Route path="/mainnet" element={<ComingSoonPage />} />
-          <Route path="all/c-chain/blocks" element={<CShowAllBlocks />} />
-          <Route
-            path="all/c-chain/transactions"
-            element={<CShowAllTransactions />}
-          />
         </Route>
-        {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

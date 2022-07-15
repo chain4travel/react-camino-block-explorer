@@ -74,7 +74,7 @@ export default function BlockList({
           <CircularProgress color="secondary" />
         </Box>
       )}
-      <ShowAll toLink="/all/c-chain/blocks" />
+      <ShowAll toLink="blocks" />
     </Paper>
   );
 }

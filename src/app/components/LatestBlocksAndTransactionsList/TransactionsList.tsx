@@ -76,7 +76,7 @@ export default function TransactionsList({
           <CircularProgress color="secondary" />
         </Box>
       )}
-      {link && <ShowAll toLink="/all/c-chain/transactions" />}
+      {link && <ShowAll toLink="transactions" />}
     </Paper>
   );
 }

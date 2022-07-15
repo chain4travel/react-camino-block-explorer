@@ -63,7 +63,7 @@ const XPTransactionFirstSection = ({
       )}
       <Grid item xs={8} sm={6}>
         <AddressLink
-          to={to}
+          to={`transactions/${id}`}
           value={id}
           typographyVariant="body1"
           truncate={true}
@@ -104,7 +104,7 @@ const XPTransactionSecondSection = ({
             >
               <Grid item xs={12} sm={6} xl={7}>
                 <AddressLink
-                  to={getAddressLink(chainType, tx.address)}
+                  to={`/x-chain${getAddressLink(chainType, tx.address)}`}
                   value={tx.address}
                   typographyVariant="body1"
                   truncate={true}

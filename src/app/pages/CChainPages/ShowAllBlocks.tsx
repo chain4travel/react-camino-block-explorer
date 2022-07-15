@@ -158,7 +158,7 @@ const SmallSizes = ({ rows }) => {
                   Block
                 </Typography>
                 <AddressLink
-                  to={`/`}
+                  to={`${row.number}`}
                   value={row.number}
                   typographyVariant="body1"
                   truncate={false}
@@ -299,7 +299,7 @@ const CustomTable = ({ rows, columns }) => {
               <TableRow key={index}>
                 <TableCell>
                   <AddressLink
-                    to={`/`}
+                    to={`${row.number}`}
                     value={row.number}
                     typographyVariant="body1"
                     truncate={false}
