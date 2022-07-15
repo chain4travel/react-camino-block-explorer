@@ -247,25 +247,45 @@ const CustomTable = ({ rows, columns }) => {
             return (
               <TableRow key={index}>
                 <TableCell>
-                  <Field type="number" value={row.blockNumber} />
+                  <AddressLink
+                    to={`/c-chain/blocks/${row.blockNumber}`}
+                    value={row.blockNumber}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.from} />
+                  <AddressLink
+                    to={`/c-chain/address/${row.from}`}
+                    value={row.from}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.to} />
+                  <AddressLink
+                    to={`/c-chain/address/${row.to}`}
+                    value={row.to}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell
                   align="center"
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
-                  <Field type="string" value={row.hash} />
+                  <AddressLink
+                    to={`/c-chain/transactions/${row.hash}`}
+                    value={row.hash}
+                    typographyVariant="body2"
+                    truncate={true}
+                  />
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" component="span" noWrap={true}>

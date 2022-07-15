@@ -3,6 +3,7 @@ import CChainPage from './CChainPage';
 import TransactionDetails from './TransactionDetails';
 import CShowAllBlocks from './ShowAllBlocks';
 import CShowAllTransactions from './ShowAllTransactions';
+import CAddressDetails from './CAddressDetails';
 
 export {
   BlockDetails,
@@ -10,4 +11,5 @@ export {
   TransactionDetails,
   CShowAllBlocks,
   CShowAllTransactions,
+  CAddressDetails,
 };
