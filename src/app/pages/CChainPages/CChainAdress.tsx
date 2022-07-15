@@ -194,7 +194,6 @@ export default function CChainAdress() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
@@ -313,69 +312,66 @@ const SmallSizes = ({ rows }) => {
 
 const CustomTable = ({ rows, columns }) => {
   return (
-    <>
-      <Table stickyHeader>
-        <TableHead>
-          <TableRow>
-            {columns.map(column => (
-              <TableCell
-                sx={{ backgroundColor: 'primary.dark', wrap: 'nowrap' }}
-                key={column.name}
-                align={column.align}
-              >
-                <Field type="string" value={column.label} />
+    <Table stickyHeader>
+      <TableHead>
+        <TableRow>
+          {columns.map(column => (
+            <TableCell
+              sx={{ backgroundColor: 'primary.dark', wrap: 'nowrap' }}
+              key={column.name}
+              align={column.align}
+            >
+              <Field type="string" value={column.label} />
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows?.map((row, index) => {
+          return (
+            <TableRow key={index}>
+              <TableCell>
+                <Chip
+                  label={row.direction}
+                  style={{ minWidth: '61px', height: 'min-content' }}
+                />
               </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows?.map((row, index) => {
-            return (
-              <TableRow key={index}>
-                <TableCell>
-                  <Chip
-                    label={row.direction}
-                    style={{ minWidth: '61px', height: 'min-content' }}
-                  />
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-                >
-                  <Field type="string" value={row.hash} />
-                </TableCell>
-
-                <TableCell>
-                  <Field type="number" value={row.blockNumber} />
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2" component="span" noWrap={true}>
-                    {getRelativeTime(row.timestamp as number) + ' ago '}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-                >
-                  <Field type="string" value={row.from} />
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-                >
-                  <Field type="string" value={row.to} />
-                </TableCell>
-                <TableCell>
-                  <Field type="gwei" value={row.value} />
-                </TableCell>
-                <TableCell>
-                  <Field type="gwei" value={row.transactionCost} />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </>
+              <TableCell
+                align="center"
+                sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+              >
+                <Field type="string" value={row.hash} />
+              </TableCell>
+              <TableCell>
+                <Field type="number" value={row.blockNumber} />
+              </TableCell>
+              <TableCell>
+                <Typography variant="body2" component="span" noWrap={true}>
+                  {getRelativeTime(row.timestamp as number) + ' ago '}
+                </Typography>
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+              >
+                <Field type="string" value={row.from} />
+              </TableCell>
+              <TableCell
+                align="left"
+                sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+              >
+                <Field type="string" value={row.to} />
+              </TableCell>
+              <TableCell>
+                <Field type="gwei" value={row.value} />
+              </TableCell>
+              <TableCell>
+                <Field type="gwei" value={row.transactionCost} />
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };

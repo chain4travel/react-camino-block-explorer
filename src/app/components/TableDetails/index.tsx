@@ -123,7 +123,7 @@ const columns: ColumnType[] = [
   },
 ];
 
-export function TableDetials() {
+export function TableDetails() {
   const theme = useTheme();
   const tableEl = React.useRef<HTMLDivElement>(null);
   const isMobile = useMediaQuery('@media (max-width:1200px)');

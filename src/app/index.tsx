@@ -23,7 +23,7 @@ import {
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
-import { TableDetials } from 'app/components/TableDetails';
+import { TableDetails } from 'app/components/TableDetails';
 import {
   TransactionDetails,
   BlockDetails,
@@ -47,7 +47,7 @@ export function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Navigate to="/c-chain" />} />
           <Route path="/c-chain" element={<CChainPage />} />
-          <Route path="/c-chain/blocks" element={<TableDetials />} />
+          <Route path="/c-chain/blocks" element={<TableDetails />} />
           <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
           <Route
             path="/c-chain/transactions/:id"
