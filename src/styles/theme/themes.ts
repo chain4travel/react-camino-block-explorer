@@ -42,6 +42,13 @@ interface PaletteWithCustomColors extends Palette {
   radioButton: {
     main: string;
   };
+  borders: {
+    main: string;
+  };
+  titleCard: {
+    background: string;
+    border: string;
+  };
 }
 
 export const LightThemePalette: Partial<PaletteWithCustomColors> = {
@@ -100,6 +107,13 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
   radioButton: {
     main: '#149EED',
   },
+  borders: {
+    main: '#CBD5E1',
+  },
+  titleCard: {
+    background: '#F8FAFC',
+    border: '#CBD5E1',
+  },
 };
 
 export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
@@ -157,6 +171,13 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   },
   radioButton: {
     main: '#FFFFFF',
+  },
+  borders: {
+    main: '#64748B',
+  },
+  titleCard: {
+    background: '#1E293B',
+    border: '#64748B',
   },
 };
 
@@ -318,6 +339,9 @@ export const lightTheme = createTheme({
     },
     MuiOutlinedInput: {
       styleOverrides: {
+        root: {
+          borderRadius: '7px',
+        },
         notchedOutline: {
           border: '1px solid  !important',
           ':where(fieldset)': {
@@ -338,6 +362,13 @@ export const darkTheme = createTheme({
       styleOverrides: {
         body: {
           backgroundColor: '#0F172A',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: '7px',
         },
       },
     },

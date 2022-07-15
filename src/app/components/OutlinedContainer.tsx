@@ -13,7 +13,7 @@ export default function OutlinedContainer({
       sx={{
         backgroundColor: !transparent ? 'latestList.iconBackground' : '',
         border: transparent ? 'solid 1px' : '0px',
-        borderColor: 'overviewCard.border',
+        borderColor: 'borders.main',
         borderRadius: '7px',
         width: '100%',
         display: 'flex',
