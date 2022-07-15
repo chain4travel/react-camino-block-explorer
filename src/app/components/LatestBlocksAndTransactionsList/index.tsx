@@ -238,7 +238,7 @@ export function TransactionList({
                     </Grid>
                     <Grid item xs={10} md={8}>
                       <AddressLink
-                        to={`${to}/${item.from}`}
+                        to={`/c-chain/details/adress/${item.from}`}
                         value={item.from}
                         typographyVariant="body1"
                         truncate={true}
@@ -251,7 +251,7 @@ export function TransactionList({
                     </Grid>
                     <Grid item xs={10} md={8}>
                       <AddressLink
-                        to={`${to}/${item.to}`}
+                        to={`/c-chain/details/adress/${item.to}`}
                         value={item.to}
                         typographyVariant="body1"
                         truncate={true}

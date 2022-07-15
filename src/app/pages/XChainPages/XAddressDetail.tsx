@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageContainer from 'app/components/PageContainer';
 import {
   Typography,
@@ -11,7 +11,7 @@ import {
   Tooltip,
   Button,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import { CamAmount } from 'app/components/CamAmount';
 import AddressLink from 'app/components/AddressLink';
@@ -23,6 +23,9 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 // import { useAppDispatch } from 'store/configureStore';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 // import { loadAssets } from 'store/xchainSlice/utils';
+import { getRelativeTime } from 'utils/display-utils';
+import XPAddressView from './XAddressView';
+import axios from 'axios';
 
 function a11yProps(index: number) {
   return {
@@ -85,13 +88,61 @@ const tooltips: { [key: string]: string } = {
   Signature: 'The signature of the input',
 };
 
+async function loadAssets() {
+  const loadedAssets = (
+    await axios.get(`https://magellan.columbus.camino.foundation/v2/assets`)
+  ).data;
+  const newElements = new Map();
+  if (loadedAssets.assets) {
+    loadedAssets.assets.forEach(element => {
+      newElements.set(element.id, {
+        name: element.name,
+        symbol: element.symbol,
+      });
+    });
+  }
+  return newElements;
+}
+export interface AddressBalance {
+  id: string;
+  balance: any;
+  symbol: string;
+  name: string;
+}
+
 export default function XAddressDetail() {
   // getting the address from the url by getting what comes after the last slash
   const address = window.location.pathname.split('/').pop() as string;
   const [value, setValue] = React.useState(0);
+  const [balance, setBalance] = useState(0);
   // const dispatch = useAppDispatch();
+  const location = useLocation();
+  async function loadBalances(address) {
+    const assets = await loadAssets();
+    const addressInfo = await (
+      await axios.get(
+        `https://magellan.columbus.camino.foundation/v2/addresses/${address}`,
+      )
+    ).data;
+    const addressBalances: AddressBalance[] = [];
+    if (addressInfo && addressInfo.assets) {
+      Object.entries(addressInfo.assets).forEach(
+        ([key, value]: [key: any, value: any]) => {
+          addressBalances.push({
+            id: key,
+            balance: value.balance,
+            name: assets.get(key)?.name || 'UNKNOWN',
+            symbol: assets.get(key)?.symbol || 'UNKNOWN',
+          });
+        },
+      );
+      setBalance(addressBalances[0]?.balance);
+      return addressBalances;
+    }
+    return [];
+  }
   useEffectOnce(() => {
-    // dispatch(loadAssets());
+    loadBalances(location.pathname.split('/')[4]);
   });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -101,7 +152,7 @@ export default function XAddressDetail() {
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
       <CopyAddress showAddressLabel={true} value={address} />
       <Divider variant="fullWidth" />
-      <AddressOverviewCard balance={987704018599999} />
+      <AddressOverviewCard balance={balance} />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
         <TabsHeader tabValue={value} changeAction={handleChange}>
           <Panels value={value} />
@@ -140,19 +191,7 @@ const Panels = ({ value }: { value: number }) => {
   return (
     <>
       <TabPanel value={value} index={0}>
-        {/* loop on the transactions */}
-        <Grid container spacing={2}>
-          <Grid container item xs={12} md={4} spacing={2}>
-            <AddressSection />
-          </Grid>
-          <Grid container item xs spacing={2} sx={{ maxWidth: 'unset' }}>
-            <InputOutputSection />
-          </Grid>
-        </Grid>
-        <Divider
-          variant="fullWidth"
-          sx={{ marginTop: '1rem', marginBottom: '1rem' }}
-        />
+        <XPAddressView />
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>
     </>
@@ -179,7 +218,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-const AddressOverviewCard = ({ balance }: { balance: number }) => {
+export const AddressOverviewCard = ({ balance }: { balance: number }) => {
   return (
     <Paper variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
       <Box p={2}>
@@ -213,7 +252,7 @@ const AddressOverviewCard = ({ balance }: { balance: number }) => {
   );
 };
 
-const AddressSection = () => {
+export const AddressSection = ({ type, timestamp, id }) => {
   const { isDesktop } = useWidth();
   return (
     <>
@@ -228,11 +267,11 @@ const AddressSection = () => {
         <Grid item xs={12}>
           <AddressLink
             to="kfhsdjfaksdgldfsjgidfsjbkdsjfhgksdjkfgsdjkfh"
-            value="kfhsdjfaksdgldfsjgidfsjbkdsjfhgksdjkfgsdjkfh"
+            value={id}
             typographyVariant="subtitle1"
             truncate={true}
           />
-          12 hrs ago
+          {getRelativeTime(timestamp) + ' ago '}
         </Grid>
       </Grid>
       <Grid
@@ -262,7 +301,7 @@ const AddressSection = () => {
         </Grid>
         <Grid item xs={12} md={6} lg={5}>
           <Chip
-            label="base"
+            label={type}
             style={{
               minWidth: '61px',
               height: 'min-content',
@@ -345,7 +384,7 @@ const CopyAddress = ({
 
 /////////////////////////////////////////////////////////////////////
 
-const InputOutputSection = () => {
+export const InputOutputSection = ({ inputs, outputs }) => {
   return (
     <>
       <Grid
@@ -356,17 +395,26 @@ const InputOutputSection = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs>
-          <InputCard />
-        </Grid>
+        {inputs.map((item, index) => {
+          return (
+            <Grid key={index} item xs>
+              <InputCard
+                address={item.address}
+                signature={item.signature}
+                value={item.value}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
       <Grid container item xs={12} lg={6} spacing={2}>
-        <Grid item xs>
-          <OutputCard />
-        </Grid>
-        <Grid item xs>
-          <OutputCard />
-        </Grid>
+        {outputs.map((item, index) => {
+          return (
+            <Grid key={index} item xs>
+              <OutputCard address={item.address} value={item.value} />
+            </Grid>
+          );
+        })}
       </Grid>
     </>
   );
@@ -471,7 +519,7 @@ const Field = ({
   } else return <></>;
 };
 
-const InputCard = () => {
+const InputCard = ({ address, signature, value }) => {
   return (
     <Paper
       sx={{
@@ -493,7 +541,7 @@ const InputCard = () => {
       </Typography>
       <DetailsField
         field="From"
-        value="columbus1zawetvfggky6yvx5wdcn0tjsalw9ql9dz537x7"
+        value={address}
         type="string"
         icon="icon"
         tooltip="Fee"
@@ -501,14 +549,14 @@ const InputCard = () => {
       />
       <DetailsField
         field="Signature"
-        value="dsfdsfgdgsdfjbsadfckjsadncksuadhcnikasdujcnjaskducbnasjkcb"
+        value={signature}
         type="string"
         icon="icon"
         tooltip="Fee"
       />
       <DetailsField
         field="Value"
-        value={227773}
+        value={value}
         type="gwei"
         icon="icon"
         tooltip="Fee"
@@ -517,7 +565,7 @@ const InputCard = () => {
   );
 };
 
-const OutputCard = () => {
+const OutputCard = ({ address, value }) => {
   return (
     <Paper
       sx={{
@@ -539,7 +587,7 @@ const OutputCard = () => {
       </Typography>
       <DetailsField
         field="To"
-        value="columbus1zawetvfggky6yvx5wdcn0tjsalw9ql9dz537x7"
+        value={address}
         type="string"
         icon="icon"
         tooltip="Fee"
@@ -547,7 +595,7 @@ const OutputCard = () => {
       />
       <DetailsField
         field="Value"
-        value={25}
+        value={value}
         type="gwei"
         icon="icon"
         tooltip="Fee"

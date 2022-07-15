@@ -29,10 +29,12 @@ export default function Links() {
   );
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (location.pathname !== '/mainnet') {
-      if (newValue !== 3 && newValue !== 4) setValue(newValue);
-      if (newValue === 0) navigate('c-chain');
+      if (newValue === 3) window.open('https://docs.camino.foundation/');
+      else if (newValue === 4) window.open('https://wallet.camino.foundation/');
+      else if (newValue === 0) navigate('c-chain');
       else if (newValue === 1) navigate('x-chain');
       else if (newValue === 2) navigate('p-chain');
+      if (newValue !== 3 && newValue !== 4) setValue(newValue);
     }
   };
   useEffect(() => {
