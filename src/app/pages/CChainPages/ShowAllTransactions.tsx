@@ -281,7 +281,7 @@ const CustomTable = ({ rows, columns }) => {
                   sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
                 >
                   <AddressLink
-                    to={`/c-chain/transactions/${row.hash}`}
+                    to={`${row.hash}`}
                     value={row.hash}
                     typographyVariant="body2"
                     truncate={true}

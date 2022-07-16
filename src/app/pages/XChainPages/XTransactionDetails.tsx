@@ -151,7 +151,7 @@ export function XTransactionDetails() {
             item
             container
             alignItems="center"
-            sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
+            sx={{ border: 'solid 1px', borderColor: 'card.border' }}
           >
             {details &&
               Object.entries(details).map((item, index) => {

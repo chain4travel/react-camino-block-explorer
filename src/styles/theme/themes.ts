@@ -20,7 +20,7 @@ const grey = {
 };
 
 interface PaletteWithCustomColors extends Palette {
-  overviewCard: {
+  card: {
     background: string;
     border: string;
     title: string;
@@ -90,7 +90,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#0F172A',
   },
   grey: grey,
-  overviewCard: {
+  card: {
     background: '#F8FAFC',
     border: '#CBD5E1',
     title: '#0F172A',
@@ -155,7 +155,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#FFFFFF',
   },
   grey: grey,
-  overviewCard: {
+  card: {
     background: '#0F172A',
     border: '#64748B',
     title: '#64748B',

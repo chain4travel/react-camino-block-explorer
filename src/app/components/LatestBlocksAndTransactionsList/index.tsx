@@ -1,9 +1,19 @@
+import React, { FC } from 'react';
 import { Grid } from '@mui/material';
-import * as React from 'react';
+import { BlockTableData } from 'types/block';
+import { CTransaction } from 'types/transaction';
+import { CBLOCKS, CTRANSACTIONS } from 'types/constants';
 import BlockList from './BlockList';
 import TransactionsList from './TransactionsList';
 
-export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
+interface LatestBlocksAndTransactionsListProps {
+  blocks: BlockTableData[];
+  transactions: CTransaction[];
+}
+
+const LatestBlocksAndTransactionsList: FC<
+  LatestBlocksAndTransactionsListProps
+> = ({ blocks, transactions }) => {
   return (
     <Grid
       container
@@ -11,16 +21,18 @@ export function LatestBlocksAndTransactionsList({ blocks, transactions }) {
       columnSpacing={{ xs: 0, lg: 4 }}
     >
       <Grid item xs={12} lg={6}>
-        <BlockList title="Latest Blocks" items={blocks} to="/c-chain/blocks" />
+        <BlockList title="Latest Blocks" items={blocks} to={`${CBLOCKS}`} />
       </Grid>
       <Grid item xs={12} lg={6}>
         <TransactionsList
           title="Latest Transactions"
           items={transactions}
-          to="/c-chain/transactions"
+          to={`${CTRANSACTIONS}`}
           link
         />
       </Grid>
     </Grid>
   );
-}
+};
+
+export default LatestBlocksAndTransactionsList;

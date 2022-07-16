@@ -1,12 +1,10 @@
+import React from 'react';
 import { Box, Button, Grid, Typography, useMediaQuery } from '@mui/material';
-import * as React from 'react';
-// import { mdiCubeOutline } from '@mdi/js';
-// import Icon from '@mdi/react';
+import { Link } from 'react-router-dom';
+import { CamAmount } from 'app/components/CamAmount';
 import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';
-import { CamAmount } from 'app/components/CamAmount';
-import { Link } from 'react-router-dom';
 import BlockTxIcon from '../XChainPageComponents/BlockTxIcon';
 
 function getNameFromType(type: string): string {
@@ -109,7 +107,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
         p: '.8rem',
         gap: '10px',
         border: head === true ? 'solid 1px' : '0px',
-        borderColor: 'overviewCard.border',
+        borderColor: 'card.border',
       }}
     >
       <Grid

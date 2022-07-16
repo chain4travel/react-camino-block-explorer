@@ -6,7 +6,7 @@ export enum Timeframe {
 }
 
 // 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
-export enum status {
+export enum Status {
   IDLE = 'idle',
   LOADING = 'loading',
   SUCCEEDED = 'succeeded',

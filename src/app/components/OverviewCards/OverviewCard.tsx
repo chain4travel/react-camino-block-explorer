@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import { Card, CardContent, Box, Typography } from '@mui/material';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
+import { Status } from 'types';
+import LoadingWrapper from 'app/components/LoadingWrapper';
 
 type OverviewCardProps = {
   title: string;
   value: string;
-  loading: string;
+  loading: Status;
   subValue?: string;
 };
 
-export const OverviewCard: FC<OverviewCardProps> = ({
+const OverviewCard: FC<OverviewCardProps> = ({
   title,
   value,
   loading,
@@ -22,7 +23,7 @@ export const OverviewCard: FC<OverviewCardProps> = ({
         display: 'flex',
         flex: 1,
         minHeight: '150px',
-        backgroundColor: 'overviewCard.background',
+        backgroundColor: 'card.background',
         textAlign: 'center',
         p: '1rem 2rem',
         borderRadius: '12px',
@@ -38,11 +39,7 @@ export const OverviewCard: FC<OverviewCardProps> = ({
           p: '0',
         }}
       >
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{ color: 'overviewCard.title' }}
-        >
+        <Typography variant="h6" component="h6" sx={{ color: 'card.title' }}>
           {title}
         </Typography>
         <Box
@@ -58,7 +55,7 @@ export const OverviewCard: FC<OverviewCardProps> = ({
               variant="h4"
               component="h4"
               fontWeight="fontWeightBold"
-              sx={{ color: 'overviewCard.contrastText' }}
+              sx={{ color: 'card.contrastText' }}
             >
               {value}
             </Typography>
@@ -66,7 +63,7 @@ export const OverviewCard: FC<OverviewCardProps> = ({
               <Typography
                 variant="h6"
                 component="h6"
-                sx={{ color: 'overviewCard.subValue' }}
+                sx={{ color: 'card.subValue' }}
               >
                 {subValue}
               </Typography>
@@ -77,3 +74,5 @@ export const OverviewCard: FC<OverviewCardProps> = ({
     </Card>
   );
 };
+
+export default OverviewCard;
