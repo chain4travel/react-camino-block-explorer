@@ -11,7 +11,7 @@ import {
   getCTransactionDetailsStatus,
   getCTransactionInformations,
 } from 'store/cchainSlice';
-import { status } from 'types';
+import { Status } from 'types';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import OutlinedContainer from 'app/components/OutlinedContainer';
@@ -69,7 +69,7 @@ export default function TransactionDetails() {
               C-Chain Transaction
             </Typography>
           </Grid>
-          {loading === status.SUCCEEDED && (
+          {loading === Status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
                 field="Transaction"

@@ -1,6 +1,5 @@
-import { status } from 'types';
+import { Status } from 'types';
 import { BlockDetail, BlockTableData } from './block';
-import { MagellanTransactionDetail } from './magellan-types';
 import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 
 export interface ChainOverviewType {
@@ -9,9 +8,9 @@ export interface ChainOverviewType {
   numberOfActiveValidators: number;
   numberOfValidators: number;
   percentageOfActiveValidators: number;
-  gasFeesLoading: status;
-  transactionsLoading: status;
-  validatorsLoading: status;
+  gasFeesLoading: Status;
+  transactionsLoading: Status;
+  validatorsLoading: Status;
 }
 
 export interface initialCchainStateType {
@@ -19,12 +18,12 @@ export interface initialCchainStateType {
   blockCount: number;
   blocks: BlockTableData[];
   transactions: CTransaction[];
-  status: status;
+  status: Status;
   error: undefined | string;
   timeFrame: string;
   blockDetail?: BlockDetail;
-  loadBlockDetial: status;
-  loadTransactionDetails: status;
+  loadBlockDetial: Status;
+  loadTransactionDetails: Status;
   transcationDetails?: TranscationDetails;
   ChainOverview: ChainOverviewType;
 }
@@ -38,9 +37,9 @@ export interface initialXPchainStateType {
   pTransactions?: XPTransaction[];
   xTransactionDetails?: XPTransaction;
   pTransactionDetails?: XPTransaction;
-  loadXPTransactions: status;
-  loadXTransactionDetials: status;
-  loadPTransactionDetials: status;
+  loadXPTransactions: Status;
+  loadXTransactionDetials: Status;
+  loadPTransactionDetials: Status;
   error: undefined | string;
   timeFrame: string;
   assets?: assets[];
