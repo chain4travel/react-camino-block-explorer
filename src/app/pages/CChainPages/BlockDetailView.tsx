@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Grid } from '@mui/material';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
-import DetailsField from 'app/components/DetailsField';
 import { mdiCubeOutline } from '@mdi/js';
+import LoadingWrapper from 'app/components/LoadingWrapper';
+import DetailsField from 'app/components/DetailsField';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import Icon from '@mdi/react';
 

@@ -28,7 +28,7 @@ export function ComingSoonPage() {
         <ComingSoonSvg />
         <Typography
           variant="h5"
-          color="overviewCard.contrastText"
+          color="card.contrastText"
           sx={{
             textAlign: 'center',
             marginTop: '1rem',

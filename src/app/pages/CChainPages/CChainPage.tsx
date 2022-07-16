@@ -7,14 +7,14 @@ import {
   getCchainOverreview,
 } from 'store/cchainSlice';
 import { Typography } from '@mui/material';
-import OverviewCards from 'app/components/OverviewCards';
-import { LatestBlocksAndTransactionsList } from 'app/components/LatestBlocksAndTransactionsList';
-import DataControllers from 'app/components/DataControllers';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   fetchBlocksTransactions,
   loadValidators,
 } from 'store/cchainSlice/utils';
+import LatestBlocksAndTransactionsList from 'app/components/LatestBlocksAndTransactionsList';
+import OverviewCards from 'app/components/OverviewCards';
+import DataControllers from 'app/components/DataControllers';
 import PageContainer from 'app/components/PageContainer';
 
 export default function CChainPage() {
@@ -44,10 +44,7 @@ export default function CChainPage() {
         <Typography
           variant="h4"
           color="error"
-          sx={{
-            textAlign: 'center',
-            marginTop: '1rem',
-          }}
+          sx={{ textAlign: 'center', marginTop: '1rem' }}
         >
           {error}
         </Typography>

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Button } from '@mui/material';
 
-export default function MainButton({
+function MainButton({
   variant,
   onClick,
   children,
-  ...style
+  style,
 }: {
   variant: 'contained' | 'outlined';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -37,3 +37,5 @@ export default function MainButton({
     </Button>
   );
 }
+
+export default React.memo(MainButton);
