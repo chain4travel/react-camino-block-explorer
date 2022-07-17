@@ -26,10 +26,13 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
 import reportWebVitals from 'reportWebVitals';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 // Initialize languages
 import './locales/i18n';
 
 export const store = configureAppStore();
+const queryClient = new QueryClient();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
@@ -37,7 +40,9 @@ ReactDOMClient.createRoot(MOUNT_NODE!).render(
     <ThemeProvider>
       <HelmetProvider>
         <React.StrictMode>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
         </React.StrictMode>
       </HelmetProvider>
     </ThemeProvider>
