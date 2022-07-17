@@ -27,6 +27,33 @@ export const getBlocksPage = async (startingBlock: number) => {
   });
 };
 
+export async function getTransactionsPage(
+  startingBlock = NaN,
+  endingBlock = NaN,
+  transactionId = 0,
+) {
+  const response = await api.get(
+    `/cblocks?limit=${0}&limit=${50}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
+  );
+  return response.data.transactions.map(transaction => {
+    return {
+      blockNumber: parseInt(transaction.block),
+      transactionIndex: parseInt(transaction.index),
+      from: transaction.from,
+      hash: transaction.hash,
+      status:
+        parseInt(transaction.status) === 1
+          ? 'Success'
+          : `Failed-${parseInt(transaction.status)}`,
+      timestamp: parseInt(transaction.timestamp) * 1000,
+      to: transaction.to,
+      value: parseInt(transaction.value),
+      transactionCost:
+        parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+    };
+  });
+}
+
 export async function loadTransactionAggregates(
   chainAlias: string,
   startTime: string,
