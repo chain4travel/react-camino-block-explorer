@@ -3,8 +3,8 @@ import AddressLink from 'app/components/AddressLink';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
+import { BlockType } from 'types/block';
 import { getRelativeTime } from 'utils/display-utils';
-import { BlockType } from '.';
 
 interface Props {
   block: BlockType;

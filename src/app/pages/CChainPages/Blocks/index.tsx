@@ -9,44 +9,12 @@ import {
 } from '@mui/material';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
-import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import Block from './Block';
-import { MagellanBlock } from 'types/magellan-types';
 import CutomTable from 'app/components/Table/CustomTable';
 import useWidth from 'app/hooks/useWidth';
-
-export const api = axios.create({
-  baseURL: 'https://magellan.columbus.camino.foundation/v2',
-});
-
-export const getBlocksPage = async (startingBlock: number) => {
-  const response = await api.get(
-    `/cblocks?limit=${50}&limit=0&blockStart=${startingBlock}&blockEnd=NaN&transactionId=0`,
-  );
-  return response.data.blocks.map((block: MagellanBlock): BlockType => {
-    return {
-      hash: block.hash,
-      number: parseInt(block.number),
-      timestamp: new Date(block.timestamp * 1000),
-      gasLimit: parseInt(block.gasLimit),
-      gasUsed: parseInt(block.gasUsed),
-      numberOfTransactions: block.evmTx ? block.evmTx : 0,
-      blockCost: parseInt(block.gasUsed) * parseInt(block.baseFeePerGas),
-    };
-  });
-};
-
-export interface BlockType {
-  hash: String;
-  number: number;
-  timestamp: Date;
-  gasLimit: number;
-  gasUsed: number;
-  numberOfTransactions: number;
-  blockCost: number;
-}
+import { getBlocksPage } from 'api';
 
 export default function Blocks() {
   const theme = useTheme();

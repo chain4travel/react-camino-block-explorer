@@ -1,14 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { loadTransactionAggregates, loadTransactionFeesAggregates } from 'api';
 import axios from 'axios';
 import { store } from 'index';
 import { DateTime } from 'luxon';
 import { getStartDate } from 'utils/display-utils';
-import {
-  loadTransactionAggregates,
-  loadTransactionFeesAggregates,
-} from 'utils/magellan';
-
-// const CHAIN_ID = '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
 
 interface test {
   timeframe: string;
@@ -81,17 +76,3 @@ export const loadAssets = createAsyncThunk('xchain/loadAssets', async () => {
   }
   return newElements;
 });
-
-// export const loadXpTransactions = createAsyncThunk(
-//   'xchain/loadXpTransactions',
-
-//   async () => {
-//     let networks = store.getState().networks;
-//     let activeNetwork = networks.networks.find(
-//       element => element.id === networks.activeNetwork,
-//     );
-//     const toandfromAddressTxs = await axios.get(
-//       `${getMagellanBaseUrl()}${cBlocksApi}?address=${address}&limit=0&${limitAndOffsetQueryString}`,
-//     );
-//   },
-// );

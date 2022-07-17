@@ -9,6 +9,15 @@ export interface BlockTableData {
   gasLimit?: number;
   blockCost: number;
 }
+export interface BlockType {
+  hash: String;
+  number: number;
+  timestamp: Date;
+  gasLimit: number;
+  gasUsed: number;
+  numberOfTransactions: number;
+  blockCost: number;
+}
 
 export interface BlockDetail {
   hash: string;
