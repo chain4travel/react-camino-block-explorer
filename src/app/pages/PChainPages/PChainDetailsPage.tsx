@@ -68,7 +68,7 @@ export default function PChainDetailPage() {
     const res = (
       await axios.get(
         `https://magellan.columbus.camino.foundation/v2/transactions/${
-          location.pathname.split('/')[4]
+          location.pathname.split('/')[3]
         }`,
       )
     ).data;
