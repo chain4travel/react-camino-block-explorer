@@ -54,7 +54,7 @@ export default function XChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="transactions">
+      <XPTransactionList ShowAllLink="x-chain">
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"

@@ -60,7 +60,7 @@ export function XTransactionDetails() {
     const res = (
       await axios.get(
         `https://magellan.columbus.camino.foundation/v2/transactions/${
-          location.pathname.split('/')[4]
+          location.pathname.split('/')[3]
         }`,
       )
     ).data;
@@ -123,7 +123,7 @@ export function XTransactionDetails() {
               gap: '20px',
             }}
           >
-            <Link to="/p-chain">
+            <Link to="/x-chain">
               <Button
                 variant="outlined"
                 color="secondary"

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Divider } from '@mui/material';
 import { CamAmount } from '../CamAmount';
 import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types';
-import { getAddressLink, getTransactionDetailsPath } from 'utils/route-utils';
+import { getAddressLink } from 'utils/route-utils';
 import { ChainType } from 'utils/types/chain-type';
 import RelativeTime from 'app/components/RelativeTime';
 import AddressLink from '../AddressLink';
@@ -18,7 +18,7 @@ export default function XPTransactionItem({ chainType, data }) {
           id={data.id}
           timestamp={data.timestamp}
           type={data.type}
-          to={getTransactionDetailsPath(data.id)}
+          to={`/${chainType}/transactions/${data.id}`}
         />
       </Grid>
       <Grid container item xs={12} md={8} columnSpacing={2}>
@@ -62,7 +62,7 @@ const XPTransactionFirstSection = ({
           <BlockTxIcon iconType="transaction" />
         </Grid>
       )}
-      <Grid container xs={12} md={9} lg={10}>
+      <Grid container item xs={12} md={9} lg={10}>
         <Grid item xs={8} md={6} lg={8}>
           <AddressLink
             to={to}
@@ -107,7 +107,11 @@ const XPTransactionSecondSection = ({
             >
               <Grid item xs={12} sm={6} xl={7}>
                 <AddressLink
-                  to={`/x-chain${getAddressLink(chainType, tx.address)}`}
+                  to={`/${chainType}/address/${getAddressLink(
+                    chainType,
+                    tx.address,
+                  )}`}
+                  // to={`/${chainType}/address/${tx.address}`}
                   value={tx.address}
                   typographyVariant="body1"
                   truncate={true}

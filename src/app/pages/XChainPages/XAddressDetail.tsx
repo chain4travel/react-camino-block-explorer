@@ -20,6 +20,8 @@ import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { Link } from 'react-router-dom';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ChainType } from 'utils/types/chain-type';
+import { getAddressLink } from 'utils/route-utils';
 // import DetailsField from 'app/components/DetailsField';
 
 const tabOptions = [
@@ -87,12 +89,12 @@ export default function XAddressDetail() {
     return [];
   }
   useEffectOnce(() => {
-    loadBalances(location.pathname.split('/')[4]);
+    console.log(location.pathname.split('/')[1]);
+    loadBalances(location.pathname.split('/')[3]);
   });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
       <CopyAddressTitle showAddressLabel={true} value={address} />
@@ -103,18 +105,27 @@ export default function XAddressDetail() {
           changeAction={handleChange}
           tabOptions={tabOptions}
         >
-          <Panels value={value} />
+          <Panels
+            value={value}
+            chainType={location.pathname.split('/')[1] as ChainType}
+          />
         </TabsHeader>
       </Paper>
     </PageContainer>
   );
 }
 
-const Panels = ({ value }: { value: number }) => {
+const Panels = ({
+  value,
+  chainType,
+}: {
+  value: number;
+  chainType: ChainType;
+}) => {
   return (
     <>
       <TabPanel value={value} index={0}>
-        <XPAddressView />
+        <XPAddressView chainType={chainType} />
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>
     </>
@@ -155,7 +166,7 @@ export const AddressOverviewCard = ({ balance }: { balance: number }) => {
   );
 };
 
-export const AddressSection = ({ type, timestamp, id }) => {
+export const AddressSection = ({ type, timestamp, id, chainType }) => {
   const { isDesktop } = useWidth();
   return (
     <>
@@ -169,7 +180,7 @@ export const AddressSection = ({ type, timestamp, id }) => {
       >
         <Grid item xs={12}>
           <AddressLink
-            to="kfhsdjfaksdgldfsjgidfsjbkdsjfhgksdjkfgsdjkfh"
+            to={`/${chainType}/address/${getAddressLink(chainType, id)}`}
             value={id}
             typographyVariant="subtitle1"
             truncate={true}

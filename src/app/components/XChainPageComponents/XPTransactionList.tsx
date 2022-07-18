@@ -42,7 +42,7 @@ export default function XPTransactionList({
         {children}
       </Box>
       <Link
-        to={ShowAllLink}
+        to={`/${ShowAllLink}/transactions`}
         style={{
           display: 'flex',
           width: '100%',

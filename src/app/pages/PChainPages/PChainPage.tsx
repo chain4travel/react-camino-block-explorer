@@ -51,7 +51,7 @@ export default function PChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="/all/p-chain/transactions">
+      <XPTransactionList ShowAllLink="p-chain">
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"
@@ -63,7 +63,7 @@ export default function PChainPage() {
               key={index}
             >
               <XPTransactionItem
-                chainType={ChainType.X_CHAIN}
+                chainType={ChainType.P_CHAIN}
                 data={transaction}
               />
             </XPItemDivider>

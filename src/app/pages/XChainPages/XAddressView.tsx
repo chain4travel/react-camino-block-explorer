@@ -6,6 +6,7 @@ import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
 import { MagellanXPTransaction } from 'types/magellan-types';
 import { AddressSection, InputOutputSection } from './XAddressDetail';
 import { useLocation } from 'react-router-dom';
+import { ChainType } from 'utils/types/chain-type';
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
   return {
@@ -28,7 +29,7 @@ function getChainID(location) {
   else if (location === 'P') return '11111111111111111111111111111111LpoYY';
 }
 
-export default function XPAddressView() {
+export default function XPAddressView({ chainType }: { chainType: ChainType }) {
   const tableEl = React.useRef<HTMLDivElement>(null);
   const [distanceBottom, setDistanceBottom] = React.useState(0);
   const [hasMore] = React.useState(true);
@@ -36,7 +37,7 @@ export default function XPAddressView() {
   const [rows, setRows] = React.useState<any[]>([]);
   const location = useLocation();
 
-  const CHAIN_ID = getChainID(location.pathname.split('/')[4][0]);
+  const CHAIN_ID = getChainID(location.pathname.split('/')[3][0]);
   const loadMore = React.useCallback(() => {
     setLoading(true);
     loadItems();
@@ -45,7 +46,7 @@ export default function XPAddressView() {
   const loadItems = async () => {
     await new Promise<void>(resolve => {
       loadTransactions({
-        address: location.pathname.split('/')[4],
+        address: location.pathname.split('/')[3],
         offset: rows.length,
         limit: 10,
         chainID: CHAIN_ID,
@@ -81,8 +82,9 @@ export default function XPAddressView() {
     };
   }, [scrollListener]);
   useEffectOnce(() => {
+    console.log(location.pathname.split('/')[1]);
     loadTransactions({
-      address: location.pathname.split('/')[4],
+      address: location.pathname.split('/')[3],
       offset: 0,
       limit: 10,
       chainID: CHAIN_ID,
@@ -100,6 +102,7 @@ export default function XPAddressView() {
               <Grid container spacing={2}>
                 <Grid container item xs={12} md={4} spacing={2}>
                   <AddressSection
+                    chainType={chainType}
                     id={item.id}
                     type={item.type}
                     timestamp={item.timestamp}

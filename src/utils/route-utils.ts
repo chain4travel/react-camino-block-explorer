@@ -65,10 +65,10 @@ export function getAllTransactionsPathName(chaintype: ChainType) {
 
 export function getAddressLink(chaintype: ChainType, value: string): string {
   if (chaintype === ChainType.X_CHAIN) {
-    return getAddressDetailsPath('X-' + value);
+    return 'X-' + value;
   }
   if (chaintype === ChainType.P_CHAIN) {
-    return getAddressDetailsPath('P-' + value);
+    return 'P-' + value;
   }
-  return getAddressDetailsPath(value);
+  return value;
 }
