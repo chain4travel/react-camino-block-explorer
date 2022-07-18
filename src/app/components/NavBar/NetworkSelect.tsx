@@ -154,7 +154,7 @@ const NewNetwork = () => {
   const handleSubmit = () => {
     NewNetwork.id = NewNetwork.displayName.replace(/\s/g, '-').toLowerCase();
     if (handleDuplicateNetworkId(NewNetwork, networks)) {
-      setError('Network id already exists');
+      setError('Network Name already exists');
       return;
     }
     setError('');
