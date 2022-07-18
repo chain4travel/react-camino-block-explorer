@@ -9,6 +9,7 @@ import { useTheme } from '@mui/material';
 import useWidth from 'app/hooks/useWidth';
 
 function OutlinedSearchInput() {
+  const theme = useTheme();
   return (
     <OutlinedInput
       placeholder="Search by Address / Hash / Block / Token"
@@ -25,6 +26,9 @@ function OutlinedSearchInput() {
         fontWeight: 400,
         '.MuiOutlinedInput-notchedOutline': {
           border: 'none',
+        },
+        [theme.breakpoints.down('md')]: {
+          height: '50px',
         },
       }}
       startAdornment={
@@ -56,8 +60,9 @@ export default function SearchInput() {
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            disableEscapeKeyDown
+            disableEnforceFocus
+            disableAutoFocus
           >
             <Box
               sx={{
@@ -67,23 +72,25 @@ export default function SearchInput() {
                 transform: 'translate(-50%, -50%)',
                 bgcolor: 'primary.dark',
                 boxShadow: 24,
-                width: '100%',
-                maxWidth: '50%',
-                minWidth: '50%',
-                p: 4,
+                width: '500px',
+                maxWidth: '70%',
+                padding: '1rem 1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                gap: '10px',
-                borderRadius: '10px',
+                gap: '40px',
+                borderRadius: '12px',
                 height: '40px',
                 [theme.breakpoints.down('md')]: {
-                  maxWidth: '100%',
+                  height: 'auto',
+                },
+                [theme.breakpoints.down('sm')]: {
+                  maxWidth: '95%',
                 },
               }}
             >
-              <Typography id="modal-modal-title" variant="h4" component="h2">
+              <Typography variant="h5" component="h5">
                 Search for anything
               </Typography>
               <OutlinedSearchInput />
