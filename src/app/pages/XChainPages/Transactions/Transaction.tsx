@@ -1,9 +1,12 @@
 import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
+import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
 import { getRelativeTime } from 'utils/display-utils';
+import { getAddressLink } from 'utils/route-utils';
+import { ChainType } from 'utils/types/chain-type';
 
 interface Props {
   transaction: any;
@@ -66,20 +69,42 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Hash
         </Typography>
-        <Field type="string" value={transaction.hash} />
+        <AddressLink
+          to={`/x-chain/transactions/${transaction.hash}`}
+          value={transaction.hash}
+          typographyVariant="body1"
+          truncate={false}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           From
         </Typography>
-        value=
-        {transaction.to[0]?.address ? transaction.from[0]?.address : 'NaN'}
+        <AddressLink
+          to={`/x-chain/address/${getAddressLink(
+            'x-chain' as ChainType,
+            transaction.to[0]?.address,
+          )}`}
+          value={
+            transaction.from[0]?.address ? transaction.from[0]?.address : '-'
+          }
+          typographyVariant="body1"
+          truncate={true}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           To
         </Typography>
-        value={transaction.to[0]?.address ? transaction.to[0]?.address : 'NaN'}
+        <AddressLink
+          to={`/x-chain/address/${getAddressLink(
+            'x-chain' as ChainType,
+            transaction.to[0]?.address,
+          )}`}
+          value={transaction.to[0]?.address ? transaction.to[0]?.address : '-'}
+          typographyVariant="body1"
+          truncate={true}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -117,28 +142,41 @@ const CustomRow = ({ transaction }) => {
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
-        <Field type="string" value={transaction.hash} />
-      </TableCell>
-      <TableCell
-        align="center"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
-      >
-        <Field
-          type="string"
-          value={
-            transaction.from[0]?.address ? transaction.from[0]?.address : 'NaN'
-          }
+        <AddressLink
+          to={`/x-chain/transactions/${transaction.hash}`}
+          value={transaction.hash}
+          typographyVariant="body1"
+          truncate={true}
         />
       </TableCell>
       <TableCell
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
-        <Field
-          type="string"
+        <AddressLink
+          to={`/x-chain/address/${getAddressLink(
+            'x-chain' as ChainType,
+            transaction.from[0]?.address,
+          )}`}
           value={
-            transaction.to[0]?.address ? transaction.to[0]?.address : 'NaN'
+            transaction.from[0]?.address ? transaction.from[0]?.address : '-'
           }
+          typographyVariant="body1"
+          truncate={true}
+        />
+      </TableCell>
+      <TableCell
+        align="center"
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+      >
+        <AddressLink
+          to={`/x-chain/address/${getAddressLink(
+            'x-chain' as ChainType,
+            transaction.to[0]?.address,
+          )}`}
+          value={transaction.to[0]?.address ? transaction.to[0]?.address : '-'}
+          typographyVariant="body1"
+          truncate={true}
         />
       </TableCell>
       <TableCell align="center">

@@ -184,6 +184,7 @@ const columns = [
     type: 'status',
   },
   {
+    name: 'transactionCost',
     value: 'transactionCost',
     label: 'Transaction Cost',
     field: 'transactionCost',
@@ -191,6 +192,7 @@ const columns = [
     type: 'currency',
   },
   {
+    name: 'value',
     value: 'value',
     label: 'Value',
     field: 'value',

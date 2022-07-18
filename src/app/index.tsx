@@ -12,7 +12,6 @@ import {
 import {
   XChainPage,
   XAddressDetail,
-  XTransactionDetails,
   XPTransactions,
 } from './pages/XChainPages';
 import { PChainPage, PChainDetailPage } from './pages/PChainPages';
@@ -20,6 +19,7 @@ import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
+import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -53,7 +53,7 @@ export function App() {
             <Route index element={<XChainPage />} />
             <Route path="transactions">
               <Route index element={<XPTransactions />} />
-              <Route path=":id" element={<XTransactionDetails />} />
+              <Route path=":id" element={<XPTransactionDetails />} />
             </Route>
             <Route path="address/:id" element={<XAddressDetail />} />
           </Route>

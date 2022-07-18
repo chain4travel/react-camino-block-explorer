@@ -63,19 +63,20 @@ export default function XPTransactions() {
         return (
           <Transaction
             ref={lastPostRef}
-            key={transaction.blockNumber}
+            key={transaction.hash}
             transaction={transaction}
           />
         );
       }
-      return (
-        <Transaction key={transaction.blockNumber} transaction={transaction} />
-      );
+      return <Transaction key={transaction.hash} transaction={transaction} />;
     });
   });
   const { isDesktop, isWidescreen } = useWidth();
   return (
-    <PageContainer pageTitle="C Blocks" metaContent="chain-overview c-chain">
+    <PageContainer
+      pageTitle="X Transactions"
+      metaContent="list of transactions x-chain"
+    >
       <Paper
         variant="outlined"
         square
@@ -174,6 +175,7 @@ const columns = [
     align: 'left',
   },
   {
+    name: 'fee',
     value: 'fee',
     label: 'Fee',
     align: 'left',
