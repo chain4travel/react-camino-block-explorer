@@ -83,12 +83,12 @@ export default function NetworkSelect() {
         onChange={handleChange}
         value={network}
         IconComponent={KeyboardArrowDownRoundedIcon}
-        renderValue={value => {
+        renderValue={() => {
           return <SelectedNetwork value={network} networkStatus={status} />;
         }}
         sx={{
           height: '40px',
-          maxWidth: '250px',
+          maxWidth: '170px',
           minWidth: '170px',
           borderRadius: '10px',
           padding: '8px 16px',
@@ -111,8 +111,6 @@ export default function NetworkSelect() {
   );
 }
 
-// create a MenuItem that when clicked opens a modal popup to inser new network information
-// id, displayName, protocol, host, magellanAddress, port
 const NewNetwork = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -129,7 +127,7 @@ const NewNetwork = () => {
     displayName: 'My New Network',
     protocol: 'http',
     host: '127.0.0.1',
-    magellanAddress: '' as string,
+    magellanAddress: 'http://127.0.0.1:8080' as string,
     port: 9650,
     predefined: false,
   });
@@ -153,8 +151,7 @@ const NewNetwork = () => {
   const networks = useAppSelector(getNetworks);
   const [error, setError] = React.useState('');
 
-  const handleSubmit = event => {
-    // generate a network id from the display name
+  const handleSubmit = () => {
     NewNetwork.id = NewNetwork.displayName.replace(/\s/g, '-').toLowerCase();
     if (handleDuplicateNetworkId(NewNetwork, networks)) {
       setError('Network id already exists');
