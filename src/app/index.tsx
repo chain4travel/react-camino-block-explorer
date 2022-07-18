@@ -3,7 +3,12 @@ import React from 'react';
 import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import { CChainPage, Blocks, CTransactions } from './pages/CChainPages';
+import {
+  CChainPage,
+  Blocks,
+  CTransactions,
+  Address,
+} from './pages/CChainPages';
 import {
   XChainPage,
   XAddressDetail,
@@ -14,11 +19,7 @@ import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
-import {
-  TransactionDetails,
-  BlockDetails,
-  CAddressDetails,
-} from './pages/CChainPages';
+import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -46,7 +47,7 @@ export function App() {
               <Route index element={<CTransactions />} />
               <Route path=":id" element={<TransactionDetails />} />
             </Route>
-            <Route path="address/:id" element={<CAddressDetails />} />
+            <Route path="address/:id" element={<Address />} />
           </Route>
           <Route path="x-chain">
             <Route index element={<XChainPage />} />

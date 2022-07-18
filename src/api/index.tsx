@@ -71,3 +71,30 @@ export async function loadTransactionFeesAggregates(
   const url = `/txfeeAggregates?chainID=${chainAlias}&startTime=${startTime}&endTime=${endTime}`;
   return (await api.get(url)).data;
 }
+
+export async function loadBlocksAndTransactions({ address, offset }) {
+  return await api.get(`/cblocks?address=${address}&limit=0&limit=${offset}`);
+}
+
+export async function loadCAddressTransactions({ address, offset }) {
+  let res = (await loadBlocksAndTransactions({ address, offset })).data;
+  return res.transactions.map(transaction => {
+    return {
+      blockNumber: parseInt(transaction.block),
+      transactionIndex: parseInt(transaction.index),
+      from: transaction.from,
+      hash: transaction.hash,
+      status:
+        parseInt(transaction.status) === 1
+          ? 'Success'
+          : `Failed-${parseInt(transaction.status)}`,
+      timestamp: parseInt(transaction.timestamp) * 1000,
+      // timestamp: parseInt(transaction.timestamp) * 1000,
+      to: transaction.to,
+      value: parseInt(transaction.value),
+      transactionCost:
+        parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+      direction: transaction.from === address ? 'out' : 'in',
+    };
+  });
+}

@@ -1,15 +1,15 @@
 import BlockDetails from './Blocks/BlockDetails';
 import CChainPage from './CChainPage';
 import TransactionDetails from './Transactions/TransactionDetails';
-import CAddressDetails from './CAddressDetails';
 import Blocks from './Blocks/';
 import CTransactions from './Transactions/';
+import Address from './Address/';
 
 export {
   BlockDetails,
   CChainPage,
   TransactionDetails,
-  CAddressDetails,
+  Address,
   Blocks,
   CTransactions,
 };
