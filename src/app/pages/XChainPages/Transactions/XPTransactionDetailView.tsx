@@ -47,17 +47,8 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
               />
               <Divider variant="fullWidth" />
             </Grid>
-            <Grid item xs={12}>
-              <Grid
-                container
-                item
-                xs
-                md={8}
-                spacing={2}
-                sx={{ maxWidth: 'unset' }}
-              >
-                <InputOutputSection inputs={inputs} outputs={outputs} />
-              </Grid>
+            <Grid container item xs={12} spacing={2} sx={{ padding: '1rem' }}>
+              <InputOutputSection inputs={inputs} outputs={outputs} />
             </Grid>
           </Grid>
         </OutlinedContainer>
