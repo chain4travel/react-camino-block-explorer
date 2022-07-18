@@ -89,7 +89,6 @@ export default function XAddressDetail() {
     return [];
   }
   useEffectOnce(() => {
-    console.log(location.pathname.split('/')[1]);
     loadBalances(location.pathname.split('/')[3]);
   });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

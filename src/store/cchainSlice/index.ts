@@ -202,7 +202,6 @@ const cchainSlice = createSlice({
           fromAddr: payload.fromAddr,
           toAddr: payload.toAddr,
         };
-        console.log(payload);
         let transactionCurrencuy: TransactionCurrencuy = {
           maxFeePerGas: parseInt(payload.maxFeePerGas),
           maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),

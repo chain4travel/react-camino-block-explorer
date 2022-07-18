@@ -26,36 +26,13 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import MainButton from 'app/components/MainButton';
 
-// const Helper = ({ item, theme }) => {
-//   return (
-//     <>
-//       <Typography sx={{ margin: '1rem' }} variant="body1">
-//         Output
-//       </Typography>
-//       {Object.entries(item).map(t => {
-//         return (
-//           <RowContainer
-//             type={t[0]}
-//             content={t[1]}
-//             head={false}
-//             theme={theme}
-//             parent
-//           />
-//         );
-//       })}
-//     </>
-//   );
-// };
-
 export function XTransactionDetails() {
   const theme = useTheme();
   const [result, setResult] = React.useState<XPTransaction>();
   const [details, setDetails] = React.useState<XPTransactionDetail>();
 
   const location = useLocation();
-  // React.useEffect(() => {
-  //   console.log(location.pathname.split('/')[4]);
-  // }, []);
+
   async function fetchTransactionDetail(): Promise<void> {
     const res = (
       await axios.get(

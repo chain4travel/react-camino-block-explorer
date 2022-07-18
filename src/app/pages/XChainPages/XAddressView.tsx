@@ -82,7 +82,6 @@ export default function XPAddressView({ chainType }: { chainType: ChainType }) {
     };
   }, [scrollListener]);
   useEffectOnce(() => {
-    console.log(location.pathname.split('/')[1]);
     loadTransactions({
       address: location.pathname.split('/')[3],
       offset: 0,

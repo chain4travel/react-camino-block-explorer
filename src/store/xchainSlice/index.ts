@@ -108,7 +108,6 @@ const xchainSlice = createSlice({
       .addCase(loadAssets.fulfilled, (state, action) => {
         // state.assets = action.payload;
         // state.ChainOverview.validatorsLoading = status.FAILED;
-        console.log(action.payload);
       })
       .addCase(loadAssets.rejected, state => {
         // state.ChainOverview.validatorsLoading = status.FAILED;

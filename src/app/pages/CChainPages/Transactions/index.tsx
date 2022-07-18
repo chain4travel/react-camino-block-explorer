@@ -72,9 +72,6 @@ export default function Transactions() {
       );
     });
   });
-  React.useEffect(() => {
-    console.log(status);
-  }, [status]);
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer pageTitle="C Blocks" metaContent="chain-overview c-chain">
