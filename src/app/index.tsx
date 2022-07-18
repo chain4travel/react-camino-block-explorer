@@ -13,7 +13,7 @@ import {
   XChainPage,
   XAddressDetail,
   XTransactionDetails,
-  XPShowAllTransactions,
+  XPTransactions,
 } from './pages/XChainPages';
 import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
@@ -52,7 +52,7 @@ export function App() {
           <Route path="x-chain">
             <Route index element={<XChainPage />} />
             <Route path="transactions">
-              <Route index element={<XPShowAllTransactions />} />
+              <Route index element={<XPTransactions />} />
               <Route path=":id" element={<XTransactionDetails />} />
             </Route>
             <Route path="address/:id" element={<XAddressDetail />} />
@@ -60,7 +60,7 @@ export function App() {
           <Route path="p-chain">
             <Route index element={<PChainPage />} />
             <Route path="transactions">
-              <Route index element={<XPShowAllTransactions />} />
+              <Route index element={<XPTransactions />} />
               <Route path=":id" element={<PChainDetailPage />} />
             </Route>
             <Route path="address/:id" element={<XAddressDetail />} />

@@ -5,6 +5,8 @@ import {
   MagellanBlock,
   MagellanTxFeeAggregatesResponse,
 } from 'types/magellan-types';
+import { createTransaction } from 'utils/magellan';
+import { mapToTableData } from './utils';
 
 const api = axios.create({
   baseURL: 'https://magellan.columbus.camino.foundation/v2',
@@ -97,4 +99,16 @@ export async function loadCAddressTransactions({ address, offset }) {
       direction: transaction.from === address ? 'out' : 'in',
     };
   });
+}
+
+export async function loadXPTransactions(offset, chainID) {
+  return await api.get(
+    `/transactions?chainID=${chainID}&offset=${offset}&limit=50&sort=timestamp-desc`,
+  );
+}
+
+export async function getXPTransactions(offset, chainID) {
+  let res = (await loadXPTransactions(offset, chainID)).data;
+  let newItems = res.transactions.map(item => createTransaction(item));
+  return newItems.map(mapToTableData);
 }
