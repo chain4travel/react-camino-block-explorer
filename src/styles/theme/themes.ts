@@ -309,7 +309,7 @@ const defaultComponents = {
         marginTop: '140px',
         gap: '20px',
         marginBottom: '30px',
-        '@media (max-width: 1024px)': {
+        '@media (max-width: 899px)': {
           marginTop: '100px',
         },
       },
