@@ -1,26 +1,27 @@
 import React from 'react';
 import { Typography, Grid } from '@mui/material';
 import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
-import { mdiFileDocumentOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 
-export default function CopyAddressTitle({
-  showAddressLabel,
+export default function CopyTitleCard({
+  label,
   value,
+  icon,
 }: {
-  showAddressLabel: boolean;
+  label: string;
   value: string;
+  icon: string;
 }) {
   return (
     <OutlinedContainer transparent={false}>
       <Grid
         container
         columnSpacing={2}
-        sx={{ display: 'flex', alignItems: 'flex-end', padding: '15px' }}
+        sx={{ display: 'flex', alignItems: 'flex-end', padding: '1rem' }}
         wrap="nowrap"
       >
-        {showAddressLabel && (
+        {label && (
           <Grid
             container
             item
@@ -28,11 +29,7 @@ export default function CopyAddressTitle({
             direction="row"
             sx={{ display: 'flex', alignItems: 'center' }}
           >
-            <Icon
-              path={mdiFileDocumentOutline}
-              size={1}
-              color="latestList.iconColor"
-            />
+            <Icon path={icon} size={1} color="latestList.iconColor" />
             <Typography
               variant="h6"
               component="h6"
@@ -40,7 +37,7 @@ export default function CopyAddressTitle({
               fontWeight="fontWeightBold"
               sx={{ marginLeft: '10px' }}
             >
-              Address
+              {label}
             </Typography>
           </Grid>
         )}

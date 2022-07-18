@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Paper, Grid, Typography } from '@mui/material';
 import PageContainer from 'app/components/PageContainer';
-import CopyAddressTitle from 'app/components/CopyAddressTitle';
+import CopyTitleCard from 'app/components/CopyTitleCard';
 import TabsHeader from 'app/components/TabComponent/TabsHeader';
 import TabPanel from 'app/components/TabComponent/TabPanel';
 import BackButton from 'app/components/BackButton';
 import Transactions from './Transactions';
+import { mdiFileDocumentOutline } from '@mdi/js';
 
 const tabOptions = [
   {
@@ -31,7 +32,11 @@ export default function CAddressDetails() {
       metaContent="chain-overview c-chain"
     >
       <PageTitle title="Address Detail" />
-      <CopyAddressTitle showAddressLabel={true} value={address} />
+      <CopyTitleCard
+        label="Address"
+        value={address}
+        icon={mdiFileDocumentOutline}
+      />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
         <TabsHeader
           tabValue={value}

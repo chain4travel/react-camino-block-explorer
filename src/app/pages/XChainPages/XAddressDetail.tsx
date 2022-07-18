@@ -6,23 +6,21 @@ import { CamAmount } from 'app/components/CamAmount';
 import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
 import useWidth from 'app/hooks/useWidth';
-// import { useAppDispatch } from 'store/configureStore';
-// import { loadAssets } from 'store/xchainSlice/utils';
-import CopyAddressTitle from 'app/components/CopyAddressTitle';
+import CopyTitleCard from 'app/components/CopyTitleCard';
 import TabsHeader from 'app/components/TabComponent/TabsHeader';
 import TabPanel from 'app/components/TabComponent/TabPanel';
 import { getRelativeTime } from 'utils/display-utils';
 import XPAddressView from './XAddressView';
 import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-// import DetailsField from 'app/components/DetailsField';
 import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { Link } from 'react-router-dom';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ChainType } from 'utils/types/chain-type';
 import { getAddressLink } from 'utils/route-utils';
-// import DetailsField from 'app/components/DetailsField';
+import SubPageTitle from 'app/components/SubPageTitle';
+import { mdiFileDocumentOutline } from '@mdi/js';
 
 const tabOptions = [
   {
@@ -96,7 +94,12 @@ export default function XAddressDetail() {
   };
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <CopyAddressTitle showAddressLabel={true} value={address} />
+      <SubPageTitle title="Address Detail" />
+      <CopyTitleCard
+        label="Address"
+        value={address}
+        icon={mdiFileDocumentOutline}
+      />
       <AddressOverviewCard balance={balance} />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
         <TabsHeader
@@ -239,6 +242,7 @@ export const InputOutputSection = ({ inputs, outputs }) => {
         lg={6}
         alignItems="center"
         justifyContent="center"
+        spacing={2}
       >
         {inputs.map((item, index) => {
           return (
@@ -252,7 +256,15 @@ export const InputOutputSection = ({ inputs, outputs }) => {
           );
         })}
       </Grid>
-      <Grid container item xs={12} lg={6} spacing={2}>
+      <Grid
+        container
+        item
+        xs={12}
+        lg={6}
+        alignItems="center"
+        justifyContent="center"
+        spacing={2}
+      >
         {outputs.map((item, index) => {
           return (
             <Grid key={index} item xs>

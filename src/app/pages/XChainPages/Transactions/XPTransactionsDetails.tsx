@@ -4,15 +4,13 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
-import OutlinedContainer from 'app/components/OutlinedContainer';
-import DetailsField from 'app/components/DetailsField';
-import Icon from '@mdi/react';
 import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './XPTransactionDetailView';
 import { XPTransaction } from 'types/transaction';
 import { XPTransactionDetail } from 'app/pages/PChainPages/PChainDetailsPage';
 import axios from 'axios';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
+import CopyTitleCard from 'app/components/CopyTitleCard';
 
 export default function XPTransactionDetails() {
   const theme = useTheme();
@@ -24,7 +22,7 @@ export default function XPTransactionDetails() {
   async function fetchTransactionDetail(): Promise<void> {
     const res = (
       await axios.get(
-        `http://localhost:8080/v2/transactions/${
+        `https://magellan.columbus.camino.foundation/v2/transactions/${
           location.pathname.split('/')[3]
         }`,
       )
@@ -93,21 +91,11 @@ export default function XPTransactionDetails() {
             </Typography>
           </Grid>
           {details && (
-            <OutlinedContainer transparent={false}>
-              <DetailsField
-                field="Transaction"
-                value={location.pathname.split('/')[3]}
-                type="string"
-                icon={
-                  <Icon
-                    path={mdiTransfer}
-                    color="latestList.iconColor"
-                    style={{ width: '20px', height: '20px' }}
-                  />
-                }
-                allowCopy={true}
-              />
-            </OutlinedContainer>
+            <CopyTitleCard
+              label="Transaction"
+              value={details.id}
+              icon={mdiTransfer}
+            />
           )}
           <TransactionDetailView
             inputs={result?.from}
