@@ -46,7 +46,7 @@ export function NavBar() {
           gap: '1rem',
           minHeight: 'auto',
           [theme.breakpoints.down('md')]: {
-            padding: '1rem 0.2rem',
+            padding: '1rem 0.5rem',
           },
         }}
       >
