@@ -28,7 +28,7 @@ export default function Transactions() {
     status,
     // error,
   } = useInfiniteQuery(
-    '/posts',
+    '/transactions',
     ({ pageParam = NaN }) => getTransactionsPage(pageParam),
     {
       getNextPageParam: lastPage => {
@@ -114,7 +114,7 @@ export default function Transactions() {
               C-Transactions
             </Typography>
           </Grid>
-          {status === 'success' && (
+          {status === 'success' && data && (
             <TableContainer sx={{ height: '650px' }}>
               {isWidescreen || isDesktop ? (
                 <CutomTable columns={columns}>{content}</CutomTable>

@@ -25,10 +25,10 @@ export default function Blocks() {
     hasNextPage, // boolean
     isFetchingNextPage, // boolean
     data,
-    // status,
+    status,
     // error,
   } = useInfiniteQuery(
-    '/posts',
+    '/blocks',
     ({ pageParam = NaN }) => getBlocksPage(pageParam),
     {
       getNextPageParam: (lastPage, allPages) => {
@@ -107,20 +107,22 @@ export default function Blocks() {
               C-Blocks
             </Typography>
           </Grid>
-          <TableContainer sx={{ height: '650px' }}>
-            {isWidescreen || isDesktop ? (
-              <CutomTable columns={columns}>{content}</CutomTable>
-            ) : (
-              <Grid item container alignItems="center">
-                {content}
-              </Grid>
-            )}
-            {isFetchingNextPage && (
-              <Box sx={{ width: '100%' }}>
-                <LinearProgress color="secondary" />
-              </Box>
-            )}
-          </TableContainer>
+          {status === 'success' && data && (
+            <TableContainer sx={{ height: '650px' }}>
+              {isWidescreen || isDesktop ? (
+                <CutomTable columns={columns}>{content}</CutomTable>
+              ) : (
+                <Grid item container alignItems="center">
+                  {content}
+                </Grid>
+              )}
+              {isFetchingNextPage && (
+                <Box sx={{ width: '100%' }}>
+                  <LinearProgress color="secondary" />
+                </Box>
+              )}
+            </TableContainer>
+          )}
         </Grid>
       </Paper>
     </PageContainer>
