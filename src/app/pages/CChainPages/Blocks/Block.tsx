@@ -23,13 +23,36 @@ const Block = React.forwardRef<Ref, Props>((props, ref) => {
     );
   else
     content = ref ? (
-      <div ref={ref}>
+      <Paper
+        sx={{
+          width: 1,
+          marginBottom: '1rem',
+          padding: '15px',
+          gap: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'primary.light',
+          backgroundImage: 'none',
+        }}
+        ref={ref}
+      >
         <GridItem block={props.block} />
-      </div>
+      </Paper>
     ) : (
-      <div>
+      <Paper
+        sx={{
+          width: 1,
+          marginBottom: '1rem',
+          padding: '15px',
+          gap: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'primary.light',
+          backgroundImage: 'none',
+        }}
+      >
         <GridItem block={props.block} />
-      </div>
+      </Paper>
     );
   return content;
 });
@@ -38,18 +61,7 @@ export default Block;
 
 const GridItem = ({ block }) => {
   return (
-    <Paper
-      sx={{
-        width: 1,
-        marginBottom: '1rem',
-        padding: '15px',
-        gap: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'primary.light',
-        backgroundImage: 'none',
-      }}
-    >
+    <>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           Block
@@ -91,7 +103,7 @@ const GridItem = ({ block }) => {
         </Typography>
         <Field type="string" value={block.gasLimit?.toString()} />
       </Grid>
-    </Paper>
+    </>
   );
 };
 

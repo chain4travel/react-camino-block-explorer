@@ -5,6 +5,8 @@ import {
   Typography,
   useTheme,
   TableContainer,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
@@ -122,6 +124,11 @@ export default function Transactions() {
                 </Grid>
               )}
             </TableContainer>
+          )}
+          {isFetchingNextPage && (
+            <Box sx={{ width: '100%' }}>
+              <LinearProgress color="secondary" />
+            </Box>
           )}
         </Grid>
       </Paper>

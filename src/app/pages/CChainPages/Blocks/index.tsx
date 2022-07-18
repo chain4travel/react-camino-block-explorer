@@ -6,6 +6,8 @@ import {
   useTheme,
   TableContainer,
   TableCellProps,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
@@ -112,6 +114,11 @@ export default function Blocks() {
               <Grid item container alignItems="center">
                 {content}
               </Grid>
+            )}
+            {isFetchingNextPage && (
+              <Box sx={{ width: '100%' }}>
+                <LinearProgress color="secondary" />
+              </Box>
             )}
           </TableContainer>
         </Grid>
