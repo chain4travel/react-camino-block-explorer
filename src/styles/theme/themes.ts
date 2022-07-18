@@ -350,6 +350,14 @@ export const lightTheme = createTheme({
         },
       },
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundImage: 'linear-gradient(#E2E8F0, #E2E8F0)',
+          borderRadius: '0px',
+        },
+      },
+    },
     ...defaultComponents,
   },
   ...defaultTheme,
@@ -369,6 +377,14 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '7px',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundImage: 'linear-gradient(#0F172A, #0F172A)',
+          borderRadius: '0px',
         },
       },
     },
