@@ -3,10 +3,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
-import { useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useTheme } from '@mui/material';
+import useWidth from 'app/hooks/useWidth';
 
 function OutlinedSearchInput() {
   return (
@@ -23,9 +23,6 @@ function OutlinedSearchInput() {
         fontSize: '15px',
         lineHeight: '24px',
         fontWeight: 400,
-        '@media (max-width: 1024px)': {
-          height: '50px',
-        },
         '.MuiOutlinedInput-notchedOutline': {
           border: 'none',
         },
@@ -40,7 +37,7 @@ function OutlinedSearchInput() {
 }
 
 export default function SearchInput() {
-  const isMobile = useMediaQuery('@media (max-width:1024px)');
+  const { isDesktop } = useWidth();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,7 +45,7 @@ export default function SearchInput() {
 
   return (
     <>
-      {isMobile ? (
+      {!isDesktop ? (
         <div>
           <SearchIcon
             onClick={handleOpen}
@@ -80,6 +77,7 @@ export default function SearchInput() {
                 alignItems: 'center',
                 gap: '10px',
                 borderRadius: '10px',
+                height: '40px',
                 [theme.breakpoints.down('md')]: {
                   maxWidth: '100%',
                 },
@@ -97,6 +95,9 @@ export default function SearchInput() {
           sx={{
             width: '450px',
             height: '40px',
+            '@media (max-width:1024px)': {
+              width: '325px',
+            },
           }}
         >
           <OutlinedSearchInput />
