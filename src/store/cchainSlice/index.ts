@@ -203,6 +203,7 @@ const cchainSlice = createSlice({
           toAddr: payload.toAddr,
         };
         let transactionCurrencuy: TransactionCurrencuy = {
+          gasPrice: parseInt(payload.gasPrice),
           maxFeePerGas: parseInt(payload.maxFeePerGas),
           maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
           gasUsed: parseInt(payload.receipt.gasUsed),
