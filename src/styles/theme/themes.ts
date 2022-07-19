@@ -20,7 +20,7 @@ const grey = {
 };
 
 interface PaletteWithCustomColors extends Palette {
-  overviewCard: {
+  card: {
     background: string;
     border: string;
     title: string;
@@ -41,6 +41,13 @@ interface PaletteWithCustomColors extends Palette {
   };
   radioButton: {
     main: string;
+  };
+  borders: {
+    main: string;
+  };
+  titleCard: {
+    background: string;
+    border: string;
   };
 }
 
@@ -83,7 +90,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#0F172A',
   },
   grey: grey,
-  overviewCard: {
+  card: {
     background: '#F8FAFC',
     border: '#CBD5E1',
     title: '#0F172A',
@@ -99,6 +106,13 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
   },
   radioButton: {
     main: '#149EED',
+  },
+  borders: {
+    main: '#CBD5E1',
+  },
+  titleCard: {
+    background: '#F8FAFC',
+    border: '#CBD5E1',
   },
 };
 
@@ -141,7 +155,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     contrastText: '#FFFFFF',
   },
   grey: grey,
-  overviewCard: {
+  card: {
     background: '#0F172A',
     border: '#64748B',
     title: '#64748B',
@@ -158,6 +172,13 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   radioButton: {
     main: '#FFFFFF',
   },
+  borders: {
+    main: '#64748B',
+  },
+  titleCard: {
+    background: '#1E293B',
+    border: '#64748B',
+  },
 };
 
 const defaultTheme = {
@@ -170,7 +191,7 @@ const defaultTheme = {
       fontSize: '96px',
       lineHeight: '96px',
       letterSpacing: '-2px',
-      fontWeight: '500',
+      fontWeight: '400',
     },
     h2: {
       fontFamily: 'Plus Jakarta Sans',
@@ -178,47 +199,47 @@ const defaultTheme = {
       fontSize: '60px',
       lineHeight: '60px',
       letterSpacing: '-0.5px',
-      fontWeight: '500',
+      fontWeight: '400',
     },
     h3: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
       fontSize: '48px',
       lineHeight: '50px',
-      fontWeight: '500',
+      fontWeight: '400',
     },
     h4: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
       fontSize: '34px',
       lineHeight: '40px',
-      fontWeight: '500',
+      fontWeight: '400',
     },
     h5: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '24px',
       lineHeight: '32px',
     },
     h6: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '18px',
       lineHeight: '150%',
     },
     subtitle1: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '16px',
       lineHeight: '28px',
     },
     subtitle2: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '14px',
       lineHeight: '22px',
       letterSpacing: '-0.25px',
@@ -226,14 +247,14 @@ const defaultTheme = {
     body1: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '16px',
       lineHeight: '24px',
     },
     body2: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '14px',
       lineHeight: '20px',
       letterSpacing: '-0.528px',
@@ -241,7 +262,7 @@ const defaultTheme = {
     caption: {
       fontFamily: 'Plus Jakarta Sans',
       fontStyle: 'normal',
-      fontWeight: '500',
+      fontWeight: '400',
       fontSize: '12px',
       lineHeight: '16px',
     },
@@ -288,7 +309,7 @@ const defaultComponents = {
         marginTop: '140px',
         gap: '20px',
         marginBottom: '30px',
-        '@media (max-width: 1024px)': {
+        '@media (max-width: 899px)': {
           marginTop: '100px',
         },
       },
@@ -318,11 +339,22 @@ export const lightTheme = createTheme({
     },
     MuiOutlinedInput: {
       styleOverrides: {
+        root: {
+          borderRadius: '7px',
+        },
         notchedOutline: {
           border: '1px solid  !important',
           ':where(fieldset)': {
             border: '1px solid #CBD5E1 !important',
           },
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundImage: 'linear-gradient(#E2E8F0, #E2E8F0)',
+          borderRadius: '0px',
         },
       },
     },
@@ -338,6 +370,21 @@ export const darkTheme = createTheme({
       styleOverrides: {
         body: {
           backgroundColor: '#0F172A',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: '7px',
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundImage: 'linear-gradient(#0F172A, #0F172A)',
+          borderRadius: '0px',
         },
       },
     },

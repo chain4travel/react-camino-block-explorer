@@ -1,35 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageContainer from 'app/components/PageContainer';
-import {
-  Typography,
-  Box,
-  Grid,
-  Paper,
-  Tab,
-  Tabs,
-  Divider,
-  Tooltip,
-  Button,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
-import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
+import { Typography, Box, Grid, Paper, Tooltip, Button } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import { CamAmount } from 'app/components/CamAmount';
 import AddressLink from 'app/components/AddressLink';
 import Chip from 'app/components/Chip';
 import useWidth from 'app/hooks/useWidth';
-import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-// import { useAppDispatch } from 'store/configureStore';
+import CopyTitleCard from 'app/components/CopyTitleCard';
+import TabsHeader from 'app/components/TabComponent/TabsHeader';
+import TabPanel from 'app/components/TabComponent/TabPanel';
+import { getRelativeTime } from 'utils/display-utils';
+import XPAddressView from './XAddressView';
+import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-// import { loadAssets } from 'store/xchainSlice/utils';
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import { Link } from 'react-router-dom';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ChainType } from 'utils/types/chain-type';
+import { getAddressLink } from 'utils/route-utils';
+import SubPageTitle from 'app/components/SubPageTitle';
+import { mdiFileDocumentOutline } from '@mdi/js';
 
 const tabOptions = [
   {
@@ -42,148 +33,112 @@ const tabOptions = [
   },
 ];
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-  style?: React.CSSProperties;
+async function loadAssets() {
+  const loadedAssets = (
+    await axios.get(`https://magellan.columbus.camino.foundation/v2/assets`)
+  ).data;
+  const newElements = new Map();
+  if (loadedAssets.assets) {
+    loadedAssets.assets.forEach(element => {
+      newElements.set(element.id, {
+        name: element.name,
+        symbol: element.symbol,
+      });
+    });
+  }
+  return newElements;
 }
-
-const tooltips: { [key: string]: string } = {
-  // Contracts
-  Type: 'Defines a transaction type that is an envelope for current and future transaction types',
-  Block: 'The number of the block in which the transaction was recorded',
-  Date: 'The date and time at which a transaction is validated',
-  'Gas Price':
-    'Cost per unit of gas specified for the transaction, in Cam and nCam (nano cam) and aCam (atto cam). The higher the gas price the higher chance of getting included in a block',
-  'Max fee per gas':
-    'The maximum fee per gas that the transaction is willing to pay in total',
-  'Max Priority fee per gas':
-    'The maximum fee per gas to give miners to incentivize them to include the transaction (Priority fee)',
-  'Gas Limit': 'The maximum gas allowed in this transaction',
-  Value: 'The value being transacted',
-  From: 'The sending party of the transaction',
-  To: 'The receiving party of the transaction',
-  'Gas Used': 'The  gas used in this transaction',
-  'Contract Address': 'The address of the contract that was created',
-  'Transaction Cost':
-    "The cost of the transaction, calculated using ('Effective Gas Price' * 'Gas Limit')",
-  'Effective Gas Price': 'The gas price that the transaction is willing to pay',
-  //C-BLOCKS
-  Number: 'The block number',
-  'Parent Hash': 'The Hash of the parent block',
-  'Base Gas Fee':
-    'The minimum gas fee required for a transaction to be included in a block',
-  Fees: 'The total transaction fees for this block. This is calculated by adding up all the transaction costs.',
-  Timestamp: 'The date and time at which a transaction is validated',
-  'Transaction Count': 'The amount of transactions in this block',
-  'Extra Data': 'Additional data in this block',
-  //C-BLOCKS
-  Status: 'The transaction status',
-  Fee: 'The fee of the transaction',
-  Memo: 'The memo that was added to the transaction',
-  Signature: 'The signature of the input',
-};
+export interface AddressBalance {
+  id: string;
+  balance: any;
+  symbol: string;
+  name: string;
+}
 
 export default function XAddressDetail() {
   // getting the address from the url by getting what comes after the last slash
   const address = window.location.pathname.split('/').pop() as string;
   const [value, setValue] = React.useState(0);
+  const [balance, setBalance] = useState(0);
   // const dispatch = useAppDispatch();
+  const location = useLocation();
+  async function loadBalances(address) {
+    const assets = await loadAssets();
+    const addressInfo = await (
+      await axios.get(
+        `https://magellan.columbus.camino.foundation/v2/addresses/${address}`,
+      )
+    ).data;
+    const addressBalances: AddressBalance[] = [];
+    if (addressInfo && addressInfo.assets) {
+      Object.entries(addressInfo.assets).forEach(
+        ([key, value]: [key: any, value: any]) => {
+          addressBalances.push({
+            id: key,
+            balance: value.balance,
+            name: assets.get(key)?.name || 'UNKNOWN',
+            symbol: assets.get(key)?.symbol || 'UNKNOWN',
+          });
+        },
+      );
+      setBalance(addressBalances[0]?.balance);
+      return addressBalances;
+    }
+    return [];
+  }
   useEffectOnce(() => {
-    // dispatch(loadAssets());
+    loadBalances(location.pathname.split('/')[3]);
   });
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <CopyAddress showAddressLabel={true} value={address} />
-      <Divider variant="fullWidth" />
-      <AddressOverviewCard balance={987704018599999} />
+      <SubPageTitle title="Address Detail" />
+      <CopyTitleCard
+        label="Address"
+        value={address}
+        icon={mdiFileDocumentOutline}
+      />
+      <AddressOverviewCard balance={balance} />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
-        <TabsHeader tabValue={value} changeAction={handleChange}>
-          <Panels value={value} />
+        <TabsHeader
+          tabValue={value}
+          changeAction={handleChange}
+          tabOptions={tabOptions}
+        >
+          <Panels
+            value={value}
+            chainType={location.pathname.split('/')[1] as ChainType}
+          />
         </TabsHeader>
       </Paper>
     </PageContainer>
   );
 }
 
-const TabsHeader = ({ tabValue, changeAction, children }) => {
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={tabValue}
-          onChange={changeAction}
-          textColor="secondary"
-          indicatorColor="secondary"
-        >
-          {tabOptions.map((option, index) => (
-            <Tab
-              key={index}
-              label={option.label}
-              {...a11yProps(index)}
-              sx={{ paddingLeft: '10px', paddingRight: '10px' }}
-            />
-          ))}
-        </Tabs>
-      </Box>
-      <>{children}</>
-    </Box>
-  );
-};
-
-const Panels = ({ value }: { value: number }) => {
+const Panels = ({
+  value,
+  chainType,
+}: {
+  value: number;
+  chainType: ChainType;
+}) => {
   return (
     <>
       <TabPanel value={value} index={0}>
-        {/* loop on the transactions */}
-        <Grid container spacing={2}>
-          <Grid container item xs={12} md={4} spacing={2}>
-            <AddressSection />
-          </Grid>
-          <Grid container item xs spacing={2} sx={{ maxWidth: 'unset' }}>
-            <InputOutputSection />
-          </Grid>
-        </Grid>
-        <Divider
-          variant="fullWidth"
-          sx={{ marginTop: '1rem', marginBottom: '1rem' }}
-        />
+        <XPAddressView chainType={chainType} />
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>
     </>
   );
 };
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-      style={{
-        minHeight: '600px',
-        ...props.style,
-      }}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
-
-const AddressOverviewCard = ({ balance }: { balance: number }) => {
+export const AddressOverviewCard = ({ balance }: { balance: number }) => {
   return (
     <Paper variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
       <Box p={2}>
-        <Typography
+        {/* <Typography
           variant="h5"
           component="h5"
           fontWeight="fontWeightBold"
@@ -191,7 +146,7 @@ const AddressOverviewCard = ({ balance }: { balance: number }) => {
           sx={{ marginBottom: '25px' }}
         >
           Overview
-        </Typography>
+        </Typography> */}
         <Grid container spacing={2}>
           <Grid item xs md={6}>
             <Typography
@@ -213,7 +168,7 @@ const AddressOverviewCard = ({ balance }: { balance: number }) => {
   );
 };
 
-const AddressSection = () => {
+export const AddressSection = ({ type, timestamp, id, chainType }) => {
   const { isDesktop } = useWidth();
   return (
     <>
@@ -227,12 +182,12 @@ const AddressSection = () => {
       >
         <Grid item xs={12}>
           <AddressLink
-            to="kfhsdjfaksdgldfsjgidfsjbkdsjfhgksdjkfgsdjkfh"
-            value="kfhsdjfaksdgldfsjgidfsjbkdsjfhgksdjkfgsdjkfh"
+            to={`/${chainType}/address/${getAddressLink(chainType, id)}`}
+            value={id}
             typographyVariant="subtitle1"
             truncate={true}
           />
-          12 hrs ago
+          {getRelativeTime(timestamp) + ' ago '}
         </Grid>
       </Grid>
       <Grid
@@ -262,7 +217,7 @@ const AddressSection = () => {
         </Grid>
         <Grid item xs={12} md={6} lg={5}>
           <Chip
-            label="base"
+            label={type}
             style={{
               minWidth: '61px',
               height: 'min-content',
@@ -277,75 +232,7 @@ const AddressSection = () => {
 
 /////////////////////////////////////////////////////////////////////
 
-const CopyAddress = ({
-  showAddressLabel,
-  value,
-}: {
-  showAddressLabel: boolean;
-  value: string;
-}) => {
-  return (
-    <Grid
-      container
-      spacing={2}
-      sx={{ display: 'flex', alignItems: 'flex-end' }}
-      wrap="nowrap"
-    >
-      {showAddressLabel && (
-        <Grid
-          container
-          item
-          xs="auto"
-          direction="row"
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <InsertDriveFileOutlinedIcon
-            sx={{ color: 'primary.contrastText', fontSize: '23px' }}
-          />
-          <Typography
-            variant="h5"
-            component="h5"
-            color="textPrimary"
-            fontWeight="fontWeightBold"
-            sx={{ marginLeft: '10px' }}
-          >
-            Address
-          </Typography>
-        </Grid>
-      )}
-      <Grid
-        item
-        xs
-        zeroMinWidth
-        sx={{
-          display: 'flex',
-          alignItems: 'flex-end',
-        }}
-      >
-        <Typography
-          variant="h6"
-          component="span"
-          fontWeight="fontWeightBold"
-          color="latestList.timestamp"
-          noWrap={true}
-          sx={{
-            display: 'inline-block',
-            width: '100%',
-          }}
-        >
-          {value}
-        </Typography>
-      </Grid>
-      <Grid item xs="auto">
-        <CopyToClipboardButton value={value} />
-      </Grid>
-    </Grid>
-  );
-};
-
-/////////////////////////////////////////////////////////////////////
-
-const InputOutputSection = () => {
+export const InputOutputSection = ({ inputs, outputs }) => {
   return (
     <>
       <Grid
@@ -355,24 +242,111 @@ const InputOutputSection = () => {
         lg={6}
         alignItems="center"
         justifyContent="center"
+        spacing={2}
       >
-        <Grid item xs>
-          <InputCard />
-        </Grid>
+        {inputs.map((item, index) => {
+          return (
+            <Grid key={index} item xs>
+              <InputCard
+                address={item.address}
+                signature={item.signature}
+                value={item.value}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
-      <Grid container item xs={12} lg={6} spacing={2}>
-        <Grid item xs>
-          <OutputCard />
-        </Grid>
-        <Grid item xs>
-          <OutputCard />
-        </Grid>
+      <Grid
+        container
+        item
+        xs={12}
+        lg={6}
+        alignItems="center"
+        justifyContent="center"
+        spacing={2}
+      >
+        {outputs.map((item, index) => {
+          return (
+            <Grid key={index} item xs>
+              <OutputCard address={item.address} value={item.value} />
+            </Grid>
+          );
+        })}
       </Grid>
     </>
   );
 };
 
-// ToDo: to be removed and replaced with details field component in components folder
+const InputCard = ({ address, signature, value }) => {
+  return (
+    <Paper
+      sx={{
+        padding: '15px',
+        gap: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'primary.light',
+        backgroundImage: 'none',
+      }}
+    >
+      <Typography
+        variant="body1"
+        component="h5"
+        fontWeight="fontWeightBold"
+        sx={{ marginBottom: '15px' }}
+      >
+        Input
+      </Typography>
+      <DetailsField
+        field="From"
+        value={address}
+        type="string"
+        tooltip="Fee"
+        allowCopy={true}
+      />
+      <DetailsField
+        field="Signature"
+        value={signature}
+        type="string"
+        tooltip="Fee"
+      />
+      <DetailsField field="Value" value={value} type="gwei" tooltip="Fee" />
+    </Paper>
+  );
+};
+
+const OutputCard = ({ address, value }) => {
+  return (
+    <Paper
+      sx={{
+        padding: '15px',
+        gap: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'primary.light',
+        backgroundImage: 'none',
+      }}
+    >
+      <Typography
+        variant="body1"
+        component="h5"
+        fontWeight="fontWeightBold"
+        sx={{ marginBottom: '15px' }}
+      >
+        Output
+      </Typography>
+      <DetailsField
+        field="To"
+        value={address}
+        type="string"
+        tooltip="Fee"
+        allowCopy={true}
+      />
+      <DetailsField field="Value" value={value} type="gwei" tooltip="Fee" />
+    </Paper>
+  );
+};
+
 export const DetailsField = ({
   field,
   value,
@@ -448,14 +422,50 @@ export const DetailsField = ({
   );
 };
 
-const Field = ({
+export const Field = ({
   type,
   value,
 }: {
   type: string;
-  value: string | number | object;
+  value: string | number | object | undefined;
 }) => {
-  if (type === 'string') {
+  const { isMobile } = useWidth();
+  if (type === 'string' || type === 'number' || type === 'monospace') {
+    return (
+      <Typography
+        variant="body2"
+        component="span"
+        noWrap={true}
+        sx={{ width: '100%', display: 'block' }}
+      >
+        {value as string}
+      </Typography>
+    );
+  } else if (type === 'ctxtype') {
+    return (
+      <Chip
+        label={value === 0 ? 'Legacy' : 'EIP1559'}
+        style={{ minWidth: '61px', height: 'min-content' }}
+      />
+    );
+  } else if (type === 'timestamp') {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '10px',
+          flexDirection: isMobile ? 'column' : 'row',
+        }}
+      >
+        <Typography variant="body2" component="span">
+          {getRelativeTime(value as number) + ' ago '}
+        </Typography>
+        <Typography variant="body2" component="span" noWrap={true}>
+          {value as string}
+        </Typography>
+      </Box>
+    );
+  } else if (type === 'hexdata') {
     return (
       <Typography
         variant="body2"
@@ -467,91 +477,44 @@ const Field = ({
       </Typography>
     );
   } else if (type === 'gwei') {
-    return <CamAmount amount={value as number} currency="CAM" />;
+    return <CamAmount amount={Number(value)} />;
+  } else if (type === 'wei') {
+    return <CamAmount amount={Number(value)} />;
   } else return <></>;
 };
 
-const InputCard = () => {
-  return (
-    <Paper
-      sx={{
-        padding: '15px',
-        gap: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'primary.light',
-        backgroundImage: 'none',
-      }}
-    >
-      <Typography
-        variant="body1"
-        component="h5"
-        fontWeight="fontWeightBold"
-        sx={{ marginBottom: '15px' }}
-      >
-        Input
-      </Typography>
-      <DetailsField
-        field="From"
-        value="columbus1zawetvfggky6yvx5wdcn0tjsalw9ql9dz537x7"
-        type="string"
-        icon="icon"
-        tooltip="Fee"
-        allowCopy={true}
-      />
-      <DetailsField
-        field="Signature"
-        value="dsfdsfgdgsdfjbsadfckjsadncksuadhcnikasdujcnjaskducbnasjkcb"
-        type="string"
-        icon="icon"
-        tooltip="Fee"
-      />
-      <DetailsField
-        field="Value"
-        value={227773}
-        type="gwei"
-        icon="icon"
-        tooltip="Fee"
-      />
-    </Paper>
-  );
-};
-
-const OutputCard = () => {
-  return (
-    <Paper
-      sx={{
-        padding: '15px',
-        gap: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'primary.light',
-        backgroundImage: 'none',
-      }}
-    >
-      <Typography
-        variant="body1"
-        component="h5"
-        fontWeight="fontWeightBold"
-        sx={{ marginBottom: '15px' }}
-      >
-        Output
-      </Typography>
-      <DetailsField
-        field="To"
-        value="columbus1zawetvfggky6yvx5wdcn0tjsalw9ql9dz537x7"
-        type="string"
-        icon="icon"
-        tooltip="Fee"
-        allowCopy={true}
-      />
-      <DetailsField
-        field="Value"
-        value={25}
-        type="gwei"
-        icon="icon"
-        tooltip="Fee"
-      />
-    </Paper>
-  );
+const tooltips: { [key: string]: string } = {
+  // Contracts
+  Type: 'Defines a transaction type that is an envelope for current and future transaction types',
+  Block: 'The number of the block in which the transaction was recorded',
+  Date: 'The date and time at which a transaction is validated',
+  'Gas Price':
+    'Cost per unit of gas specified for the transaction, in Cam and nCam (nano cam) and aCam (atto cam). The higher the gas price the higher chance of getting included in a block',
+  'Max fee per gas':
+    'The maximum fee per gas that the transaction is willing to pay in total',
+  'Max Priority fee per gas':
+    'The maximum fee per gas to give miners to incentivize them to include the transaction (Priority fee)',
+  'Gas Limit': 'The maximum gas allowed in this transaction',
+  Value: 'The value being transacted',
+  From: 'The sending party of the transaction',
+  To: 'The receiving party of the transaction',
+  'Gas Used': 'The  gas used in this transaction',
+  'Contract Address': 'The address of the contract that was created',
+  'Transaction Cost':
+    "The cost of the transaction, calculated using ('Effective Gas Price' * 'Gas Limit')",
+  'Effective Gas Price': 'The gas price that the transaction is willing to pay',
+  //C-BLOCKS
+  Number: 'The block number',
+  'Parent Hash': 'The Hash of the parent block',
+  'Base Gas Fee':
+    'The minimum gas fee required for a transaction to be included in a block',
+  Fees: 'The total transaction fees for this block. This is calculated by adding up all the transaction costs.',
+  Timestamp: 'The date and time at which a transaction is validated',
+  'Transaction Count': 'The amount of transactions in this block',
+  'Extra Data': 'Additional data in this block',
+  //C-BLOCKS
+  Status: 'The transaction status',
+  Fee: 'The fee of the transaction',
+  Memo: 'The memo that was added to the transaction',
+  Signature: 'The signature of the input',
 };

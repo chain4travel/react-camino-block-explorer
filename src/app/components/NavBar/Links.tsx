@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CCHAIN, XCHAIN, PCHAIN, WALLET, DOCS, MAINNET } from 'types/constants';
 
 function a11yProps(index: number) {
   return {
@@ -28,15 +29,20 @@ export default function Links() {
     activeTab(location.pathname.split('/')[1]),
   );
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    if (location.pathname !== '/mainnet') {
+    if (location.pathname !== MAINNET) {
+      if (newValue === 3) window.open(DOCS);
+      else if (newValue === 4) window.open(WALLET);
+      else if (newValue === 0) navigate(CCHAIN);
+      else if (newValue === 1) navigate(XCHAIN);
+      else if (newValue === 2) navigate(PCHAIN);
       if (newValue !== 3 && newValue !== 4) setValue(newValue);
-      if (newValue === 0) navigate('c-chain');
-      else if (newValue === 1) navigate('x-chain');
-      else if (newValue === 2) navigate('p-chain');
     }
   };
   useEffect(() => {
-    if (location.pathname === '/mainnet') setValue(0);
+    if (location.pathname === MAINNET) setValue(0);
+    else if (location.pathname === CCHAIN) setValue(0);
+    else if (location.pathname === XCHAIN) setValue(1);
+    else if (location.pathname === PCHAIN) setValue(2);
   }, [location]);
 
   let navigate = useNavigate();

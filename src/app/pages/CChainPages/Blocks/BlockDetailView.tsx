@@ -1,14 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import { Divider, Grid } from '@mui/material';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
-import { DetailsField } from 'app/components/DetailsField';
 import { mdiCubeOutline } from '@mdi/js';
+import LoadingWrapper from 'app/components/LoadingWrapper';
+import DetailsField from 'app/components/DetailsField';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import Icon from '@mdi/react';
 
 export default function BlockDetailView({ blockDetails, loading }) {
   return (
-    <LoadingWrapper loading={loading} failedLoadingMsg="-">
+    <LoadingWrapper
+      loading={loading}
+      failedLoadingMsg="Failed to load the block detail"
+    >
       {blockDetails && (
         <OutlinedContainer transparent={false}>
           <DetailsField

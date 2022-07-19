@@ -1,13 +1,17 @@
 import * as React from 'react';
+import { useTheme } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Logo from './Logo';
 import SearchInput from './SearchInput';
 import ThemeSwitcherButton from './ThemeSwitcherButton';
 import NetworkSelect from './NetworkSelect';
-import { useTheme, useMediaQuery } from '@mui/material';
 import Links from './Links';
 import AppBar from '@mui/material/AppBar';
 import Drawer from './Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import useWidth from 'app/hooks/useWidth';
+import { CCHAIN } from 'types/constants';
 
 /*
  * ToDo
@@ -18,7 +22,7 @@ import Drawer from './Drawer';
 
 export function NavBar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery('@media (max-width:1024px)');
+  const { isDesktop } = useWidth();
   const themeMode = theme.palette.mode === 'light' ? true : false;
 
   return (
@@ -31,7 +35,7 @@ export function NavBar() {
         boxShadow: `0px 1px 3px ${themeMode ? '#eeeeee' : '#424242'}`,
       }}
     >
-      <Box
+      <Toolbar
         sx={{
           display: 'flex',
           height: 'auto',
@@ -40,21 +44,19 @@ export function NavBar() {
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: '1rem',
+          minHeight: 'auto',
           [theme.breakpoints.down('md')]: {
-            padding: '1rem 0.2rem',
+            padding: '1rem 0.5rem',
           },
         }}
       >
         <Box sx={{ display: 'flex' }}>
-          {isMobile && <Drawer />}
-          <Logo />
+          {!isDesktop && <Drawer />}
+          <Link to={CCHAIN}>
+            <Logo />
+          </Link>
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            marginLeft: isMobile ? 'auto' : '0',
-          }}
-        >
+        <Box sx={{ display: 'flex', marginLeft: !isDesktop ? 'auto' : '0' }}>
           <SearchInput />
         </Box>
         <Box
@@ -70,8 +72,8 @@ export function NavBar() {
           <NetworkSelect />
           <ThemeSwitcherButton />
         </Box>
-      </Box>
-      {!isMobile && <Links />}
+      </Toolbar>
+      {isDesktop && <Links />}
     </AppBar>
   );
 }

@@ -9,7 +9,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { getRelativeTime } from 'utils/display-utils';
 
-export const DetailsField = ({
+export default function DetailsField({
   field,
   value,
   type,
@@ -25,7 +25,7 @@ export const DetailsField = ({
   tooltip?: string;
   detailsLink?: string;
   allowCopy?: boolean;
-}) => {
+}) {
   const getTooltip = (field: string): string | undefined => {
     if (Object.keys(tooltips).includes(field?.toLowerCase())) {
       return tooltips[field];
@@ -118,7 +118,7 @@ export const DetailsField = ({
       </>
     </Grid>
   );
-};
+}
 
 export const Field = ({
   type,

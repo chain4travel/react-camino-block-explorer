@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { loadValidators } from 'store/cchainSlice/utils';
 import { RootState } from 'store/configureStore';
 
-import { status, Timeframe } from 'types';
+import { Status, Timeframe } from 'types';
 import { NodeValidator } from 'types/node-types';
 import { ChainOverviewType, initialXPchainStateType } from 'types/store';
 import { createTransaction } from 'utils/magellan';
@@ -18,9 +18,9 @@ const initialState: initialXPchainStateType = {
   pTransactions: undefined,
   xTransactionDetails: undefined,
   pTransactionDetails: undefined,
-  loadXPTransactions: status.IDLE,
-  loadXTransactionDetials: status.IDLE,
-  loadPTransactionDetials: status.IDLE,
+  loadXPTransactions: Status.IDLE,
+  loadXTransactionDetials: Status.IDLE,
+  loadPTransactionDetials: Status.IDLE,
   error: undefined,
   assets: undefined,
   timeFrame: Timeframe.HOURS_24,
@@ -30,9 +30,9 @@ const initialState: initialXPchainStateType = {
     numberOfActiveValidators: 0,
     numberOfValidators: 0,
     percentageOfActiveValidators: 0,
-    gasFeesLoading: status.IDLE,
-    transactionsLoading: status.IDLE,
-    validatorsLoading: status.IDLE,
+    gasFeesLoading: Status.IDLE,
+    transactionsLoading: Status.IDLE,
+    validatorsLoading: Status.IDLE,
   } as ChainOverviewType,
 };
 
@@ -47,10 +47,10 @@ const xchainSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchXPTransactions.pending, (state, action) => {
-        state.loadXPTransactions = status.LOADING;
+        state.loadXPTransactions = Status.LOADING;
       })
       .addCase(fetchXPTransactions.fulfilled, (state, action) => {
-        state.loadXPTransactions = status.SUCCEEDED;
+        state.loadXPTransactions = Status.SUCCEEDED;
         if (action.payload.type === 'x')
           state.xTransactions =
             action.payload.transactions.map(createTransaction);
@@ -59,31 +59,31 @@ const xchainSlice = createSlice({
             action.payload.transactions.map(createTransaction);
       })
       .addCase(fetchXPTransactions.rejected, (state, action) => {
-        state.loadXPTransactions = status.FAILED;
+        state.loadXPTransactions = Status.FAILED;
         state.error = action.error.message;
       })
       .addCase(loadNumberOfPXTransactions.pending, state => {
-        state.ChainOverview.transactionsLoading = status.LOADING;
+        state.ChainOverview.transactionsLoading = Status.LOADING;
       })
       .addCase(loadNumberOfPXTransactions.fulfilled, (state, action) => {
         state.ChainOverview.numberOfTransactions = action.payload;
-        state.ChainOverview.transactionsLoading = status.SUCCEEDED;
+        state.ChainOverview.transactionsLoading = Status.SUCCEEDED;
       })
       .addCase(loadNumberOfPXTransactions.rejected, state => {
-        state.ChainOverview.transactionsLoading = status.FAILED;
+        state.ChainOverview.transactionsLoading = Status.FAILED;
       })
       .addCase(loadTotalPXGasFess.pending, state => {
-        state.ChainOverview.gasFeesLoading = status.LOADING;
+        state.ChainOverview.gasFeesLoading = Status.LOADING;
       })
       .addCase(loadTotalPXGasFess.fulfilled, (state, action) => {
         state.ChainOverview.totalGasFees = action.payload;
-        state.ChainOverview.gasFeesLoading = status.SUCCEEDED;
+        state.ChainOverview.gasFeesLoading = Status.SUCCEEDED;
       })
       .addCase(loadTotalPXGasFess.rejected, state => {
-        state.ChainOverview.gasFeesLoading = status.FAILED;
+        state.ChainOverview.gasFeesLoading = Status.FAILED;
       })
       .addCase(loadValidators.pending, state => {
-        state.ChainOverview.validatorsLoading = status.LOADING;
+        state.ChainOverview.validatorsLoading = Status.LOADING;
       })
       .addCase(loadValidators.fulfilled, (state, action) => {
         state.ChainOverview.numberOfValidators = action.payload.length;
@@ -97,10 +97,10 @@ const xchainSlice = createSlice({
             100
           ).toFixed(0),
         );
-        state.ChainOverview.validatorsLoading = status.SUCCEEDED;
+        state.ChainOverview.validatorsLoading = Status.SUCCEEDED;
       })
       .addCase(loadValidators.rejected, state => {
-        state.ChainOverview.validatorsLoading = status.FAILED;
+        state.ChainOverview.validatorsLoading = Status.FAILED;
       })
       .addCase(loadAssets.pending, state => {
         // state.ChainOverview.validatorsLoading = status.FAILED;
@@ -108,7 +108,6 @@ const xchainSlice = createSlice({
       .addCase(loadAssets.fulfilled, (state, action) => {
         // state.assets = action.payload;
         // state.ChainOverview.validatorsLoading = status.FAILED;
-        console.log(action.payload);
       })
       .addCase(loadAssets.rejected, state => {
         // state.ChainOverview.validatorsLoading = status.FAILED;

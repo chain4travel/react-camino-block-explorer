@@ -68,7 +68,7 @@ export default function PChainDetailPage() {
     const res = (
       await axios.get(
         `https://magellan.columbus.camino.foundation/v2/transactions/${
-          location.pathname.split('/')[4]
+          location.pathname.split('/')[3]
         }`,
       )
     ).data;
@@ -159,7 +159,7 @@ export default function PChainDetailPage() {
             item
             container
             alignItems="center"
-            sx={{ border: 'solid 1px', borderColor: 'overviewCard.border' }}
+            sx={{ border: 'solid 1px', borderColor: 'card.border' }}
           >
             {details &&
               Object.entries(details).map((item, index) => {

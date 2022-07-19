@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { status, Timeframe } from 'types';
+import { Status, Timeframe } from 'types';
 import { BlockDetail, BlockTableData } from 'types/block';
 import {
   CTransaction,
@@ -25,12 +25,12 @@ const initialState: initialCchainStateType = {
   blockCount: NaN,
   blocks: [],
   transactions: [],
-  status: status.IDLE,
+  status: Status.IDLE,
   error: undefined,
   blockDetail: undefined,
   transcationDetails: undefined,
-  loadTransactionDetails: status.IDLE,
-  loadBlockDetial: status.IDLE,
+  loadTransactionDetails: Status.IDLE,
+  loadBlockDetial: Status.IDLE,
   timeFrame: Timeframe.HOURS_24,
   ChainOverview: {
     numberOfTransactions: 0,
@@ -38,9 +38,9 @@ const initialState: initialCchainStateType = {
     numberOfActiveValidators: 0,
     numberOfValidators: 0,
     percentageOfActiveValidators: 0,
-    gasFeesLoading: status.IDLE,
-    transactionsLoading: status.IDLE,
-    validatorsLoading: status.IDLE,
+    gasFeesLoading: Status.IDLE,
+    transactionsLoading: Status.IDLE,
+    validatorsLoading: Status.IDLE,
   } as ChainOverviewType,
 };
 
@@ -55,7 +55,7 @@ const cchainSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchBlocksTransactions.pending, (state, action) => {
-        state.status = status.LOADING;
+        state.status = Status.LOADING;
       })
       .addCase(fetchBlocksTransactions.fulfilled, (state, action) => {
         state.blocks = action.payload.blocks.map(
@@ -95,36 +95,36 @@ const cchainSlice = createSlice({
             return result;
           },
         );
-        state.status = status.SUCCEEDED;
+        state.status = Status.SUCCEEDED;
         state.transactionCount = action.payload.transactionCount;
         state.blockCount = action.payload.blockCount;
       })
       .addCase(fetchBlocksTransactions.rejected, (state, action) => {
-        state.status = status.FAILED;
+        state.status = Status.FAILED;
         state.error = action.error.message;
       })
       .addCase(loadNumberOfTransactions.pending, state => {
-        state.ChainOverview.transactionsLoading = status.LOADING;
+        state.ChainOverview.transactionsLoading = Status.LOADING;
       })
       .addCase(loadNumberOfTransactions.fulfilled, (state, action) => {
         state.ChainOverview.numberOfTransactions = action.payload;
-        state.ChainOverview.transactionsLoading = status.SUCCEEDED;
+        state.ChainOverview.transactionsLoading = Status.SUCCEEDED;
       })
       .addCase(loadNumberOfTransactions.rejected, state => {
-        state.ChainOverview.transactionsLoading = status.FAILED;
+        state.ChainOverview.transactionsLoading = Status.FAILED;
       })
       .addCase(loadTotalGasFess.pending, state => {
-        state.ChainOverview.gasFeesLoading = status.LOADING;
+        state.ChainOverview.gasFeesLoading = Status.LOADING;
       })
       .addCase(loadTotalGasFess.fulfilled, (state, action) => {
         state.ChainOverview.totalGasFees = action.payload;
-        state.ChainOverview.gasFeesLoading = status.SUCCEEDED;
+        state.ChainOverview.gasFeesLoading = Status.SUCCEEDED;
       })
       .addCase(loadTotalGasFess.rejected, state => {
-        state.ChainOverview.gasFeesLoading = status.FAILED;
+        state.ChainOverview.gasFeesLoading = Status.FAILED;
       })
       .addCase(loadValidators.pending, state => {
-        state.ChainOverview.validatorsLoading = status.LOADING;
+        state.ChainOverview.validatorsLoading = Status.LOADING;
       })
       .addCase(loadValidators.fulfilled, (state, action) => {
         state.ChainOverview.numberOfValidators = action.payload.length;
@@ -138,13 +138,13 @@ const cchainSlice = createSlice({
             100
           ).toFixed(0),
         );
-        state.ChainOverview.validatorsLoading = status.SUCCEEDED;
+        state.ChainOverview.validatorsLoading = Status.SUCCEEDED;
       })
       .addCase(loadValidators.rejected, state => {
-        state.ChainOverview.validatorsLoading = status.FAILED;
+        state.ChainOverview.validatorsLoading = Status.FAILED;
       })
       .addCase(fetchCBlockDetail.pending, state => {
-        state.loadBlockDetial = status.LOADING;
+        state.loadBlockDetial = Status.LOADING;
       })
       .addCase(fetchCBlockDetail.fulfilled, (state, action) => {
         let block: BlockDetail = {
@@ -186,13 +186,13 @@ const cchainSlice = createSlice({
           .map(e => e.transactionCost)
           .reduce((pv, cv) => pv + cv, 0);
         state.blockDetail = block;
-        state.loadBlockDetial = status.SUCCEEDED;
+        state.loadBlockDetial = Status.SUCCEEDED;
       })
       .addCase(fetchCBlockDetail.rejected, state => {
-        state.loadBlockDetial = status.FAILED;
+        state.loadBlockDetial = Status.FAILED;
       })
       .addCase(fetchTransactionDetails.pending, state => {
-        state.loadTransactionDetails = status.LOADING;
+        state.loadTransactionDetails = Status.LOADING;
       })
       .addCase(fetchTransactionDetails.fulfilled, (state, { payload }) => {
         let transactionInformations: TransactionInformations = {
@@ -202,7 +202,6 @@ const cchainSlice = createSlice({
           fromAddr: payload.fromAddr,
           toAddr: payload.toAddr,
         };
-        console.log(payload);
         let transactionCurrencuy: TransactionCurrencuy = {
           maxFeePerGas: parseInt(payload.maxFeePerGas),
           maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
@@ -216,10 +215,10 @@ const cchainSlice = createSlice({
           transactionInformations,
           transactionCurrencuy,
         };
-        state.loadTransactionDetails = status.SUCCEEDED;
+        state.loadTransactionDetails = Status.SUCCEEDED;
       })
       .addCase(fetchTransactionDetails.rejected, (state, action) => {
-        state.loadTransactionDetails = status.FAILED;
+        state.loadTransactionDetails = Status.FAILED;
       });
   },
 });

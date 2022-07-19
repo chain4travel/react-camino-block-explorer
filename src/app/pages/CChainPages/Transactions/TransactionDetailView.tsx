@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Divider, Grid } from '@mui/material';
 import OutlinedContainer from 'app/components/OutlinedContainer';
-import { DetailsField } from 'app/components/DetailsField';
+import DetailsField from 'app/components/DetailsField';
 
-export default function TransactionDetailView({ detailTr, detailCr }) {
+function TransactionDetailView({ detailTr, detailCr }) {
   return (
     <>
       {detailTr && (
@@ -103,3 +103,5 @@ export default function TransactionDetailView({ detailTr, detailCr }) {
     </>
   );
 }
+
+export default React.memo(TransactionDetailView);

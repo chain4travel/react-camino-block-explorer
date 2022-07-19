@@ -1,16 +1,27 @@
 import React from 'react';
 import { Typography, CircularProgress } from '@mui/material';
+import { Status } from 'types';
 
-export const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
-  if (loading === 'succeeded') {
+interface LoadingWrapperProps {
+  loading: Status;
+  children: React.ReactNode;
+  failedLoadingMsg?: string;
+}
+
+export default function LoadingWrapper({
+  loading,
+  failedLoadingMsg,
+  children,
+}: LoadingWrapperProps) {
+  if (loading === Status.SUCCEEDED) {
     return <>{children}</>;
-  } else if (loading === 'failed') {
+  } else if (loading === Status.FAILED) {
     return (
       <Typography
         variant="h4"
         component="h4"
         fontWeight="fontWeightBold"
-        sx={{ color: 'overviewCard.subValue' }}
+        sx={{ color: 'card.subValue' }}
       >
         {failedLoadingMsg}
       </Typography>
@@ -18,4 +29,4 @@ export const LoadingWrapper = ({ loading, failedLoadingMsg, children }) => {
   } else {
     return <CircularProgress color="secondary" />;
   }
-};
+}

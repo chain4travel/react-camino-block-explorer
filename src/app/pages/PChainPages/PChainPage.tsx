@@ -1,12 +1,5 @@
 import * as React from 'react';
-import PageContainer from 'app/components/PageContainer';
-import OverviewCards from '../../components/OverviewCards';
-import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
-import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
-import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
-import DataControllers from 'app/components/DataControllers';
 import { ChainType } from 'utils/types/chain-type';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
 import { fetchXPTransactions } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -16,6 +9,13 @@ import {
   getXPchainOverreview,
 } from 'store/xchainSlice';
 import { loadValidators } from 'store/cchainSlice/utils';
+import PageContainer from 'app/components/PageContainer';
+import OverviewCards from '../../components/OverviewCards';
+import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
+import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
+import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
+import DataControllers from 'app/components/DataControllers';
+import LoadingWrapper from 'app/components/LoadingWrapper';
 
 const CHAIN_ID = '11111111111111111111111111111111LpoYY';
 
@@ -51,7 +51,7 @@ export default function PChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="/all/p-chain/transactions">
+      <XPTransactionList ShowAllLink="p-chain">
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"
@@ -63,7 +63,7 @@ export default function PChainPage() {
               key={index}
             >
               <XPTransactionItem
-                chainType={ChainType.X_CHAIN}
+                chainType={ChainType.P_CHAIN}
                 data={transaction}
               />
             </XPItemDivider>

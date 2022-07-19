@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 import RowRadioButtonsGroup from './RowRadioButtonsGroup';
 import GlobalReloadButton from './GlobalReloadButton';
 

@@ -11,13 +11,13 @@ import {
   // getXchainError,
   // getXchainOverreview,
 } from 'store/xchainSlice';
-import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
-import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
-import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
-import DataControllers from 'app/components/DataControllers';
 import { ChainType } from 'utils/types/chain-type';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
 import { loadValidators } from 'store/cchainSlice/utils';
+import LoadingWrapper from 'app/components/LoadingWrapper';
+import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
+import XPTransactionItem from 'app/components/XChainPageComponents/XPTransactionItem';
+import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
+import DataControllers from 'app/components/DataControllers';
 
 const CHAIN_ID = '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
 
@@ -54,7 +54,7 @@ export default function XChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="/all/x-chain/transactions">
+      <XPTransactionList ShowAllLink="x-chain">
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"

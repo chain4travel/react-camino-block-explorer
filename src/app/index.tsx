@@ -5,26 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import {
   CChainPage,
-  CShowAllBlocks,
-  CShowAllTransactions,
+  Blocks,
+  CTransactions,
+  Address,
 } from './pages/CChainPages';
 import {
   XChainPage,
   XAddressDetail,
-  XTransactionDetails,
-  XPShowAllTransactions,
+  XPTransactions,
 } from './pages/XChainPages';
-import {
-  PChainPage,
-  PChainDetailPage,
-  PShowAllTransactions,
-} from './pages/PChainPages';
+import { PChainPage, PChainDetailPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
-import { TableDetials } from 'app/components/TableDetails';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
-// import CShowAllBlocks from './pages/CChainPage/ShowAllBlocks';
+import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
+
 export function App() {
   const { i18n } = useTranslation();
 
@@ -39,45 +35,38 @@ export function App() {
         <meta name="description" content="Camino Block Explorer" />
       </Helmet>
       <Routes>
-        <Route element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Navigate to="/c-chain" />} />
-          <Route path="/c-chain" element={<CChainPage />} />
-          <Route path="/c-chain/blocks" element={<TableDetials />} />
-          <Route path="/c-chain/blocks/:id" element={<BlockDetails />} />
-          <Route
-            path="/c-chain/transactions/:id"
-            element={<TransactionDetails />}
-          />
-          <Route path="/x-chain" element={<XChainPage />} />
-          <Route
-            path="all/x-chain/transactions"
-            element={<XPShowAllTransactions />}
-          />
-          <Route
-            path="all/p-chain/transactions"
-            element={<PShowAllTransactions />}
-          />
-          <Route
-            path="x-chain/details/address/:id"
-            element={<XAddressDetail />}
-          />
-          <Route
-            path="x-chain/details/transactions/:id"
-            element={<XTransactionDetails />}
-          />
-          <Route path="/p-chain" element={<PChainPage />} />
-          <Route
-            path="/p-chain/details/transactions/:id"
-            element={<PChainDetailPage />}
-          />
+          <Route path="c-chain">
+            <Route index element={<CChainPage />} />
+            <Route path="blocks">
+              <Route index element={<Blocks />} />
+              <Route path=":id" element={<BlockDetails />} />
+            </Route>
+            <Route path="transactions">
+              <Route index element={<CTransactions />} />
+              <Route path=":id" element={<TransactionDetails />} />
+            </Route>
+            <Route path="address/:id" element={<Address />} />
+          </Route>
+          <Route path="x-chain">
+            <Route index element={<XChainPage />} />
+            <Route path="transactions">
+              <Route index element={<XPTransactions />} />
+              <Route path=":id" element={<XPTransactionDetails />} />
+            </Route>
+            <Route path="address/:id" element={<XAddressDetail />} />
+          </Route>
+          <Route path="p-chain">
+            <Route index element={<PChainPage />} />
+            <Route path="transactions">
+              <Route index element={<XPTransactions />} />
+              <Route path=":id" element={<PChainDetailPage />} />
+            </Route>
+            <Route path="address/:id" element={<XAddressDetail />} />
+          </Route>
           <Route path="/mainnet" element={<ComingSoonPage />} />
-          <Route path="all/c-chain/blocks" element={<CShowAllBlocks />} />
-          <Route
-            path="all/c-chain/transactions"
-            element={<CShowAllTransactions />}
-          />
         </Route>
-        {/* <Route path="/notfound" element={<NotFoundPage />} /> */}
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

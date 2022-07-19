@@ -8,9 +8,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { CCHAIN, XCHAIN, PCHAIN, WALLET, DOCS } from 'types/constants';
+import {
+  mdiAlphaCBoxOutline,
+  mdiAlphaXBoxOutline,
+  mdiAlphaPBoxOutline,
+  mdiTextBoxMultipleOutline,
+  mdiWalletOutline,
+  mdiInboxOutline,
+} from '@mdi/js';
+import Icon from '@mdi/react';
 
 type Anchor = 'left';
 
@@ -42,51 +52,36 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem key="C-Chain" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="C-Chain" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="X-Chain" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="X-Chain" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key="P-Chain" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="P-Chain" />
-          </ListItemButton>
-        </ListItem>
+        <DrawerListItem
+          label="C-Chain"
+          to={CCHAIN}
+          iconPath={mdiAlphaCBoxOutline}
+        />
+        <DrawerListItem
+          label="X-Chain"
+          to={XCHAIN}
+          iconPath={mdiAlphaXBoxOutline}
+        />
+        <DrawerListItem
+          label="P-Chain"
+          to={PCHAIN}
+          iconPath={mdiAlphaPBoxOutline}
+        />
       </List>
       <Divider />
       <List>
-        <ListItem key="Docs" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Docs" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <List>
-        <ListItem key="Wallet" disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Wallet" />
-          </ListItemButton>
-        </ListItem>
+        <DrawerListItem
+          label="Docs"
+          to={DOCS}
+          iconPath={mdiTextBoxMultipleOutline}
+          newWindow
+        />
+        <DrawerListItem
+          label="Wallet"
+          to={WALLET}
+          iconPath={mdiWalletOutline}
+          newWindow
+        />
       </List>
     </Box>
   );
@@ -122,3 +117,41 @@ export default function TemporaryDrawer() {
     </Box>
   );
 }
+
+const DrawerListItem = ({
+  label,
+  to,
+  iconPath,
+  newWindow = false,
+}: {
+  label: string;
+  to: string;
+  iconPath?: string;
+  newWindow?: boolean;
+}) => {
+  return (
+    <ListItem key={label} disablePadding>
+      <Link
+        to={{ pathname: to }}
+        style={{ width: '100%', textDecoration: 'none' }}
+        target={newWindow ? '_blank' : '_self'}
+      >
+        <ListItemButton>
+          <ListItemIcon>
+            {iconPath ? (
+              <Icon path={iconPath} size={1} />
+            ) : (
+              <Icon path={mdiInboxOutline} size={1} />
+            )}
+          </ListItemIcon>
+          <ListItemText
+            primary={label}
+            sx={{
+              color: 'text.primary',
+            }}
+          />
+        </ListItemButton>
+      </Link>
+    </ListItem>
+  );
+};

@@ -3,10 +3,7 @@ import axios from 'axios';
 import { DateTime } from 'luxon';
 import { store } from '../../index';
 import { getStartDate } from 'utils/display-utils';
-import {
-  loadTransactionAggregates,
-  loadTransactionFeesAggregates,
-} from 'utils/magellan';
+import { loadTransactionAggregates, loadTransactionFeesAggregates } from 'api';
 
 const CHAIN_ID = 'G52TJLLbDSxYXsijNMpKFB6kAyDVRd9DGWVWYBh86Z8sEXm1i';
 

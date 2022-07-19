@@ -3,12 +3,13 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
-import { useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useTheme } from '@mui/material';
+import useWidth from 'app/hooks/useWidth';
 
 function OutlinedSearchInput() {
+  const theme = useTheme();
   return (
     <OutlinedInput
       placeholder="Search by Address / Hash / Block / Token"
@@ -23,11 +24,11 @@ function OutlinedSearchInput() {
         fontSize: '15px',
         lineHeight: '24px',
         fontWeight: 400,
-        '@media (max-width: 1024px)': {
-          height: '50px',
-        },
         '.MuiOutlinedInput-notchedOutline': {
           border: 'none',
+        },
+        [theme.breakpoints.down('md')]: {
+          height: '50px',
         },
       }}
       startAdornment={
@@ -40,7 +41,7 @@ function OutlinedSearchInput() {
 }
 
 export default function SearchInput() {
-  const isMobile = useMediaQuery('@media (max-width:1024px)');
+  const { isDesktop } = useWidth();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,7 +49,7 @@ export default function SearchInput() {
 
   return (
     <>
-      {isMobile ? (
+      {!isDesktop ? (
         <div>
           <SearchIcon
             onClick={handleOpen}
@@ -59,8 +60,9 @@ export default function SearchInput() {
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            disableEscapeKeyDown
+            disableEnforceFocus
+            disableAutoFocus
           >
             <Box
               sx={{
@@ -70,22 +72,25 @@ export default function SearchInput() {
                 transform: 'translate(-50%, -50%)',
                 bgcolor: 'primary.dark',
                 boxShadow: 24,
-                width: '100%',
-                maxWidth: '50%',
-                minWidth: '50%',
-                p: 4,
+                width: '500px',
+                maxWidth: '70%',
+                padding: '1rem 1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                gap: '10px',
-                borderRadius: '10px',
+                gap: '40px',
+                borderRadius: '12px',
+                height: '40px',
                 [theme.breakpoints.down('md')]: {
-                  maxWidth: '100%',
+                  height: 'auto',
+                },
+                [theme.breakpoints.down('sm')]: {
+                  maxWidth: '95%',
                 },
               }}
             >
-              <Typography id="modal-modal-title" variant="h4" component="h2">
+              <Typography variant="h5" component="h5">
                 Search for anything
               </Typography>
               <OutlinedSearchInput />
@@ -97,6 +102,9 @@ export default function SearchInput() {
           sx={{
             width: '450px',
             height: '40px',
+            '@media (max-width:1024px)': {
+              width: '325px',
+            },
           }}
         >
           <OutlinedSearchInput />

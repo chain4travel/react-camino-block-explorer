@@ -1,13 +1,5 @@
-import axios from 'axios';
-import {
-  MagellanAggregatesResponse,
-  MagellanTxFeeAggregatesResponse,
-  MagellanXPOutput,
-  MagellanXPTransaction,
-} from 'types/magellan-types';
+import { MagellanXPOutput, MagellanXPTransaction } from 'types/magellan-types';
 import { Fund, XPTransaction } from 'types/transaction';
-
-const BASE_URL = 'https://magellan.columbus.camino.foundation/v2';
 
 function sortByAddress(a: Fund, b: Fund): number {
   return a.address.localeCompare(b.address);
@@ -79,21 +71,4 @@ function createFundFromOutput(magellanOutput: MagellanXPOutput): Fund {
         : null,
     value: magellanOutput.amount,
   } as Fund;
-}
-
-export async function loadTransactionAggregates(
-  chainAlias: string,
-  startTime: string,
-  endTime: string,
-): Promise<MagellanAggregatesResponse> {
-  let url = `${BASE_URL}/aggregates?chainID=${chainAlias}&startTime=${startTime}&endTime=${endTime}`;
-  return (await axios.get(url)).data;
-}
-export async function loadTransactionFeesAggregates(
-  chainAlias: string,
-  startTime: string,
-  endTime: string,
-): Promise<MagellanTxFeeAggregatesResponse> {
-  const url = `${BASE_URL}/txfeeAggregates?chainID=${chainAlias}&startTime=${startTime}&endTime=${endTime}`;
-  return (await axios.get(url)).data;
 }

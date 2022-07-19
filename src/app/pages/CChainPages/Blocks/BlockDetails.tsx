@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-import { TransactionList } from 'app/components/LatestBlocksAndTransactionsList';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
-import { LoadingWrapper } from 'app/components/LoadingWrapper';
+import LoadingWrapper from 'app/components/LoadingWrapper';
+import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import BlockDetailView from './BlockDetailView';
@@ -105,13 +105,10 @@ export default function BlockDetails() {
 
 const TransactionsView = ({ loading, blockDetails }) => {
   return (
-    <LoadingWrapper
-      loading={loading}
-      failedLoadingMsg="Failed to load transaction"
-    >
+    <LoadingWrapper loading={loading} failedLoadingMsg="">
       {blockDetails && (
         <Grid item xs={12} lg={12}>
-          <TransactionList
+          <TransactionsList
             title="Block Transactions"
             items={blockDetails?.transactions}
             to="/c-chain/transactions"

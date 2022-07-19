@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Button } from '@mui/material';
 
-export default function MainButton({
+function MainButton({
   variant,
   onClick,
   children,
-  ...customStyle
+  style,
 }: {
   variant: 'contained' | 'outlined';
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
-  customStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
 }) {
   return (
     <Button
@@ -30,10 +30,12 @@ export default function MainButton({
             variant === 'outlined' ? 'transparent' : 'secondary.main',
           borderColor: variant === 'outlined' ? 'secondary.main' : 'white',
         },
-        ...customStyle,
+        ...style,
       }}
     >
       {children}
     </Button>
   );
 }
+
+export default React.memo(MainButton);
