@@ -8,7 +8,6 @@ import {
   getXPchainStatus,
   getXPchainOverreview,
 } from 'store/xchainSlice';
-import { loadValidators } from 'store/cchainSlice/utils';
 import PageContainer from 'app/components/PageContainer';
 import OverviewCards from '../../components/OverviewCards';
 import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList';
@@ -16,6 +15,10 @@ import XPTransactionItem from 'app/components/XChainPageComponents/XPTransaction
 import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider';
 import DataControllers from 'app/components/DataControllers';
 import LoadingWrapper from 'app/components/LoadingWrapper';
+import {
+  getValidatorsOverreview,
+  getValidatorsStatus,
+} from 'store/validatorsSlice';
 
 const CHAIN_ID = '11111111111111111111111111111111LpoYY';
 
@@ -26,16 +29,17 @@ export default function PChainPage() {
   const {
     numberOfTransactions,
     totalGasFees,
-    numberOfActiveValidators,
-    numberOfValidators,
-    percentageOfActiveValidators,
     gasFeesLoading,
     transactionsLoading,
-    validatorsLoading,
   } = useAppSelector(getXPchainOverreview);
+  const validatorsLoading = useAppSelector(getValidatorsStatus);
+  const {
+    percentageOfActiveValidators,
+    numberOfValidators,
+    numberOfActiveValidators,
+  } = useAppSelector(getValidatorsOverreview);
   useEffectOnce(() => {
     dispatch(fetchXPTransactions({ chainID: CHAIN_ID, chainType: 'p' }));
-    dispatch(loadValidators());
   });
 
   return (

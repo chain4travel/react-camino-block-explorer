@@ -11,7 +11,6 @@ import {
   fetchBlocksTransactions,
   loadNumberOfTransactions,
   loadTotalGasFess,
-  loadValidators,
 } from 'store/cchainSlice/utils';
 import { useLocation } from 'react-router-dom';
 import { getTimeFrameXPchain, getXPchainOverreview } from 'store/xchainSlice';
@@ -19,6 +18,8 @@ import {
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
 } from 'store/xchainSlice/utils';
+import { useEffectOnce } from 'app/hooks/useEffectOnce';
+import { loadValidators } from 'store/validatorsSlice/utils';
 
 export default function GlobalReloadButton({
   style,
@@ -30,18 +31,16 @@ export default function GlobalReloadButton({
   const frameTime = useAppSelector(getTimeFrame);
   const status = useAppSelector(getCchainStatus);
   const timeFrameXPchain = useAppSelector(getTimeFrameXPchain);
-  const { gasFeesLoading, transactionsLoading, validatorsLoading } =
-    useAppSelector(
-      location.pathname.split('/')[1] === 'c-chain'
-        ? getCchainOverreview
-        : getXPchainOverreview,
-    );
+  const { gasFeesLoading, transactionsLoading } = useAppSelector(
+    location.pathname.split('/')[1] === 'c-chain'
+      ? getCchainOverreview
+      : getXPchainOverreview,
+  );
   const handleClick = () => {
     if (
       location.pathname.split('/')[1] === 'c-chain' &&
       gasFeesLoading !== 'loading' &&
       transactionsLoading !== 'loading' &&
-      validatorsLoading !== 'loading' &&
       status !== 'loading'
     ) {
       dispatch(fetchBlocksTransactions());
@@ -53,7 +52,6 @@ export default function GlobalReloadButton({
         location.pathname.split('/')[1] === 'p-chain') &&
       gasFeesLoading !== 'loading' &&
       transactionsLoading !== 'loading' &&
-      validatorsLoading !== 'loading' &&
       status !== 'loading'
     ) {
       let chainId =
@@ -75,6 +73,9 @@ export default function GlobalReloadButton({
       dispatch(loadValidators());
     }
   };
+  useEffectOnce(() => {
+    dispatch(loadValidators());
+  });
   return (
     <Button
       onClick={handleClick}

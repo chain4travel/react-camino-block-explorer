@@ -8,34 +8,36 @@ import {
 } from 'store/cchainSlice';
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import {
-  fetchBlocksTransactions,
-  loadValidators,
-} from 'store/cchainSlice/utils';
+import { fetchBlocksTransactions } from 'store/cchainSlice/utils';
 import LatestBlocksAndTransactionsList from 'app/components/LatestBlocksAndTransactionsList';
 import OverviewCards from 'app/components/OverviewCards';
 import DataControllers from 'app/components/DataControllers';
 import PageContainer from 'app/components/PageContainer';
+import {
+  getValidatorsOverreview,
+  getValidatorsStatus,
+} from 'store/validatorsSlice';
 
 export default function CChainPage() {
   const dispatch = useAppDispatch();
   const blocks = useAppSelector(selectAllBlocks);
   const transactions = useAppSelector(selectAllTransactions);
   const error = useAppSelector(getCchainError);
+  const validatorsLoading = useAppSelector(getValidatorsStatus);
+  const {
+    percentageOfActiveValidators,
+    numberOfValidators,
+    numberOfActiveValidators,
+  } = useAppSelector(getValidatorsOverreview);
   const {
     numberOfTransactions,
     totalGasFees,
-    numberOfActiveValidators,
-    numberOfValidators,
-    percentageOfActiveValidators,
     gasFeesLoading,
     transactionsLoading,
-    validatorsLoading,
   } = useAppSelector(getCchainOverreview);
 
   useEffectOnce(() => {
     dispatch(fetchBlocksTransactions());
-    dispatch(loadValidators());
   });
 
   return (

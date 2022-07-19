@@ -37,14 +37,10 @@ export default function RowRadioButtonsGroup({
   const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
   const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (
-      gasFeesLoading !== 'loading' &&
-      transactionsLoading !== 'loading' &&
-      validatorsLoading !== 'loading'
-    )
+    if (gasFeesLoading !== 'loading' && transactionsLoading !== 'loading')
       setValue((event.target as HTMLInputElement).value);
   };
-  const { gasFeesLoading, transactionsLoading, validatorsLoading } =
+  const { gasFeesLoading, transactionsLoading } =
     useAppSelector(getCchainOverreview);
 
   useEffect(() => {

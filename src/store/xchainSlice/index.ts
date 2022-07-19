@@ -1,14 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadValidators } from 'store/cchainSlice/utils';
 import { RootState } from 'store/configureStore';
 
 import { Status, Timeframe } from 'types';
-import { NodeValidator } from 'types/node-types';
 import { ChainOverviewType, initialXPchainStateType } from 'types/store';
 import { createTransaction } from 'utils/magellan';
 import {
   fetchXPTransactions,
-  loadAssets,
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
 } from './utils';
@@ -27,12 +24,8 @@ const initialState: initialXPchainStateType = {
   ChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
-    numberOfActiveValidators: 0,
-    numberOfValidators: 0,
-    percentageOfActiveValidators: 0,
     gasFeesLoading: Status.IDLE,
     transactionsLoading: Status.IDLE,
-    validatorsLoading: Status.IDLE,
   } as ChainOverviewType,
 };
 
@@ -81,36 +74,6 @@ const xchainSlice = createSlice({
       })
       .addCase(loadTotalPXGasFess.rejected, state => {
         state.ChainOverview.gasFeesLoading = Status.FAILED;
-      })
-      .addCase(loadValidators.pending, state => {
-        state.ChainOverview.validatorsLoading = Status.LOADING;
-      })
-      .addCase(loadValidators.fulfilled, (state, action) => {
-        state.ChainOverview.numberOfValidators = action.payload.length;
-        state.ChainOverview.numberOfActiveValidators = action.payload.filter(
-          (v: NodeValidator) => v.connected,
-        ).length;
-        state.ChainOverview.percentageOfActiveValidators = parseInt(
-          (
-            (state.ChainOverview.numberOfActiveValidators /
-              state.ChainOverview.numberOfValidators) *
-            100
-          ).toFixed(0),
-        );
-        state.ChainOverview.validatorsLoading = Status.SUCCEEDED;
-      })
-      .addCase(loadValidators.rejected, state => {
-        state.ChainOverview.validatorsLoading = Status.FAILED;
-      })
-      .addCase(loadAssets.pending, state => {
-        // state.ChainOverview.validatorsLoading = status.FAILED;
-      })
-      .addCase(loadAssets.fulfilled, (state, action) => {
-        // state.assets = action.payload;
-        // state.ChainOverview.validatorsLoading = status.FAILED;
-      })
-      .addCase(loadAssets.rejected, state => {
-        // state.ChainOverview.validatorsLoading = status.FAILED;
       });
   },
 });
