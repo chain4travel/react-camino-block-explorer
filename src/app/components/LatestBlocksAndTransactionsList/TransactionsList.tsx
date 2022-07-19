@@ -63,7 +63,7 @@ const TransactionsList: FC<TransactionsListProps> = ({
         <Box
           sx={{
             display: 'flex',
-            height: '600px',
+            height: '560px',
             justifyContent: 'center',
             alignItems: 'center',
           }}

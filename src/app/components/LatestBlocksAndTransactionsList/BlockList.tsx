@@ -57,7 +57,7 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
         <Box
           sx={{
             display: 'flex',
-            height: '600px',
+            height: '560px',
             justifyContent: 'center',
             alignItems: 'center',
           }}
