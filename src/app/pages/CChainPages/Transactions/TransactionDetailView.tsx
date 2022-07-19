@@ -58,7 +58,7 @@ function TransactionDetailView({ detailTr, detailCr }) {
       {detailCr && (
         <OutlinedContainer>
           <Grid item container alignItems="center">
-            {detailCr['gasPrice'] && (
+            {detailCr['gasPrice'] ? (
               <Grid item xs={12}>
                 <DetailsField
                   field="Gas Price"
@@ -67,6 +67,8 @@ function TransactionDetailView({ detailTr, detailCr }) {
                 />
                 <Divider variant="fullWidth" />
               </Grid>
+            ) : (
+              <></>
             )}
             {detailCr['maxFeePerGas'] && detailCr['maxPriorityFeePerGas'] ? (
               <>
