@@ -21,6 +21,8 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { loadValidators } from 'store/validatorsSlice/utils';
 import { Field } from 'app/components/DetailsField';
 import { ValidatorType } from 'types/store';
+import SubPageTitle from 'app/components/SubPageTitle';
+import Chip from '@mui/material/Chip';
 
 export default function Validators() {
   const theme = useTheme();
@@ -44,28 +46,13 @@ export default function Validators() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
           },
         }}
       >
-        <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              Validators
-            </Typography>
-          </Grid>
-        </Grid>
+        <SubPageTitle title="Validators" style={{ marginBottom: '20px' }} />
         <TableContainer sx={{ height: '650px' }}>
           {isWidescreen || isDesktop ? (
             <CutomTable columns={columns}>
@@ -101,7 +88,7 @@ const columns: ColumnType[] = [
     name: 'Status',
     label: 'Status',
     field: 'Status',
-    align: 'left',
+    align: 'center',
   },
   {
     name: 'NodeID',
@@ -138,8 +125,15 @@ const columns: ColumnType[] = [
 const CustomRow = ({ validator }: { validator: ValidatorType }) => {
   return (
     <TableRow>
-      <TableCell align="left">
-        <Field type="string" value={validator.status} />
+      <TableCell
+        align="left"
+        sx={{ maxWidth: { xs: '10px', md: '100px', lg: '80px' } }}
+      >
+        <Chip
+          label={validator.status}
+          color={validator.status === 'Connected' ? 'success' : 'error'}
+          sx={{ borderRadius: '7px' }}
+        />
       </TableCell>
       <TableCell
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
@@ -184,7 +178,11 @@ const GridItem = ({ validator }: { validator: ValidatorType }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Status
         </Typography>
-        <Field type="string" value={validator.status} />
+        <Chip
+          label={validator.status}
+          color={validator.status === 'Connected' ? 'success' : 'error'}
+          sx={{ borderRadius: '7px' }}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -219,3 +217,15 @@ const GridItem = ({ validator }: { validator: ValidatorType }) => {
     </Paper>
   );
 };
+
+// const Badge = {
+//   color,
+//   textColor,
+//   floating,
+//   transparent,
+//   multiLine,
+//   label,
+//   align,
+//   outline,
+//   rounded,
+// };
