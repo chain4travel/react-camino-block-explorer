@@ -20,6 +20,7 @@ import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
+import Validators from './pages/Validators';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -66,6 +67,7 @@ export function App() {
             <Route path="address/:id" element={<XAddressDetail />} />
           </Route>
           <Route path="/mainnet" element={<ComingSoonPage />} />
+          <Route path="/validators" element={<Validators />} />
         </Route>
       </Routes>
       <GlobalStyle />

@@ -39,6 +39,7 @@ export interface ValidatorType {
   startTime: Date;
   endTime: Date;
   txID: string;
+  uptime: string;
 }
 
 interface assets {

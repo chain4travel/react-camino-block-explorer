@@ -14,12 +14,14 @@ let initialState: initialValidatorsStateType = {
 };
 
 function mapToTableData(item): ValidatorType {
+  let uptime = Math.round(item.uptime * 100) + '%';
   return {
     status: item.connected ? 'Connected' : 'Disconnected',
     nodeID: item.nodeID,
     startTime: new Date(item.startTime * 1000),
     endTime: new Date(item.endTime * 1000),
     txID: item.txID,
+    uptime: uptime,
   };
 }
 
