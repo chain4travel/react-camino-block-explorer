@@ -39,7 +39,7 @@ export function Footer() {
             item
             xs={12}
             md={6}
-            spacing={2}
+            spacing={4}
             justifyContent={isTablet ? 'center' : 'left'}
           >
             <Grid item>
