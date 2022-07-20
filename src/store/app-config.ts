@@ -80,8 +80,27 @@ const appConfigSlice = createSlice({
   },
 });
 
+// Select Active Network
 export const getActiveNetwork = (state: RootState) =>
   state.appConfig.activeNetwork;
+// Select magellanAddress
+export const selectMagellanAddress = (state: RootState) => {
+  // state.appConfig.networks.filter()
+  let networks = state.appConfig;
+  let activeNetwork = networks.networks.find(
+    element => element.id === networks.activeNetwork,
+  );
+  return activeNetwork?.magellanAddress;
+};
+
+// Select All networks
 export const getNetworks = (state: RootState) => state.appConfig.networks;
+// Select All chains
+export const selectAllChains = (state: RootState) => state.appConfig.chains;
+// Select All chain
+export const selectChain = (state: RootState, location: string) => {
+  return state.appConfig.chains;
+};
+
 export const { changeNetwork, addCustomNetwork } = appConfigSlice.actions;
 export default appConfigSlice.reducer;

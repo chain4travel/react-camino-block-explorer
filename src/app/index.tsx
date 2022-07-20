@@ -14,7 +14,7 @@ import {
   XAddressDetail,
   XPTransactions,
 } from './pages/XChainPages';
-import { PChainPage, PChainDetailPage } from './pages/PChainPages';
+import { PChainPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
@@ -68,7 +68,7 @@ export function App() {
             <Route index element={<PChainPage />} />
             <Route path="transactions">
               <Route index element={<XPTransactions />} />
-              <Route path=":id" element={<PChainDetailPage />} />
+              <Route path=":id" element={<XPTransactionDetails />} />
             </Route>
             <Route path="address/:id" element={<XAddressDetail />} />
           </Route>

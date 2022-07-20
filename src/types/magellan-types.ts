@@ -23,6 +23,14 @@ export interface MagellanBlock {
   evmTx?: number;
 }
 
+export interface XPTransactionDetail {
+  id: string;
+  type: string;
+  status: string;
+  timestamp?: Date;
+  fee: number;
+  memo?: string;
+}
 export interface MagellanTransaction {
   type: string;
   block: string;

@@ -7,22 +7,24 @@ import BackButton from 'app/components/BackButton';
 import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './XPTransactionDetailView';
 import { XPTransaction } from 'types/transaction';
-import { XPTransactionDetail } from 'app/pages/PChainPages/PChainDetailsPage';
 import axios from 'axios';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
 import CopyTitleCard from 'app/components/CopyTitleCard';
+import { XPTransactionDetail } from 'types/magellan-types';
+import { transactionApi } from 'utils/magellan-api-utils';
+import { useAppSelector } from 'store/configureStore';
+import { selectMagellanAddress } from 'store/app-config';
 
 export default function XPTransactionDetails() {
   const theme = useTheme();
   const [result, setResult] = React.useState<XPTransaction>();
   const [details, setDetails] = React.useState<XPTransactionDetail>();
-
   const location = useLocation();
-
+  const magellanAddress = useAppSelector(selectMagellanAddress);
   async function fetchTransactionDetail(): Promise<void> {
     const res = (
       await axios.get(
-        `https://magellan.columbus.camino.foundation/v2/transactions/${
+        `${magellanAddress}${transactionApi}/${
           location.pathname.split('/')[3]
         }`,
       )
@@ -55,8 +57,8 @@ export default function XPTransactionDetails() {
   });
   return (
     <PageContainer
-      pageTitle="C TransactionDetails"
-      metaContent="chain-overview c-chain"
+      pageTitle="X TransactionDetails"
+      metaContent="chain-overview x-chain"
     >
       <Paper
         variant="outlined"
@@ -87,7 +89,9 @@ export default function XPTransactionDetails() {
           >
             <BackButton />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              X-Chain Transaction
+              {`${location.pathname
+                .split('/')[1][0]
+                .toLocaleUpperCase()}-Chain Transaction`}
             </Typography>
           </Grid>
           {details && (
