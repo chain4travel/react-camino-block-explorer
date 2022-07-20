@@ -46,7 +46,7 @@ interface transactionsArg {
 export const fetchXPTransactions = createAsyncThunk(
   'xchain/fetchTransactions',
   async (chain: transactionsArg) => {
-    let networks = store.getState().networks;
+    let networks = store.getState().appConfig;
     let activeNetwork = networks.networks.find(
       element => element.id === networks.activeNetwork,
     );
@@ -58,7 +58,7 @@ export const fetchXPTransactions = createAsyncThunk(
 );
 
 export const loadAssets = createAsyncThunk('xchain/loadAssets', async () => {
-  let networks = store.getState().networks;
+  let networks = store.getState().appConfig;
   let activeNetwork = networks.networks.find(
     element => element.id === networks.activeNetwork,
   );

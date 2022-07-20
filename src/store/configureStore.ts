@@ -6,7 +6,7 @@ import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 
 import blocksSlice from './cchainSlice';
 import xchainSlice from './xchainSlice';
-import networks from './app-config';
+import appConfigSlice from './app-config';
 import { store } from 'index';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import validatorsSlice from './validatorsSlice';
@@ -19,7 +19,7 @@ export function configureAppStore() {
       cchain: blocksSlice,
       xchain: xchainSlice,
       validators: validatorsSlice,
-      networks,
+      appConfig: appConfigSlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
@@ -33,7 +33,6 @@ export function configureAppStore() {
 }
 
 export type RootState = ReturnType<typeof store.getState>;
-// export const store = configureAppStore();
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

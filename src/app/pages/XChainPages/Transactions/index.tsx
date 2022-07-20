@@ -38,7 +38,6 @@ export default function XPTransactions() {
       },
     },
   );
-
   const intObserver = React.useRef<IntersectionObserver | null>(null);
   const lastPostRef = React.useCallback(
     transaction => {

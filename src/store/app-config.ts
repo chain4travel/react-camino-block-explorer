@@ -1,15 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getChains } from 'api';
 import { RootState } from 'store/configureStore';
-
-export interface Network {
-  id: string;
-  displayName: string;
-  protocol: string;
-  host: string;
-  port: number;
-  predefined?: boolean;
-  magellanAddress: string;
-}
+import { Chain, Network } from 'types/store';
 
 const getNetworkFromLocalStorage = () => {
   let activeNetwork = localStorage.getItem('activeNetwork');
@@ -28,16 +20,22 @@ const getCustomNetworksFromLocalStorage = () => {
   return [];
 };
 
-let initialState = {
+interface initialStateAppConfigType {
+  activeNetwork?: string;
+  networks: Network[];
+  chains?: any;
+}
+
+let initialState: initialStateAppConfigType = {
   activeNetwork: getNetworkFromLocalStorage(),
   networks: [
     {
       id: 'camino-testnet',
       displayName: 'Columbus',
-      protocol: 'https',
-      host: 'columbus.camino.foundation',
+      protocol: 'http',
+      host: 'localhost',
       magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 443,
+      port: 9650,
       predefined: true,
     },
     {
@@ -51,10 +49,11 @@ let initialState = {
     },
     ...(getCustomNetworksFromLocalStorage() as Network[]),
   ],
+  chains: [],
 };
 
-const networkSlice = createSlice({
-  name: 'networks',
+const appConfigSlice = createSlice({
+  name: 'appConfig',
   initialState,
   reducers: {
     changeNetwork: (state, action) => {
@@ -68,10 +67,21 @@ const networkSlice = createSlice({
       state.networks = [...state.networks, action.payload];
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(getChains.pending, (state, action) => {})
+      .addCase(getChains.fulfilled, (state, { payload }) => {
+        state.chains = Object.entries(payload.chains).map(([key, value]) => {
+          let v = value as Chain;
+          return { alias: v.chainAlias, chainID: v.chainID };
+        });
+      })
+      .addCase(getChains.rejected, (state, action) => {});
+  },
 });
 
 export const getActiveNetwork = (state: RootState) =>
-  state.networks.activeNetwork;
-export const getNetworks = (state: RootState) => state.networks.networks;
-export const { changeNetwork, addCustomNetwork } = networkSlice.actions;
-export default networkSlice.reducer;
+  state.appConfig.activeNetwork;
+export const getNetworks = (state: RootState) => state.appConfig.networks;
+export const { changeNetwork, addCustomNetwork } = appConfigSlice.actions;
+export default appConfigSlice.reducer;
