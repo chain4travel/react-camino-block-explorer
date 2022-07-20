@@ -9,6 +9,7 @@ import xchainSlice from './xchainSlice';
 import networks from './app-config';
 import { store } from 'index';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
+import validatorsSlice from './validatorsSlice';
 
 export function configureAppStore() {
   const enhancers = [] as StoreEnhancer[];
@@ -17,6 +18,7 @@ export function configureAppStore() {
     reducer: {
       cchain: blocksSlice,
       xchain: xchainSlice,
+      validators: validatorsSlice,
       networks,
     },
     middleware: getDefaultMiddleware =>

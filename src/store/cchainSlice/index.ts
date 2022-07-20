@@ -15,9 +15,7 @@ import {
   fetchTransactionDetails,
   loadNumberOfTransactions,
   loadTotalGasFess,
-  loadValidators,
 } from './utils';
-import { NodeValidator } from 'types/node-types';
 import { MagellanBlock, MagellanTransaction } from 'types/magellan-types';
 
 const initialState: initialCchainStateType = {
@@ -35,12 +33,8 @@ const initialState: initialCchainStateType = {
   ChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
-    numberOfActiveValidators: 0,
-    numberOfValidators: 0,
-    percentageOfActiveValidators: 0,
     gasFeesLoading: Status.IDLE,
     transactionsLoading: Status.IDLE,
-    validatorsLoading: Status.IDLE,
   } as ChainOverviewType,
 };
 
@@ -63,7 +57,6 @@ const cchainSlice = createSlice({
             let result: BlockTableData = {
               hash: block.hash,
               number: parseInt(block.number),
-              // timestamp: new Date(block.timestamp * 1000),
               timestamp: block.timestamp * 1000,
               gasLimit: parseInt(block.gasLimit),
               gasUsed: parseInt(block.gasUsed),
@@ -85,7 +78,6 @@ const cchainSlice = createSlice({
                 parseInt(element.status) === 1
                   ? 'Success'
                   : `Failed-${parseInt(element.status)}`,
-              // timestamp: new Date(parseInt(element.timestamp) * 1000),
               timestamp: parseInt(element.timestamp) * 1000,
               to: element.to,
               value: parseInt(element.value),
@@ -122,26 +114,6 @@ const cchainSlice = createSlice({
       })
       .addCase(loadTotalGasFess.rejected, state => {
         state.ChainOverview.gasFeesLoading = Status.FAILED;
-      })
-      .addCase(loadValidators.pending, state => {
-        state.ChainOverview.validatorsLoading = Status.LOADING;
-      })
-      .addCase(loadValidators.fulfilled, (state, action) => {
-        state.ChainOverview.numberOfValidators = action.payload.length;
-        state.ChainOverview.numberOfActiveValidators = action.payload.filter(
-          (v: NodeValidator) => v.connected,
-        ).length;
-        state.ChainOverview.percentageOfActiveValidators = parseInt(
-          (
-            (state.ChainOverview.numberOfActiveValidators /
-              state.ChainOverview.numberOfValidators) *
-            100
-          ).toFixed(0),
-        );
-        state.ChainOverview.validatorsLoading = Status.SUCCEEDED;
-      })
-      .addCase(loadValidators.rejected, state => {
-        state.ChainOverview.validatorsLoading = Status.FAILED;
       })
       .addCase(fetchCBlockDetail.pending, state => {
         state.loadBlockDetial = Status.LOADING;

@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 import { Status } from 'types';
 import { getDisplayValueForGewi } from 'utils/currency-utils';
 import OverviewCard from './OverviewCard';
+import { useNavigate } from 'react-router-dom';
 
 interface OverviewCardsProps {
   numberOfTransactions: number;
@@ -25,13 +26,22 @@ const OverviewCards: FC<OverviewCardsProps> = ({
   transactionsLoading,
   validatorsLoading,
 }) => {
+  const navigate = useNavigate();
   return (
     <Grid
       container
       rowSpacing={{ xs: 4, lg: '0!important' }}
       columnSpacing={{ xs: 0, lg: 4 }}
     >
-      <Grid item xs={12} lg={4}>
+      <Grid
+        item
+        xs={12}
+        lg={4}
+        onClick={() => {
+          navigate('/validators');
+        }}
+        sx={{ cursor: 'pointer' }}
+      >
         <OverviewCard
           title="Number Of Validators"
           value={numberOfValidators.toString()}

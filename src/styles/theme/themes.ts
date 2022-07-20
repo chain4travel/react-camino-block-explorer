@@ -85,7 +85,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
   },
   success: {
     light: '#457B3B',
-    main: '#67AD5B',
+    main: '#35E9AD',
     dark: '#2F5D28',
     contrastText: '#0F172A',
   },
@@ -150,7 +150,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   },
   success: {
     light: '#35E9AD',
-    main: '#457B3B',
+    main: '#35E9AD',
     dark: '#2F5D28',
     contrastText: '#FFFFFF',
   },

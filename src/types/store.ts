@@ -5,12 +5,9 @@ import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 export interface ChainOverviewType {
   numberOfTransactions: number;
   totalGasFees: number;
-  numberOfActiveValidators: number;
   numberOfValidators: number;
-  percentageOfActiveValidators: number;
   gasFeesLoading: Status;
   transactionsLoading: Status;
-  validatorsLoading: Status;
 }
 
 export interface initialCchainStateType {
@@ -26,6 +23,23 @@ export interface initialCchainStateType {
   loadTransactionDetails: Status;
   transcationDetails?: TranscationDetails;
   ChainOverview: ChainOverviewType;
+}
+
+export interface initialValidatorsStateType {
+  percentageOfActiveValidators: number;
+  numberOfActiveValidators: number;
+  numberOfValidators: number;
+  validatorsLoading: Status;
+  validators: ValidatorType[];
+}
+
+export interface ValidatorType {
+  status: string;
+  nodeID: string;
+  startTime: Date;
+  endTime: Date;
+  txID: string;
+  uptime: string;
 }
 
 interface assets {
