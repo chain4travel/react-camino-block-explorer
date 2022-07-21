@@ -8,7 +8,9 @@ import { loadCAddressTransactions } from 'api';
 import { useLocation } from 'react-router-dom';
 
 export default function Transactions() {
+  const [route, setRoute] = React.useState('in');
   const location = useLocation();
+
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
@@ -17,7 +19,7 @@ export default function Transactions() {
     status,
     // error,
   } = useInfiniteQuery(
-    '/c-address',
+    `/c-address/${route}`,
     ({ pageParam = 50 }) =>
       loadCAddressTransactions({
         address: location.pathname.split('/')[3],
@@ -47,20 +49,18 @@ export default function Transactions() {
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
+  React.useEffect(() => {
+    setRoute(route === 'in' ? 'out' : 'in');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
   // if (status === 'error') return <p className='center'>Error: {error.message}</p>
 
-  const content = data?.pages.map(pg => {
+  const content = data?.pages?.map(pg => {
     return pg.map((transaction, i) => {
       if (pg.length === i + 1) {
-        return (
-          <Address
-            ref={lastPostRef}
-            key={transaction.number}
-            transaction={transaction}
-          />
-        );
+        return <Address ref={lastPostRef} key={i} transaction={transaction} />;
       }
-      return <Address key={transaction.number} transaction={transaction} />;
+      return <Address key={i} transaction={transaction} />;
     });
   });
 
