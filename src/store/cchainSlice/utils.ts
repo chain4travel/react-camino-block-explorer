@@ -43,7 +43,7 @@ export const fetchBlocksTransactions = createAsyncThunk(
       element => element.id === networks.activeNetwork,
     );
     const response = await axios.get(
-      `${activeNetwork?.magellanAddress}/v2/cblocks?limit=10&limit=10`,
+      `${activeNetwork?.magellanAddress}/v2/cblocks?limit=8&limit=8`,
     );
     return response.data;
   },

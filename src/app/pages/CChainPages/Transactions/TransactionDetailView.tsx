@@ -58,22 +58,40 @@ function TransactionDetailView({ detailTr, detailCr }) {
       {detailCr && (
         <OutlinedContainer>
           <Grid item container alignItems="center">
-            <Grid item xs={12}>
-              <DetailsField
-                field="Max fee per gas"
-                value={detailCr['maxFeePerGas']}
-                type="wei"
-              />
-              <Divider variant="fullWidth" />
-            </Grid>
-            <Grid item xs={12}>
-              <DetailsField
-                field="Max Priority fee per gas"
-                value={detailCr['maxPriorityFeePerGas']}
-                type="wei"
-              />
-              <Divider variant="fullWidth" />
-            </Grid>
+            {detailCr['gasPrice'] ? (
+              <Grid item xs={12}>
+                <DetailsField
+                  field="Gas Price"
+                  value={detailCr['gasPrice']}
+                  type="wei"
+                />
+                <Divider variant="fullWidth" />
+              </Grid>
+            ) : (
+              <></>
+            )}
+            {detailCr['maxFeePerGas'] && detailCr['maxPriorityFeePerGas'] ? (
+              <>
+                <Grid item xs={12}>
+                  <DetailsField
+                    field="Max fee per gas"
+                    value={detailCr['maxFeePerGas']}
+                    type="wei"
+                  />
+                  <Divider variant="fullWidth" />
+                </Grid>
+                <Grid item xs={12}>
+                  <DetailsField
+                    field="Max Priority fee per gas"
+                    value={detailCr['maxPriorityFeePerGas']}
+                    type="wei"
+                  />
+                  <Divider variant="fullWidth" />
+                </Grid>
+              </>
+            ) : (
+              <></>
+            )}
             <Grid item xs={12}>
               <DetailsField
                 field="Gas Used"

@@ -173,7 +173,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     main: '#FFFFFF',
   },
   borders: {
-    main: '#64748B',
+    main: '#1E293B',
   },
   titleCard: {
     background: '#1E293B',

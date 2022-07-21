@@ -95,6 +95,7 @@ export interface TransactionInformations {
 export interface TransactionCurrencuy {
   maxFeePerGas: number;
   maxPriorityFeePerGas: number;
+  gasPrice: number;
   gasUsed: number;
   effectiveGasPrice: number;
   transactionCost: number;
