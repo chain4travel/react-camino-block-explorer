@@ -32,10 +32,10 @@ let initialState: initialStateAppConfigType = {
     {
       id: 'camino-testnet',
       displayName: 'Columbus',
-      protocol: 'http',
-      host: 'localhost',
+      protocol: 'https',
+      host: 'columbus.camino.foundation',
       magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 9650,
+      port: 443,
       predefined: true,
     },
     {
@@ -98,9 +98,9 @@ export const getNetworks = (state: RootState) => state.appConfig.networks;
 // Select All chains
 export const selectAllChains = (state: RootState) => state.appConfig.chains;
 // Select All chain
-export const selectChain = (state: RootState, location: string) => {
-  return state.appConfig.chains;
-};
+// export const selectChain = (state: RootState, location: string) => {
+//   return state.appConfig.chains;
+// };
 
 export const { changeNetwork, addCustomNetwork } = appConfigSlice.actions;
 export default appConfigSlice.reducer;
