@@ -80,31 +80,37 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           From
         </Typography>
-        <AddressLink
-          to={`/x-chain/address/${getAddressLink(
-            'x-chain' as ChainType,
-            transaction.to[0]?.address,
-          )}`}
-          value={
-            transaction.from[0]?.address ? transaction.from[0]?.address : '-'
-          }
-          typographyVariant="body1"
-          truncate={true}
-        />
+        {transaction.from[0]?.address ? (
+          <AddressLink
+            to={`/x-chain/address/${getAddressLink(
+              'x-chain' as ChainType,
+              transaction.from[0]?.address,
+            )}`}
+            value={transaction.from[0]?.address}
+            typographyVariant="body1"
+            truncate={true}
+          />
+        ) : (
+          '-'
+        )}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           To
         </Typography>
-        <AddressLink
-          to={`/x-chain/address/${getAddressLink(
-            'x-chain' as ChainType,
-            transaction.to[0]?.address,
-          )}`}
-          value={transaction.to[0]?.address ? transaction.to[0]?.address : '-'}
-          typographyVariant="body1"
-          truncate={true}
-        />
+        {transaction.to[0]?.address ? (
+          <AddressLink
+            to={`/x-chain/address/${getAddressLink(
+              'x-chain' as ChainType,
+              transaction.to[0]?.address,
+            )}`}
+            value={transaction.to[0]?.address}
+            typographyVariant="body1"
+            truncate={true}
+          />
+        ) : (
+          '-'
+        )}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -153,31 +159,37 @@ const CustomRow = ({ transaction }) => {
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
-        <AddressLink
-          to={`/x-chain/address/${getAddressLink(
-            'x-chain' as ChainType,
-            transaction.from[0]?.address,
-          )}`}
-          value={
-            transaction.from[0]?.address ? transaction.from[0]?.address : '-'
-          }
-          typographyVariant="body1"
-          truncate={true}
-        />
+        {transaction.from[0]?.address ? (
+          <AddressLink
+            to={`/x-chain/address/${getAddressLink(
+              'x-chain' as ChainType,
+              transaction.from[0]?.address,
+            )}`}
+            value={transaction.from[0]?.address}
+            typographyVariant="body1"
+            truncate={true}
+          />
+        ) : (
+          '-'
+        )}
       </TableCell>
       <TableCell
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
-        <AddressLink
-          to={`/x-chain/address/${getAddressLink(
-            'x-chain' as ChainType,
-            transaction.to[0]?.address,
-          )}`}
-          value={transaction.to[0]?.address ? transaction.to[0]?.address : '-'}
-          typographyVariant="body1"
-          truncate={true}
-        />
+        {transaction.to[0]?.address ? (
+          <AddressLink
+            to={`/x-chain/address/${getAddressLink(
+              'x-chain' as ChainType,
+              transaction.to[0]?.address,
+            )}`}
+            value={transaction.to[0]?.address}
+            typographyVariant="body1"
+            truncate={true}
+          />
+        ) : (
+          '-'
+        )}
       </TableCell>
       <TableCell align="center">
         <Typography variant="body2" component="span" noWrap={true}>

@@ -38,7 +38,7 @@ export const loadTotalGasFess = createAsyncThunk(
 export const fetchBlocksTransactions = createAsyncThunk(
   'cchain/fetchBlocks',
   async () => {
-    let networks = store.getState().networks;
+    let networks = store.getState().appConfig;
     let activeNetwork = networks.networks.find(
       element => element.id === networks.activeNetwork,
     );
@@ -52,7 +52,7 @@ export const fetchBlocksTransactions = createAsyncThunk(
 export const fetchCBlockDetail = createAsyncThunk(
   'cchain/blockDetail',
   async (number: number) => {
-    let networks = store.getState().networks;
+    let networks = store.getState().appConfig;
     let activeNetwork = networks.networks.find(
       element => element.id === networks.activeNetwork,
     );
@@ -66,7 +66,7 @@ export const fetchCBlockDetail = createAsyncThunk(
 export const fetchTransactionDetails = createAsyncThunk(
   'cchain/transactionDetail',
   async (adress: string) => {
-    let networks = store.getState().networks;
+    let networks = store.getState().appConfig;
     let activeNetwork = networks.networks.find(
       element => element.id === networks.activeNetwork,
     );

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -14,17 +14,23 @@ import {
   XAddressDetail,
   XPTransactions,
 } from './pages/XChainPages';
-import { PChainPage, PChainDetailPage } from './pages/PChainPages';
+import { PChainPage } from './pages/PChainPages';
 import MainLayout from './Layout/MainLayout.tsx';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
 import Validators from './pages/Validators';
+import { useAppDispatch } from 'store/configureStore';
+import { getChains } from 'api';
 
 export function App() {
   const { i18n } = useTranslation();
-
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getChains());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <BrowserRouter>
       <CssBaseline enableColorScheme />
@@ -62,7 +68,7 @@ export function App() {
             <Route index element={<PChainPage />} />
             <Route path="transactions">
               <Route index element={<XPTransactions />} />
-              <Route path=":id" element={<PChainDetailPage />} />
+              <Route path=":id" element={<XPTransactionDetails />} />
             </Route>
             <Route path="address/:id" element={<XAddressDetail />} />
           </Route>

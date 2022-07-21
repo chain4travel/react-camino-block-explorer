@@ -2,12 +2,29 @@ import { Status } from 'types';
 import { BlockDetail, BlockTableData } from './block';
 import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 
+export interface Chain {
+  chainID: string;
+  chainAlias: string;
+  vm: string;
+  avaxAssetID: string;
+  networkID: number;
+}
 export interface ChainOverviewType {
   numberOfTransactions: number;
   totalGasFees: number;
   numberOfValidators: number;
   gasFeesLoading: Status;
   transactionsLoading: Status;
+}
+
+export interface Network {
+  id: string;
+  displayName: string;
+  protocol: string;
+  host: string;
+  port: number;
+  predefined?: boolean;
+  magellanAddress: string;
 }
 
 export interface initialCchainStateType {

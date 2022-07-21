@@ -12,8 +12,8 @@ import {
   getNetworks,
   changeNetwork,
   addCustomNetwork,
-  Network,
-} from '../../../store/app-config';
+} from 'store/app-config';
+import { Network } from 'types/store';
 import { useAppSelector } from 'store/configureStore';
 import { Typography, Modal, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';

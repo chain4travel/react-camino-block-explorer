@@ -3,7 +3,7 @@ import axios from 'axios';
 import { store } from 'index';
 
 export const loadValidators = createAsyncThunk('validators', async () => {
-  let networks = store.getState().networks;
+  let networks = store.getState().appConfig;
   let activeNetwork = networks.networks.find(
     element => element.id === networks.activeNetwork,
   );
