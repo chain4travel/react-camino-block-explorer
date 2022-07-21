@@ -19,7 +19,6 @@ import { useLocation } from 'react-router-dom';
 
 export default function XPTransactions() {
   const location = useLocation();
-
   const theme = useTheme();
   const {
     fetchNextPage, //function
@@ -31,12 +30,7 @@ export default function XPTransactions() {
   } = useInfiniteQuery(
     '/xtransactions',
     ({ pageParam = 0 }) =>
-      getXPTransactions(
-        pageParam,
-        location.pathname.split('/')[1][0] === 'x'
-          ? '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV'
-          : '11111111111111111111111111111111LpoYY',
-      ),
+      getXPTransactions(pageParam, location.pathname.split('/')[1][0]),
     {
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.length === 50 ? (allPages.length + 1) * 50 : undefined;
@@ -60,7 +54,6 @@ export default function XPTransactions() {
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
-
   const content = data?.pages.map(pg => {
     return pg.map((transaction, i) => {
       if (pg.length === i + 1) {
