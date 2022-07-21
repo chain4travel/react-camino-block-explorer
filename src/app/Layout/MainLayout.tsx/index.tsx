@@ -10,8 +10,7 @@ export default function MainLayout() {
   return (
     <>
       <NavBar />
-      {chains?.length && <Outlet />}
-      <Outlet />
+      {chains?.length > 0 && <Outlet />}
       <Footer />
     </>
   );
