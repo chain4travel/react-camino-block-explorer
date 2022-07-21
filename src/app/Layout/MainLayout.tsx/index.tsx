@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { NavBar } from 'app/components/NavBar';
 import { Outlet } from 'react-router-dom';
+import { useAppSelector } from 'store/configureStore';
+import { selectAllChains } from 'store/app-config';
 
 export default function MainLayout() {
+  const chains = useAppSelector(selectAllChains);
   return (
     <>
       <NavBar />
-      <Outlet />
+      {chains?.length && <Outlet />}
     </>
   );
 }
