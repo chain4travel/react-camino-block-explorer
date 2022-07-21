@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Field } from '../DetailsField';
 
-export default function CutomTable({
+export default function TableView({
   children,
   columns,
 }: {

@@ -388,6 +388,20 @@ export const darkTheme = createTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#1E293B',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid #1E293B',
+        },
+      },
+    },
     ...defaultComponents,
   },
   ...defaultTheme,
