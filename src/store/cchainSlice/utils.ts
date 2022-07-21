@@ -37,7 +37,7 @@ export const fetchBlocksTransactions = createAsyncThunk(
   'cchain/fetchBlocks',
   async () => {
     const response = await axios.get(
-      `${getBaseUrl()}/v2/cblocks?limit=10&limit=10`,
+      `${getBaseUrl()}/v2/cblocks?limit=8&limit=8`,
     );
     return response.data;
   },
