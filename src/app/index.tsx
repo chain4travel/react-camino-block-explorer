@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -21,16 +21,10 @@ import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
 import Validators from './pages/Validators';
-import { useAppDispatch } from 'store/configureStore';
-import { getChains } from 'api';
 
 export function App() {
   const { i18n } = useTranslation();
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getChains());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   return (
     <BrowserRouter>
       <CssBaseline enableColorScheme />

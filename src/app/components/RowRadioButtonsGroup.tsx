@@ -23,6 +23,7 @@ import {
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
 } from 'store/xchainSlice/utils';
+import { getChainID } from 'api/utils';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -49,20 +50,16 @@ export default function RowRadioButtonsGroup({
   }, [timeFrame]); // eslint-disable-line
 
   useEffect(() => {
-    let chainId =
-      location.pathname.split('/')[1] === 'x-chain'
-        ? '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV'
-        : '11111111111111111111111111111111LpoYY';
     dispatch(
       loadNumberOfPXTransactions({
         timeframe: timeFrameXPchain,
-        chainId,
+        chainId: getChainID(location.pathname.split('/')[1][0]),
       }),
     );
     dispatch(
       loadTotalPXGasFess({
         timeframe: timeFrameXPchain,
-        chainId,
+        chainId: getChainID(location.pathname.split('/')[1][0]),
       }),
     );
   }, [timeFrameXPchain]); // eslint-disable-line

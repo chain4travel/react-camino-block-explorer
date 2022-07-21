@@ -1,22 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loadTransactionAggregates, loadTransactionFeesAggregates } from 'api';
+import { getBaseUrl, getChainID } from 'api/utils';
 import axios from 'axios';
-import { store } from 'index';
 import { DateTime } from 'luxon';
 import { getStartDate } from 'utils/display-utils';
 
-interface test {
+interface xpArg {
   timeframe: string;
   chainId: string;
 }
 
 export const loadNumberOfPXTransactions = createAsyncThunk(
   'xchain/loadNumberOfXTransactions',
-  async (test: test) => {
+  async (xpArg: xpArg) => {
     const currentDate = DateTime.now().setZone('utc');
-    const startDate = getStartDate(currentDate, test.timeframe);
+    const startDate = getStartDate(currentDate, xpArg.timeframe);
     const result = await loadTransactionAggregates(
-      test.chainId,
+      xpArg.chainId,
       startDate.toISO(),
       currentDate.toISO(),
     );
@@ -26,11 +26,11 @@ export const loadNumberOfPXTransactions = createAsyncThunk(
 
 export const loadTotalPXGasFess = createAsyncThunk(
   'xchain/loadTotalXGasFess',
-  async (test: test) => {
+  async (xpArg: xpArg) => {
     const currentDate = DateTime.now().setZone('utc');
-    const startDate = getStartDate(currentDate, test.timeframe);
+    const startDate = getStartDate(currentDate, xpArg.timeframe);
     const result = await loadTransactionFeesAggregates(
-      test.chainId,
+      xpArg.chainId,
       startDate.toISO(),
       currentDate.toISO(),
     );
@@ -46,33 +46,11 @@ interface transactionsArg {
 export const fetchXPTransactions = createAsyncThunk(
   'xchain/fetchTransactions',
   async (chain: transactionsArg) => {
-    let networks = store.getState().appConfig;
-    let activeNetwork = networks.networks.find(
-      element => element.id === networks.activeNetwork,
-    );
     const response = await axios.get(
-      `${activeNetwork?.magellanAddress}/v2/transactions?chainID=${chain.chainID}&offset=0&limit=10&sort=timestamp-desc`,
+      `${getBaseUrl()}/v2/transactions?chainID=${getChainID(
+        chain.chainType,
+      )}&offset=0&limit=10&sort=timestamp-desc`,
     );
     return { transactions: response.data.transactions, type: chain.chainType };
   },
 );
-
-export const loadAssets = createAsyncThunk('xchain/loadAssets', async () => {
-  let networks = store.getState().appConfig;
-  let activeNetwork = networks.networks.find(
-    element => element.id === networks.activeNetwork,
-  );
-  const response = (
-    await axios.get(`${activeNetwork?.magellanAddress}/v2/assets`)
-  ).data;
-  const newElements = new Map();
-  if (response.assets) {
-    response.assets.forEach(element => {
-      newElements.set(element.id, {
-        name: element.name,
-        symbol: element.symbol,
-      });
-    });
-  }
-  return newElements;
-});

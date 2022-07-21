@@ -1,3 +1,4 @@
+import { store } from 'index';
 import { XPTransaction, XPTransactionTableData } from 'types/transaction';
 
 function getValue(outputTotal?: object, inputTotal?: object): number {
@@ -27,3 +28,18 @@ export function mapToTableData(
     fee: transaction.fee,
   };
 }
+
+export const getBaseUrl = (): string | undefined => {
+  let networks = store.getState().appConfig;
+  let activeNetwork = networks.networks.find(
+    element => element.id === networks.activeNetwork,
+  );
+  return activeNetwork?.magellanAddress;
+};
+
+export const getChainID = (alias: string): string => {
+  let chainID = store
+    .getState()
+    .appConfig.chains.find(element => element.alias === alias).chainID;
+  return chainID;
+};
