@@ -15,8 +15,11 @@ import CutomTable from 'app/components/Table/CustomTable';
 import useWidth from 'app/hooks/useWidth';
 import { getXPTransactions } from 'api';
 import Transaction from './Transaction';
+import { useLocation } from 'react-router-dom';
 
 export default function XPTransactions() {
+  const location = useLocation();
+
   const theme = useTheme();
   const {
     fetchNextPage, //function
@@ -30,7 +33,9 @@ export default function XPTransactions() {
     ({ pageParam = 0 }) =>
       getXPTransactions(
         pageParam,
-        '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV',
+        location.pathname.split('/')[1][0] === 'x'
+          ? '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV'
+          : '11111111111111111111111111111111LpoYY',
       ),
     {
       getNextPageParam: (lastPage, allPages) => {
@@ -73,7 +78,9 @@ export default function XPTransactions() {
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer
-      pageTitle="X Transactions"
+      pageTitle={`${location.pathname
+        .split('/')[1][0]
+        .toLocaleUpperCase()} Transactions`}
       metaContent="list of transactions x-chain"
     >
       <Paper
@@ -110,7 +117,9 @@ export default function XPTransactions() {
           >
             <BackButton />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              X-Transactions
+              {`${location.pathname
+                .split('/')[1][0]
+                .toLocaleUpperCase()}-Transactions`}
             </Typography>
           </Grid>
           {status === 'success' && data && (
