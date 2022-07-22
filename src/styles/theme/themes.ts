@@ -343,10 +343,8 @@ export const lightTheme = createTheme({
           borderRadius: '7px',
         },
         notchedOutline: {
-          border: '1px solid  !important',
-          ':where(fieldset)': {
-            border: '1px solid #CBD5E1 !important',
-          },
+          borderColor: '#CBD5E1 !important',
+          borderWidth: '1px !important',
         },
       },
     },
@@ -377,6 +375,10 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '7px',
+        },
+        notchedOutline: {
+          borderColor: '#1E293B !important',
+          borderWidth: '1px !important',
         },
       },
     },
