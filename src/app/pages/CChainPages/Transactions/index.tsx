@@ -13,7 +13,7 @@ import BackButton from 'app/components/BackButton';
 import { useInfiniteQuery } from 'react-query';
 
 // import Block from './Block';
-import CutomTable from 'app/components/Table/CustomTable';
+import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import { getTransactionsPage } from 'api';
 import Transaction from './Transaction';

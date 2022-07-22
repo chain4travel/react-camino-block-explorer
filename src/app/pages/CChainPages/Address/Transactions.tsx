@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, TableContainer, Box, LinearProgress } from '@mui/material';
 import { useInfiniteQuery } from 'react-query';
 import Address from './Address';
-import CutomTable from 'app/components/Table/CustomTable';
+import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import { loadCAddressTransactions } from 'api';
 import { useLocation } from 'react-router-dom';
