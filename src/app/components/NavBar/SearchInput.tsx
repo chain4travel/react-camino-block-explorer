@@ -102,7 +102,7 @@ export default function SearchInput() {
           sx={{
             width: '450px',
             height: '40px',
-            '@media (max-width:1024px)': {
+            '@media (max-width:1199px)': {
               width: '325px',
             },
           }}
