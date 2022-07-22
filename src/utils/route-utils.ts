@@ -12,23 +12,29 @@ export function getPathElement(type: ChainType): string {
   return type.toLowerCase();
 }
 
-export function getTransactionDetailsPath(transactionId: string): string {
-  const basePath = `${DETAILS}/${transactions}/`;
+export function getTransactionDetailsPath(
+  chaintype: ChainType,
+  transactionId: string,
+): string {
+  const basePath = `/${getPathElement(chaintype)}/${transactions}/`;
   if (transactionId) {
     return basePath + transactionId;
   }
   return basePath;
 }
 
-export function getAddressDetailsPath(addressId: string): string {
-  return `${DETAILS}/${address}/${addressId}`;
+export function getAddressDetailsPath(
+  chaintype: ChainType,
+  addressId: string,
+): string {
+  return `/${getPathElement(chaintype)}/${address}/${addressId}`;
 }
 
 export function getBlockDetailsPath(
   chaintype: ChainType,
   blockId: string | number,
 ): string {
-  const basePath = `/${DETAILS}/${blocks}/${getPathElement(chaintype)}/`;
+  const basePath = `/${getPathElement(chaintype)}/${blocks}/`;
   if (blockId !== undefined) {
     return basePath + blockId;
   }

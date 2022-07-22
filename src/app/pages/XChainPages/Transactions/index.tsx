@@ -11,7 +11,7 @@ import {
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import { useInfiniteQuery } from 'react-query';
-import CutomTable from 'app/components/Table/CustomTable';
+import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import { getXPTransactions } from 'api';
 import Transaction from './Transaction';
