@@ -356,6 +356,13 @@ export const lightTheme = createTheme({
         },
       },
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#E2E8F0',
+        },
+      },
+    },
     ...defaultComponents,
   },
   ...defaultTheme,
@@ -401,6 +408,13 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderBottom: '1px solid #1E293B',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#1E293B',
         },
       },
     },

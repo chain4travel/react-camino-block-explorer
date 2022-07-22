@@ -1,6 +1,12 @@
-import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
+import {
+  Grid,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Chip,
+} from '@mui/material';
 import AddressLink from 'app/components/AddressLink';
-import Chip from 'app/components/Chip';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
@@ -73,7 +79,7 @@ const GridItem = ({ transaction }) => {
           to={`/x-chain/transactions/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body1"
-          truncate={false}
+          truncate={true}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -124,10 +130,11 @@ const GridItem = ({ transaction }) => {
         </Typography>
         <Chip
           label={transaction.type}
+          size="small"
           style={{
             minWidth: '61px',
             height: 'min-content',
-            backgroundColor: '#0F172A',
+            fontSize: '11px',
           }}
         />
       </Grid>
@@ -196,10 +203,11 @@ const CustomRow = ({ transaction }) => {
           {getRelativeTime(transaction.timestamp as number) + ' ago '}
         </Typography>
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="center">
         <Chip
           label={transaction.type}
-          style={{ minWidth: '61px', height: 'min-content' }}
+          size="small"
+          style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
         />
       </TableCell>
       <TableCell align="left">

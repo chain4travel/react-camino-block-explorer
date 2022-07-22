@@ -2,7 +2,10 @@ import * as React from 'react';
 import { Divider, Grid } from '@mui/material';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import DetailsField from 'app/components/DetailsField';
-import { InputOutputSection } from '../XAddressDetail';
+import { InputOutputSection } from '../Address/InputOutputSection';
+import { mdiCheckboxMarkedCircleOutline } from '@mdi/js';
+import { mdiAlertCircleOutline } from '@mdi/js';
+import Icon from '@mdi/react';
 
 function TransactionDetailView({ detailTr, inputs, outputs }) {
   return (
@@ -13,7 +16,21 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
             <Grid item xs={12}>
               <DetailsField
                 field="Status"
-                value={detailTr['status']}
+                value={
+                  detailTr['status'] === 'accepted' ? (
+                    <Icon
+                      path={mdiCheckboxMarkedCircleOutline}
+                      size={0.8}
+                      color="#35E9AD"
+                    />
+                  ) : (
+                    <Icon
+                      path={mdiAlertCircleOutline}
+                      size={0.8}
+                      color="#C23F38"
+                    />
+                  )
+                }
                 type="string"
               />
               <Divider variant="fullWidth" />

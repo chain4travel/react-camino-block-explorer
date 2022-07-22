@@ -1,10 +1,16 @@
-import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
-import AddressLink from 'app/components/AddressLink';
-import Chip from 'app/components/Chip';
-import { Field } from 'app/components/DetailsField';
-import useWidth from 'app/hooks/useWidth';
 import React from 'react';
+import useWidth from 'app/hooks/useWidth';
+import {
+  Grid,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Chip,
+} from '@mui/material';
+import { Field } from 'app/components/DetailsField';
 import { getRelativeTime } from 'utils/display-utils';
+import AddressLink from 'app/components/AddressLink';
 
 interface Props {
   transaction: any;
@@ -104,11 +110,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         <Chip
           label={transaction.status}
-          style={{
-            minWidth: '61px',
-            height: 'min-content',
-            backgroundColor: '#0F172A',
-          }}
+          size="small"
+          style={{ minWidth: '61px', fontSize: '11px', height: 'min-content' }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -179,7 +182,8 @@ const CustomRow = ({ transaction }) => {
       <TableCell>
         <Chip
           label={transaction.status}
-          style={{ minWidth: '61px', height: 'min-content' }}
+          size="small"
+          style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
         />
       </TableCell>
       <TableCell>

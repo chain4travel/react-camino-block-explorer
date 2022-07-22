@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Divider } from '@mui/material';
+import { Grid, Divider, Chip } from '@mui/material';
 import { CamAmount } from '../CamAmount';
 import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types';
 import { getAddressLink } from 'utils/route-utils';
@@ -7,7 +7,6 @@ import { ChainType } from 'utils/types/chain-type';
 import RelativeTime from 'app/components/RelativeTime';
 import AddressLink from '../AddressLink';
 import BlockTxIcon from './BlockTxIcon';
-import Chip from '../Chip';
 import useWidth from 'app/hooks/useWidth';
 
 export default function XPTransactionItem({ chainType, data }) {
@@ -72,8 +71,18 @@ const XPTransactionFirstSection = ({
           />
           <RelativeTime value={timestamp} />
         </Grid>
-        <Grid item xs={4} md={6} lg={4}>
-          <Chip label={type} style={{ minWidth: '61px', marginLeft: 'auto' }} />
+        <Grid
+          item
+          xs={4}
+          md={6}
+          lg={4}
+          sx={{ display: 'flex', justifyContent: 'flex-end' }}
+        >
+          <Chip
+            label={type}
+            size="small"
+            sx={{ minWidth: '50px', height: '20px', fontSize: '11px' }}
+          />
         </Grid>
       </Grid>
     </>

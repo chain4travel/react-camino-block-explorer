@@ -18,56 +18,34 @@ export default function DetailsField({
   allowCopy,
 }: {
   field: string;
-  value: string | number | object | Element | undefined;
+  value: string | number | object;
   type: string;
-  icon?: React.ReactElement;
+  icon?: string;
   tooltip?: string;
   detailsLink?: string;
   allowCopy?: boolean;
 }) {
   const getTooltip = (field: string): string | undefined => {
-    if (Object.keys(tooltips).includes(field?.toLowerCase())) {
+    if (Object.keys(tooltips).includes(field)) {
       return tooltips[field];
     }
     return undefined;
   };
-  const { isMobile } = useWidth();
   return (
-    <Grid container alignItems="center" spacing={1} sx={{ p: '1rem' }}>
-      <Grid
-        container
-        item
-        xs={6}
-        md={3}
-        justifyItems="center"
-        alignItems="center"
-        order={1}
-      >
-        {!isMobile && (
-          <>
-            {tooltip?.toLowerCase() || getTooltip(field?.toLowerCase()) ? (
-              <Grid item xs={2}>
-                <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
-                  {icon || (
-                    <HelpOutlineOutlinedIcon
-                      style={{ width: '20px', height: '20px' }}
-                    />
-                  )}
-                </Tooltip>
-              </Grid>
-            ) : (
-              <Grid item xs={2}>
-                {icon}
-              </Grid>
-            )}
-          </>
+    <Grid container spacing={2} alignItems="center">
+      <Grid container item xs={6} md={4} lg={5} alignItems="center" order={1}>
+        {(tooltip || getTooltip(field)) && (
+          <Tooltip title={getTooltip(field) as string}>
+            <HelpOutlineOutlinedIcon style={{ fontSize: '15px' }} />
+          </Tooltip>
         )}
         <Typography
-          variant="body1"
+          variant="body2"
           component="span"
           fontWeight="fontWeightBold"
-          noWrap={true}
-          sx={{ textTransform: 'capitalize' }}
+          sx={{
+            paddingLeft: '10px',
+          }}
         >
           {field}
         </Typography>
@@ -80,21 +58,12 @@ export default function DetailsField({
           value !== undefined &&
           value !== '' &&
           parseInt(value as string) !== 0 && (
-            <Grid
-              container
-              item
-              xs={6}
-              md={3}
-              lg={2}
-              order={{ xs: 2, md: 3 }}
-              alignItems="center"
-              sx={{ justifyContent: 'flex-end', gap: '10px' }}
-            >
+            <Grid item xs={6} md="auto" order={{ xs: 2, md: 3 }}>
               {detailsLink && (
-                <Link style={{ textDecoration: 'none' }} to={detailsLink}>
+                <Link to={detailsLink}>
                   <Button
-                    variant="outlined"
-                    color="secondary"
+                    variant="contained"
+                    color="primary"
                     size="small"
                     startIcon={<OpenInNewIcon />}
                   >
@@ -103,12 +72,7 @@ export default function DetailsField({
                 </Link>
               )}
               {allowCopy && value && (
-                <Box
-                  sx={{
-                    marginLeft: !detailsLink ? 'auto' : '',
-                    width: 'min-content',
-                  }}
-                >
+                <Box sx={{ marginLeft: 'auto', width: 'min-content' }}>
                   <CopyToClipboardButton value={value.toString()} />
                 </Box>
               )}
@@ -142,8 +106,7 @@ export const Field = ({
     return (
       <Chip
         label={value === 0 ? 'Legacy' : 'EIP1559'}
-        size="small"
-        style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
+        style={{ minWidth: '61px', height: 'min-content' }}
       />
     );
   } else if (type === 'timestamp') {
@@ -183,36 +146,36 @@ export const Field = ({
 
 const tooltips: { [key: string]: string } = {
   // Contracts
-  type: 'Defines a transaction type that is an envelope for current and future transaction types',
-  block: 'The number of the block in which the transaction was recorded',
-  date: 'The date and time at which a transaction is validated',
-  'gas price':
+  Type: 'Defines a transaction type that is an envelope for current and future transaction types',
+  Block: 'The number of the block in which the transaction was recorded',
+  Date: 'The date and time at which a transaction is validated',
+  'Gas Price':
     'Cost per unit of gas specified for the transaction, in Cam and nCam (nano cam) and aCam (atto cam). The higher the gas price the higher chance of getting included in a block',
-  'max fee per gas':
+  'Max fee per gas':
     'The maximum fee per gas that the transaction is willing to pay in total',
-  'max priority fee per gas':
+  'Max Priority fee per gas':
     'The maximum fee per gas to give miners to incentivize them to include the transaction (Priority fee)',
-  'gas limit': 'The maximum gas allowed in this transaction',
-  value: 'The value being transacted',
-  from: 'The sending party of the transaction',
-  to: 'The receiving party of the transaction',
-  'gas used': 'The  gas used in this transaction',
-  'contract address': 'The address of the contract that was created',
-  'transaction cost':
+  'Gas Limit': 'The maximum gas allowed in this transaction',
+  Value: 'The value being transacted',
+  From: 'The sending party of the transaction',
+  To: 'The receiving party of the transaction',
+  'Gas Used': 'The  gas used in this transaction',
+  'Contract Address': 'The address of the contract that was created',
+  'Transaction Cost':
     "The cost of the transaction, calculated using ('Effective Gas Price' * 'Gas Limit')",
-  'effective gas price': 'The gas price that the transaction is willing to pay',
+  'Effective Gas Price': 'The gas price that the transaction is willing to pay',
   //C-BLOCKS
-  number: 'The block number',
-  'parent hash': 'The Hash of the parent block',
-  'base gas fee':
+  Number: 'The block number',
+  'Parent Hash': 'The Hash of the parent block',
+  'Base Gas Fee':
     'The minimum gas fee required for a transaction to be included in a block',
-  fees: 'The total transaction fees for this block. This is calculated by adding up all the transaction costs.',
-  timestamp: 'The date and time at which a transaction is validated',
-  'transaction count': 'The amount of transactions in this block',
-  'extra data': 'Additional data in this block',
+  Fees: 'The total transaction fees for this block. This is calculated by adding up all the transaction costs.',
+  Timestamp: 'The date and time at which a transaction is validated',
+  'Transaction Count': 'The amount of transactions in this block',
+  'Extra Data': 'Additional data in this block',
   //C-BLOCKS
-  status: 'The transaction status',
-  fee: 'The fee of the transaction',
-  memo: 'The memo that was added to the transaction',
-  signature: 'The signature of the input',
+  Status: 'The transaction status',
+  Fee: 'The fee of the transaction',
+  Memo: 'The memo that was added to the transaction',
+  Signature: 'The signature of the input',
 };

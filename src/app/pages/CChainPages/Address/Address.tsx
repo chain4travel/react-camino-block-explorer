@@ -1,6 +1,12 @@
-import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
+import {
+  Grid,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Chip,
+} from '@mui/material';
 import AddressLink from 'app/components/AddressLink';
-import Chip from 'app/components/Chip';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
@@ -66,7 +72,8 @@ const CustomRow = ({ transaction }) => {
       <TableCell>
         <Chip
           label={transaction.direction}
-          style={{ minWidth: '61px', height: 'min-content' }}
+          size="small"
+          style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
         />
       </TableCell>
       <TableCell
@@ -134,7 +141,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         <Chip
           label={transaction.direction}
-          style={{ minWidth: '61px', height: 'min-content' }}
+          size="small"
+          style={{ minWidth: '61px', height: 'min-content', fontSize: '12px' }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>

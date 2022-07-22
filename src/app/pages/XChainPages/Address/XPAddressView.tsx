@@ -4,9 +4,10 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import axios from 'axios';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
 import { MagellanXPTransaction } from 'types/magellan-types';
-import { AddressSection, InputOutputSection } from './XAddressDetail';
 import { useLocation } from 'react-router-dom';
 import { ChainType } from 'utils/types/chain-type';
+import { AddressSection } from './AddressSection';
+import { InputOutputSection } from './InputOutputSection';
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
   return {
@@ -27,6 +28,26 @@ function getChainID(location) {
   if (location === 'X')
     return '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
   else if (location === 'P') return '11111111111111111111111111111111LpoYY';
+}
+
+export async function loadBlocksAndTransactions({
+  address,
+  offset,
+  limit,
+  chainID,
+}) {
+  return await axios.get(
+    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
+  );
+}
+
+export async function loadTransactions(offset) {
+  let res = (await loadBlocksAndTransactions(offset)).data;
+  if (res.transactions && res.transactions.length > 0) {
+    let newItems = res.transactions.map(item => createTransaction(item));
+    return newItems;
+  }
+  return [];
 }
 
 export default function XPAddressView({ chainType }: { chainType: ChainType }) {
@@ -127,24 +148,4 @@ export default function XPAddressView({ chainType }: { chainType: ChainType }) {
         })}
     </TableContainer>
   );
-}
-
-export async function loadBlocksAndTransactions({
-  address,
-  offset,
-  limit,
-  chainID,
-}) {
-  return await axios.get(
-    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
-  );
-}
-
-export async function loadTransactions(offset) {
-  let res = (await loadBlocksAndTransactions(offset)).data;
-  if (res.transactions && res.transactions.length > 0) {
-    let newItems = res.transactions.map(item => createTransaction(item));
-    return newItems;
-  }
-  return [];
 }

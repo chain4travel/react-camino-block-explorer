@@ -173,7 +173,7 @@ const columns = [
     name: 'type',
     label: 'Type',
     field: 'Type',
-    align: 'left',
+    align: 'center',
   },
   {
     name: 'fee',

@@ -44,8 +44,11 @@ function SelectedNetwork({
       }}
     >
       <Chip
-        color={networkStatus === 'failed' ? 'error' : 'success'}
-        sx={{ width: '10px', height: '10px' }}
+        sx={{
+          width: '8px',
+          height: '8px',
+          backgroundColor: networkStatus === 'failed' ? '#DD5E56' : '#35E9AD',
+        }}
       />
       <Box
         style={{
