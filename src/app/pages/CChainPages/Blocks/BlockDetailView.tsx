@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider, Grid } from '@mui/material';
 import { mdiCubeOutline } from '@mdi/js';
+import { CBLOCKS } from 'utils/route-paths';
 import LoadingWrapper from 'app/components/LoadingWrapper';
 import DetailsField from 'app/components/DetailsField';
 import OutlinedContainer from 'app/components/OutlinedContainer';
@@ -47,7 +48,7 @@ export default function BlockDetailView({ blockDetails, loading }) {
                   value={blockDetails['parentHash']}
                   type="string"
                   allowCopy={true}
-                  detailsLink={`/c-chain/blocks/${blockDetails.number - 1}`}
+                  detailsLink={`${CBLOCKS}/${blockDetails.number - 1}`}
                 />
                 <Divider variant="fullWidth" />
               </Grid>

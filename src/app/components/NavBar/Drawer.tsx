@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { CCHAIN, XCHAIN, PCHAIN, WALLET, DOCS } from 'types/constants';
+import { CCHAIN, XCHAIN, PCHAIN, WALLET, DOCS } from 'utils/route-paths';
 import {
   mdiAlphaCBoxOutline,
   mdiAlphaXBoxOutline,

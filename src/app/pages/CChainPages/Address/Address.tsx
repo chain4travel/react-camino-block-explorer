@@ -12,6 +12,7 @@ import useWidth from 'app/hooks/useWidth';
 import React from 'react';
 import { BlockType } from 'types/block';
 import { getRelativeTime } from 'utils/display-utils';
+import { CADDRESS, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
 
 interface Props {
   transaction: BlockType;
@@ -81,7 +82,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/c-chain/transactions/${transaction.hash}`}
+          to={`${CTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body2"
           truncate={true}
@@ -89,7 +90,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell>
         <AddressLink
-          to={`/c-chain/blocks/${transaction.blockNumber}`}
+          to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
           typographyVariant="body2"
           truncate={true}
@@ -105,7 +106,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/c-chain/address/${transaction.from}`}
+          to={`${CADDRESS}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -116,7 +117,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/c-chain/address/${transaction.to}`}
+          to={`${CADDRESS}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}
@@ -150,7 +151,7 @@ const GridItem = ({ transaction }) => {
           Txn Hash
         </Typography>
         <AddressLink
-          to={`/c-chain/transactions/${transaction.hash}`}
+          to={`${CTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body2"
           truncate={true}
@@ -161,7 +162,7 @@ const GridItem = ({ transaction }) => {
           Block
         </Typography>
         <AddressLink
-          to={`/c-chain/blocks/${transaction.blockNumber}`}
+          to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
           typographyVariant="body2"
           truncate={true}
@@ -178,7 +179,7 @@ const GridItem = ({ transaction }) => {
           From
         </Typography>
         <AddressLink
-          to={`/c-chain/address/${transaction.from}`}
+          to={`${CADDRESS}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -189,7 +190,7 @@ const GridItem = ({ transaction }) => {
           To
         </Typography>
         <AddressLink
-          to={`/c-chain/address/${transaction.to}`}
+          to={`${CADDRESS}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}

@@ -1,14 +1,12 @@
 import React from 'react';
+import MainButton from '../MainButton';
 import { Paper, Typography, useTheme, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import MainButton from '../MainButton';
 
 export default function XPTransactionList({
-  chainType,
   ShowAllLink,
   children,
 }: {
-  chainType?: string;
   ShowAllLink: string;
   children: React.ReactNode;
 }) {
@@ -42,7 +40,7 @@ export default function XPTransactionList({
         {children}
       </Box>
       <Link
-        to={`/${ShowAllLink}/transactions`}
+        to={ShowAllLink}
         style={{
           display: 'flex',
           width: '100%',

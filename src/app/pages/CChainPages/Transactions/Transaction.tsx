@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
 import { getRelativeTime } from 'utils/display-utils';
+import { CADDRESS, CBLOCKS } from 'utils/route-paths';
 import AddressLink from 'app/components/AddressLink';
 
 interface Props {
@@ -135,7 +136,7 @@ const CustomRow = ({ transaction }) => {
     <>
       <TableCell>
         <AddressLink
-          to={`/c-chain/blocks/${transaction.blockNumber}`}
+          to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
           typographyVariant="body2"
           truncate={true}
@@ -146,7 +147,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/c-chain/address/${transaction.from}`}
+          to={`${CADDRESS}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -157,7 +158,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/c-chain/address/${transaction.to}`}
+          to={`${CADDRESS}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}

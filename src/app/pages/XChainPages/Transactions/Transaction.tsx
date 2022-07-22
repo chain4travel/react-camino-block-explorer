@@ -13,6 +13,7 @@ import React from 'react';
 import { getRelativeTime } from 'utils/display-utils';
 import { getAddressLink } from 'utils/route-utils';
 import { ChainType } from 'utils/types/chain-type';
+import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
 
 interface Props {
   transaction: any;
@@ -76,7 +77,7 @@ const GridItem = ({ transaction }) => {
           Hash
         </Typography>
         <AddressLink
-          to={`/x-chain/transactions/${transaction.hash}`}
+          to={`${XTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body1"
           truncate={true}
@@ -88,8 +89,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         {transaction.from[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.from[0]?.address,
             )}`}
             value={transaction.from[0]?.address}
@@ -106,8 +107,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         {transaction.to[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.to[0]?.address,
             )}`}
             value={transaction.to[0]?.address}
@@ -156,7 +157,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/x-chain/transactions/${transaction.hash}`}
+          to={`${XTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body1"
           truncate={true}
@@ -168,8 +169,8 @@ const CustomRow = ({ transaction }) => {
       >
         {transaction.from[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.from[0]?.address,
             )}`}
             value={transaction.from[0]?.address}
@@ -186,8 +187,8 @@ const CustomRow = ({ transaction }) => {
       >
         {transaction.to[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.to[0]?.address,
             )}`}
             value={transaction.to[0]?.address}

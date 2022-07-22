@@ -20,7 +20,7 @@ import {
   GITHUB,
   DISCORD,
   WALLET,
-} from 'types/constants';
+} from 'utils/route-paths';
 import { ReactComponent as DarkLogo } from './assets/LogoDark.svg';
 import { ReactComponent as LightLogo } from './assets/LogoLight.svg';
 import { ReactComponent as Discord } from './assets/Discord.svg';

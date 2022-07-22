@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Divider, Grid } from '@mui/material';
+import { CBLOCKS } from 'utils/route-paths';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import DetailsField from 'app/components/DetailsField';
 
@@ -22,7 +23,7 @@ function TransactionDetailView({ detailTr, detailCr }) {
                 field="Block"
                 value={detailTr['block']}
                 type="string"
-                detailsLink={`/c-chain/blocks/${detailTr.block}`}
+                detailsLink={`${CBLOCKS}/${detailTr.block}`}
               />
               <Divider variant="fullWidth" />
             </Grid>

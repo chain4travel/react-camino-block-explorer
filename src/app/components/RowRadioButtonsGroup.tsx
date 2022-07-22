@@ -24,6 +24,7 @@ import {
   loadTotalPXGasFess,
 } from 'store/xchainSlice/utils';
 import { getChainID } from 'api/utils';
+import { ChainType } from 'utils/types/chain-type';
 
 export default function RowRadioButtonsGroup({
   chainType,
@@ -65,7 +66,7 @@ export default function RowRadioButtonsGroup({
   }, [timeFrameXPchain]); // eslint-disable-line
 
   useEffect(() => {
-    if (location.pathname.split('/')[1] === 'c-chain')
+    if (location.pathname.split('/')[1] === ChainType.C_CHAIN)
       dispatch(changetimeFrame(value));
     else dispatch(changetimeFrameXPchain(value));
   }, [value]); // eslint-disable-line

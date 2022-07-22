@@ -4,6 +4,7 @@ import { Status } from 'types';
 import { getDisplayValueForGewi } from 'utils/currency-utils';
 import OverviewCard from './OverviewCard';
 import { useNavigate } from 'react-router-dom';
+import { VALIDATORS } from 'utils/route-paths';
 
 interface OverviewCardsProps {
   numberOfTransactions: number;
@@ -38,7 +39,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
         xs={12}
         lg={4}
         onClick={() => {
-          navigate('/validators');
+          navigate(VALIDATORS);
         }}
         sx={{ cursor: 'pointer' }}
       >

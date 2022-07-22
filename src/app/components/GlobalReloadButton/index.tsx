@@ -20,6 +20,8 @@ import {
 } from 'store/xchainSlice/utils';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { loadValidators } from 'store/validatorsSlice/utils';
+import { ChainType } from 'utils/types/chain-type';
+import { getChainID } from 'api/utils';
 
 export default function GlobalReloadButton({
   style,
@@ -32,13 +34,13 @@ export default function GlobalReloadButton({
   const status = useAppSelector(getCchainStatus);
   const timeFrameXPchain = useAppSelector(getTimeFrameXPchain);
   const { gasFeesLoading, transactionsLoading } = useAppSelector(
-    location.pathname.split('/')[1] === 'c-chain'
+    location.pathname.split('/')[1] === ChainType.C_CHAIN
       ? getCchainOverreview
       : getXPchainOverreview,
   );
-  const handleClick = () => {
+  const handleClick = async () => {
     if (
-      location.pathname.split('/')[1] === 'c-chain' &&
+      location.pathname.split('/')[1] === ChainType.C_CHAIN &&
       gasFeesLoading !== 'loading' &&
       transactionsLoading !== 'loading' &&
       status !== 'loading'
@@ -48,16 +50,16 @@ export default function GlobalReloadButton({
       dispatch(loadNumberOfTransactions(frameTime));
       dispatch(loadTotalGasFess(frameTime));
     } else if (
-      (location.pathname.split('/')[1] === 'x-chain' ||
-        location.pathname.split('/')[1] === 'p-chain') &&
+      (location.pathname.split('/')[1] === ChainType.X_CHAIN ||
+        location.pathname.split('/')[1] === ChainType.P_CHAIN) &&
       gasFeesLoading !== 'loading' &&
       transactionsLoading !== 'loading' &&
       status !== 'loading'
     ) {
       let chainId =
-        location.pathname.split('/')[1] === 'x-chain'
-          ? '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV'
-          : '11111111111111111111111111111111LpoYY';
+        location.pathname.split('/')[1] === ChainType.X_CHAIN
+          ? await getChainID(ChainType.X_CHAIN)
+          : await getChainID(ChainType.P_CHAIN);
       dispatch(
         loadNumberOfPXTransactions({
           timeframe: timeFrameXPchain,

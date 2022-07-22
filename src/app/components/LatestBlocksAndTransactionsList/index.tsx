@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Grid } from '@mui/material';
 import { BlockTableData } from 'types/block';
 import { CTransaction } from 'types/transaction';
-import { CBLOCKS, CTRANSACTIONS } from 'types/constants';
+import { CBLOCKS, CTRANSACTIONS } from 'utils/route-paths';
 import BlockList from './BlockList';
 import TransactionsList from './TransactionsList';
 
