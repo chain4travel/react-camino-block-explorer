@@ -70,8 +70,9 @@ export default function NetworkSelect() {
   };
   React.useEffect(() => {
     setNetwork(nameOfActiveNetwork(networks, activeNetwork));
-    if (activeNetwork === 'camino-testnet') navigate('/');
-    else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+    // if (activeNetwork === 'camino-testnet') navigate('/');
+    // else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+    if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
   }, [activeNetwork]); // eslint-disable-line
 
   return (
