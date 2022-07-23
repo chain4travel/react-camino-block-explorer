@@ -61,11 +61,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
           <Chip
             label={type}
             size="small"
-            style={{
-              minWidth: '61px',
-              height: 'min-content',
-              fontSize: '11px',
-            }}
+            style={{ minWidth: '61px', height: 'min-content' }}
           />
         </Grid>
       </Grid>

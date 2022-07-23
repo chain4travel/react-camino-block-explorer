@@ -143,7 +143,7 @@ export const Field = ({
       <Chip
         label={value === 0 ? 'Legacy' : 'EIP1559'}
         size="small"
-        style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
+        style={{ minWidth: '61px', height: 'min-content' }}
       />
     );
   } else if (type === 'timestamp') {

@@ -360,6 +360,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#E2E8F0',
+          fontSize: '0.6875rem',
         },
       },
     },
@@ -415,6 +416,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#1E293B',
+          fontSize: '0.6875rem',
         },
       },
     },

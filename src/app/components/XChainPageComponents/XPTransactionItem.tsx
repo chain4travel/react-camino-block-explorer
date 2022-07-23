@@ -81,7 +81,7 @@ const XPTransactionFirstSection = ({
           <Chip
             label={type}
             size="small"
-            sx={{ minWidth: '50px', height: '20px', fontSize: '11px' }}
+            sx={{ minWidth: '50px', height: '20px' }}
           />
         </Grid>
       </Grid>

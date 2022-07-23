@@ -132,11 +132,7 @@ const GridItem = ({ transaction }) => {
         <Chip
           label={transaction.type}
           size="small"
-          style={{
-            minWidth: '61px',
-            height: 'min-content',
-            fontSize: '11px',
-          }}
+          style={{ minWidth: '61px', height: 'min-content' }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -208,7 +204,7 @@ const CustomRow = ({ transaction }) => {
         <Chip
           label={transaction.type}
           size="small"
-          style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
+          style={{ minWidth: '61px', height: 'min-content' }}
         />
       </TableCell>
       <TableCell align="left">

@@ -74,7 +74,7 @@ const CustomRow = ({ transaction }) => {
         <Chip
           label={transaction.direction}
           size="small"
-          style={{ minWidth: '61px', height: 'min-content', fontSize: '11px' }}
+          style={{ minWidth: '61px', height: 'min-content' }}
         />
       </TableCell>
       <TableCell
