@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { ChainType } from 'utils/types/chain-type';
 import { AddressSection } from './AddressSection';
 import { InputOutputSection } from './InputOutputSection';
+import { getChainID } from 'api/utils';
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
   return {
@@ -22,12 +23,6 @@ export function createTransaction(magellanTransaction: MagellanXPTransaction) {
     status: 'accepted', //TODO: set dynamically when magellan delivers this information
     memo: convertMemo(magellanTransaction.memo),
   };
-}
-
-function getChainID(location) {
-  if (location === 'X')
-    return '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
-  else if (location === 'P') return '11111111111111111111111111111111LpoYY';
 }
 
 export async function loadBlocksAndTransactions({
@@ -58,7 +53,7 @@ export default function XPAddressView({ chainType }: { chainType: ChainType }) {
   const [rows, setRows] = React.useState<any[]>([]);
   const location = useLocation();
 
-  const CHAIN_ID = getChainID(location.pathname.split('/')[3][0]);
+  const CHAIN_ID = getChainID(location.pathname.split('/')[3][0].toLowerCase());
   const loadMore = React.useCallback(() => {
     setLoading(true);
     loadItems();

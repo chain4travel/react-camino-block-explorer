@@ -20,11 +20,11 @@ import {
   getValidatorsStatus,
 } from 'store/validatorsSlice';
 import { XTRANSACTIONS } from 'utils/route-paths';
-
-const CHAIN_ID = '28Pp3JZJBABUmFQcC9ZXPjuDS6WVX8LeQP9y3DvpCXGiNiTQFV';
+import { getChainID } from 'api/utils';
 
 export default function XChainPage() {
   const dispatch = useAppDispatch();
+  const CHAIN_ID = getChainID('x');
   const transactions = useAppSelector(selectAllXTransactions);
   const status = useAppSelector(getXPchainStatus);
   // const error = useAppSelector(getXchainError);

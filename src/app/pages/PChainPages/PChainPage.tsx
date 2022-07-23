@@ -20,11 +20,11 @@ import {
   getValidatorsStatus,
 } from 'store/validatorsSlice';
 import { PTRANSACTIONS } from 'utils/route-paths';
-
-const CHAIN_ID = '11111111111111111111111111111111LpoYY';
+import { getChainID } from 'api/utils';
 
 export default function PChainPage() {
   const dispatch = useAppDispatch();
+  const CHAIN_ID = getChainID('p');
   const transactions = useAppSelector(selectAllPTransactions);
   const status = useAppSelector(getXPchainStatus);
   const {

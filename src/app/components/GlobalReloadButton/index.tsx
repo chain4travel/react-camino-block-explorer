@@ -58,8 +58,8 @@ export default function GlobalReloadButton({
     ) {
       let chainId =
         location.pathname.split('/')[1] === ChainType.X_CHAIN
-          ? await getChainID(ChainType.X_CHAIN)
-          : await getChainID(ChainType.P_CHAIN);
+          ? getChainID(ChainType.X_CHAIN)
+          : getChainID(ChainType.P_CHAIN);
       dispatch(
         loadNumberOfPXTransactions({
           timeframe: timeFrameXPchain,
