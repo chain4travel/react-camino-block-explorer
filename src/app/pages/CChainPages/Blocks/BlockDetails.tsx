@@ -107,7 +107,7 @@ export default function BlockDetails() {
 const TransactionsView = ({ loading, blockDetails }) => {
   return (
     <LoadingWrapper loading={loading} failedLoadingMsg="">
-      {blockDetails && (
+      {blockDetails?.transactions?.length > 0 && (
         <Grid item xs={12} lg={12}>
           <TransactionsList
             title="Block Transactions"
