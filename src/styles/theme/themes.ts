@@ -49,6 +49,13 @@ interface PaletteWithCustomColors extends Palette {
     background: string;
     border: string;
   };
+  searchResultItem: {
+    bg_CB: string;
+    bg_AD: string;
+    bg_CT: string;
+    bg_PT: string;
+    bg_XT: string;
+  };
 }
 
 export const LightThemePalette: Partial<PaletteWithCustomColors> = {
@@ -114,6 +121,13 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     background: '#F8FAFC',
     border: '#CBD5E1',
   },
+  searchResultItem: {
+    bg_CB: '#149EED',
+    bg_AD: '#21BA45',
+    bg_CT: '#31CCEC',
+    bg_PT: '#35E9AD',
+    bg_XT: '#B440FC',
+  },
 };
 
 export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
@@ -178,6 +192,13 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
   titleCard: {
     background: '#1E293B',
     border: '#64748B',
+  },
+  searchResultItem: {
+    bg_CB: '#149EED',
+    bg_AD: '#21BA45',
+    bg_CT: '#31CCEC',
+    bg_PT: '#35E9AD',
+    bg_XT: '#B440FC',
   },
 };
 
