@@ -42,12 +42,12 @@ export function Footer() {
         }}
       >
         <Container
-          fixed
           maxWidth="xl"
           sx={{
             marginTop: '15px',
             paddingLeft: '0px !important',
             paddingRight: '0px !important',
+            my: '0px !important',
           }}
         >
           <Grid container spacing={4}>

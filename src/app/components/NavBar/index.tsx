@@ -24,10 +24,10 @@ export function NavBar() {
         boxShadow: `0px 1px 3px ${themeMode ? '#eeeeee' : '#424242'}`,
         backgroundColor: 'primary.dark',
         backgroundImage: 'none',
+        borderRadius: '0px',
       }}
     >
       <Container
-        fixed
         maxWidth="xl"
         sx={{
           paddingLeft: '0px !important',
