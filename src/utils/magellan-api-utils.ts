@@ -4,6 +4,8 @@ export const transactionApi = baseEndpoint + '/transactions';
 
 export const cTransactionApi = baseEndpoint + '/ctransactions';
 
+export const xpTransactionApi = baseEndpoint + '/transactions';
+
 export const cBlocksApi = baseEndpoint + '/cblocks';
 
 export const cBlocksDetailsApi = baseEndpoint + '/ctxdata';

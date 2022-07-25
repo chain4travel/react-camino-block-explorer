@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Box, Chip } from '@mui/material';
-import { getAddressLink } from 'utils/route-utils';
 import { getRelativeTime } from 'utils/display-utils';
 import AddressLink from 'app/components/AddressLink';
 import { useLocation } from 'react-router-dom';
@@ -19,7 +18,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
       >
         <Grid item xs={12}>
           <AddressLink
-            to={`/${chainType}/address/${getAddressLink(chainType, id)}`}
+            to={`/${chainType}/transactions/${id}`}
             value={id}
             typographyVariant="subtitle1"
             truncate={true}
