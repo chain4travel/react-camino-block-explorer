@@ -1,5 +1,6 @@
 import { Status } from 'types';
 import { BlockDetail, BlockTableData } from './block';
+import { MagellanTransaction } from './magellan-types';
 import { CTransaction, TranscationDetails, XPTransaction } from './transaction';
 
 export interface Chain {
@@ -29,9 +30,12 @@ export interface Network {
 
 export interface initialCchainStateType {
   transactionCount: number;
+  currentIndex: number;
   blockCount: number;
   blocks: BlockTableData[];
   transactions: CTransaction[];
+  transactionsNavigation: MagellanTransaction[];
+  loadNextPrevStatus: Status;
   status: Status;
   error: undefined | string;
   timeFrame: string;

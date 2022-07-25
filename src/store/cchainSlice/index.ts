@@ -17,13 +17,20 @@ import {
   loadTotalGasFess,
 } from './utils';
 import { MagellanBlock, MagellanTransaction } from 'types/magellan-types';
+import {
+  fetchNextTransactionDetails,
+  fetchPrevTransactionDetails,
+} from 'app/pages/CChainPages/Transactions/utils';
 
 const initialState: initialCchainStateType = {
   transactionCount: NaN,
   blockCount: NaN,
   blocks: [],
+  currentIndex: 0,
   transactions: [],
+  transactionsNavigation: [],
   status: Status.IDLE,
+  loadNextPrevStatus: Status.IDLE,
   error: undefined,
   blockDetail: undefined,
   transcationDetails: undefined,
@@ -44,6 +51,9 @@ const cchainSlice = createSlice({
   reducers: {
     changetimeFrame(state, action) {
       state.timeFrame = action.payload;
+    },
+    changeCurrentIndex(state, action) {
+      state.currentIndex = action.payload;
     },
   },
   extraReducers(builder) {
@@ -168,6 +178,7 @@ const cchainSlice = createSlice({
       })
       .addCase(fetchTransactionDetails.fulfilled, (state, { payload }) => {
         let transactionInformations: TransactionInformations = {
+          hash: payload.hash,
           type: payload.type,
           block: payload.block,
           createdAt: new Date(payload.createdAt),
@@ -192,7 +203,35 @@ const cchainSlice = createSlice({
       })
       .addCase(fetchTransactionDetails.rejected, (state, action) => {
         state.loadTransactionDetails = Status.FAILED;
+      })
+      .addCase(fetchPrevTransactionDetails.pending, (state, action) => {
+        state.loadNextPrevStatus = Status.LOADING;
+      })
+      .addCase(fetchPrevTransactionDetails.fulfilled, (state, { payload }) => {
+        let res = payload.map(item => {
+          return { block: parseInt(item.block), hash: item.hash };
+        });
+        state.transactionsNavigation = [
+          ...res.slice(1).reverse(),
+          ...state.transactionsNavigation,
+        ];
+        state.loadNextPrevStatus = Status.SUCCEEDED;
+      })
+      // .addCase(fetchPrevTransactionDetails.rejected, (state, action) => {})
+      .addCase(fetchNextTransactionDetails.pending, (state, action) => {
+        state.loadNextPrevStatus = Status.LOADING;
+      })
+      .addCase(fetchNextTransactionDetails.fulfilled, (state, { payload }) => {
+        let res = payload.map(item => {
+          return { block: parseInt(item.block), hash: item.hash };
+        });
+        state.transactionsNavigation = [
+          ...state.transactionsNavigation,
+          ...res,
+        ];
+        state.loadNextPrevStatus = Status.SUCCEEDED;
       });
+    // .addCase(fetchNextTransactionDetails.rejected, (state, action) => {});
   },
 });
 
@@ -227,7 +266,14 @@ export const getCTransactionCurrencuy = (state: RootState) =>
 export const getCTransactionDetailsStatus = (state: RootState) =>
   state.cchain.loadTransactionDetails;
 
+// Select TransactionNavigation
+export const getNextPrevTx = (state: RootState) =>
+  state.cchain.transactionsNavigation;
+
+export const getNextPrevStatus = (state: RootState) =>
+  state.cchain.loadNextPrevStatus;
+
 // actions
-export const { changetimeFrame } = cchainSlice.actions;
+export const { changetimeFrame, changeCurrentIndex } = cchainSlice.actions;
 // reduceer
 export default cchainSlice.reducer;

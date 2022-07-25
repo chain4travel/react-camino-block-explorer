@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
+import { Grid, Paper, Typography, useTheme, Box, Button } from '@mui/material';
 // import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
@@ -7,9 +7,12 @@ import { useLocation } from 'react-router-dom';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
+  changeCurrentIndex,
   getCTransactionCurrencuy,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
+  getNextPrevStatus,
+  getNextPrevTx,
 } from 'store/cchainSlice';
 import { Status } from 'types';
 import PageContainer from 'app/components/PageContainer';
@@ -19,19 +22,41 @@ import DetailsField from 'app/components/DetailsField';
 import Icon from '@mdi/react';
 import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './TransactionDetailView';
+import {
+  fetchNextTransactionDetails,
+  fetchPrevTransactionDetails,
+  getNextPrevTransaction,
+  TrimmedTransactionDetails,
+} from './utils';
 
 export default function TransactionDetails() {
   const theme = useTheme();
   const detailTr = useAppSelector(getCTransactionInformations);
   const detailCr = useAppSelector(getCTransactionCurrencuy);
   const loading = useAppSelector(getCTransactionDetailsStatus);
+  const getNPStatus = useAppSelector(getNextPrevStatus);
+  const NextPrevTX = useAppSelector(getNextPrevTx);
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
   useEffectOnce(() => {
     dispatch(fetchTransactionDetails(address));
   });
-
+  React.useEffect(() => {
+    if (detailTr && getNPStatus === Status.IDLE) {
+      let args: TrimmedTransactionDetails = {
+        address: detailTr?.fromAddr,
+        blockNumber: detailTr?.block,
+        transactionID: 0,
+      };
+      dispatch(fetchPrevTransactionDetails(args));
+      dispatch(fetchNextTransactionDetails(args));
+    }
+  }, [detailTr]);
+  React.useEffect(() => {
+    if (NextPrevTX.length > 0)
+      dispatch(changeCurrentIndex(Math.floor(NextPrevTX.length / 2)));
+  }, [NextPrevTX]);
   return (
     <PageContainer
       pageTitle="C TransactionDetails"
@@ -68,12 +93,51 @@ export default function TransactionDetails() {
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
               C-Chain Transaction
             </Typography>
+            <Button
+              disabled={
+                getNPStatus === Status.LOADING || loading === Status.LOADING
+              }
+              sx={{ color: 'white' }}
+              onClick={() => {
+                console.log('prev');
+                if (
+                  getNPStatus !== Status.LOADING &&
+                  loading !== Status.LOADING
+                ) {
+                  dispatch(getNextPrevTransaction(true, detailTr));
+                }
+                // if (loading !== Status.LOADING && load !== Status.LOADING) {
+                //   let r = getNextPrevTransaction(id, true, detailTr);
+                //   dispatch(r);
+                // }
+              }}
+            >
+              prev
+            </Button>
+            <Button
+              sx={{ color: 'white' }}
+              onClick={() => {
+                console.log('next');
+                if (
+                  getNPStatus !== Status.LOADING &&
+                  loading !== Status.LOADING
+                ) {
+                  dispatch(getNextPrevTransaction(false, detailTr));
+                }
+                // if (loading !== Status.LOADING && load !== Status.LOADING) {
+                //   let r = getNextPrevTransaction(id, false, detailTr);
+                //   dispatch(r);
+                // }
+              }}
+            >
+              next
+            </Button>
           </Grid>
           {loading === Status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
                 field="Transaction"
-                value={address}
+                value={detailTr?.hash}
                 type="string"
                 icon={
                   <Icon

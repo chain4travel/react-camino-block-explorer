@@ -85,6 +85,7 @@ export interface CAddressTransactionTableData {
 }
 
 export interface TransactionInformations {
+  hash: string;
   type: number;
   block: number;
   createdAt: Date;
