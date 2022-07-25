@@ -12,7 +12,7 @@ import useWidth from 'app/hooks/useWidth';
 import React from 'react';
 import { BlockType } from 'types/block';
 import { getRelativeTime } from 'utils/display-utils';
-import { CADDRESS, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
+import { CADDRESSPATH, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
 
 interface Props {
   transaction: BlockType;
@@ -106,7 +106,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`${CADDRESS}/${transaction.from}`}
+          to={`${CADDRESSPATH}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -117,7 +117,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`${CADDRESS}/${transaction.to}`}
+          to={`${CADDRESSPATH}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}
@@ -179,7 +179,7 @@ const GridItem = ({ transaction }) => {
           From
         </Typography>
         <AddressLink
-          to={`${CADDRESS}/${transaction.from}`}
+          to={`${CADDRESSPATH}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -190,7 +190,7 @@ const GridItem = ({ transaction }) => {
           To
         </Typography>
         <AddressLink
-          to={`${CADDRESS}/${transaction.to}`}
+          to={`${CADDRESSPATH}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}
