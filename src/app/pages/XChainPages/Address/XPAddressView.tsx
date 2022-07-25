@@ -8,7 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { ChainType } from 'utils/types/chain-type';
 import { AddressSection } from './AddressSection';
 import { InputOutputSection } from './InputOutputSection';
-import { getChainID } from 'api/utils';
+import { getBaseUrl, getChainID } from 'api/utils';
+import { xpTransactionApi } from 'utils/magellan-api-utils';
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
   return {
@@ -32,7 +33,7 @@ export async function loadBlocksAndTransactions({
   chainID,
 }) {
   return await axios.get(
-    `https://magellan.columbus.camino.foundation/v2/transactions?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
+    `${getBaseUrl()}${xpTransactionApi}?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
   );
 }
 
