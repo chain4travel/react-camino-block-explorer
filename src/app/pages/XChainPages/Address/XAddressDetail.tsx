@@ -12,6 +12,8 @@ import { CamAmount } from 'app/components/CamAmount';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { ChainType } from 'utils/types/chain-type';
 import { mdiFileDocumentOutline } from '@mdi/js';
+import { getBaseUrl } from 'api/utils';
+import { addressesApi, assetsApi } from 'utils/magellan-api-utils';
 
 const tabOptions = [
   {
@@ -21,9 +23,7 @@ const tabOptions = [
 ];
 
 async function loadAssets() {
-  const loadedAssets = (
-    await axios.get(`https://magellan.columbus.camino.foundation/v2/assets`)
-  ).data;
+  const loadedAssets = (await axios.get(`${getBaseUrl()}${assetsApi}`)).data;
   const newElements = new Map();
   if (loadedAssets.assets) {
     loadedAssets.assets.forEach(element => {
@@ -52,9 +52,7 @@ export default function XAddressDetail() {
   async function loadBalances(address) {
     const assets = await loadAssets();
     const addressInfo = await (
-      await axios.get(
-        `https://magellan.columbus.camino.foundation/v2/addresses/${address}`,
-      )
+      await axios.get(`${getBaseUrl()}${addressesApi}/${address}`)
     ).data;
     const addressBalances: AddressBalance[] = [];
     if (addressInfo && addressInfo.assets) {
