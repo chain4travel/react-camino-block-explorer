@@ -60,7 +60,8 @@ function OutlinedSearchInput() {
           return [];
         });
       setMenuItems([]);
-      const numberOfResults = data.results.length > 5 ? 5 : data.results.length;
+      const numberOfResults =
+        data?.results?.length > 5 ? 5 : data?.results?.length;
       for (let i = 0; i < numberOfResults; i++) {
         const mapItem = (await mapToItem(
           data.results[i].type,
@@ -74,37 +75,6 @@ function OutlinedSearchInput() {
     search.length === 0,
   );
 
-  // const handleSearch = async search => {
-  //   if (!search || search.length < 1) {
-  //     setMenuItems([]);
-  //     return;
-  //   }
-  //   setLoading(true);
-  //   const data = await axios
-  //     .get(`${magellanAddress}${searchApi}?query=${search}`)
-  //     .then(res => {
-  //       return res.data;
-  //     })
-  //     .catch((err: AxiosError) => {
-  //       setLoading(false);
-  //       return [];
-  //     });
-  //   setMenuItems([]);
-  //   const numberOfResults = data.results.length > 5 ? 5 : data.results.length;
-  //   for (let i = 0; i < numberOfResults; i++) {
-  //     const mapItem = (await mapToItem(
-  //       data.results[i].type,
-  //       data.results[i].data,
-  //     )) as SearchMenuItem;
-  //     setMenuItems(prev => [...prev, mapItem]);
-  //   }
-  //   setLoading(false);
-  // };
-
-  useEffect(() => {
-    handleSearch();
-  }, [search]); // eslint-disable-line
-
   const handleClick = () => {
     if (search.length > 0 || loading) setOpen(true);
     else setOpen(prev => !prev);
@@ -112,6 +82,10 @@ function OutlinedSearchInput() {
   const handleClickAway = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [search]); // eslint-disable-line
 
   return (
     <Box
@@ -336,43 +310,28 @@ const SearchResult = ({ open, loading, menuItems, search }) => {
           <SearchResultMenuList menuItems={menuItems} />
         </SearchResultMenu>
       );
+    } else if (
+      search.startsWith('0') &&
+      search.length !== 36 &&
+      search.length !== 42 &&
+      menuItems.length === 0
+    ) {
+      return (
+        // this should be updated to be more specific
+        <SearchResultMenu>
+          <MenuList>
+            <MenuItem
+              key="no-results"
+              sx={{ gap: '10px', justifyContent: 'center' }}
+            >
+              <Typography variant="body2" component="p" noWrap>
+                No results found
+              </Typography>
+            </MenuItem>
+          </MenuList>
+        </SearchResultMenu>
+      );
     }
-  } else if (search.length > 0 && menuItems.length === 0) {
-    return (
-      <SearchResultMenu>
-        <MenuList>
-          <MenuItem
-            key="loading"
-            sx={{ gap: '10px', justifyContent: 'center' }}
-          >
-            <Typography variant="body2" component="p" noWrap>
-              No results found
-            </Typography>
-          </MenuItem>
-        </MenuList>
-      </SearchResultMenu>
-    );
-  } else if (
-    search.startsWith('0') &&
-    search.length !== 36 &&
-    search.length !== 42 &&
-    menuItems.length === 0
-  ) {
-    // this should be updated to be more specific
-    return (
-      <SearchResultMenu>
-        <MenuList>
-          <MenuItem
-            key="loading"
-            sx={{ gap: '10px', justifyContent: 'center' }}
-          >
-            <Typography variant="body2" component="p" noWrap>
-              No results found
-            </Typography>
-          </MenuItem>
-        </MenuList>
-      </SearchResultMenu>
-    );
-  } else return null;
+  }
   return null;
 };
