@@ -30,7 +30,7 @@ export async function mapToItem(
         type: type,
         link: getBlockDetailsPath(ChainType.C_CHAIN, cBlockData.number),
         avatar: 'CB',
-        avatarColor: 'primary',
+        avatarColor: 'searchResultItem.bg_CB',
       };
     case MagellanSearchResultElementType.C_ADDRESS:
       const cAddressData: MagellanCBlockSearchResult =
@@ -40,7 +40,7 @@ export async function mapToItem(
         type: type,
         link: getAddressDetailsPath(ChainType.C_CHAIN, cAddressData.hash),
         avatar: 'AD',
-        avatarColor: 'positive',
+        avatarColor: 'searchResultItem.bg_AD',
       };
     case MagellanSearchResultElementType.C_TRANSACTION:
       const cTransaction: MagellanCTransactionSearchResult =
@@ -50,7 +50,7 @@ export async function mapToItem(
         type: type,
         link: getTransactionDetailsPath(ChainType.C_CHAIN, cTransaction.hash),
         avatar: 'CT',
-        avatarColor: 'info',
+        avatarColor: 'searchResultItem.bg_CT',
       };
     case MagellanSearchResultElementType.XP_TRANSACTION:
       const xpTransaction: MagellanXPTransactionSearchResult =
@@ -65,14 +65,14 @@ export async function mapToItem(
           xpTransaction.id,
         );
         avatar = 'PT';
-        avatarColor = 'accent';
+        avatarColor = 'searchResultItem.bg_PT';
       } else {
         detailsLink = getTransactionDetailsPath(
           ChainType.X_CHAIN,
           xpTransaction.id,
         );
         avatar = 'XT';
-        avatarColor = 'secondary';
+        avatarColor = 'searchResultItem.bg_XT';
       }
       return {
         label: xpTransaction.id,

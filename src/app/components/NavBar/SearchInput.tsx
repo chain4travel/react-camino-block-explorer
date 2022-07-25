@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import useWidth from 'app/hooks/useWidth';
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import {
   MenuItem,
   MenuList,
@@ -25,18 +25,22 @@ import { searchApi } from 'utils/magellan-api-utils';
 
 function OutlinedSearchInput() {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const magellanAddress = useAppSelector(selectMagellanAddress);
   const [search, setSearch] = useState('');
   const [menuItems, setMenuItems] = useState([] as SearchMenuItem[]);
   const [timer, setTimer] = useState(0 as unknown as NodeJS.Timeout);
-  const magellanAddress = useAppSelector(selectMagellanAddress);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleSearch = () => {
+    setLoading(true);
     clearTimeout(timer);
     const newTimer = setTimeout(() => {
       debouncedSearch(search);
     }, 500);
     setTimer(newTimer);
+    setLoading(false);
   };
 
   const debouncedSearch = debounce(
@@ -45,12 +49,18 @@ function OutlinedSearchInput() {
         setMenuItems([]);
         return;
       }
-      const data = await (
-        await axios.get(`${magellanAddress}${searchApi}?query=${search}`)
-      ).data;
+      setLoading(true);
+      const data = await axios
+        .get(`${magellanAddress}${searchApi}?query=${search}`)
+        .then((res: AxiosResponse) => {
+          return res.data;
+        })
+        .catch((err: AxiosError) => {
+          setLoading(false);
+          return [];
+        });
       setMenuItems([]);
-      const numberOfResults =
-        data.results.length > 10 ? 10 : data.results.length;
+      const numberOfResults = data.results.length > 5 ? 5 : data.results.length;
       for (let i = 0; i < numberOfResults; i++) {
         const mapItem = (await mapToItem(
           data.results[i].type,
@@ -58,19 +68,46 @@ function OutlinedSearchInput() {
         )) as SearchMenuItem;
         setMenuItems(prev => [...prev, mapItem]);
       }
+      setLoading(false);
     },
     250,
     search.length === 0,
   );
 
+  // const handleSearch = async search => {
+  //   if (!search || search.length < 1) {
+  //     setMenuItems([]);
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   const data = await axios
+  //     .get(`${magellanAddress}${searchApi}?query=${search}`)
+  //     .then(res => {
+  //       return res.data;
+  //     })
+  //     .catch((err: AxiosError) => {
+  //       setLoading(false);
+  //       return [];
+  //     });
+  //   setMenuItems([]);
+  //   const numberOfResults = data.results.length > 5 ? 5 : data.results.length;
+  //   for (let i = 0; i < numberOfResults; i++) {
+  //     const mapItem = (await mapToItem(
+  //       data.results[i].type,
+  //       data.results[i].data,
+  //     )) as SearchMenuItem;
+  //     setMenuItems(prev => [...prev, mapItem]);
+  //   }
+  //   setLoading(false);
+  // };
+
   useEffect(() => {
     handleSearch();
   }, [search]); // eslint-disable-line
 
-  const [open, setOpen] = React.useState(false);
-
   const handleClick = () => {
-    setOpen(prev => !prev);
+    if (search.length > 0 || loading) setOpen(true);
+    else setOpen(prev => !prev);
   };
   const handleClickAway = () => {
     setOpen(false);
@@ -135,52 +172,12 @@ function OutlinedSearchInput() {
               }
             }}
           />
-          {open && menuItems.length > 0 ? (
-            <Box
-              sx={{
-                width: '100%',
-                height: 'auto',
-                maxHeight: '300px',
-                position: 'absolute',
-                zIndex: 999,
-                top: '100%',
-                overflowY: 'scroll',
-                overflowX: 'hidden',
-                borderRadius: '7px',
-                backgroundColor: 'primary.light',
-                color: 'primary.contrastText',
-                marginTop: '8px',
-              }}
-            >
-              <MenuList>
-                {menuItems.map(item => (
-                  <MenuItem
-                    key={item.label}
-                    onClick={() => {
-                      window.location.href = item.link;
-                    }}
-                    sx={{ gap: '10px' }}
-                  >
-                    <ListItemIcon>
-                      <Avatar
-                        style={{
-                          backgroundColor: item.avatarColor,
-                          color: 'primary.contrastText',
-                          width: 30,
-                          height: 30,
-                        }}
-                      >
-                        <Typography variant="caption">{item.avatar}</Typography>
-                      </Avatar>
-                    </ListItemIcon>
-                    <Typography variant="body2" component="p" noWrap>
-                      {item.label}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Box>
-          ) : null}
+          <SearchResult
+            open={open}
+            menuItems={menuItems}
+            loading={loading}
+            search={search}
+          />
         </Box>
       </ClickAwayListener>
     </Box>
@@ -260,3 +257,122 @@ export default function SearchInput() {
     </>
   );
 }
+
+const SearchResultMenu = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        height: 'auto',
+        maxHeight: '300px',
+        position: 'absolute',
+        zIndex: 999,
+        top: '100%',
+        overflowX: 'hidden',
+        borderRadius: '7px',
+        backgroundColor: 'primary.light',
+        color: 'primary.contrastText',
+        marginTop: '8px',
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
+
+const SearchResultMenuList = ({ menuItems }) => {
+  return (
+    <MenuList>
+      {menuItems.map(item => (
+        <MenuItem
+          key={item.label}
+          onClick={() => {
+            window.location.href = item.link;
+          }}
+          sx={{ gap: '10px' }}
+        >
+          <ListItemIcon>
+            <Avatar
+              sx={{
+                backgroundColor: item.avatarColor,
+                color: 'primary.contrastText',
+                width: 30,
+                height: 30,
+                borderRadius: '12px',
+              }}
+            >
+              <Typography variant="caption">{item.avatar}</Typography>
+            </Avatar>
+          </ListItemIcon>
+          <Typography variant="body2" component="p" noWrap>
+            {item.label}
+          </Typography>
+        </MenuItem>
+      ))}
+    </MenuList>
+  );
+};
+
+const SearchResult = ({ open, loading, menuItems, search }) => {
+  if (open && loading) {
+    return (
+      <SearchResultMenu>
+        <MenuList>
+          <MenuItem
+            key="loading"
+            sx={{ gap: '10px', justifyContent: 'center' }}
+          >
+            <Typography variant="body2" component="p" noWrap>
+              Loading...
+            </Typography>
+          </MenuItem>
+        </MenuList>
+      </SearchResultMenu>
+    );
+  } else if (open && !loading) {
+    if (menuItems.length > 0) {
+      return (
+        <SearchResultMenu>
+          <SearchResultMenuList menuItems={menuItems} />
+        </SearchResultMenu>
+      );
+    }
+  } else if (search.length > 0 && menuItems.length === 0) {
+    return (
+      <SearchResultMenu>
+        <MenuList>
+          <MenuItem
+            key="loading"
+            sx={{ gap: '10px', justifyContent: 'center' }}
+          >
+            <Typography variant="body2" component="p" noWrap>
+              No results found
+            </Typography>
+          </MenuItem>
+        </MenuList>
+      </SearchResultMenu>
+    );
+  } else if (
+    search.startsWith('0') &&
+    search.length !== 36 &&
+    search.length !== 42 &&
+    menuItems.length === 0
+  ) {
+    // this should be updated to be more specific
+    return (
+      <SearchResultMenu>
+        <MenuList>
+          <MenuItem
+            key="loading"
+            sx={{ gap: '10px', justifyContent: 'center' }}
+          >
+            <Typography variant="body2" component="p" noWrap>
+              No results found
+            </Typography>
+          </MenuItem>
+        </MenuList>
+      </SearchResultMenu>
+    );
+  } else return null;
+  return null;
+};
