@@ -6,13 +6,29 @@ export const PCHAIN = '/p-chain';
 
 export const MAINNET = '/mainnet';
 
-export const WALLET = 'https://wallet.camino.foundation/';
-
-export const DOCS = 'https://docs.camino.foundation/';
-
 export const CTRANSACTIONS = CCHAIN + '/transactions';
 
 export const CBLOCKS = CCHAIN + '/blocks';
+
+export const CADDRESS = CCHAIN + '/addresses';
+
+export const XTRANSACTIONS = XCHAIN + '/transactions';
+
+export const XBLOCKS = XCHAIN + '/blocks';
+
+export const XADDRESS = XCHAIN + '/address';
+
+export const PTRANSACTIONS = PCHAIN + '/transactions';
+
+export const PBLOCKS = PCHAIN + '/blocks';
+
+export const PADDRESS = PCHAIN + '/address';
+
+export const VALIDATORS = '/validators';
+
+export const WALLET = 'https://wallet.camino.foundation/';
+
+export const DOCS = 'https://docs.camino.foundation/';
 
 export const DISCORD = 'https://discord.gg/K5THjAweFB';
 

@@ -1,12 +1,19 @@
-import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
+import {
+  Grid,
+  Paper,
+  TableCell,
+  TableRow,
+  Typography,
+  Chip,
+} from '@mui/material';
 import AddressLink from 'app/components/AddressLink';
-import Chip from 'app/components/Chip';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
 import { getRelativeTime } from 'utils/display-utils';
 import { getAddressLink } from 'utils/route-utils';
 import { ChainType } from 'utils/types/chain-type';
+import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
 
 interface Props {
   transaction: any;
@@ -70,10 +77,10 @@ const GridItem = ({ transaction }) => {
           Hash
         </Typography>
         <AddressLink
-          to={`/x-chain/transactions/${transaction.hash}`}
+          to={`${XTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body1"
-          truncate={false}
+          truncate={true}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -82,8 +89,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         {transaction.from[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.from[0]?.address,
             )}`}
             value={transaction.from[0]?.address}
@@ -100,8 +107,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         {transaction.to[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.to[0]?.address,
             )}`}
             value={transaction.to[0]?.address}
@@ -124,11 +131,8 @@ const GridItem = ({ transaction }) => {
         </Typography>
         <Chip
           label={transaction.type}
-          style={{
-            minWidth: '61px',
-            height: 'min-content',
-            backgroundColor: '#0F172A',
-          }}
+          size="small"
+          style={{ minWidth: '61px', height: 'min-content' }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -149,7 +153,7 @@ const CustomRow = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`/x-chain/transactions/${transaction.hash}`}
+          to={`${XTRANSACTIONS}/${transaction.hash}`}
           value={transaction.hash}
           typographyVariant="body1"
           truncate={true}
@@ -161,8 +165,8 @@ const CustomRow = ({ transaction }) => {
       >
         {transaction.from[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.from[0]?.address,
             )}`}
             value={transaction.from[0]?.address}
@@ -179,8 +183,8 @@ const CustomRow = ({ transaction }) => {
       >
         {transaction.to[0]?.address ? (
           <AddressLink
-            to={`/x-chain/address/${getAddressLink(
-              'x-chain' as ChainType,
+            to={`${XADDRESS}/${getAddressLink(
+              ChainType.X_CHAIN,
               transaction.to[0]?.address,
             )}`}
             value={transaction.to[0]?.address}
@@ -196,9 +200,10 @@ const CustomRow = ({ transaction }) => {
           {getRelativeTime(transaction.timestamp as number) + ' ago '}
         </Typography>
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="center">
         <Chip
           label={transaction.type}
+          size="small"
           style={{ minWidth: '61px', height: 'min-content' }}
         />
       </TableCell>

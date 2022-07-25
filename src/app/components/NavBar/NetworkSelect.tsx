@@ -1,24 +1,32 @@
 import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import { Box } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { getCchainStatus } from 'store/cchainSlice';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  FormControl,
+  Typography,
+  Modal,
+  TextField,
+  Chip,
+} from '@mui/material';
 import {
   getActiveNetwork,
   getNetworks,
   changeNetwork,
   addCustomNetwork,
+  removeCustomNetwork,
 } from 'store/app-config';
+import { getCchainStatus } from 'store/cchainSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
 import { useAppSelector } from 'store/configureStore';
-import { Typography, Modal, TextField } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
+import Icon from '@mdi/react';
 
 function SelectedNetwork({
   value,
@@ -35,9 +43,12 @@ function SelectedNetwork({
         alignItems: 'center',
       }}
     >
-      <FiberManualRecordIcon
-        color={networkStatus === 'failed' ? 'error' : 'success'}
-        style={{ width: '12px' }}
+      <Chip
+        sx={{
+          width: '8px',
+          height: '8px',
+          backgroundColor: networkStatus === 'failed' ? '#DD5E56' : '#35E9AD',
+        }}
       />
       <Box
         style={{
@@ -75,6 +86,18 @@ export default function NetworkSelect() {
     if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
   }, [activeNetwork]); // eslint-disable-line
 
+  const handleRemoveCustomNetwork = (id: string) => {
+    const customNetworks = JSON.parse(
+      localStorage.getItem('customNetworks') || '[]',
+    );
+    const newCustomNetworks = customNetworks.filter(
+      network => network.id !== id,
+    );
+    localStorage.setItem('customNetworks', JSON.stringify(newCustomNetworks));
+    dispatch(changeNetwork('Columbus'));
+    dispatch(removeCustomNetwork(id));
+  };
+
   return (
     <Box
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -83,7 +106,7 @@ export default function NetworkSelect() {
         variant="outlined"
         onChange={handleChange}
         value={network}
-        IconComponent={KeyboardArrowDownRoundedIcon}
+        IconComponent={() => <Icon path={mdiChevronDown} size={1} />}
         renderValue={() => {
           return <SelectedNetwork value={network} networkStatus={status} />;
         }}
@@ -97,12 +120,37 @@ export default function NetworkSelect() {
             minWidth: '120px',
             width: '120px',
           },
+          '.MuiSelect-select': {
+            paddingRight: '0px !important',
+          },
         }}
       >
         {networks.map((item, index) => {
           return (
-            <MenuItem key={index} value={item.displayName}>
+            <MenuItem key={index} value={item.displayName} sx={{ gap: '10px' }}>
               {item.displayName}
+              {!item.predefined && (
+                <Button
+                  sx={{
+                    width: '30px',
+                    height: '30px',
+                    backgroundColor: 'secondary.main',
+                    borderRadius: '7px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      backgroundColor: 'secondary.main',
+                    },
+                  }}
+                  onClick={() => {
+                    handleRemoveCustomNetwork(item.id);
+                  }}
+                >
+                  <Icon path={mdiTrashCanOutline} size={0.7} color="white" />
+                </Button>
+              )}
             </MenuItem>
           );
         })}

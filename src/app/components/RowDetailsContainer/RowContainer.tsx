@@ -6,6 +6,7 @@ import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp';
 import BlockTxIcon from '../XChainPageComponents/BlockTxIcon';
+import { CBLOCKS } from 'utils/route-paths';
 
 function getNameFromType(type: string): string {
   switch (type) {
@@ -204,7 +205,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
             {(type === 'parentHash' || type === 'block') && (
               <Link
                 style={{ textDecoration: 'none' }}
-                to={`/c-chain/blocks/${parent}`}
+                to={`${CBLOCKS}/${parent}`}
                 replace={true}
               >
                 <Button

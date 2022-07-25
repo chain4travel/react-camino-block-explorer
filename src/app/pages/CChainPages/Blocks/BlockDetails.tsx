@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
+import { CTRANSACTIONS } from 'utils/route-paths';
 import LoadingWrapper from 'app/components/LoadingWrapper';
 import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
 import PageContainer from 'app/components/PageContainer';
@@ -106,12 +107,12 @@ export default function BlockDetails() {
 const TransactionsView = ({ loading, blockDetails }) => {
   return (
     <LoadingWrapper loading={loading} failedLoadingMsg="">
-      {blockDetails && (
+      {blockDetails?.transactions?.length > 0 && (
         <Grid item xs={12} lg={12}>
           <TransactionsList
             title="Block Transactions"
             items={blockDetails?.transactions}
-            to="/c-chain/transactions"
+            to={CTRANSACTIONS}
             link={false}
           />
         </Grid>

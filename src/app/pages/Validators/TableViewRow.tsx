@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { TableRow, TableCell } from '@mui/material';
+import { TableRow, TableCell, Chip } from '@mui/material';
 import { getRelativeTime } from 'utils/display-utils';
 import { Field } from 'app/components/DetailsField';
 import { ValidatorType } from 'types/store';
-import Chip from '@mui/material/Chip';
 
 export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
   return (

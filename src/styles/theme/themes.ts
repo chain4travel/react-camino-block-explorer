@@ -343,10 +343,8 @@ export const lightTheme = createTheme({
           borderRadius: '7px',
         },
         notchedOutline: {
-          border: '1px solid  !important',
-          ':where(fieldset)': {
-            border: '1px solid #CBD5E1 !important',
-          },
+          borderColor: '#CBD5E1 !important',
+          borderWidth: '1px !important',
         },
       },
     },
@@ -355,6 +353,14 @@ export const lightTheme = createTheme({
         paper: {
           backgroundImage: 'linear-gradient(#E2E8F0, #E2E8F0)',
           borderRadius: '0px',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#E2E8F0',
+          fontSize: '0.6875rem',
         },
       },
     },
@@ -378,6 +384,10 @@ export const darkTheme = createTheme({
         root: {
           borderRadius: '7px',
         },
+        notchedOutline: {
+          borderColor: '#1E293B !important',
+          borderWidth: '1px !important',
+        },
       },
     },
     MuiDrawer: {
@@ -399,6 +409,14 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderBottom: '1px solid #1E293B',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#1E293B',
+          fontSize: '0.6875rem',
         },
       },
     },

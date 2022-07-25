@@ -3,7 +3,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CCHAIN, XCHAIN, PCHAIN, WALLET, DOCS, MAINNET } from 'types/constants';
+import {
+  CCHAIN,
+  XCHAIN,
+  PCHAIN,
+  WALLET,
+  DOCS,
+  MAINNET,
+} from 'utils/route-paths';
+import { ChainType } from 'utils/types/chain-type';
 
 function a11yProps(index: number) {
   return {
@@ -13,11 +21,11 @@ function a11yProps(index: number) {
 }
 const activeTab = (path: string): number => {
   switch (path) {
-    case 'c-chain':
+    case ChainType.C_CHAIN:
       return 0;
-    case 'x-chain':
+    case ChainType.X_CHAIN:
       return 1;
-    case 'p-chain':
+    case ChainType.P_CHAIN:
       return 2;
   }
   return 0;

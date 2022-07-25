@@ -19,11 +19,12 @@ import {
   getValidatorsOverreview,
   getValidatorsStatus,
 } from 'store/validatorsSlice';
-
-const CHAIN_ID = '11111111111111111111111111111111LpoYY';
+import { PTRANSACTIONS } from 'utils/route-paths';
+import { getChainID } from 'api/utils';
 
 export default function PChainPage() {
   const dispatch = useAppDispatch();
+  const CHAIN_ID = getChainID('p');
   const transactions = useAppSelector(selectAllPTransactions);
   const status = useAppSelector(getXPchainStatus);
   const {
@@ -55,7 +56,7 @@ export default function PChainPage() {
         transactionsLoading={transactionsLoading}
         validatorsLoading={validatorsLoading}
       />
-      <XPTransactionList ShowAllLink="p-chain">
+      <XPTransactionList ShowAllLink={PTRANSACTIONS}>
         <LoadingWrapper
           loading={status}
           failedLoadingMsg="Failed to load transactions"

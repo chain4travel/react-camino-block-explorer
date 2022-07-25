@@ -20,7 +20,7 @@ import {
   GITHUB,
   DISCORD,
   WALLET,
-} from 'types/constants';
+} from 'utils/route-paths';
 import { ReactComponent as DarkLogo } from './assets/LogoDark.svg';
 import { ReactComponent as LightLogo } from './assets/LogoLight.svg';
 import { ReactComponent as Discord } from './assets/Discord.svg';
@@ -42,12 +42,12 @@ export function Footer() {
         }}
       >
         <Container
-          fixed
           maxWidth="xl"
           sx={{
             marginTop: '15px',
             paddingLeft: '0px !important',
             paddingRight: '0px !important',
+            my: '0px !important',
           }}
         >
           <Grid container spacing={4}>
