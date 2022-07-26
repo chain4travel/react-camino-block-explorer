@@ -4,6 +4,7 @@ import axios from 'axios';
 import { changeCurrentIndex } from 'store/cchainSlice';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { AppDispatch, RootState } from 'store/configureStore';
+import { Status } from 'types';
 import { TransactionInformations } from 'types/transaction';
 
 export interface TrimmedTransactionDetails {
@@ -22,15 +23,32 @@ export function getNextPrevTransaction(
   ) {
     let txs = getState().cchain.transactionsNavigation;
     let currentIndex = getState().cchain.currentIndex;
+    let loading = getState().cchain.loadTransactionDetails;
+    let load = getState().cchain.loadNextPrevStatus;
+    if (load === Status.LOADING || loading === Status.LOADING) return;
     if (direction) {
       if (currentIndex + 1 < txs.length) {
-        dispatch(changeCurrentIndex(currentIndex + 1));
         dispatch(fetchTransactionDetails(txs[currentIndex + 1].hash));
+        dispatch(changeCurrentIndex(currentIndex + 1));
+      } else {
+        let args: TrimmedTransactionDetails = {
+          address: txs[currentIndex]?.from,
+          blockNumber: parseInt(txs[currentIndex].block) + 1,
+          transactionID: 0,
+        };
+        dispatch(fetchNextTransactionDetails(args));
       }
     } else {
       if (currentIndex - 1 >= 0) {
-        dispatch(changeCurrentIndex(currentIndex - 1));
         dispatch(fetchTransactionDetails(txs[currentIndex - 1].hash));
+        dispatch(changeCurrentIndex(currentIndex - 1));
+      } else {
+        let args: TrimmedTransactionDetails = {
+          address: txs[currentIndex]?.from,
+          blockNumber: parseInt(txs[currentIndex].block),
+          transactionID: 0,
+        };
+        dispatch(fetchPrevTransactionDetails(args));
       }
     }
   };

@@ -41,6 +41,7 @@ export default function TransactionDetails() {
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
+
   useEffectOnce(() => {
     dispatch(fetchTransactionDetails(address));
   });
@@ -131,7 +132,7 @@ export default function TransactionDetails() {
                 }}
                 sx={{ width: '42px', height: '42px' }}
               >
-                <Icon path={mdiChevronLeft} size={1} />
+                <Icon path={mdiChevronRight} size={1} />
               </RoundButton>
             </Box>
           </SubPageTitle>
@@ -184,7 +185,7 @@ const RoundButton = ({
         minWidth: 'min-content',
         ...sx,
       }}
-      onClick={() => handleClick}
+      onClick={handleClick}
       {...props}
     >
       {children}

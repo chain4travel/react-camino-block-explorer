@@ -201,15 +201,19 @@ const cchainSlice = createSlice({
         };
         state.loadTransactionDetails = Status.SUCCEEDED;
       })
-      .addCase(fetchTransactionDetails.rejected, (state, action) => {
+      .addCase(fetchTransactionDetails.rejected, state => {
         state.loadTransactionDetails = Status.FAILED;
       })
-      .addCase(fetchPrevTransactionDetails.pending, (state, action) => {
+      .addCase(fetchPrevTransactionDetails.pending, state => {
         state.loadNextPrevStatus = Status.LOADING;
       })
       .addCase(fetchPrevTransactionDetails.fulfilled, (state, { payload }) => {
         let res = payload.map(item => {
-          return { block: parseInt(item.block), hash: item.hash };
+          return {
+            block: parseInt(item.block),
+            hash: item.hash,
+            from: item.from,
+          };
         });
         state.transactionsNavigation = [
           ...res.slice(1).reverse(),
@@ -218,12 +222,17 @@ const cchainSlice = createSlice({
         state.loadNextPrevStatus = Status.SUCCEEDED;
       })
       // .addCase(fetchPrevTransactionDetails.rejected, (state, action) => {})
-      .addCase(fetchNextTransactionDetails.pending, (state, action) => {
+      .addCase(fetchNextTransactionDetails.pending, state => {
         state.loadNextPrevStatus = Status.LOADING;
       })
       .addCase(fetchNextTransactionDetails.fulfilled, (state, { payload }) => {
         let res = payload.map(item => {
-          return { block: parseInt(item.block), hash: item.hash };
+          console.log(item);
+          return {
+            block: parseInt(item.block),
+            hash: item.hash,
+            from: item.from,
+          };
         });
         state.transactionsNavigation = [
           ...state.transactionsNavigation,
