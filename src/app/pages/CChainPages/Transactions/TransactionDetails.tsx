@@ -40,6 +40,14 @@ export default function TransactionDetails() {
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
+  const [btnStopper, setBtnStopper] = React.useState(false);
+
+  const handleDelay = () => {
+    setBtnStopper(true);
+    setTimeout(() => {
+      setBtnStopper(false);
+    }, 500);
+  };
 
   useEffectOnce(() => {
     dispatch(fetchTransactionDetails(address));
@@ -89,27 +97,31 @@ export default function TransactionDetails() {
               }}
             >
               <RoundButton
-                disableButton={
-                  getNPStatus === Status.LOADING || loading === Status.LOADING
+                disabled={
+                  getNPStatus === Status.LOADING ||
+                  loading === Status.LOADING ||
+                  btnStopper
                 }
-                handleClick={() => {
-                  console.log('prev');
+                onClick={() => {
                   if (
                     getNPStatus !== Status.LOADING &&
                     loading !== Status.LOADING
                   ) {
                     dispatch(getNextPrevTransaction(true, detailTr));
                   }
+                  handleDelay();
                 }}
                 sx={{ width: '42px', height: '42px', mr: '15px' }}
               >
                 <Icon path={mdiChevronLeft} size={1} />
               </RoundButton>
               <RoundButton
-                disableButton={
-                  getNPStatus === Status.LOADING || loading === Status.LOADING
+                disabled={
+                  getNPStatus === Status.LOADING ||
+                  loading === Status.LOADING ||
+                  btnStopper
                 }
-                handleClick={() => {
+                onClick={() => {
                   console.log('next');
                   if (
                     getNPStatus !== Status.LOADING &&
@@ -117,6 +129,7 @@ export default function TransactionDetails() {
                   ) {
                     dispatch(getNextPrevTransaction(false, detailTr));
                   }
+                  handleDelay();
                 }}
                 sx={{ width: '42px', height: '42px' }}
               >
@@ -154,8 +167,8 @@ export default function TransactionDetails() {
 }
 
 const RoundButton = ({
-  disableButton,
-  handleClick,
+  // disableButton,
+  // handleClick,
   sx,
   children,
   ...props
@@ -163,7 +176,7 @@ const RoundButton = ({
   return (
     <Button
       disableRipple
-      disabled={disableButton}
+      // disabled={disableButton}
       sx={{
         color: 'white',
         borderColor: 'secondary.main',
@@ -173,7 +186,7 @@ const RoundButton = ({
         minWidth: 'min-content',
         ...sx,
       }}
-      onClick={handleClick}
+      // onClick={handleClick}
       {...props}
     >
       {children}
