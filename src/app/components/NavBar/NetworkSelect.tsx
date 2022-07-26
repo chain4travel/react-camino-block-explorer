@@ -84,6 +84,7 @@ export default function NetworkSelect() {
     // if (activeNetwork === 'camino-testnet') navigate('/');
     // else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
     if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+    else navigate('/');
   }, [activeNetwork]); // eslint-disable-line
 
   const handleRemoveCustomNetwork = (id: string) => {
@@ -127,7 +128,11 @@ export default function NetworkSelect() {
       >
         {networks.map((item, index) => {
           return (
-            <MenuItem key={index} value={item.displayName} sx={{ gap: '10px' }}>
+            <MenuItem
+              key={index}
+              value={item.displayName}
+              sx={{ gap: '10px', justifyContent: 'space-between' }}
+            >
               {item.displayName}
               {!item.predefined && (
                 <Button
@@ -215,7 +220,6 @@ const NewNetwork = () => {
     localStorage.setItem('customNetworks', JSON.stringify(customNetworks));
     dispatch(addCustomNetwork(NewNetwork));
     dispatch(changeNetwork(NewNetwork.displayName));
-    document.location.reload();
     setOpen(false);
   };
 
