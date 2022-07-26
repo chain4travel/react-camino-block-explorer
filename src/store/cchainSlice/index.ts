@@ -208,17 +208,20 @@ const cchainSlice = createSlice({
         state.loadNextPrevStatus = Status.LOADING;
       })
       .addCase(fetchPrevTransactionDetails.fulfilled, (state, { payload }) => {
-        let res = payload.map(item => {
-          return {
-            block: parseInt(item.block),
-            hash: item.hash,
-            from: item.from,
-          };
-        });
-        state.transactionsNavigation = [
-          ...res.slice(1).reverse(),
-          ...state.transactionsNavigation,
-        ];
+        if (payload && payload.length > 0) {
+          let res = payload.map(item => {
+            return {
+              block: parseInt(item.block),
+              hash: item.hash,
+              from: item.from,
+            };
+          });
+          state.transactionsNavigation = [
+            ...res.slice(1).reverse(),
+            ...state.transactionsNavigation,
+          ];
+          state.currentIndex += res.length - 1;
+        }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       })
       // .addCase(fetchPrevTransactionDetails.rejected, (state, action) => {})
@@ -226,18 +229,19 @@ const cchainSlice = createSlice({
         state.loadNextPrevStatus = Status.LOADING;
       })
       .addCase(fetchNextTransactionDetails.fulfilled, (state, { payload }) => {
-        let res = payload.map(item => {
-          console.log(item);
-          return {
-            block: parseInt(item.block),
-            hash: item.hash,
-            from: item.from,
-          };
-        });
-        state.transactionsNavigation = [
-          ...state.transactionsNavigation,
-          ...res,
-        ];
+        if (payload && payload.length > 0) {
+          let res = payload.map(item => {
+            return {
+              block: parseInt(item.block),
+              hash: item.hash,
+              from: item.from,
+            };
+          });
+          state.transactionsNavigation = [
+            ...state.transactionsNavigation,
+            ...res,
+          ];
+        }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       });
     // .addCase(fetchNextTransactionDetails.rejected, (state, action) => {});

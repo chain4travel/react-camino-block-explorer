@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Paper, Typography, useTheme, Box, Button } from '@mui/material';
+import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
 // import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
@@ -7,12 +7,11 @@ import { useLocation } from 'react-router-dom';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
-  changeCurrentIndex,
   getCTransactionCurrencuy,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
   getNextPrevStatus,
-  getNextPrevTx,
+  // getNextPrevTx,
 } from 'store/cchainSlice';
 import { Status } from 'types';
 import PageContainer from 'app/components/PageContainer';
@@ -37,7 +36,7 @@ export default function TransactionDetails() {
   const detailCr = useAppSelector(getCTransactionCurrencuy);
   const loading = useAppSelector(getCTransactionDetailsStatus);
   const getNPStatus = useAppSelector(getNextPrevStatus);
-  const NextPrevTX = useAppSelector(getNextPrevTx);
+  // const NextPrevTX = useAppSelector(getNextPrevTx);
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
@@ -55,11 +54,8 @@ export default function TransactionDetails() {
       dispatch(fetchPrevTransactionDetails(args));
       dispatch(fetchNextTransactionDetails(args));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailTr]);
-  React.useEffect(() => {
-    if (NextPrevTX.length > 0)
-      dispatch(changeCurrentIndex(Math.floor(NextPrevTX.length / 2)));
-  }, [NextPrevTX]);
   return (
     <PageContainer
       pageTitle="C TransactionDetails"
@@ -104,10 +100,6 @@ export default function TransactionDetails() {
                   ) {
                     dispatch(getNextPrevTransaction(true, detailTr));
                   }
-                  // if (loading !== Status.LOADING && load !== Status.LOADING) {
-                  //   let r = getNextPrevTransaction(id, true, detailTr);
-                  //   dispatch(r);
-                  // }
                 }}
                 sx={{ width: '42px', height: '42px', mr: '15px' }}
               >
@@ -125,10 +117,6 @@ export default function TransactionDetails() {
                   ) {
                     dispatch(getNextPrevTransaction(false, detailTr));
                   }
-                  // if (loading !== Status.LOADING && load !== Status.LOADING) {
-                  //   let r = getNextPrevTransaction(id, false, detailTr);
-                  //   dispatch(r);
-                  // }
                 }}
                 sx={{ width: '42px', height: '42px' }}
               >
