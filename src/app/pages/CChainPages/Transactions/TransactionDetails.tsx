@@ -28,6 +28,8 @@ import {
   getNextPrevTransaction,
   TrimmedTransactionDetails,
 } from './utils';
+import SubPageTitle from 'app/components/SubPageTitle';
+import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
 
 export default function TransactionDetails() {
   const theme = useTheme();
@@ -81,58 +83,58 @@ export default function TransactionDetails() {
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Chain Transaction
-            </Typography>
-            <Button
-              disabled={
-                getNPStatus === Status.LOADING || loading === Status.LOADING
-              }
-              sx={{ color: 'white' }}
-              onClick={() => {
-                console.log('prev');
-                if (
-                  getNPStatus !== Status.LOADING &&
-                  loading !== Status.LOADING
-                ) {
-                  dispatch(getNextPrevTransaction(true, detailTr));
-                }
-                // if (loading !== Status.LOADING && load !== Status.LOADING) {
-                //   let r = getNextPrevTransaction(id, true, detailTr);
-                //   dispatch(r);
-                // }
+          <SubPageTitle title="C-Chain Transaction">
+            <Box
+              sx={{
+                display: 'flex',
+                whiteSpace: 'nowrap',
+                justifyContent: 'flex-end',
               }}
             >
-              prev
-            </Button>
-            <Button
-              sx={{ color: 'white' }}
-              onClick={() => {
-                console.log('next');
-                if (
-                  getNPStatus !== Status.LOADING &&
-                  loading !== Status.LOADING
-                ) {
-                  dispatch(getNextPrevTransaction(false, detailTr));
+              <RoundButton
+                disableButton={
+                  getNPStatus === Status.LOADING || loading === Status.LOADING
                 }
-                // if (loading !== Status.LOADING && load !== Status.LOADING) {
-                //   let r = getNextPrevTransaction(id, false, detailTr);
-                //   dispatch(r);
-                // }
-              }}
-            >
-              next
-            </Button>
-          </Grid>
+                handleClick={() => {
+                  console.log('prev');
+                  if (
+                    getNPStatus !== Status.LOADING &&
+                    loading !== Status.LOADING
+                  ) {
+                    dispatch(getNextPrevTransaction(true, detailTr));
+                  }
+                  // if (loading !== Status.LOADING && load !== Status.LOADING) {
+                  //   let r = getNextPrevTransaction(id, true, detailTr);
+                  //   dispatch(r);
+                  // }
+                }}
+                sx={{ width: '42px', height: '42px', mr: '15px' }}
+              >
+                <Icon path={mdiChevronLeft} size={1} />
+              </RoundButton>
+              <RoundButton
+                disableButton={
+                  getNPStatus === Status.LOADING || loading === Status.LOADING
+                }
+                handleClick={() => {
+                  console.log('next');
+                  if (
+                    getNPStatus !== Status.LOADING &&
+                    loading !== Status.LOADING
+                  ) {
+                    dispatch(getNextPrevTransaction(false, detailTr));
+                  }
+                  // if (loading !== Status.LOADING && load !== Status.LOADING) {
+                  //   let r = getNextPrevTransaction(id, false, detailTr);
+                  //   dispatch(r);
+                  // }
+                }}
+                sx={{ width: '42px', height: '42px' }}
+              >
+                <Icon path={mdiChevronLeft} size={1} />
+              </RoundButton>
+            </Box>
+          </SubPageTitle>
           {loading === Status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
@@ -161,3 +163,31 @@ export default function TransactionDetails() {
     </PageContainer>
   );
 }
+
+const RoundButton = ({
+  disableButton,
+  handleClick,
+  sx,
+  children,
+  ...props
+}) => {
+  return (
+    <Button
+      disableRipple
+      disabled={disableButton}
+      sx={{
+        color: 'white',
+        borderColor: 'secondary.main',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '100%',
+        minWidth: 'min-content',
+        ...sx,
+      }}
+      onClick={() => handleClick}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
