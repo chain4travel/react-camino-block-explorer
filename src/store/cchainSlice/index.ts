@@ -221,6 +221,8 @@ const cchainSlice = createSlice({
             ...state.transactionsNavigation,
           ];
           state.currentIndex += res.length - 1;
+          while (state.transactionsNavigation.length > 100)
+            state.transactionsNavigation.pop();
         }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       })
@@ -241,6 +243,8 @@ const cchainSlice = createSlice({
             ...state.transactionsNavigation,
             ...res,
           ];
+          while (state.transactionsNavigation.length > 100)
+            state.transactionsNavigation.shift();
         }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       });
