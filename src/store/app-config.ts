@@ -5,6 +5,10 @@ import { Chain, Network } from 'types/store';
 
 const getNetworkFromLocalStorage = () => {
   let activeNetwork = localStorage.getItem('activeNetwork');
+  if (activeNetwork === 'undefined') {
+    localStorage.setItem('activeNetwork', JSON.stringify('camino-testnet'));
+    return 'camino-testnet';
+  }
   if (activeNetwork) return JSON.parse(activeNetwork);
   else {
     localStorage.setItem('activeNetwork', JSON.stringify('camino-testnet'));
