@@ -79,11 +79,14 @@ export default function NetworkSelect() {
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(changeNetwork(event.target.value));
   };
+
+  React.useMemo(() => {
+    if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
+    else navigate('/');
+  }, [activeNetwork]); // eslint-disable-line
+
   React.useEffect(() => {
     setNetwork(nameOfActiveNetwork(networks, activeNetwork));
-    // if (activeNetwork === 'camino-testnet') navigate('/');
-    // else if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
-    if (activeNetwork === 'mainnet-testnet') navigate('/mainnet');
   }, [activeNetwork]); // eslint-disable-line
 
   const handleRemoveCustomNetwork = (id: string) => {
@@ -102,60 +105,68 @@ export default function NetworkSelect() {
     <Box
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
-      <Select
-        variant="outlined"
-        onChange={handleChange}
-        value={network}
-        IconComponent={() => <Icon path={mdiChevronDown} size={1} />}
-        renderValue={() => {
-          return <SelectedNetwork value={network} networkStatus={status} />;
-        }}
-        sx={{
-          height: '40px',
-          maxWidth: '170px',
-          minWidth: '170px',
-          borderRadius: '10px',
-          padding: '8px 16px',
-          '@media (max-width:370px)': {
-            minWidth: '120px',
-            width: '120px',
-          },
-          '.MuiSelect-select': {
-            paddingRight: '0px !important',
-          },
-        }}
-      >
-        {networks.map((item, index) => {
-          return (
-            <MenuItem key={index} value={item.displayName} sx={{ gap: '10px' }}>
-              {item.displayName}
-              {!item.predefined && (
-                <Button
-                  sx={{
-                    width: '30px',
-                    height: '30px',
-                    backgroundColor: 'secondary.main',
-                    borderRadius: '7px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    minWidth: 'auto',
-                    '&:hover': {
+      <FormControl>
+        <Select
+          variant="outlined"
+          onChange={handleChange}
+          value={network}
+          IconComponent={() => <Icon path={mdiChevronDown} size={1} />}
+          renderValue={() => {
+            return <SelectedNetwork value={network} networkStatus={status} />;
+          }}
+          sx={{
+            height: '40px',
+            maxWidth: '170px',
+            // minWidth: '170px',
+            borderRadius: '10px',
+            padding: '8px 16px',
+            '@media (max-width:370px)': {
+              minWidth: '120px',
+              width: '120px',
+            },
+            '.MuiSelect-select': {
+              paddingRight: '0px !important',
+            },
+          }}
+        >
+          {networks.map((item, index) => {
+            return (
+              <MenuItem
+                key={index}
+                value={item.displayName}
+                sx={{ gap: '10px', justifyContent: 'space-between' }}
+              >
+                <Typography variant="body1" component="span" noWrap>
+                  {item.displayName}
+                </Typography>
+                {!item.predefined && (
+                  <Button
+                    sx={{
+                      width: '30px',
+                      height: '30px',
                       backgroundColor: 'secondary.main',
-                    },
-                  }}
-                  onClick={() => {
-                    handleRemoveCustomNetwork(item.id);
-                  }}
-                >
-                  <Icon path={mdiTrashCanOutline} size={0.7} color="white" />
-                </Button>
-              )}
-            </MenuItem>
-          );
-        })}
-        <NewNetwork />
-      </Select>
+                      borderRadius: '7px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      minWidth: 'auto',
+                      '&:hover': {
+                        backgroundColor: 'secondary.main',
+                      },
+                    }}
+                    onClick={() => {
+                      handleRemoveCustomNetwork(item.id);
+                    }}
+                  >
+                    <Icon path={mdiTrashCanOutline} size={0.7} color="white" />
+                  </Button>
+                )}
+              </MenuItem>
+            );
+          })}
+          <NewNetwork />
+        </Select>
+      </FormControl>
     </Box>
   );
 }
@@ -215,12 +226,11 @@ const NewNetwork = () => {
     localStorage.setItem('customNetworks', JSON.stringify(customNetworks));
     dispatch(addCustomNetwork(NewNetwork));
     dispatch(changeNetwork(NewNetwork.displayName));
-    document.location.reload();
     setOpen(false);
   };
 
   return (
-    <Box>
+    <>
       <MenuItem onClick={handleOpen}>
         <Typography variant="body1">Add New Network</Typography>
       </MenuItem>
@@ -323,6 +333,6 @@ const NewNetwork = () => {
           </FormControl>
         </Box>
       </Modal>
-    </Box>
+    </>
   );
 };

@@ -5,6 +5,7 @@ import {
   getCchainError,
   selectAllTransactions,
   getCchainOverreview,
+  getCchainStatus,
 } from 'store/cchainSlice';
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -17,12 +18,14 @@ import {
   getValidatorsOverreview,
   getValidatorsStatus,
 } from 'store/validatorsSlice';
+import { Status } from 'types';
 
 export default function CChainPage() {
   const dispatch = useAppDispatch();
   const blocks = useAppSelector(selectAllBlocks);
   const transactions = useAppSelector(selectAllTransactions);
   const error = useAppSelector(getCchainError);
+  const status = useAppSelector(getCchainStatus);
   const validatorsLoading = useAppSelector(getValidatorsStatus);
   const {
     percentageOfActiveValidators,
@@ -42,7 +45,7 @@ export default function CChainPage() {
 
   return (
     <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
-      {error ? (
+      {status === Status.FAILED && error ? (
         <Typography
           variant="h4"
           color="error"
