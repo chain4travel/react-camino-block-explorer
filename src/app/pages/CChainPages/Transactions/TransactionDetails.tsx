@@ -33,6 +33,7 @@ import {
 } from './utils';
 import SubPageTitle from 'app/components/SubPageTitle';
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
+import { CTRANSACTIONS } from 'utils/route-paths';
 
 export default function TransactionDetails() {
   const theme = useTheme();
@@ -74,7 +75,7 @@ export default function TransactionDetails() {
   const navigate = useNavigate();
   React.useEffect(() => {
     if (nextPrevTX.length > 0)
-      navigate(`/c-chain/transactions/${nextPrevTX[currentIndex]?.hash}`);
+      navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
   return (
