@@ -7,6 +7,8 @@ import { useLocation } from 'react-router-dom';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
+  changeCurrentIndex,
+  clearTr,
   getCTransactionCurrencuy,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
@@ -50,6 +52,8 @@ export default function TransactionDetails() {
   };
 
   useEffectOnce(() => {
+    changeCurrentIndex(0);
+    dispatch(clearTr());
     dispatch(fetchTransactionDetails(address));
   });
   React.useEffect(() => {
