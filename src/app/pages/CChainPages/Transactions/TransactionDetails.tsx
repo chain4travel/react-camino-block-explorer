@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
 // import axios from 'axios';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -12,7 +12,9 @@ import {
   getCTransactionCurrencuy,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
+  getCurrentIndex,
   getNextPrevStatus,
+  getNextPrevTx,
   // getNextPrevTx,
 } from 'store/cchainSlice';
 import { Status } from 'types';
@@ -38,11 +40,12 @@ export default function TransactionDetails() {
   const detailCr = useAppSelector(getCTransactionCurrencuy);
   const loading = useAppSelector(getCTransactionDetailsStatus);
   const getNPStatus = useAppSelector(getNextPrevStatus);
-  // const NextPrevTX = useAppSelector(getNextPrevTx);
+  const nextPrevTX = useAppSelector(getNextPrevTx);
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
   const [btnStopper, setBtnStopper] = React.useState(false);
+  const currentIndex = useAppSelector(getCurrentIndex);
 
   const handleDelay = () => {
     setBtnStopper(true);
@@ -68,6 +71,12 @@ export default function TransactionDetails() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailTr]);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (nextPrevTX.length > 0)
+      navigate(`/c-chain/transactions/${nextPrevTX[currentIndex]?.hash}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
   return (
     <PageContainer
       pageTitle="C TransactionDetails"

@@ -293,6 +293,7 @@ export const getNextPrevTx = (state: RootState) =>
 export const getNextPrevStatus = (state: RootState) =>
   state.cchain.loadNextPrevStatus;
 
+export const getCurrentIndex = (state: RootState) => state.cchain.currentIndex;
 // actions
 export const { changetimeFrame, changeCurrentIndex, clearTr } =
   cchainSlice.actions;
