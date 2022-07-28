@@ -4,6 +4,7 @@ import {
   MagellanCTransactionSearchResult,
   MagellanCBlockSearchResult,
   MagellanAddressSearchResult,
+  MagellanAddressResponse,
 } from 'types/magellan-types';
 import {
   getBlockDetailsPath,
@@ -81,6 +82,33 @@ export async function mapToItem(
         avatar: avatar,
         avatarColor: avatarColor,
       };
+    case MagellanSearchResultElementType.ADDRESS:
+      const xpAddressData: MagellanAddressResponse =
+        data as MagellanAddressResponse;
+      const ChainId = xpAddressData.chainID;
+      if (ChainId === (await getChainID('p'))) {
+        return {
+          label: `P-${xpAddressData.address}`,
+          type: type,
+          link: getAddressDetailsPath(
+            ChainType.P_CHAIN,
+            `P-${xpAddressData.address}`,
+          ),
+          avatar: 'AD',
+          avatarColor: 'searchResultItem.bg_PAD',
+        };
+      } else {
+        return {
+          label: `X-${xpAddressData.address}`,
+          type: type,
+          link: getAddressDetailsPath(
+            ChainType.X_CHAIN,
+            `X-${xpAddressData.address}`,
+          ),
+          avatar: 'AD',
+          avatarColor: 'searchResultItem.bg_XAD',
+        };
+      }
     default:
       console.log('Got unknown response type from search', +type);
       return undefined;
