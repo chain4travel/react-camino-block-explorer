@@ -5,7 +5,7 @@ import {
   FormControlLabel,
   FormControl,
 } from '@mui/material';
-import { timeOptions } from 'types';
+import { Status, timeOptions } from 'types';
 import {
   getTimeFrame,
   changetimeFrame,
@@ -21,8 +21,10 @@ import { useLocation } from 'react-router-dom';
 import {
   changetimeFramePchain,
   changetimeFrameXchain,
+  getPchainOverreview,
   getTimeFramePchain,
   getTimeFrameXchain,
+  getXchainOverreview,
 } from 'store/xchainSlice';
 import {
   loadNumberOfPXTransactions,
@@ -48,16 +50,35 @@ export default function RowRadioButtonsGroup({
   else if (location.pathname.split('/')[1][0] === 'p')
     initialValue = timeFramePchain;
   else initialValue = timeFrame;
-  // if (location.pathname.split("/")[1][0])
-  // console.log(location.pathname.split('/')[1][0]);
   const [value, setValue] = React.useState(initialValue);
   const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (gasFeesLoading !== 'loading' && transactionsLoading !== 'loading')
+    if (
+      (location.pathname.split('/')[1] === ChainType.C_CHAIN &&
+        cGasFeesLoading !== Status.LOADING &&
+        cTransactionsLoading !== Status.LOADING) ||
+      (location.pathname.split('/')[1] === ChainType.X_CHAIN &&
+        xGasFeesLoading !== Status.LOADING &&
+        xTransactionsLoading !== Status.LOADING) ||
+      (location.pathname.split('/')[1] === ChainType.P_CHAIN &&
+        pGasFeesLoading !== Status.LOADING &&
+        pTransactionsLoading !== Status.LOADING)
+    ) {
       setValue((event.target as HTMLInputElement).value);
+    }
   };
-  const { gasFeesLoading, transactionsLoading } =
-    useAppSelector(getCchainOverreview);
+  const {
+    gasFeesLoading: cGasFeesLoading,
+    transactionsLoading: cTransactionsLoading,
+  } = useAppSelector(getCchainOverreview);
+  const {
+    gasFeesLoading: pGasFeesLoading,
+    transactionsLoading: pTransactionsLoading,
+  } = useAppSelector(getPchainOverreview);
+  const {
+    gasFeesLoading: xGasFeesLoading,
+    transactionsLoading: xTransactionsLoading,
+  } = useAppSelector(getXchainOverreview);
 
   useEffect(() => {
     dispatch(loadNumberOfTransactions(timeFrame));
