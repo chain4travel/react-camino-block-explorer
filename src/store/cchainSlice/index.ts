@@ -56,7 +56,12 @@ const cchainSlice = createSlice({
       state.currentIndex = action.payload;
     },
     clearTr(state) {
+      state.transcationDetails = undefined;
       state.transactionsNavigation = [];
+      state.currentIndex = 0;
+    },
+    resetLoadingStatusForNPTransactions(state) {
+      state.loadNextPrevStatus = Status.IDLE;
     },
   },
   extraReducers(builder) {
@@ -295,7 +300,11 @@ export const getNextPrevStatus = (state: RootState) =>
 
 export const getCurrentIndex = (state: RootState) => state.cchain.currentIndex;
 // actions
-export const { changetimeFrame, changeCurrentIndex, clearTr } =
-  cchainSlice.actions;
+export const {
+  changetimeFrame,
+  changeCurrentIndex,
+  clearTr,
+  resetLoadingStatusForNPTransactions,
+} = cchainSlice.actions;
 // reduceer
 export default cchainSlice.reducer;

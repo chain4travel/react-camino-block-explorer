@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
 // import axios from 'axios';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation, useNavigate } from 'react-router-dom';
 // import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
@@ -15,6 +14,7 @@ import {
   getCurrentIndex,
   getNextPrevStatus,
   getNextPrevTx,
+  resetLoadingStatusForNPTransactions,
   // getNextPrevTx,
 } from 'store/cchainSlice';
 import { Status } from 'types';
@@ -55,11 +55,18 @@ export default function TransactionDetails() {
     }, 500);
   };
 
-  useEffectOnce(() => {
+  React.useEffect(() => {
     changeCurrentIndex(0);
     dispatch(clearTr());
     dispatch(fetchTransactionDetails(address));
-  });
+    return () => {
+      changeCurrentIndex(0);
+      dispatch(clearTr());
+      dispatch(resetLoadingStatusForNPTransactions());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   React.useEffect(() => {
     if (detailTr && getNPStatus === Status.IDLE) {
       let args: TrimmedTransactionDetails = {
