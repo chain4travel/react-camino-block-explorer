@@ -20,7 +20,6 @@ const initialState: initialXPchainStateType = {
   loadPTransactionDetials: Status.IDLE,
   error: undefined,
   assets: undefined,
-  // timeFrame: Timeframe.HOURS_24,
   xTimeFrame: Timeframe.HOURS_24,
   pTimeFrame: Timeframe.HOURS_24,
   XChainOverview: {

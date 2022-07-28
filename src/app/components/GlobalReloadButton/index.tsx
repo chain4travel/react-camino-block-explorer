@@ -13,8 +13,13 @@ import {
   loadTotalGasFess,
 } from 'store/cchainSlice/utils';
 import { useLocation } from 'react-router-dom';
-import { getTimeFrameXchain, getXchainOverreview } from 'store/xchainSlice';
 import {
+  getPchainOverreview,
+  getTimeFrameXchain,
+  getXchainOverreview,
+} from 'store/xchainSlice';
+import {
+  fetchXPTransactions,
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
 } from 'store/xchainSlice/utils';
@@ -22,6 +27,7 @@ import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { loadValidators } from 'store/validatorsSlice/utils';
 import { ChainType } from 'utils/types/chain-type';
 import { getChainID } from 'api/utils';
+import { Status } from 'types';
 
 export default function GlobalReloadButton({
   style,
@@ -33,45 +39,60 @@ export default function GlobalReloadButton({
   const frameTime = useAppSelector(getTimeFrame);
   const status = useAppSelector(getCchainStatus);
   const timeFrameXPchain = useAppSelector(getTimeFrameXchain);
+  let chainAlias = location.pathname.split('/')[1][0];
+  let chainName = location.pathname.split('/')[1];
   const { gasFeesLoading, transactionsLoading } = useAppSelector(
-    location.pathname.split('/')[1] === ChainType.C_CHAIN
-      ? getCchainOverreview
-      : getXchainOverreview,
+    chainName === ChainType.C_CHAIN ? getCchainOverreview : getXchainOverreview,
   );
+  const {
+    gasFeesLoading: pGasFeesLoading,
+    transactionsLoading: pTransactionsLoading,
+  } = useAppSelector(getPchainOverreview);
+  const {
+    gasFeesLoading: xGasFeesLoading,
+    transactionsLoading: xTransactionsLoading,
+  } = useAppSelector(getXchainOverreview);
   const handleClick = async () => {
     if (
-      location.pathname.split('/')[1] === ChainType.C_CHAIN &&
-      gasFeesLoading !== 'loading' &&
-      transactionsLoading !== 'loading' &&
-      status !== 'loading'
+      chainName === ChainType.C_CHAIN &&
+      gasFeesLoading !== Status.LOADING &&
+      transactionsLoading !== Status.LOADING &&
+      status !== Status.LOADING
     ) {
       dispatch(fetchBlocksTransactions());
       dispatch(loadValidators());
       dispatch(loadNumberOfTransactions(frameTime));
       dispatch(loadTotalGasFess(frameTime));
     } else if (
-      (location.pathname.split('/')[1] === ChainType.X_CHAIN ||
-        location.pathname.split('/')[1] === ChainType.P_CHAIN) &&
-      gasFeesLoading !== 'loading' &&
-      transactionsLoading !== 'loading' &&
-      status !== 'loading'
+      (chainName === ChainType.X_CHAIN &&
+        xGasFeesLoading !== Status.LOADING &&
+        xTransactionsLoading !== Status.LOADING) ||
+      (chainName === ChainType.P_CHAIN &&
+        pGasFeesLoading !== Status.LOADING &&
+        pTransactionsLoading !== Status.LOADING)
     ) {
       let chainId =
-        location.pathname.split('/')[1] === ChainType.X_CHAIN
-          ? getChainID(ChainType.X_CHAIN)
-          : getChainID(ChainType.P_CHAIN);
+        chainName === ChainType.X_CHAIN
+          ? getChainID(chainAlias)
+          : getChainID(chainAlias);
       dispatch(
         loadNumberOfPXTransactions({
           timeframe: timeFrameXPchain,
           chainId,
-          chainAlias: location.pathname.split('/')[1][0],
+          chainAlias: chainAlias,
         }),
       );
       dispatch(
         loadTotalPXGasFess({
           timeframe: timeFrameXPchain,
           chainId,
-          chainAlias: location.pathname.split('/')[1][0],
+          chainAlias: chainAlias,
+        }),
+      );
+      dispatch(
+        fetchXPTransactions({
+          chainID: getChainID(chainAlias),
+          chainType: chainAlias,
         }),
       );
       dispatch(loadValidators());
