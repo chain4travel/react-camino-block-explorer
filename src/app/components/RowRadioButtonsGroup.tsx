@@ -5,7 +5,7 @@ import {
   FormControlLabel,
   FormControl,
 } from '@mui/material';
-import { Status, timeOptions } from 'types';
+import { Status, Timeframe, timeOptions } from 'types';
 import { changetimeFrame, getCchainOverreview } from 'store/cchainSlice';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
@@ -64,6 +64,7 @@ export default function RowRadioButtonsGroup({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
       (location.pathname.split('/')[1] === ChainType.C_CHAIN &&
+        event.target.value !== Timeframe.MONTHS_1 &&
         cGasFeesLoading !== Status.LOADING &&
         cTransactionsLoading !== Status.LOADING) ||
       (location.pathname.split('/')[1] === ChainType.X_CHAIN &&
