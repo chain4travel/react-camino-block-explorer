@@ -1,7 +1,6 @@
 import React from 'react';
-import MainButton from '../MainButton';
 import { Paper, Typography, useTheme, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import ShowAllButton from '../LatestBlocksAndTransactionsList/ShowAllButton';
 
 export default function XPTransactionList({
   ShowAllLink,
@@ -39,17 +38,7 @@ export default function XPTransactionList({
       >
         {children}
       </Box>
-      <Link
-        to={ShowAllLink}
-        style={{
-          display: 'flex',
-          width: '100%',
-          justifyContent: 'center',
-          textDecoration: 'none',
-        }}
-      >
-        <MainButton variant="outlined">Show All</MainButton>
-      </Link>
+      <ShowAllButton toLink={ShowAllLink} />
     </Paper>
   );
 }

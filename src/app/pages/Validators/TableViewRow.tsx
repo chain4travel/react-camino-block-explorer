@@ -13,8 +13,12 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
       >
         <Chip
           label={validator.status}
-          color={validator.status === 'Connected' ? 'success' : 'error'}
-          sx={{ borderRadius: '7px', color: 'grey.900' }}
+          sx={{
+            borderRadius: '7px',
+            color: 'grey.900',
+            backgroundColor:
+              validator.status === 'Connected' ? 'success.main' : 'error.main',
+          }}
         />
       </TableCell>
       <TableCell

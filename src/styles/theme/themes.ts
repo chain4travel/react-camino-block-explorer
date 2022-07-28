@@ -54,6 +54,8 @@ interface PaletteWithCustomColors extends Palette {
     bg_CT: string;
     bg_PT: string;
     bg_XT: string;
+    bg_PAD: string;
+    bg_XAD: string;
   };
 }
 
@@ -126,6 +128,8 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     bg_CT: '#31CCEC',
     bg_PT: '#35E9AD',
     bg_XT: '#B440FC',
+    bg_PAD: '#F19D38',
+    bg_XAD: '#31CCEC',
   },
 };
 
@@ -198,6 +202,8 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     bg_CT: '#31CCEC',
     bg_PT: '#35E9AD',
     bg_XT: '#B440FC',
+    bg_PAD: '#F19D38',
+    bg_XAD: '#31CCEC',
   },
 };
 

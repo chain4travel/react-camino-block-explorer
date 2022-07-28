@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
 import { getRelativeTime } from 'utils/display-utils';
-import { CADDRESSPATH, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
+import { CADDRESS, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
 import { CAddressTransactionTableData } from 'types/transaction';
 import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
@@ -111,7 +111,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`${CADDRESSPATH}/${transaction.from}`}
+          to={`${CADDRESS}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -122,7 +122,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
-          to={`${CADDRESSPATH}/${transaction.to}`}
+          to={`${CADDRESS}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}
@@ -184,7 +184,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
           From
         </Typography>
         <AddressLink
-          to={`${CADDRESSPATH}/${transaction.from}`}
+          to={`${CADDRESS}/${transaction.from}`}
           value={transaction.from}
           typographyVariant="body2"
           truncate={true}
@@ -195,7 +195,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
           To
         </Typography>
         <AddressLink
-          to={`${CADDRESSPATH}/${transaction.to}`}
+          to={`${CADDRESS}/${transaction.to}`}
           value={transaction.to}
           typographyVariant="body2"
           truncate={true}

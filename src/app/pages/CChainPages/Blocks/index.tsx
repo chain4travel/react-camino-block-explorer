@@ -15,6 +15,7 @@ import Block from './Block';
 import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import SubPageTitle from 'app/components/SubPageTitle';
+import { CCHAIN } from 'utils/route-paths';
 
 const Blocks: FC = () => {
   const theme = useTheme();
@@ -87,7 +88,7 @@ const Blocks: FC = () => {
           alignItems="center"
           sx={{ width: 1, gap: '20px' }}
         >
-          <SubPageTitle title="C-Blocks" />
+          <SubPageTitle title="C-Blocks" backToLink={CCHAIN} />
           {status === 'success' && data && (
             <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (

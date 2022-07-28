@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Status } from 'types';
 import { mdiTransfer } from '@mdi/js';
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
-import { CTRANSACTIONS } from 'utils/route-paths';
+import { CCHAIN, CTRANSACTIONS } from 'utils/route-paths';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import OutlinedContainer from 'app/components/OutlinedContainer';
@@ -108,7 +108,7 @@ const TransactionDetails: FC = () => {
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <SubPageTitle title="C-Chain Transaction">
+          <SubPageTitle title="C-Chain Transaction" backToLink={CCHAIN}>
             <Box
               sx={{
                 display: 'flex',
@@ -177,7 +177,7 @@ const TransactionDetails: FC = () => {
         </Grid>
         {(detailTr || detailCr) && (
           <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-            <BackButton />
+            <BackButton backToLink={CCHAIN} />
           </Box>
         )}
       </Paper>

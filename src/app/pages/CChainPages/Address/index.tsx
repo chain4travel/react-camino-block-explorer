@@ -8,6 +8,7 @@ import TabPanel from 'app/components/TabComponent/TabPanel';
 import Transactions from './Transactions';
 import SubPageTitle from 'app/components/SubPageTitle';
 import useWidth from 'app/hooks/useWidth';
+import { CCHAIN } from 'utils/route-paths';
 
 const tabOptions = [
   {
@@ -29,7 +30,7 @@ const CAddressDetails: FC = () => {
       pageTitle="C Address Detail"
       metaContent="Address Detail C-Chain"
     >
-      <SubPageTitle title="Address Detail" />
+      <SubPageTitle title="Address Detail" backToLink={CCHAIN} />
       <CopyTitleCard
         label="Address"
         value={address}

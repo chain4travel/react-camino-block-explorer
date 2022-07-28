@@ -10,9 +10,7 @@ export const CTRANSACTIONS = CCHAIN + '/transactions';
 
 export const CBLOCKS = CCHAIN + '/blocks';
 
-export const CADDRESS = CCHAIN + '/addresses';
-
-export const CADDRESSPATH = CCHAIN + '/address';
+export const CADDRESS = CCHAIN + '/address';
 
 export const XTRANSACTIONS = XCHAIN + '/transactions';
 

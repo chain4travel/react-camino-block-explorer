@@ -67,7 +67,7 @@ function OutlinedSearchInput() {
           data.results[i].type,
           data.results[i].data,
         )) as SearchMenuItem;
-        setMenuItems(prev => [...prev, mapItem]);
+        if (mapItem) setMenuItems(prev => [...prev, mapItem]);
       }
       setLoading(false);
     },
@@ -171,9 +171,7 @@ export default function SearchInput() {
         <div>
           <SearchIcon
             onClick={handleOpen}
-            sx={{
-              color: 'primary.contrastText',
-            }}
+            sx={{ color: 'primary.contrastText' }}
           />
           <Modal
             open={open}
@@ -247,6 +245,7 @@ const SearchResultMenu = ({ children }: { children?: React.ReactNode }) => {
         backgroundColor: 'primary.light',
         color: 'primary.contrastText',
         marginTop: '8px',
+        boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
       }}
     >
       {children}
@@ -259,7 +258,7 @@ const SearchResultMenuList = ({ menuItems }) => {
     <MenuList>
       {menuItems.map(item => (
         <MenuItem
-          key={item.label}
+          key={item.label + Math.random().toString(36).substring(2, 15)}
           onClick={() => {
             window.location.href = item.link;
           }}

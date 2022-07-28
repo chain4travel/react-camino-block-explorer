@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
-import { CTRANSACTIONS } from 'utils/route-paths';
+import { CCHAIN, CTRANSACTIONS } from 'utils/route-paths';
 import { Status } from 'types';
 import LoadingWrapper from 'app/components/LoadingWrapper';
 import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
@@ -59,6 +59,7 @@ const BlockDetails: FC = () => {
           >
             <SubPageTitle
               title={`C-Chain Block ${location.pathname.split('/')[3]}`}
+              backToLink={CCHAIN}
             />
             <Box
               sx={{

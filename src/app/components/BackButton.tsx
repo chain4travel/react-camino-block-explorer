@@ -1,9 +1,9 @@
 import React from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { To, useNavigate } from 'react-router-dom';
 
-export default function BackButton() {
+export default function BackButton({ backToLink }: { backToLink: To }) {
   const navigate = useNavigate();
   return (
     <Button
@@ -15,7 +15,7 @@ export default function BackButton() {
         alignItems: 'center',
         padding: '7px 18px',
       }}
-      onClick={() => navigate(-1)}
+      onClick={() => navigate(backToLink)}
     >
       <ArrowBackIosIcon
         sx={{ fontSize: '17px', width: '17px', height: '17px', margin: 'auto' }}
