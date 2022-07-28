@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
-// import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
@@ -15,7 +13,6 @@ import {
   getNextPrevStatus,
   getNextPrevTx,
   resetLoadingStatusForNPTransactions,
-  // getNextPrevTx,
 } from 'store/cchainSlice';
 import { Status } from 'types';
 import PageContainer from 'app/components/PageContainer';
@@ -143,7 +140,6 @@ export default function TransactionDetails() {
                   btnStopper
                 }
                 onClick={() => {
-                  console.log('next');
                   if (
                     getNPStatus !== Status.LOADING &&
                     loading !== Status.LOADING
