@@ -14,6 +14,7 @@ import { ChainType } from 'utils/types/chain-type';
 import { mdiFileDocumentOutline } from '@mdi/js';
 import { getBaseUrl } from 'api/utils';
 import { addressesApi, assetsApi } from 'utils/magellan-api-utils';
+import { XCHAIN } from 'utils/route-paths';
 
 const tabOptions = [
   {
@@ -79,7 +80,7 @@ export default function XAddressDetail() {
   };
   return (
     <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <SubPageTitle title="Address Detail" />
+      <SubPageTitle title="Address Detail" backToLink={XCHAIN} />
       <CopyTitleCard
         label="Address"
         value={address}
@@ -135,7 +136,6 @@ export const AddressOverviewCard = ({ balance }: { balance: number }) => {
             </Typography>
           </Grid>
           <Grid item md={6}>
-            {/* <DetailsField field="Balance" value={balance} type="gwei" /> */}
             <CamAmount amount={balance} currency="nCam" />
           </Grid>
         </Grid>

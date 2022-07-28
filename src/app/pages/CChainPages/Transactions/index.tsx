@@ -14,6 +14,7 @@ import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import Transaction from './Transaction';
 import SubPageTitle from 'app/components/SubPageTitle';
+import { CCHAIN } from 'utils/route-paths';
 
 const Transactions: FC = () => {
   const theme = useTheme();
@@ -95,7 +96,7 @@ const Transactions: FC = () => {
           alignItems="center"
           sx={{ width: 1, gap: '20px' }}
         >
-          <SubPageTitle title="C-Transactions" />
+          <SubPageTitle title="C-Transactions" backToLink={CCHAIN} />
           {status === 'success' && data && (
             <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (
