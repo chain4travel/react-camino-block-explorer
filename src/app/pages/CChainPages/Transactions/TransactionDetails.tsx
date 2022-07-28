@@ -54,8 +54,6 @@ const TransactionDetails: FC = () => {
   };
 
   useEffect(() => {
-    changeCurrentIndex(0);
-    dispatch(clearTr());
     dispatch(fetchTransactionDetails(address));
     return () => {
       changeCurrentIndex(0);
@@ -79,7 +77,10 @@ const TransactionDetails: FC = () => {
   }, [detailTr]);
 
   useEffect(() => {
-    if (nextPrevTX.length > 0)
+    if (
+      nextPrevTX.length > 0 &&
+      location.pathname.split('/')[3] !== nextPrevTX[currentIndex]?.hash
+    )
       navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);

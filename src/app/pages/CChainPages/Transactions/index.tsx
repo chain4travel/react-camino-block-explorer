@@ -59,14 +59,12 @@ const Transactions: FC = () => {
         return (
           <Transaction
             ref={lastPostRef}
-            key={transaction.blockNumber}
+            key={transaction.hash}
             transaction={transaction}
           />
         );
       }
-      return (
-        <Transaction key={transaction.blockNumber} transaction={transaction} />
-      );
+      return <Transaction key={transaction.hash} transaction={transaction} />;
     });
   });
 
