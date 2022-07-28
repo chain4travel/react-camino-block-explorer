@@ -183,17 +183,10 @@ export default function TransactionDetails() {
   );
 }
 
-const RoundButton = ({
-  // disableButton,
-  // handleClick,
-  sx,
-  children,
-  ...props
-}) => {
+const RoundButton = ({ sx, children, ...props }) => {
   return (
     <Button
       disableRipple
-      // disabled={disableButton}
       sx={{
         color: 'white',
         borderColor: 'secondary.main',
@@ -203,7 +196,6 @@ const RoundButton = ({
         minWidth: 'min-content',
         ...sx,
       }}
-      // onClick={handleClick}
       {...props}
     >
       {children}
