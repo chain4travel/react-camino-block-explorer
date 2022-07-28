@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   selectAllXTransactions,
   getXPchainStatus,
-  getXPchainOverreview,
+  getXchainOverreview,
 } from 'store/xchainSlice';
 import { ChainType } from 'utils/types/chain-type';
 import LoadingWrapper from 'app/components/LoadingWrapper';
@@ -33,7 +33,7 @@ export default function XChainPage() {
     totalGasFees,
     gasFeesLoading,
     transactionsLoading,
-  } = useAppSelector(getXPchainOverreview);
+  } = useAppSelector(getXchainOverreview);
   const validatorsLoading = useAppSelector(getValidatorsStatus);
   const {
     percentageOfActiveValidators,

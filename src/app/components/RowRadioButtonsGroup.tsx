@@ -5,7 +5,7 @@ import {
   FormControlLabel,
   FormControl,
 } from '@mui/material';
-import { Timeframe, timeOptions } from 'types';
+import { timeOptions } from 'types';
 import {
   getTimeFrame,
   changetimeFrame,
@@ -18,7 +18,12 @@ import {
 } from 'store/cchainSlice/utils';
 import useWidth from 'app/hooks/useWidth';
 import { useLocation } from 'react-router-dom';
-import { changetimeFrameXPchain, getTimeFrameXPchain } from 'store/xchainSlice';
+import {
+  changetimeFramePchain,
+  changetimeFrameXchain,
+  getTimeFramePchain,
+  getTimeFrameXchain,
+} from 'store/xchainSlice';
 import {
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
@@ -35,8 +40,17 @@ export default function RowRadioButtonsGroup({
 }) {
   const location = useLocation();
   const timeFrame = useAppSelector(getTimeFrame);
-  const timeFrameXPchain = useAppSelector(getTimeFrameXPchain);
-  const [value, setValue] = React.useState(Timeframe.HOURS_24 as string);
+  const timeFrameXchain = useAppSelector(getTimeFrameXchain);
+  const timeFramePchain = useAppSelector(getTimeFramePchain);
+  let initialValue: string;
+  if (location.pathname.split('/')[1][0] === 'x')
+    initialValue = timeFrameXchain;
+  else if (location.pathname.split('/')[1][0] === 'p')
+    initialValue = timeFramePchain;
+  else initialValue = timeFrame;
+  // if (location.pathname.split("/")[1][0])
+  // console.log(location.pathname.split('/')[1][0]);
+  const [value, setValue] = React.useState(initialValue);
   const dispatch = useAppDispatch();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (gasFeesLoading !== 'loading' && transactionsLoading !== 'loading')
@@ -53,22 +67,26 @@ export default function RowRadioButtonsGroup({
   useEffect(() => {
     dispatch(
       loadNumberOfPXTransactions({
-        timeframe: timeFrameXPchain,
+        timeframe: timeFrameXchain,
         chainId: getChainID(location.pathname.split('/')[1][0]),
+        chainAlias: location.pathname.split('/')[1][0],
       }),
     );
     dispatch(
       loadTotalPXGasFess({
-        timeframe: timeFrameXPchain,
+        timeframe: timeFrameXchain,
         chainId: getChainID(location.pathname.split('/')[1][0]),
+        chainAlias: location.pathname.split('/')[1][0],
       }),
     );
-  }, [timeFrameXPchain]); // eslint-disable-line
+  }, [timeFrameXchain, timeFramePchain]); // eslint-disable-line
 
   useEffect(() => {
     if (location.pathname.split('/')[1] === ChainType.C_CHAIN)
       dispatch(changetimeFrame(value));
-    else dispatch(changetimeFrameXPchain(value));
+    else if (location.pathname.split('/')[1] === ChainType.X_CHAIN)
+      dispatch(changetimeFrameXchain(value));
+    else dispatch(changetimeFramePchain(value));
   }, [value]); // eslint-disable-line
 
   const { isMobile } = useWidth();

@@ -13,7 +13,7 @@ import {
   loadTotalGasFess,
 } from 'store/cchainSlice/utils';
 import { useLocation } from 'react-router-dom';
-import { getTimeFrameXPchain, getXPchainOverreview } from 'store/xchainSlice';
+import { getTimeFrameXchain, getXchainOverreview } from 'store/xchainSlice';
 import {
   loadNumberOfPXTransactions,
   loadTotalPXGasFess,
@@ -32,11 +32,11 @@ export default function GlobalReloadButton({
   const dispatch = useAppDispatch();
   const frameTime = useAppSelector(getTimeFrame);
   const status = useAppSelector(getCchainStatus);
-  const timeFrameXPchain = useAppSelector(getTimeFrameXPchain);
+  const timeFrameXPchain = useAppSelector(getTimeFrameXchain);
   const { gasFeesLoading, transactionsLoading } = useAppSelector(
     location.pathname.split('/')[1] === ChainType.C_CHAIN
       ? getCchainOverreview
-      : getXPchainOverreview,
+      : getXchainOverreview,
   );
   const handleClick = async () => {
     if (
@@ -64,12 +64,14 @@ export default function GlobalReloadButton({
         loadNumberOfPXTransactions({
           timeframe: timeFrameXPchain,
           chainId,
+          chainAlias: location.pathname.split('/')[1][0],
         }),
       );
       dispatch(
         loadTotalPXGasFess({
           timeframe: timeFrameXPchain,
           chainId,
+          chainAlias: location.pathname.split('/')[1][0],
         }),
       );
       dispatch(loadValidators());

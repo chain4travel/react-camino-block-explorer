@@ -76,7 +76,9 @@ export interface initialXPchainStateType {
   loadXTransactionDetials: Status;
   loadPTransactionDetials: Status;
   error: undefined | string;
-  timeFrame: string;
+  xTimeFrame: string;
+  pTimeFrame: string;
   assets?: assets[];
-  ChainOverview: ChainOverviewType;
+  XChainOverview: ChainOverviewType;
+  PChainOverview: ChainOverviewType;
 }
