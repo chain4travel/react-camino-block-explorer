@@ -9,7 +9,7 @@ export default function DataControllers() {
       <Grid item xs>
         <RowRadioButtonsGroup />
       </Grid>
-      <Grid item xs="auto" sm={3}>
+      <Grid container item xs="auto" sm={3} alignContent="center">
         <GlobalReloadButton style={{ display: 'flex', marginLeft: 'auto' }} />
       </Grid>
     </Grid>
