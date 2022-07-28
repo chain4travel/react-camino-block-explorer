@@ -83,7 +83,7 @@ export default function GlobalReloadButton({
       onClick={handleClick}
       variant="outlined"
       color="secondary"
-      sx={{ borderRadius: '25px', maxHeight: '40px', ...style }}
+      sx={{ borderRadius: '25px', maxHeight: '35px', ...style }}
     >
       <Replay sx={{ color: 'primary.contrastText', fontSize: '25px' }} />
     </Button>
