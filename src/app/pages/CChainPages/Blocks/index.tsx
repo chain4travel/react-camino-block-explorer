@@ -1,25 +1,26 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import {
   Grid,
   Paper,
-  Typography,
   useTheme,
   TableContainer,
   TableCellProps,
   Box,
   LinearProgress,
 } from '@mui/material';
-import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
 import { useInfiniteQuery } from 'react-query';
-
-import Block from './Block';
-import CutomTable from 'app/components/Table/TableView';
-import useWidth from 'app/hooks/useWidth';
 import { getBlocksPage } from 'api';
+import PageContainer from 'app/components/PageContainer';
+import Block from './Block';
+import TableView from 'app/components/Table/TableView';
+import useWidth from 'app/hooks/useWidth';
+import SubPageTitle from 'app/components/SubPageTitle';
 
-export default function Blocks() {
+const Blocks: FC = () => {
   const theme = useTheme();
+  const intObserver = React.useRef<IntersectionObserver | null>(null);
+  const { isDesktop, isWidescreen } = useWidth();
+
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
@@ -39,49 +40,41 @@ export default function Blocks() {
     },
   );
 
-  const intObserver = React.useRef<IntersectionObserver | null>(null);
   const lastPostRef = React.useCallback(
     block => {
       if (isFetchingNextPage) return;
-
       if (intObserver.current) intObserver.current?.disconnect();
-
       intObserver.current = new IntersectionObserver(blocks => {
         if (blocks[0].isIntersecting && hasNextPage) {
           fetchNextPage();
         }
       });
-
       if (block) intObserver.current.observe(block);
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
-  // if (status === 'error') return <p className='center'>Error: {error.message}</p>
 
   const content = data?.pages.map(pg => {
     return pg.map((block, i) => {
-      if (pg.length === i + 1) {
+      if (pg.length === i + 1)
         return <Block ref={lastPostRef} key={block.number} block={block} />;
-      }
       return <Block key={block.number} block={block} />;
     });
   });
 
-  const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer pageTitle="C Blocks" metaContent="chain-overview c-chain">
       <Paper
         variant="outlined"
         square
         sx={{
-          minHeight: '680px',
+          minHeight: '850px',
           width: 1,
           backgroundColor: 'primary.dark',
           borderRadius: '12px',
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
@@ -94,40 +87,30 @@ export default function Blocks() {
           alignItems="center"
           sx={{ width: 1, gap: '20px' }}
         >
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Blocks
-            </Typography>
-          </Grid>
+          <SubPageTitle title="C-Blocks" />
           {status === 'success' && data && (
-            <TableContainer sx={{ height: '650px' }}>
+            <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (
-                <CutomTable columns={columns}>{content}</CutomTable>
+                <TableView columns={columns}>{content}</TableView>
               ) : (
                 <Grid item container alignItems="center">
                   {content}
                 </Grid>
               )}
-              {isFetchingNextPage && (
-                <Box sx={{ width: '100%' }}>
-                  <LinearProgress color="secondary" />
-                </Box>
-              )}
             </TableContainer>
           )}
         </Grid>
+        {isFetchingNextPage && (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color="secondary" />
+          </Box>
+        )}
       </Paper>
     </PageContainer>
   );
-}
+};
+
+export default Blocks;
 
 export interface ColumnType {
   name: string;

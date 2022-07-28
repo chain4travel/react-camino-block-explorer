@@ -1,29 +1,28 @@
-import * as React from 'react';
-import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-// import axios from 'axios';
+import React, { FC } from 'react';
+import { Grid, Paper, useTheme, Box } from '@mui/material';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
-// import { TranscationDetail } from 'types/transaction';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
-  getCTransactionCurrencuy,
+  getCTransactionCurrency,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
 } from 'store/cchainSlice';
 import { Status } from 'types';
+import { mdiTransfer } from '@mdi/js';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import DetailsField from 'app/components/DetailsField';
 import Icon from '@mdi/react';
-import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './TransactionDetailView';
+import SubPageTitle from 'app/components/SubPageTitle';
 
-export default function TransactionDetails() {
+const TransactionDetails: FC = () => {
   const theme = useTheme();
   const detailTr = useAppSelector(getCTransactionInformations);
-  const detailCr = useAppSelector(getCTransactionCurrencuy);
+  const detailCr = useAppSelector(getCTransactionCurrency);
   const loading = useAppSelector(getCTransactionDetailsStatus);
   const location = useLocation();
   const address = location.pathname.split('/')[3];
@@ -48,7 +47,6 @@ export default function TransactionDetails() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
@@ -56,19 +54,7 @@ export default function TransactionDetails() {
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Chain Transaction
-            </Typography>
-          </Grid>
+          <SubPageTitle title="C-Chain Transaction" />
           {loading === Status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
@@ -96,4 +82,6 @@ export default function TransactionDetails() {
       </Paper>
     </PageContainer>
   );
-}
+};
+
+export default TransactionDetails;

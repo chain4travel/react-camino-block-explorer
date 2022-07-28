@@ -74,13 +74,14 @@ export interface TranscationDetail {
 
 export interface CAddressTransactionTableData {
   type: number;
-  txnHash: string;
-  block: number;
+  hash: string;
+  blockNumber: number;
   age: Date;
   from: string;
   to: string;
   value: number;
-  txnFee: number;
+  transactionCost: number;
+  timestamp: number;
   direction: 'out' | 'in';
 }
 
@@ -92,7 +93,7 @@ export interface TransactionInformations {
   toAddr: string;
 }
 
-export interface TransactionCurrencuy {
+export interface TransactionCurrency {
   maxFeePerGas: number;
   maxPriorityFeePerGas: number;
   gasPrice: number;
@@ -102,5 +103,5 @@ export interface TransactionCurrencuy {
 }
 export interface TranscationDetails {
   transactionInformations: TransactionInformations;
-  transactionCurrencuy: TransactionCurrencuy;
+  transactionCurrency: TransactionCurrency;
 }

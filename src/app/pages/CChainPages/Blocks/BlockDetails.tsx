@@ -1,17 +1,18 @@
-import React from 'react';
-import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
+import React, { FC } from 'react';
+import { Grid, Paper, useTheme, Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
 import { CTRANSACTIONS } from 'utils/route-paths';
+import { Status } from 'types';
 import LoadingWrapper from 'app/components/LoadingWrapper';
 import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
 import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
 import BlockDetailView from './BlockDetailView';
+import SubPageTitle from 'app/components/SubPageTitle';
 
-export default function BlockDetails() {
+const BlockDetails: FC = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -41,7 +42,6 @@ export default function BlockDetails() {
             borderWidth: '1px',
             borderColor: 'primary.light',
             borderStyle: 'solid',
-
             p: '1.5rem 2rem 1.5rem 2rem',
             [theme.breakpoints.down('md')]: {
               p: '1rem 1.5rem 1rem 1.5rem',
@@ -57,21 +57,12 @@ export default function BlockDetails() {
               gap: '20px',
             }}
           >
-            <Grid item container alignItems="center" sx={{ gap: '20px' }}>
-              <BackButton />
-              <Typography
-                variant="h5"
-                component="h5"
-                fontWeight="fontWeightBold"
-              >
-                C-Chain Block {location.pathname.split('/')[3]}
-              </Typography>
-            </Grid>
-
+            <SubPageTitle
+              title={`C-Chain Block ${location.pathname.split('/')[3]}`}
+            />
             <Box
               sx={{
                 display: 'flex',
-                direction: 'row',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -85,26 +76,31 @@ export default function BlockDetails() {
           </Grid>
         </Paper>
         <Grid
+          item
           container
-          rowSpacing={{ xs: 4, lg: '0!important' }}
-          columnSpacing={{ xs: 0, lg: 4 }}
+          alignItems="center"
+          justifyContent="center"
+          xs={12}
+          sx={{ borderRadius: '12px' }}
         >
-          <Grid
-            item
-            container
-            alignItems="center"
-            justifyContent="center"
-            xs={12}
-          >
-            <TransactionsView loading={loading} blockDetails={blockDetails} />
-          </Grid>
+          <TransactionsView loading={loading} blockDetails={blockDetails} />
         </Grid>
       </Box>
     </PageContainer>
   );
+};
+
+export default BlockDetails;
+
+interface TransactionsViewProps {
+  loading: Status;
+  blockDetails: any;
 }
 
-const TransactionsView = ({ loading, blockDetails }) => {
+const TransactionsView: FC<TransactionsViewProps> = ({
+  loading,
+  blockDetails,
+}) => {
   return (
     <LoadingWrapper loading={loading} failedLoadingMsg="">
       {blockDetails?.transactions?.length > 0 && (

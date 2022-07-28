@@ -1,25 +1,25 @@
-import * as React from 'react';
+import React, { FC, useRef, useCallback } from 'react';
 import {
   Grid,
   Paper,
-  Typography,
   useTheme,
   TableContainer,
   Box,
   LinearProgress,
 } from '@mui/material';
-import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
 import { useInfiniteQuery } from 'react-query';
-
-// import Block from './Block';
+import { getTransactionsPage } from 'api';
+import PageContainer from 'app/components/PageContainer';
 import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
-import { getTransactionsPage } from 'api';
 import Transaction from './Transaction';
+import SubPageTitle from 'app/components/SubPageTitle';
 
-export default function Transactions() {
+const Transactions: FC = () => {
   const theme = useTheme();
+  const intObserver = useRef<IntersectionObserver | null>(null);
+  const { isDesktop, isWidescreen } = useWidth();
+
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
@@ -39,24 +39,19 @@ export default function Transactions() {
     },
   );
 
-  const intObserver = React.useRef<IntersectionObserver | null>(null);
-  const lastPostRef = React.useCallback(
+  const lastPostRef = useCallback(
     transaction => {
       if (isFetchingNextPage) return;
-
       if (intObserver.current) intObserver.current?.disconnect();
-
       intObserver.current = new IntersectionObserver(transactions => {
         if (transactions[0].isIntersecting && hasNextPage) {
           fetchNextPage();
         }
       });
-
       if (transaction) intObserver.current.observe(transaction);
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
-  // if (status === 'error') return <p className='center'>Error: {error.message}</p>
 
   const content = data?.pages.map(pg => {
     return pg.map((transaction, i) => {
@@ -74,21 +69,20 @@ export default function Transactions() {
       );
     });
   });
-  const { isDesktop, isWidescreen } = useWidth();
+
   return (
     <PageContainer pageTitle="C Blocks" metaContent="chain-overview c-chain">
       <Paper
         variant="outlined"
         square
         sx={{
-          minHeight: '680px',
+          minHeight: '850px',
           width: 1,
           backgroundColor: 'primary.dark',
           borderRadius: '12px',
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
@@ -101,21 +95,9 @@ export default function Transactions() {
           alignItems="center"
           sx={{ width: 1, gap: '20px' }}
         >
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Transactions
-            </Typography>
-          </Grid>
+          <SubPageTitle title="C-Transactions" />
           {status === 'success' && data && (
-            <TableContainer sx={{ height: '650px' }}>
+            <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (
                 <CutomTable columns={columns}>{content}</CutomTable>
               ) : (
@@ -125,16 +107,18 @@ export default function Transactions() {
               )}
             </TableContainer>
           )}
-          {isFetchingNextPage && (
-            <Box sx={{ width: '100%' }}>
-              <LinearProgress color="secondary" />
-            </Box>
-          )}
         </Grid>
+        {isFetchingNextPage && (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color="secondary" />
+          </Box>
+        )}
       </Paper>
     </PageContainer>
   );
-}
+};
+
+export default Transactions;
 
 const columns = [
   {

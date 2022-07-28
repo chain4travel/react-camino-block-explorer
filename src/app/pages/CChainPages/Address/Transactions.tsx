@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React, { useRef, useEffect, useState, useCallback, FC } from 'react';
 import { Grid, TableContainer, Box, LinearProgress } from '@mui/material';
-import { useInfiniteQuery } from 'react-query';
-import Address from './Address';
-import CutomTable from 'app/components/Table/TableView';
-import useWidth from 'app/hooks/useWidth';
-import { loadCAddressTransactions } from 'api';
 import { useLocation } from 'react-router-dom';
+import { useInfiniteQuery } from 'react-query';
+import { loadCAddressTransactions } from 'api';
+import Address from './Address';
+import TableView from 'app/components/Table/TableView';
+import useWidth from 'app/hooks/useWidth';
 
-export default function Transactions() {
-  const [route, setRoute] = React.useState('in');
+const Transactions: FC = () => {
+  const [route, setRoute] = useState('in');
   const location = useLocation();
 
   const {
@@ -32,67 +32,61 @@ export default function Transactions() {
     },
   );
 
-  const intObserver = React.useRef<IntersectionObserver | null>(null);
-  const lastPostRef = React.useCallback(
+  const intObserver = useRef<IntersectionObserver | null>(null);
+  const lastPostRef = useCallback(
     address => {
       if (isFetchingNextPage) return;
-
       if (intObserver.current) intObserver.current?.disconnect();
-
       intObserver.current = new IntersectionObserver(blocks => {
         if (blocks[0].isIntersecting && hasNextPage) {
           fetchNextPage();
         }
       });
-
       if (address) intObserver.current.observe(address);
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
-  React.useEffect(() => {
+  useEffect(() => {
     setRoute(route === 'in' ? 'out' : 'in');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
-  // if (status === 'error') return <p className='center'>Error: {error.message}</p>
+  }, [location]); // eslint-disable-line
 
   const content = data?.pages?.map(pg => {
     return pg.map((transaction, i) => {
-      if (pg.length === i + 1) {
+      if (pg.length === i + 1)
         return <Address ref={lastPostRef} key={i} transaction={transaction} />;
-      }
       return <Address key={i} transaction={transaction} />;
     });
   });
 
   const { isDesktop, isWidescreen } = useWidth();
   return (
-    <>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        sx={{ width: 1, gap: '20px' }}
-      >
-        {status === 'success' && data && (
-          <TableContainer sx={{ height: '650px' }}>
-            {isWidescreen || isDesktop ? (
-              <CutomTable columns={columns}>{content}</CutomTable>
-            ) : (
-              <Grid item container alignItems="center">
-                {content}
-              </Grid>
-            )}
-            {isFetchingNextPage && (
-              <Box sx={{ width: '100%' }}>
-                <LinearProgress color="secondary" />
-              </Box>
-            )}
-          </TableContainer>
-        )}
-      </Grid>
-    </>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      sx={{ width: 1, gap: '20px' }}
+    >
+      {status === 'success' && data && (
+        <TableContainer sx={{ height: '680px' }}>
+          {isWidescreen || isDesktop ? (
+            <TableView columns={columns}>{content}</TableView>
+          ) : (
+            <Grid item container alignItems="center">
+              {content}
+            </Grid>
+          )}
+        </TableContainer>
+      )}
+      {isFetchingNextPage && (
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress color="secondary" />
+        </Box>
+      )}
+    </Grid>
   );
-}
+};
+
+export default Transactions;
 
 const columns = [
   {

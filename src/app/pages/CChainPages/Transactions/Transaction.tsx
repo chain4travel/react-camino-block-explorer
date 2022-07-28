@@ -1,73 +1,46 @@
-import React from 'react';
-import useWidth from 'app/hooks/useWidth';
-import {
-  Grid,
-  Paper,
-  TableCell,
-  TableRow,
-  Typography,
-  Chip,
-} from '@mui/material';
+import React, { FC } from 'react';
+import { Grid, TableCell, TableRow, Typography, Chip } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
 import { getRelativeTime } from 'utils/display-utils';
 import { CADDRESS, CBLOCKS } from 'utils/route-paths';
+import { TransactionTableData } from 'types/transaction';
 import AddressLink from 'app/components/AddressLink';
+import useWidth from 'app/hooks/useWidth';
+import FilledCard from 'app/components/FilledCard';
 
-interface Props {
-  transaction: any;
+interface TransactionProps {
+  transaction: TransactionTableData;
 }
-export type Ref = any;
 
-const Transaction = React.forwardRef<Ref, Props>((props, ref) => {
-  const transactionBody = <CustomRow transaction={props.transaction} />;
+const Transaction = React.forwardRef<HTMLTableRowElement, TransactionProps>(
+  (props, ref) => {
+    const transactionBody = <CustomRow transaction={props.transaction} />;
 
-  const { isDesktop, isWidescreen } = useWidth();
-  let content;
-  if (isDesktop || isWidescreen)
-    content = ref ? (
-      <TableRow ref={ref}>{transactionBody}</TableRow>
-    ) : (
-      <TableRow>{transactionBody}</TableRow>
-    );
-  else
-    content = ref ? (
-      <Paper
-        sx={{
-          width: 1,
-          marginBottom: '1rem',
-          padding: '15px',
-          gap: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'primary.light',
-          backgroundImage: 'none',
-        }}
-        ref={ref}
-      >
-        <GridItem transaction={props.transaction} />
-      </Paper>
-    ) : (
-      <Paper
-        sx={{
-          width: 1,
-          marginBottom: '1rem',
-          padding: '15px',
-          gap: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'primary.light',
-          backgroundImage: 'none',
-        }}
-      >
-        <GridItem transaction={props.transaction} />
-      </Paper>
-    );
-  return content;
-});
+    const { isDesktop, isWidescreen } = useWidth();
+    let content;
+    if (isDesktop || isWidescreen)
+      content = ref ? (
+        <TableRow ref={ref}>{transactionBody}</TableRow>
+      ) : (
+        <TableRow>{transactionBody}</TableRow>
+      );
+    else
+      content = ref ? (
+        <FilledCard ref={ref}>
+          <GridItem transaction={props.transaction} />
+        </FilledCard>
+      ) : (
+        <FilledCard>
+          <GridItem transaction={props.transaction} />
+        </FilledCard>
+      );
+    return content;
+  },
+);
 
 export default Transaction;
 
-const GridItem = ({ transaction }) => {
+const GridItem: FC<TransactionProps> = ({ transaction }) => {
   return (
     <>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -75,7 +48,7 @@ const GridItem = ({ transaction }) => {
           Block
         </Typography>
         <AddressLink
-          to={`/`}
+          to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
           typographyVariant="body1"
           truncate={false}
@@ -85,25 +58,42 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           From
         </Typography>
-        <Field type="number" value={transaction.from} />
+        <AddressLink
+          to={`${CADDRESS}/${transaction.from}`}
+          value={transaction.from}
+          typographyVariant="body2"
+          truncate={true}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           To
         </Typography>
-        <Field type="number" value={transaction.from} />
+        <AddressLink
+          to={`${CADDRESS}/${transaction.to}`}
+          value={transaction.to}
+          typographyVariant="body2"
+          truncate={true}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           Hash
         </Typography>
-        <Field type="number" value={transaction.hash} />
+        <AddressLink
+          to={`${transaction.hash}`}
+          value={transaction.hash}
+          typographyVariant="body2"
+          truncate={true}
+        />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        {getRelativeTime(transaction.timestamp as number) + ' ago '}
+        <Typography variant="body2">
+          {getRelativeTime(transaction.timestamp) + ' ago '}
+        </Typography>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -131,7 +121,7 @@ const GridItem = ({ transaction }) => {
   );
 };
 
-const CustomRow = ({ transaction }) => {
+const CustomRow: FC<TransactionProps> = ({ transaction }) => {
   return (
     <>
       <TableCell>
@@ -177,7 +167,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell>
         <Typography variant="body2" component="span" noWrap={true}>
-          {getRelativeTime(transaction.timestamp as number) + ' ago '}
+          {getRelativeTime(transaction.timestamp) + ' ago '}
         </Typography>
       </TableCell>
       <TableCell>

@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import {
   Grid,
   Paper,
@@ -6,28 +7,29 @@ import {
   Typography,
   Chip,
 } from '@mui/material';
-import AddressLink from 'app/components/AddressLink';
 import { Field } from 'app/components/DetailsField';
-import useWidth from 'app/hooks/useWidth';
-import React from 'react';
-import { BlockType } from 'types/block';
 import { getRelativeTime } from 'utils/display-utils';
 import { CADDRESSPATH, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
+import { CAddressTransactionTableData } from 'types/transaction';
+import AddressLink from 'app/components/AddressLink';
+import useWidth from 'app/hooks/useWidth';
 
 interface Props {
-  transaction: BlockType;
+  transaction: CAddressTransactionTableData;
 }
-export type Ref = any;
 
-const Address = React.forwardRef<Ref, Props>((props, ref) => {
-  const addressBody = <CustomRow transaction={props.transaction} />;
+const Address = React.forwardRef<HTMLTableRowElement, Props>((props, ref) => {
   const { isDesktop, isWidescreen } = useWidth();
   let content;
   if (isDesktop || isWidescreen)
     content = ref ? (
-      <TableRow ref={ref}>{addressBody}</TableRow>
+      <TableRow ref={ref}>
+        <CustomRow transaction={props.transaction} />
+      </TableRow>
     ) : (
-      <TableRow>{addressBody}</TableRow>
+      <TableRow>
+        <CustomRow transaction={props.transaction} />
+      </TableRow>
     );
   else
     content = ref ? (
@@ -66,8 +68,11 @@ const Address = React.forwardRef<Ref, Props>((props, ref) => {
 
 export default Address;
 
-//CustomRow
-const CustomRow = ({ transaction }) => {
+interface GridItemProps {
+  transaction: CAddressTransactionTableData;
+}
+
+const CustomRow: FC<GridItemProps> = ({ transaction }) => {
   return (
     <>
       <TableCell>
@@ -133,7 +138,7 @@ const CustomRow = ({ transaction }) => {
   );
 };
 
-const GridItem = ({ transaction }) => {
+const GridItem: FC<GridItemProps> = ({ transaction }) => {
   return (
     <>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
