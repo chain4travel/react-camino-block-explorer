@@ -17,13 +17,20 @@ import {
   loadTotalGasFess,
 } from './utils';
 import { MagellanBlock, MagellanTransaction } from 'types/magellan-types';
+import {
+  fetchNextTransactionDetails,
+  fetchPrevTransactionDetails,
+} from 'app/pages/CChainPages/Transactions/utils';
 
 const initialState: initialCchainStateType = {
   transactionCount: NaN,
   blockCount: NaN,
   blocks: [],
+  currentIndex: 0,
   transactions: [],
+  transactionsNavigation: [],
   status: Status.IDLE,
+  loadNextPrevStatus: Status.IDLE,
   error: undefined,
   blockDetail: undefined,
   transcationDetails: undefined,
@@ -44,6 +51,17 @@ const cchainSlice = createSlice({
   reducers: {
     changetimeFrame(state, action) {
       state.timeFrame = action.payload;
+    },
+    changeCurrentIndex(state, action) {
+      state.currentIndex = action.payload;
+    },
+    clearTr(state) {
+      state.transcationDetails = undefined;
+      state.transactionsNavigation = [];
+      state.currentIndex = 0;
+    },
+    resetLoadingStatusForNPTransactions(state) {
+      state.loadNextPrevStatus = Status.IDLE;
     },
   },
   extraReducers(builder) {
@@ -168,6 +186,7 @@ const cchainSlice = createSlice({
       })
       .addCase(fetchTransactionDetails.fulfilled, (state, { payload }) => {
         let transactionInformations: TransactionInformations = {
+          hash: payload.hash,
           type: payload.type,
           block: payload.block,
           createdAt: new Date(payload.createdAt),
@@ -190,9 +209,54 @@ const cchainSlice = createSlice({
         };
         state.loadTransactionDetails = Status.SUCCEEDED;
       })
-      .addCase(fetchTransactionDetails.rejected, (state, action) => {
+      .addCase(fetchTransactionDetails.rejected, state => {
         state.loadTransactionDetails = Status.FAILED;
+      })
+      .addCase(fetchPrevTransactionDetails.pending, state => {
+        state.loadNextPrevStatus = Status.LOADING;
+      })
+      .addCase(fetchPrevTransactionDetails.fulfilled, (state, { payload }) => {
+        if (payload && payload.length > 0) {
+          let res = payload.map(item => {
+            return {
+              block: parseInt(item.block),
+              hash: item.hash,
+              from: item.from,
+            };
+          });
+          state.transactionsNavigation = [
+            ...res.slice(1).reverse(),
+            ...state.transactionsNavigation,
+          ];
+          state.currentIndex += res.length - 1;
+          while (state.transactionsNavigation.length > 100)
+            state.transactionsNavigation.pop();
+        }
+        state.loadNextPrevStatus = Status.SUCCEEDED;
+      })
+      // .addCase(fetchPrevTransactionDetails.rejected, (state, action) => {})
+      .addCase(fetchNextTransactionDetails.pending, state => {
+        state.loadNextPrevStatus = Status.LOADING;
+      })
+      .addCase(fetchNextTransactionDetails.fulfilled, (state, { payload }) => {
+        if (payload && payload.length > 0) {
+          let res = payload.map(item => {
+            return {
+              block: parseInt(item.block),
+              hash: item.hash,
+              from: item.from,
+            };
+          });
+          state.transactionsNavigation = [
+            ...state.transactionsNavigation,
+            ...res,
+          ];
+          while (state.transactionsNavigation.length > 100)
+            state.transactionsNavigation.shift();
+        }
+        state.loadNextPrevStatus = Status.SUCCEEDED;
       });
+    // .addCase(fetchNextTransactionDetails.rejected, (state, action) => {});
   },
 });
 
@@ -227,7 +291,20 @@ export const getCTransactionCurrencuy = (state: RootState) =>
 export const getCTransactionDetailsStatus = (state: RootState) =>
   state.cchain.loadTransactionDetails;
 
+// Select TransactionNavigation
+export const getNextPrevTx = (state: RootState) =>
+  state.cchain.transactionsNavigation;
+
+export const getNextPrevStatus = (state: RootState) =>
+  state.cchain.loadNextPrevStatus;
+
+export const getCurrentIndex = (state: RootState) => state.cchain.currentIndex;
 // actions
-export const { changetimeFrame } = cchainSlice.actions;
+export const {
+  changetimeFrame,
+  changeCurrentIndex,
+  clearTr,
+  resetLoadingStatusForNPTransactions,
+} = cchainSlice.actions;
 // reduceer
 export default cchainSlice.reducer;

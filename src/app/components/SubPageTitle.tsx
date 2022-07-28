@@ -1,6 +1,6 @@
 import React from 'react';
 import BackButton from 'app/components/BackButton';
-import { Box, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 const SubPageTitle = ({
   title,
@@ -12,21 +12,40 @@ const SubPageTitle = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <Box
+    <Grid
+      container
       sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '20px',
         ...style,
       }}
+      spacing={2}
     >
-      <BackButton />
-      <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-        {title}
-      </Typography>
-      <Box>{children}</Box>
-    </Box>
+      <Grid item xs sm={4} lg={2} order={1}>
+        <BackButton />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        sm={4}
+        lg={8}
+        justifyContent="center"
+        order={{ xs: 3, sm: 2 }}
+      >
+        <Typography
+          variant="h5"
+          component="h5"
+          fontWeight="fontWeightBold"
+          sx={{ textAlign: 'center' }}
+        >
+          {title}
+        </Typography>
+      </Grid>
+      <Grid item xs sm={4} lg={2} order={{ xs: 2, sm: 3 }}>
+        {children}
+      </Grid>
+    </Grid>
   );
 };
 

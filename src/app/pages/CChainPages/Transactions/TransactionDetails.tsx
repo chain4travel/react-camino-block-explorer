@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-// import axios from 'axios';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import { useLocation } from 'react-router-dom';
-// import { TranscationDetail } from 'types/transaction';
+import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchTransactionDetails } from 'store/cchainSlice/utils';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
+  changeCurrentIndex,
+  clearTr,
   getCTransactionCurrencuy,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
+  getCurrentIndex,
+  getNextPrevStatus,
+  getNextPrevTx,
+  resetLoadingStatusForNPTransactions,
 } from 'store/cchainSlice';
 import { Status } from 'types';
 import PageContainer from 'app/components/PageContainer';
@@ -19,19 +22,66 @@ import DetailsField from 'app/components/DetailsField';
 import Icon from '@mdi/react';
 import { mdiTransfer } from '@mdi/js';
 import TransactionDetailView from './TransactionDetailView';
+import {
+  fetchNextTransactionDetails,
+  fetchPrevTransactionDetails,
+  getNextPrevTransaction,
+  TrimmedTransactionDetails,
+} from './utils';
+import SubPageTitle from 'app/components/SubPageTitle';
+import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
+import { CTRANSACTIONS } from 'utils/route-paths';
 
 export default function TransactionDetails() {
   const theme = useTheme();
   const detailTr = useAppSelector(getCTransactionInformations);
   const detailCr = useAppSelector(getCTransactionCurrencuy);
   const loading = useAppSelector(getCTransactionDetailsStatus);
+  const getNPStatus = useAppSelector(getNextPrevStatus);
+  const nextPrevTX = useAppSelector(getNextPrevTx);
   const location = useLocation();
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
-  useEffectOnce(() => {
-    dispatch(fetchTransactionDetails(address));
-  });
+  const [btnStopper, setBtnStopper] = React.useState(false);
+  const currentIndex = useAppSelector(getCurrentIndex);
 
+  const handleDelay = () => {
+    setBtnStopper(true);
+    setTimeout(() => {
+      setBtnStopper(false);
+    }, 500);
+  };
+
+  React.useEffect(() => {
+    changeCurrentIndex(0);
+    dispatch(clearTr());
+    dispatch(fetchTransactionDetails(address));
+    return () => {
+      changeCurrentIndex(0);
+      dispatch(clearTr());
+      dispatch(resetLoadingStatusForNPTransactions());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (detailTr && getNPStatus === Status.IDLE) {
+      let args: TrimmedTransactionDetails = {
+        address: detailTr?.fromAddr,
+        blockNumber: detailTr?.block,
+        transactionID: 0,
+      };
+      dispatch(fetchPrevTransactionDetails(args));
+      dispatch(fetchNextTransactionDetails(args));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [detailTr]);
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (nextPrevTX.length > 0)
+      navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
   return (
     <PageContainer
       pageTitle="C TransactionDetails"
@@ -56,24 +106,59 @@ export default function TransactionDetails() {
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              C-Chain Transaction
-            </Typography>
-          </Grid>
+          <SubPageTitle title="C-Chain Transaction">
+            <Box
+              sx={{
+                display: 'flex',
+                whiteSpace: 'nowrap',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <RoundButton
+                disabled={
+                  getNPStatus === Status.LOADING ||
+                  loading === Status.LOADING ||
+                  btnStopper
+                }
+                onClick={() => {
+                  if (
+                    getNPStatus !== Status.LOADING &&
+                    loading !== Status.LOADING
+                  ) {
+                    dispatch(getNextPrevTransaction(true, detailTr));
+                  }
+                  handleDelay();
+                }}
+                sx={{ width: '42px', height: '42px', mr: '15px' }}
+              >
+                <Icon path={mdiChevronLeft} size={1} />
+              </RoundButton>
+              <RoundButton
+                disabled={
+                  getNPStatus === Status.LOADING ||
+                  loading === Status.LOADING ||
+                  btnStopper
+                }
+                onClick={() => {
+                  if (
+                    getNPStatus !== Status.LOADING &&
+                    loading !== Status.LOADING
+                  ) {
+                    dispatch(getNextPrevTransaction(false, detailTr));
+                  }
+                  handleDelay();
+                }}
+                sx={{ width: '42px', height: '42px' }}
+              >
+                <Icon path={mdiChevronRight} size={1} />
+              </RoundButton>
+            </Box>
+          </SubPageTitle>
           {loading === Status.SUCCEEDED && (
             <OutlinedContainer transparent={false}>
               <DetailsField
                 field="Transaction"
-                value={address}
+                value={detailTr?.hash}
                 type="string"
                 icon={
                   <Icon
@@ -97,3 +182,23 @@ export default function TransactionDetails() {
     </PageContainer>
   );
 }
+
+const RoundButton = ({ sx, children, ...props }) => {
+  return (
+    <Button
+      disableRipple
+      sx={{
+        color: 'white',
+        borderColor: 'secondary.main',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '100%',
+        minWidth: 'min-content',
+        ...sx,
+      }}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};
