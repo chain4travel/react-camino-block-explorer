@@ -7,7 +7,7 @@ import Icon from '@mdi/react';
 import AddressLink from '../../AddressLink';
 import RelativeTime from '../../RelativeTime';
 import useWidth from 'app/hooks/useWidth';
-import { CADDRESSPATH } from 'utils/route-paths';
+import { CADDRESS } from 'utils/route-paths';
 
 interface TransactionItemProps {
   transaction: CTransaction;
@@ -58,7 +58,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
           </Grid>
           <Grid item xs={10} md={8}>
             <AddressLink
-              to={`${CADDRESSPATH}/${transaction.from}`}
+              to={`${CADDRESS}/${transaction.from}`}
               value={transaction.from}
               typographyVariant="body1"
               truncate={true}
@@ -71,7 +71,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
           </Grid>
           <Grid item xs={10} md={8}>
             <AddressLink
-              to={`${CADDRESSPATH}/${transaction.to}`}
+              to={`${CADDRESS}/${transaction.to}`}
               value={transaction.to}
               typographyVariant="body1"
               truncate={true}
