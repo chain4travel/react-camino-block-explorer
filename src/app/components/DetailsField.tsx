@@ -5,8 +5,9 @@ import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import { CamAmount } from 'app/components/CamAmount';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { getRelativeTime } from 'utils/display-utils';
+import { mdiLinkVariant } from '@mdi/js';
+import Icon from '@mdi/react';
 
 export default function DetailsField({
   field,
@@ -96,9 +97,16 @@ export default function DetailsField({
                     variant="outlined"
                     color="secondary"
                     size="small"
-                    startIcon={<OpenInNewIcon />}
+                    startIcon={<Icon path={mdiLinkVariant} size={0.7} />}
+                    sx={{ p: '.3rem .7rem .3rem .7rem', borderRadius: '7px' }}
                   >
-                    Open
+                    <Typography
+                      variant="body2"
+                      component="span"
+                      sx={{ color: 'white', textTransform: 'capitalize' }}
+                    >
+                      Open
+                    </Typography>
                   </Button>
                 </Link>
               )}
