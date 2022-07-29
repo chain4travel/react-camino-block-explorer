@@ -145,7 +145,7 @@ const XPTransactionSecondSection = ({
                   item
                   xs={12}
                   sm={6}
-                  xl={5}
+                  xl={7}
                   sx={{
                     justifyContent: 'flex-end',
                     display: 'flex',

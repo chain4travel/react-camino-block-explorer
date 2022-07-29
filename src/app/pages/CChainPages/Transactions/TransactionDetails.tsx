@@ -133,7 +133,11 @@ const TransactionDetails: FC = () => {
                 }}
                 sx={{ width: '42px', height: '42px', mr: '15px' }}
               >
-                <Icon path={mdiChevronLeft} size={1} />
+                <Icon
+                  path={mdiChevronLeft}
+                  size={1}
+                  color={theme.palette.primary.contrastText}
+                />
               </RoundButton>
               <RoundButton
                 disabled={
@@ -152,7 +156,11 @@ const TransactionDetails: FC = () => {
                 }}
                 sx={{ width: '42px', height: '42px' }}
               >
-                <Icon path={mdiChevronRight} size={1} />
+                <Icon
+                  path={mdiChevronRight}
+                  size={1}
+                  color={theme.palette.primary.contrastText}
+                />
               </RoundButton>
             </Box>
           </SubPageTitle>

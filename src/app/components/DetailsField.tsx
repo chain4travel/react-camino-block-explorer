@@ -103,7 +103,10 @@ export default function DetailsField({
                     <Typography
                       variant="body2"
                       component="span"
-                      sx={{ color: 'white', textTransform: 'capitalize' }}
+                      sx={{
+                        color: 'primary.contrastText',
+                        textTransform: 'capitalize',
+                      }}
                     >
                       Open
                     </Typography>
