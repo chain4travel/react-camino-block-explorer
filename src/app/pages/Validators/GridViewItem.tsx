@@ -25,8 +25,12 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
         </Typography>
         <Chip
           label={validator.status}
-          color={validator.status === 'Connected' ? 'success' : 'error'}
-          sx={{ borderRadius: '7px', color: 'grey.900' }}
+          sx={{
+            borderRadius: '7px',
+            color: 'grey.900',
+            backgroundColor:
+              validator.status === 'Connected' ? 'success.main' : 'error.main',
+          }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>

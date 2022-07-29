@@ -16,6 +16,7 @@ import useWidth from 'app/hooks/useWidth';
 import { getXPTransactions } from 'api';
 import Transaction from './Transaction';
 import { useLocation } from 'react-router-dom';
+import { XCHAIN } from 'utils/route-paths';
 
 export default function XPTransactions() {
   const location = useLocation();
@@ -108,7 +109,7 @@ export default function XPTransactions() {
               gap: '20px',
             }}
           >
-            <BackButton />
+            <BackButton backToLink={XCHAIN} />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
               {`${location.pathname
                 .split('/')[1][0]

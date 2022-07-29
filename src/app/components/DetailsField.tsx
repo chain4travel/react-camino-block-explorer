@@ -1,12 +1,13 @@
 import React from 'react';
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material';
+import { getRelativeTime } from 'utils/display-utils';
+import { mdiOpenInNew } from '@mdi/js';
 import { Link } from 'react-router-dom';
-import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import { CamAmount } from 'app/components/CamAmount';
+import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { getRelativeTime } from 'utils/display-utils';
+import Icon from '@mdi/react';
 
 export default function DetailsField({
   field,
@@ -96,9 +97,19 @@ export default function DetailsField({
                     variant="outlined"
                     color="secondary"
                     size="small"
-                    startIcon={<OpenInNewIcon />}
+                    startIcon={<Icon path={mdiOpenInNew} size={0.7} />}
+                    sx={{ p: '.3rem .7rem .3rem .7rem', borderRadius: '7px' }}
                   >
-                    Open
+                    <Typography
+                      variant="body2"
+                      component="span"
+                      sx={{
+                        color: 'primary.contrastText',
+                        textTransform: 'capitalize',
+                      }}
+                    >
+                      Open
+                    </Typography>
                   </Button>
                 </Link>
               )}

@@ -1,39 +1,37 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Divider, Grid } from '@mui/material';
 import { mdiCubeOutline } from '@mdi/js';
 import { CBLOCKS } from 'utils/route-paths';
+import { BlockDetail } from 'types/block';
+import { Status } from 'types';
 import LoadingWrapper from 'app/components/LoadingWrapper';
 import DetailsField from 'app/components/DetailsField';
 import OutlinedContainer from 'app/components/OutlinedContainer';
-import Icon from '@mdi/react';
+import CopyTitleCard from 'app/components/CopyTitleCard';
 
-export default function BlockDetailView({ blockDetails, loading }) {
+interface BlockDetailViewProps {
+  blockDetails: BlockDetail | undefined;
+  loading: Status;
+}
+
+const BlockDetailView: FC<BlockDetailViewProps> = ({
+  blockDetails,
+  loading,
+}) => {
   return (
     <LoadingWrapper
       loading={loading}
       failedLoadingMsg="Failed to load the block detail"
     >
       {blockDetails && (
-        <OutlinedContainer transparent={false}>
-          <DetailsField
-            field="Block"
+        <>
+          <CopyTitleCard
+            label="Block"
             value={blockDetails['hash']}
-            type="string"
-            icon={
-              <Icon
-                path={mdiCubeOutline}
-                color="latestList.iconColor"
-                style={{ width: '20px', height: '20px' }}
-              />
-            }
-            allowCopy={true}
+            icon={mdiCubeOutline}
           />
-        </OutlinedContainer>
-      )}
-      <OutlinedContainer>
-        <Grid item container alignItems="center">
-          {blockDetails && (
-            <>
+          <OutlinedContainer>
+            <Grid item container alignItems="center">
               <Grid item xs={12}>
                 <DetailsField
                   field="Number"
@@ -99,10 +97,12 @@ export default function BlockDetailView({ blockDetails, loading }) {
                   type="hexdata"
                 />
               </Grid>
-            </>
-          )}
-        </Grid>
-      </OutlinedContainer>
+            </Grid>
+          </OutlinedContainer>
+        </>
+      )}
     </LoadingWrapper>
   );
-}
+};
+
+export default BlockDetailView;

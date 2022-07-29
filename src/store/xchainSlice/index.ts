@@ -20,8 +20,15 @@ const initialState: initialXPchainStateType = {
   loadPTransactionDetials: Status.IDLE,
   error: undefined,
   assets: undefined,
-  timeFrame: Timeframe.HOURS_24,
-  ChainOverview: {
+  xTimeFrame: Timeframe.HOURS_24,
+  pTimeFrame: Timeframe.HOURS_24,
+  XChainOverview: {
+    numberOfTransactions: 0,
+    totalGasFees: 0,
+    gasFeesLoading: Status.IDLE,
+    transactionsLoading: Status.IDLE,
+  } as ChainOverviewType,
+  PChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
     gasFeesLoading: Status.IDLE,
@@ -33,8 +40,11 @@ const xchainSlice = createSlice({
   name: 'xchaine',
   initialState,
   reducers: {
-    changetimeFrameXPchain(state, action) {
-      state.timeFrame = action.payload;
+    changetimeFrameXchain(state, action) {
+      state.xTimeFrame = action.payload;
+    },
+    changetimeFramePchain(state, action) {
+      state.pTimeFrame = action.payload;
     },
   },
   extraReducers(builder) {
@@ -55,25 +65,43 @@ const xchainSlice = createSlice({
         state.loadXPTransactions = Status.FAILED;
         state.error = action.error.message;
       })
-      .addCase(loadNumberOfPXTransactions.pending, state => {
-        state.ChainOverview.transactionsLoading = Status.LOADING;
+      .addCase(loadNumberOfPXTransactions.pending, (state, action) => {
+        if (action.meta.arg.chainAlias === 'x')
+          state.XChainOverview.transactionsLoading = Status.LOADING;
+        else state.PChainOverview.transactionsLoading = Status.LOADING;
       })
       .addCase(loadNumberOfPXTransactions.fulfilled, (state, action) => {
-        state.ChainOverview.numberOfTransactions = action.payload;
-        state.ChainOverview.transactionsLoading = Status.SUCCEEDED;
+        if (action.meta.arg.chainAlias === 'x') {
+          state.XChainOverview.numberOfTransactions = action.payload;
+          state.XChainOverview.transactionsLoading = Status.SUCCEEDED;
+        } else {
+          state.PChainOverview.numberOfTransactions = action.payload;
+          state.PChainOverview.transactionsLoading = Status.SUCCEEDED;
+        }
       })
-      .addCase(loadNumberOfPXTransactions.rejected, state => {
-        state.ChainOverview.transactionsLoading = Status.FAILED;
+      .addCase(loadNumberOfPXTransactions.rejected, (state, action) => {
+        if (action.meta.arg.chainAlias === 'x')
+          state.XChainOverview.transactionsLoading = Status.FAILED;
+        else state.PChainOverview.transactionsLoading = Status.FAILED;
       })
-      .addCase(loadTotalPXGasFess.pending, state => {
-        state.ChainOverview.gasFeesLoading = Status.LOADING;
+      .addCase(loadTotalPXGasFess.pending, (state, action) => {
+        if (action.meta.arg.chainAlias === 'x')
+          state.XChainOverview.gasFeesLoading = Status.LOADING;
+        else state.PChainOverview.gasFeesLoading = Status.LOADING;
       })
       .addCase(loadTotalPXGasFess.fulfilled, (state, action) => {
-        state.ChainOverview.totalGasFees = action.payload;
-        state.ChainOverview.gasFeesLoading = Status.SUCCEEDED;
+        if (action.meta.arg.chainAlias === 'x') {
+          state.XChainOverview.totalGasFees = action.payload;
+          state.XChainOverview.gasFeesLoading = Status.SUCCEEDED;
+        } else {
+          state.PChainOverview.totalGasFees = action.payload;
+          state.PChainOverview.gasFeesLoading = Status.SUCCEEDED;
+        }
       })
-      .addCase(loadTotalPXGasFess.rejected, state => {
-        state.ChainOverview.gasFeesLoading = Status.FAILED;
+      .addCase(loadTotalPXGasFess.rejected, (state, action) => {
+        if (action.meta.arg.chainAlias === 'x')
+          state.XChainOverview.transactionsLoading = Status.FAILED;
+        else state.PChainOverview.transactionsLoading = Status.FAILED;
       });
   },
 });
@@ -88,12 +116,18 @@ export const selectAllPTransactions = (state: RootState) =>
 export const getXPchainStatus = (state: RootState) =>
   state.xchain.loadXPTransactions;
 export const getXchainError = (state: RootState) => state.xchain.error;
-// Select ChainOverreview data
-export const getXPchainOverreview = (state: RootState) =>
-  state.xchain.ChainOverview;
-// Select TimeFrime
-export const getTimeFrameXPchain = (state: RootState) => state.xchain.timeFrame;
+// Select ChainOverreview data for x-chain
+export const getXchainOverreview = (state: RootState) =>
+  state.xchain.XChainOverview;
+// Select TimeFrime for x-chain
+export const getTimeFrameXchain = (state: RootState) => state.xchain.xTimeFrame;
+// Select ChainOverreview data for p-chain
+export const getPchainOverreview = (state: RootState) =>
+  state.xchain.PChainOverview;
+// Select TimeFrime for p-chain
+export const getTimeFramePchain = (state: RootState) => state.xchain.pTimeFrame;
 // Actions
-export const { changetimeFrameXPchain } = xchainSlice.actions;
+export const { changetimeFrameXchain, changetimeFramePchain } =
+  xchainSlice.actions;
 // Reducer
 export default xchainSlice.reducer;

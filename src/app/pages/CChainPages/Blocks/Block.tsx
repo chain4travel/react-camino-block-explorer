@@ -1,65 +1,44 @@
-import { Grid, Paper, TableCell, TableRow, Typography } from '@mui/material';
-import AddressLink from 'app/components/AddressLink';
-import { Field } from 'app/components/DetailsField';
-import useWidth from 'app/hooks/useWidth';
 import React from 'react';
-import { BlockType } from 'types/block';
+import { Grid, TableCell, TableRow, Typography } from '@mui/material';
+import { Field } from 'app/components/DetailsField';
 import { getRelativeTime } from 'utils/display-utils';
+import { BlockTableData } from 'types/block';
+import useWidth from 'app/hooks/useWidth';
+import AddressLink from 'app/components/AddressLink';
+import FilledCard from 'app/components/FilledCard';
 
-interface Props {
-  block: BlockType;
+interface BlockProps {
+  block: BlockTableData;
 }
-export type Ref = any;
 
-const Block = React.forwardRef<Ref, Props>((props, ref) => {
-  const blockBody = <CustomRow block={props.block} />;
-  const { isDesktop, isWidescreen } = useWidth();
-  let content;
-  if (isDesktop || isWidescreen)
-    content = ref ? (
-      <TableRow ref={ref}>{blockBody}</TableRow>
-    ) : (
-      <TableRow>{blockBody}</TableRow>
-    );
-  else
-    content = ref ? (
-      <Paper
-        sx={{
-          width: 1,
-          marginBottom: '1rem',
-          padding: '15px',
-          gap: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'primary.light',
-          backgroundImage: 'none',
-        }}
-        ref={ref}
-      >
-        <GridItem block={props.block} />
-      </Paper>
-    ) : (
-      <Paper
-        sx={{
-          width: 1,
-          marginBottom: '1rem',
-          padding: '15px',
-          gap: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'primary.light',
-          backgroundImage: 'none',
-        }}
-      >
-        <GridItem block={props.block} />
-      </Paper>
-    );
-  return content;
-});
+const Block = React.forwardRef<HTMLTableRowElement, BlockProps>(
+  (props, ref) => {
+    const blockBody = <CustomRow block={props.block} />;
+    const { isDesktop, isWidescreen } = useWidth();
+    let content;
+    if (isDesktop || isWidescreen)
+      content = ref ? (
+        <TableRow ref={ref}>{blockBody}</TableRow>
+      ) : (
+        <TableRow>{blockBody}</TableRow>
+      );
+    else
+      content = ref ? (
+        <FilledCard ref={ref}>
+          <GridItem block={props.block} />
+        </FilledCard>
+      ) : (
+        <FilledCard>
+          <GridItem block={props.block} />
+        </FilledCard>
+      );
+    return content;
+  },
+);
 
 export default Block;
 
-const GridItem = ({ block }) => {
+const GridItem = ({ block }: { block: BlockTableData }) => {
   return (
     <>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -107,7 +86,7 @@ const GridItem = ({ block }) => {
   );
 };
 
-const CustomRow = ({ block }) => {
+const CustomRow = ({ block }: { block: BlockTableData }) => {
   return (
     <>
       <TableCell>

@@ -89,7 +89,7 @@ export default function XPTransactionDetails() {
               gap: '20px',
             }}
           >
-            <BackButton />
+            <BackButton backToLink={`/${location.pathname.split('/')[1]}`} />
             <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
               {`${location.pathname
                 .split('/')[1][0]
@@ -111,7 +111,7 @@ export default function XPTransactionDetails() {
         </Grid>
         {details && (
           <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-            <BackButton />
+            <BackButton backToLink={`/${location.pathname.split('/')[1]}`} />
           </Box>
         )}
       </Paper>

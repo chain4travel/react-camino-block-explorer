@@ -57,7 +57,7 @@ const XPTransactionFirstSection = ({
   return (
     <>
       {!isMobile && (
-        <Grid item xs={2} md={3} lg={2}>
+        <Grid item xs={12} md={3} lg={2} sx={{ pb: '7px' }}>
           <BlockTxIcon iconType="transaction" />
         </Grid>
       )}
@@ -101,6 +101,7 @@ const XPTransactionSecondSection = ({
   chainType: ChainType;
 }) => {
   const { isMobile } = useWidth();
+  const dataLeft = data.length - 5;
   return (
     <div style={{ width: '100%', padding: '0rem 0rem .5rem 0rem' }}>
       <Grid container direction="row" style={{ width: '100%' }}>
@@ -108,7 +109,7 @@ const XPTransactionSecondSection = ({
           {type}
         </Grid>
         <Grid item xs={9} sm={10}>
-          {data.map((tx, index) => (
+          {data.slice(0, 5).map((tx, index) => (
             <Grid
               container
               style={{ padding: '0rem 0rem .5rem 0rem' }}
@@ -120,7 +121,6 @@ const XPTransactionSecondSection = ({
                     chainType,
                     tx.address,
                   )}`}
-                  // to={`/${chainType}/address/${tx.address}`}
                   value={tx.address}
                   typographyVariant="body1"
                   truncate={true}
@@ -140,6 +140,25 @@ const XPTransactionSecondSection = ({
                   }}
                 />
               </Grid>
+              {index === 4 && dataLeft > 0 && (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  xl={7}
+                  sx={{
+                    justifyContent: 'flex-end',
+                    display: 'flex',
+                    padding: '15px 0px 0px 0px',
+                  }}
+                >
+                  <Chip
+                    label={`+${dataLeft} more`}
+                    size="small"
+                    sx={{ minWidth: '50px', height: '20px' }}
+                  />
+                </Grid>
+              )}
             </Grid>
           ))}
         </Grid>

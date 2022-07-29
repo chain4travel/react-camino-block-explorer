@@ -1,12 +1,8 @@
-import * as React from 'react';
-import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { fetchTransactionDetails } from 'store/cchainSlice/utils';
-import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import React, { FC, useState, useEffect } from 'react';
 import {
   changeCurrentIndex,
   clearTr,
-  getCTransactionCurrencuy,
+  getCTransactionCurrency,
   getCTransactionDetailsStatus,
   getCTransactionInformations,
   getCurrentIndex,
@@ -14,36 +10,41 @@ import {
   getNextPrevTx,
   resetLoadingStatusForNPTransactions,
 } from 'store/cchainSlice';
-import { Status } from 'types';
-import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
-import OutlinedContainer from 'app/components/OutlinedContainer';
-import DetailsField from 'app/components/DetailsField';
-import Icon from '@mdi/react';
-import { mdiTransfer } from '@mdi/js';
-import TransactionDetailView from './TransactionDetailView';
 import {
   fetchNextTransactionDetails,
   fetchPrevTransactionDetails,
   getNextPrevTransaction,
   TrimmedTransactionDetails,
 } from './utils';
-import SubPageTitle from 'app/components/SubPageTitle';
+import { fetchTransactionDetails } from 'store/cchainSlice/utils';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import { Grid, Paper, useTheme, Box, Button } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Status } from 'types';
+import { mdiTransfer } from '@mdi/js';
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
-import { CTRANSACTIONS } from 'utils/route-paths';
+import { CCHAIN, CTRANSACTIONS } from 'utils/route-paths';
+import PageContainer from 'app/components/PageContainer';
+import BackButton from 'app/components/BackButton';
+import OutlinedContainer from 'app/components/OutlinedContainer';
+import DetailsField from 'app/components/DetailsField';
+import Icon from '@mdi/react';
+import TransactionDetailView from './TransactionDetailView';
+import SubPageTitle from 'app/components/SubPageTitle';
 
-export default function TransactionDetails() {
+const TransactionDetails: FC = () => {
   const theme = useTheme();
+  const location = useLocation();
   const detailTr = useAppSelector(getCTransactionInformations);
-  const detailCr = useAppSelector(getCTransactionCurrencuy);
+  const detailCr = useAppSelector(getCTransactionCurrency);
   const loading = useAppSelector(getCTransactionDetailsStatus);
   const getNPStatus = useAppSelector(getNextPrevStatus);
   const nextPrevTX = useAppSelector(getNextPrevTx);
-  const location = useLocation();
+  const currentIndex = useAppSelector(getCurrentIndex);
+  const [btnStopper, setBtnStopper] = useState(false);
   const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
-  const [btnStopper, setBtnStopper] = React.useState(false);
-  const currentIndex = useAppSelector(getCurrentIndex);
+  const navigate = useNavigate();
 
   const handleDelay = () => {
     setBtnStopper(true);
@@ -52,9 +53,7 @@ export default function TransactionDetails() {
     }, 500);
   };
 
-  React.useEffect(() => {
-    changeCurrentIndex(0);
-    dispatch(clearTr());
+  useEffect(() => {
     dispatch(fetchTransactionDetails(address));
     return () => {
       changeCurrentIndex(0);
@@ -64,7 +63,7 @@ export default function TransactionDetails() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (detailTr && getNPStatus === Status.IDLE) {
       let args: TrimmedTransactionDetails = {
         address: detailTr?.fromAddr,
@@ -76,12 +75,16 @@ export default function TransactionDetails() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailTr]);
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    if (nextPrevTX.length > 0)
+
+  useEffect(() => {
+    if (
+      nextPrevTX.length > 0 &&
+      location.pathname.split('/')[3] !== nextPrevTX[currentIndex]?.hash
+    )
       navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
+
   return (
     <PageContainer
       pageTitle="C TransactionDetails"
@@ -98,7 +101,6 @@ export default function TransactionDetails() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
           p: '1.5rem 2rem 1.5rem 2rem',
           [theme.breakpoints.down('md')]: {
             p: '1rem 1.5rem 1rem 1.5rem',
@@ -106,7 +108,7 @@ export default function TransactionDetails() {
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-          <SubPageTitle title="C-Chain Transaction">
+          <SubPageTitle title="C-Chain Transaction" backToLink={CCHAIN}>
             <Box
               sx={{
                 display: 'flex',
@@ -131,7 +133,11 @@ export default function TransactionDetails() {
                 }}
                 sx={{ width: '42px', height: '42px', mr: '15px' }}
               >
-                <Icon path={mdiChevronLeft} size={1} />
+                <Icon
+                  path={mdiChevronLeft}
+                  size={1}
+                  color={theme.palette.primary.contrastText}
+                />
               </RoundButton>
               <RoundButton
                 disabled={
@@ -150,7 +156,11 @@ export default function TransactionDetails() {
                 }}
                 sx={{ width: '42px', height: '42px' }}
               >
-                <Icon path={mdiChevronRight} size={1} />
+                <Icon
+                  path={mdiChevronRight}
+                  size={1}
+                  color={theme.palette.primary.contrastText}
+                />
               </RoundButton>
             </Box>
           </SubPageTitle>
@@ -175,13 +185,15 @@ export default function TransactionDetails() {
         </Grid>
         {(detailTr || detailCr) && (
           <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-            <BackButton />
+            <BackButton backToLink={CCHAIN} />
           </Box>
         )}
       </Paper>
     </PageContainer>
   );
-}
+};
+
+export default TransactionDetails;
 
 const RoundButton = ({ sx, children, ...props }) => {
   return (

@@ -8,6 +8,7 @@ import { getStartDate } from 'utils/display-utils';
 interface xpArg {
   timeframe: string;
   chainId: string;
+  chainAlias: string;
 }
 
 export const loadNumberOfPXTransactions = createAsyncThunk(

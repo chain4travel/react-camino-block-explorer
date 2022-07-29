@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import {
   selectAllPTransactions,
   getXPchainStatus,
-  getXPchainOverreview,
+  getPchainOverreview,
 } from 'store/xchainSlice';
 import PageContainer from 'app/components/PageContainer';
 import OverviewCards from '../../components/OverviewCards';
@@ -32,7 +32,7 @@ export default function PChainPage() {
     totalGasFees,
     gasFeesLoading,
     transactionsLoading,
-  } = useAppSelector(getXPchainOverreview);
+  } = useAppSelector(getPchainOverreview);
   const validatorsLoading = useAppSelector(getValidatorsStatus);
   const {
     percentageOfActiveValidators,

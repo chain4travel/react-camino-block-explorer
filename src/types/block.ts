@@ -29,7 +29,7 @@ export interface BlockDetail {
   time: string;
   transactionsCount: number;
   extData: string;
-  transactions: any;
+  transactions: CTransaction[];
 }
 
 export interface BlockDetails {

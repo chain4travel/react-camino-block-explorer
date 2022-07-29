@@ -4,7 +4,7 @@ import { Status, Timeframe } from 'types';
 import { BlockDetail, BlockTableData } from 'types/block';
 import {
   CTransaction,
-  TransactionCurrencuy,
+  TransactionCurrency,
   TransactionInformations,
 } from 'types/transaction';
 import { ChainOverviewType, initialCchainStateType } from 'types/store';
@@ -193,7 +193,7 @@ const cchainSlice = createSlice({
           fromAddr: payload.fromAddr,
           toAddr: payload.toAddr,
         };
-        let transactionCurrencuy: TransactionCurrencuy = {
+        let transactionCurrency: TransactionCurrency = {
           gasPrice: parseInt(payload.gasPrice),
           maxFeePerGas: parseInt(payload.maxFeePerGas),
           maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
@@ -205,7 +205,7 @@ const cchainSlice = createSlice({
         };
         state.transcationDetails = {
           transactionInformations,
-          transactionCurrencuy,
+          transactionCurrency,
         };
         state.loadTransactionDetails = Status.SUCCEEDED;
       })
@@ -286,8 +286,8 @@ export const getCBlockDetailStatus = (state: RootState) =>
 
 export const getCTransactionInformations = (state: RootState) =>
   state.cchain.transcationDetails?.transactionInformations;
-export const getCTransactionCurrencuy = (state: RootState) =>
-  state.cchain.transcationDetails?.transactionCurrencuy;
+export const getCTransactionCurrency = (state: RootState) =>
+  state.cchain.transcationDetails?.transactionCurrency;
 export const getCTransactionDetailsStatus = (state: RootState) =>
   state.cchain.loadTransactionDetails;
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import {
   Grid,
   Paper,
@@ -7,19 +7,20 @@ import {
   TableContainer,
   TableCellProps,
 } from '@mui/material';
-import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
-import TableView from 'app/components/Table/TableView';
-import useWidth from 'app/hooks/useWidth';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { selectAllValidators } from 'store/validatorsSlice';
 import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { loadValidators } from 'store/validatorsSlice/utils';
-import SubPageTitle from 'app/components/SubPageTitle';
 import { TableViewRow } from './/TableViewRow';
 import { GridViewItem } from './GridViewItem';
+import { To } from 'react-router-dom';
+import SubPageTitle from 'app/components/SubPageTitle';
+import PageContainer from 'app/components/PageContainer';
+import BackButton from 'app/components/BackButton';
+import TableView from 'app/components/Table/TableView';
+import useWidth from 'app/hooks/useWidth';
 
-export default function Validators() {
+const Validators: FC = () => {
   const theme = useTheme();
   const { isDesktop, isWidescreen } = useWidth();
   const validators = useAppSelector(selectAllValidators);
@@ -47,7 +48,11 @@ export default function Validators() {
           },
         }}
       >
-        <SubPageTitle title="Validators" style={{ marginBottom: '20px' }} />
+        <SubPageTitle
+          title="Validators"
+          backToLink={-1 as To}
+          style={{ marginBottom: '20px' }}
+        />
         <TableContainer sx={{ height: '650px' }}>
           {isWidescreen || isDesktop ? (
             <TableView columns={columns}>
@@ -64,12 +69,14 @@ export default function Validators() {
           )}
         </TableContainer>
         <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-          <BackButton />
+          <BackButton backToLink={-1 as To} />
         </Box>
       </Paper>
     </PageContainer>
   );
-}
+};
+
+export default Validators;
 
 export interface ColumnType {
   name: string;

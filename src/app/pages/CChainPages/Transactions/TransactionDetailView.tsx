@@ -1,10 +1,22 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Divider, Grid } from '@mui/material';
 import { CBLOCKS } from 'utils/route-paths';
 import OutlinedContainer from 'app/components/OutlinedContainer';
 import DetailsField from 'app/components/DetailsField';
+import {
+  TransactionInformations,
+  TransactionCurrency,
+} from 'types/transaction';
 
-function TransactionDetailView({ detailTr, detailCr }) {
+interface TxDetailsViewProps {
+  detailTr?: TransactionInformations;
+  detailCr?: TransactionCurrency;
+}
+
+const TransactionDetailView: FC<TxDetailsViewProps> = ({
+  detailTr,
+  detailCr,
+}) => {
   return (
     <>
       {detailTr && (
@@ -68,9 +80,7 @@ function TransactionDetailView({ detailTr, detailCr }) {
                 />
                 <Divider variant="fullWidth" />
               </Grid>
-            ) : (
-              <></>
-            )}
+            ) : null}
             {detailCr['maxFeePerGas'] && detailCr['maxPriorityFeePerGas'] ? (
               <>
                 <Grid item xs={12}>
@@ -90,9 +100,7 @@ function TransactionDetailView({ detailTr, detailCr }) {
                   <Divider variant="fullWidth" />
                 </Grid>
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <Grid item xs={12}>
               <DetailsField
                 field="Gas Used"
@@ -121,6 +129,6 @@ function TransactionDetailView({ detailTr, detailCr }) {
       )}
     </>
   );
-}
+};
 
 export default React.memo(TransactionDetailView);
