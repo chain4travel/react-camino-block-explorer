@@ -103,6 +103,7 @@ export default function TemporaryDrawer() {
             padding: '0px 8px',
             color: 'text.primary',
           }}
+          aria-label="burger menu"
         >
           <MenuIcon />
         </Button>
