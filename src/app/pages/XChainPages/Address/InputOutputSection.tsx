@@ -1,19 +1,33 @@
 import React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
 import DetailsField from './DetailsField';
+import useWidth from 'app/hooks/useWidth';
 
 export const InputOutputSection = ({ inputs, outputs }) => {
+  const { isTablet } = useWidth();
   return (
     <>
       <Grid
         container
         item
         xs={12}
-        lg={6}
-        alignItems="center"
+        md={6}
+        alignItems={{ md: 'center', xs: 'flex-start' }}
         justifyContent="center"
         spacing={2}
       >
+        {isTablet && (
+          <Grid item xs={12}>
+            <Typography
+              variant="h6"
+              component="h6"
+              fontWeight="fontWeightBold"
+              sx={{ textTransform: 'capitalize' }}
+            >
+              Inputs
+            </Typography>
+          </Grid>
+        )}
         {inputs.map((item, index) => {
           return (
             <Grid key={index} item xs>
@@ -30,11 +44,23 @@ export const InputOutputSection = ({ inputs, outputs }) => {
         container
         item
         xs={12}
-        lg={6}
-        alignItems="center"
+        md={6}
+        alignItems={{ md: 'center', xs: 'flex-end' }}
         justifyContent="center"
         spacing={2}
       >
+        {isTablet && (
+          <Grid item xs={12}>
+            <Typography
+              variant="h6"
+              component="h6"
+              fontWeight="fontWeightBold"
+              sx={{ textTransform: 'capitalize' }}
+            >
+              Outputs
+            </Typography>
+          </Grid>
+        )}
         {outputs.map((item, index) => {
           return (
             <Grid key={index} item xs>

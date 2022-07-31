@@ -33,7 +33,7 @@ export default function DetailsField({
   };
   return (
     <Grid container spacing={2} alignItems="center">
-      <Grid container item xs={6} md={4} lg={5} alignItems="center" order={1}>
+      <Grid container item xs={6} md={4} lg={3} alignItems="center" order={1}>
         {(tooltip || getTooltip(field)) && (
           <Tooltip title={getTooltip(field) as string}>
             <HelpOutlineOutlinedIcon style={{ fontSize: '15px' }} />
