@@ -15,7 +15,7 @@ import {
   XPTransactions,
 } from './pages/XChainPages';
 import { PChainPage } from './pages/PChainPages';
-import MainLayout from './Layout/MainLayout.tsx';
+import MainLayout from './Layout/MainLayout';
 import { CssBaseline } from '@mui/material';
 import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
