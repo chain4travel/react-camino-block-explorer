@@ -154,18 +154,18 @@ export function Footer() {
                     }}
                   >
                     {link.links.map((l, i) => (
-                      <Link
+                      <li
+                        style={{ textDecoration: 'none', listStyle: 'none' }}
                         key={i}
-                        href={l.url}
-                        style={{
-                          color: 'secondary.primary',
-                          justifyContent: isTablet ? 'center' : 'left',
-                          display: 'flex',
-                          textDecoration: 'none',
-                        }}
                       >
-                        <li
-                          style={{ textDecoration: 'none', listStyle: 'none' }}
+                        <Link
+                          href={l.url}
+                          style={{
+                            color: 'secondary.primary',
+                            justifyContent: isTablet ? 'center' : 'left',
+                            display: 'flex',
+                            textDecoration: 'none',
+                          }}
                         >
                           <Typography
                             variant="body2"
@@ -174,8 +174,8 @@ export function Footer() {
                           >
                             {l.text}
                           </Typography>
-                        </li>
-                      </Link>
+                        </Link>
+                      </li>
                     ))}
                   </ul>
                 </Grid>
