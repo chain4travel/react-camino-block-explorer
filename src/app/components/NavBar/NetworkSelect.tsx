@@ -18,7 +18,6 @@ import {
   addCustomNetwork,
   removeCustomNetwork,
 } from 'store/app-config';
-import { getCchainStatus } from 'store/cchainSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
@@ -36,7 +35,7 @@ function SelectedNetwork({
   networkStatus,
 }: {
   value: string;
-  networkStatus: string;
+  networkStatus?: string;
 }) {
   return (
     <Box
@@ -71,7 +70,6 @@ const nameOfActiveNetwork = (networks, id) => {
 };
 
 export default function NetworkSelect() {
-  const status = useAppSelector(getCchainStatus);
   const navigate = useNavigate();
   const networks = useAppSelector(getNetworks);
   const activeNetwork = useAppSelector(getActiveNetwork);
@@ -119,7 +117,7 @@ export default function NetworkSelect() {
           value={network}
           IconComponent={() => <Icon path={mdiChevronDown} size={1} />}
           renderValue={() => {
-            return <SelectedNetwork value={network} networkStatus={status} />;
+            return <SelectedNetwork value={network} />;
           }}
           sx={{
             height: '40px',

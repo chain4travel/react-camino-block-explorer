@@ -32,7 +32,7 @@ export default function CChainPage() {
     string,
     loadBlocksTransactionstype
   >('blocks-transactions-cchain', fetchBlocksTransactionsCChain, {
-    refetchInterval: 5000,
+    refetchInterval: 10000,
     refetchOnMount: true,
     refetchIntervalInBackground: true,
   });

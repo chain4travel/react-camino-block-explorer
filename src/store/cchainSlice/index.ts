@@ -1,22 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { Status, Timeframe } from 'types';
-import { BlockDetail, BlockTableData } from 'types/block';
+import { BlockDetail } from 'types/block';
 import {
-  CTransaction,
   TransactionCurrency,
   TransactionInformations,
 } from 'types/transaction';
 import { ChainOverviewType, initialCchainStateType } from 'types/store';
 import { RootState } from 'store/configureStore';
 import {
-  fetchBlocksTransactions,
   fetchCBlockDetail,
   fetchTransactionDetails,
   loadNumberOfTransactions,
   loadTotalGasFess,
 } from './utils';
-import { MagellanBlock, MagellanTransaction } from 'types/magellan-types';
 import {
   fetchNextTransactionDetails,
   fetchPrevTransactionDetails,
@@ -67,53 +64,6 @@ const cchainSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchBlocksTransactions.pending, (state, action) => {
-        state.status = Status.LOADING;
-      })
-      .addCase(fetchBlocksTransactions.fulfilled, (state, action) => {
-        state.blocks = action.payload.blocks.map(
-          (block: MagellanBlock): BlockTableData => {
-            let result: BlockTableData = {
-              hash: block.hash,
-              number: parseInt(block.number),
-              timestamp: block.timestamp * 1000,
-              gasLimit: parseInt(block.gasLimit),
-              gasUsed: parseInt(block.gasUsed),
-              numberOfTransactions: block.evmTx ? block.evmTx : 0,
-              blockCost:
-                parseInt(block.gasUsed) * parseInt(block.baseFeePerGas),
-            };
-            return result;
-          },
-        );
-        state.transactions = action.payload.transactions.map(
-          (element: MagellanTransaction): CTransaction => {
-            let result: CTransaction = {
-              block: parseInt(element.block),
-              index: parseInt(element.index),
-              from: element.from,
-              hash: element.hash,
-              status:
-                parseInt(element.status) === 1
-                  ? 'Success'
-                  : `Failed-${parseInt(element.status)}`,
-              timestamp: parseInt(element.timestamp) * 1000,
-              to: element.to,
-              value: parseInt(element.value),
-              transactionCost:
-                parseInt(element.gasUsed) * parseInt(element.effectiveGasPrice),
-            };
-            return result;
-          },
-        );
-        state.status = Status.SUCCEEDED;
-        state.transactionCount = action.payload.transactionCount;
-        state.blockCount = action.payload.blockCount;
-      })
-      .addCase(fetchBlocksTransactions.rejected, (state, action) => {
-        state.status = Status.FAILED;
-        state.error = action.error.message;
-      })
       .addCase(loadNumberOfTransactions.pending, state => {
         state.ChainOverview.transactionsLoading = Status.LOADING;
       })
@@ -235,7 +185,6 @@ const cchainSlice = createSlice({
         }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       })
-      // .addCase(fetchPrevTransactionDetails.rejected, (state, action) => {})
       .addCase(fetchNextTransactionDetails.pending, state => {
         state.loadNextPrevStatus = Status.LOADING;
       })
@@ -257,20 +206,8 @@ const cchainSlice = createSlice({
         }
         state.loadNextPrevStatus = Status.SUCCEEDED;
       });
-    // .addCase(fetchNextTransactionDetails.rejected, (state, action) => {});
   },
 });
-
-// Select Blocks
-export const selectAllBlocks = (state: RootState) => state.cchain.blocks;
-
-// Select Transactions
-export const selectAllTransactions = (state: RootState) =>
-  state.cchain.transactions;
-
-// Select Request Status
-export const getCchainStatus = (state: RootState) => state.cchain.status;
-export const getCchainError = (state: RootState) => state.cchain.error;
 
 // Select Chain overreview Data
 export const getCchainOverreview = (state: RootState) =>
