@@ -18,7 +18,7 @@ import {
   addCustomNetwork,
   removeCustomNetwork,
 } from 'store/app-config';
-import { getCchainStatus } from 'store/cchainSlice';
+import { getCchainStatus, resetCChainReducer } from 'store/cchainSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
@@ -27,6 +27,8 @@ import { useAppSelector } from 'store/configureStore';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
+import { resetValidatorsReducer } from 'store/validatorsSlice';
+import { resetXPChainReducer } from 'store/xchainSlice';
 
 function SelectedNetwork({
   value,
@@ -77,6 +79,10 @@ export default function NetworkSelect() {
   );
   const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
+    // Reset Store
+    // dispatch(resetCChainReducer());
+    // dispatch(resetValidatorsReducer());
+    // dispatch(resetXPChainReducer());
     dispatch(changeNetwork(event.target.value));
   };
 

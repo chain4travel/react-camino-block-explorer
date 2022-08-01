@@ -46,6 +46,7 @@ const xchainSlice = createSlice({
     changetimeFramePchain(state, action) {
       state.pTimeFrame = action.payload;
     },
+    resetXPChainReducer: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -127,7 +128,10 @@ export const getPchainOverreview = (state: RootState) =>
 // Select TimeFrime for p-chain
 export const getTimeFramePchain = (state: RootState) => state.xchain.pTimeFrame;
 // Actions
-export const { changetimeFrameXchain, changetimeFramePchain } =
-  xchainSlice.actions;
+export const {
+  changetimeFrameXchain,
+  changetimeFramePchain,
+  resetXPChainReducer,
+} = xchainSlice.actions;
 // Reducer
 export default xchainSlice.reducer;

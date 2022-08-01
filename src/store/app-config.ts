@@ -24,10 +24,14 @@ const getCustomNetworksFromLocalStorage = () => {
   return [];
 };
 
+interface chainArgs {
+  alias: string;
+  chainID: string;
+}
 interface initialStateAppConfigType {
   activeNetwork?: string;
   networks: Network[];
-  chains?: any;
+  chains: chainArgs[];
 }
 
 let initialState: initialStateAppConfigType = {
@@ -36,10 +40,10 @@ let initialState: initialStateAppConfigType = {
     {
       id: 'camino-testnet',
       displayName: 'Columbus',
-      protocol: 'https',
-      host: 'columbus.camino.foundation',
+      protocol: 'http',
+      host: 'localhost',
       magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 443,
+      port: 9650,
       predefined: true,
     },
     {

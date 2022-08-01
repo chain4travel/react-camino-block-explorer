@@ -4,9 +4,9 @@
 
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 
-import blocksSlice from './cchainSlice';
-import xchainSlice from './xchainSlice';
-import appConfigSlice from './app-config';
+import blocksReducer from './cchainSlice';
+import xchainReducer from './xchainSlice';
+import appConfigReducer from './app-config';
 import { store } from 'index';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import validatorsSlice from './validatorsSlice';
@@ -16,10 +16,10 @@ export function configureAppStore() {
 
   const store = configureStore({
     reducer: {
-      cchain: blocksSlice,
-      xchain: xchainSlice,
+      cchain: blocksReducer,
+      xchain: xchainReducer,
       validators: validatorsSlice,
-      appConfig: appConfigSlice,
+      appConfig: appConfigReducer,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
