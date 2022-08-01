@@ -1,11 +1,11 @@
 import React from 'react';
 import { Grid, TableCell, TableRow, Typography } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
-import { getRelativeTime } from 'utils/display-utils';
 import { BlockTableData } from 'types/block';
 import useWidth from 'app/hooks/useWidth';
 import AddressLink from 'app/components/AddressLink';
 import FilledCard from 'app/components/FilledCard';
+import moment from 'moment';
 
 interface BlockProps {
   block: BlockTableData;
@@ -99,7 +99,7 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
       </TableCell>
       <TableCell align="left">
         <Typography variant="body2" component="span" noWrap={true}>
-          {getRelativeTime(block.timestamp) + ' ago '}
+          {moment(block.timestamp).fromNow()}
         </Typography>
       </TableCell>
       <TableCell sx={{ maxWidth: '50px' }} align="center">

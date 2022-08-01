@@ -6,7 +6,7 @@ import { CamAmount } from 'app/components/CamAmount';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { getRelativeTime } from 'utils/display-utils';
+import moment from 'utils/helpers/moment';
 
 export default function DetailsField({
   field,
@@ -119,7 +119,7 @@ export const Field = ({
         }}
       >
         <Typography variant="body2" component="span">
-          {getRelativeTime(value as number) + ' ago '}
+          {moment(value as number).fromNow()}
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
           {value as string}

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Typography, Tooltip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { styled } from '@mui/material/styles';
 import { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import moment from 'utils/helpers/moment';
 import useWidth from 'app/hooks/useWidth';
 
 const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -36,14 +36,16 @@ export default function RelativeTime({
   return (
     <>
       {!isMobile ? (
-        <NoMaxWidthTooltip title={date.toString()}>
+        <NoMaxWidthTooltip
+          title={moment(date).format('MMM D, YYYY, h:mm:ss A ([GMT] ZZ)')}
+        >
           <Typography variant={variant} color="latestList.timestamp">
-            {getRelativeTime(date) + ' ago'}
+            {moment(date).fromNow()}
           </Typography>
         </NoMaxWidthTooltip>
       ) : (
         <Typography variant={variant} color="latestList.timestamp">
-          {getRelativeTime(date) + ' ago'}
+          {moment(date).fromNow()}
         </Typography>
       )}
     </>

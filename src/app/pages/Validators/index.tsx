@@ -111,6 +111,12 @@ const columns: ColumnType[] = [
     align: 'center',
   },
   {
+    name: 'Duration',
+    label: 'Duration',
+    field: 'Duration',
+    align: 'center',
+  },
+  {
     name: 'UpTime',
     label: 'UpTime',
     field: 'UpTime',

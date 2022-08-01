@@ -10,10 +10,10 @@ import AddressLink from 'app/components/AddressLink';
 import { Field } from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 import React from 'react';
-import { getRelativeTime } from 'utils/display-utils';
 import { getAddressLink } from 'utils/route-utils';
 import { ChainType } from 'utils/types/chain-type';
 import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
+import moment from 'utils/helpers/moment';
 
 interface Props {
   transaction: any;
@@ -123,7 +123,7 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        {getRelativeTime(transaction.timestamp as number) + ' ago '}
+        {moment(transaction.timestamp as number).fromNow()}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -197,7 +197,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell align="center">
         <Typography variant="body2" component="span" noWrap={true}>
-          {getRelativeTime(transaction.timestamp as number) + ' ago '}
+          {moment(transaction.timestamp as number).fromNow()}
         </Typography>
       </TableCell>
       <TableCell align="center">

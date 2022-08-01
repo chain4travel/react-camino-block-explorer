@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Box, Chip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
-import AddressLink from 'app/components/AddressLink';
 import { useLocation } from 'react-router-dom';
+import AddressLink from 'app/components/AddressLink';
+import moment from 'utils/helpers/moment';
 
 export const AddressSection = ({ type, timestamp, id, chainType }) => {
   const location = useLocation();
@@ -23,7 +23,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
             typographyVariant="subtitle1"
             truncate={true}
           />
-          {getRelativeTime(timestamp) + ' ago '}
+          {moment(timestamp).fromNow()}
         </Grid>
       </Grid>
       <Grid

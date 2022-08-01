@@ -8,6 +8,7 @@ import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import Icon from '@mdi/react';
+import moment from 'utils/helpers/moment';
 
 export default function DetailsField({
   field,
@@ -167,7 +168,7 @@ export const Field = ({
         }}
       >
         <Typography variant="body2" component="span">
-          {getRelativeTime(value as number) + ' ago '}
+          {moment(value as number).fromNow()}
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
           {value as string}
