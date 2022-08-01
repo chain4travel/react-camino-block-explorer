@@ -172,7 +172,7 @@ export const Field = ({
           {moment(value as number).fromNow()}
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
-          {value as string}
+          {moment(value as number).format('MMM D, YYYY, h:mm:ss A ([GMT] ZZ)')}
         </Typography>
       </Box>
     );
