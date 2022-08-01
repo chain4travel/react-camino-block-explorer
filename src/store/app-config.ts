@@ -40,10 +40,10 @@ let initialState: initialStateAppConfigType = {
     {
       id: 'camino-testnet',
       displayName: 'Columbus',
-      protocol: 'http',
-      host: 'localhost',
+      protocol: 'https',
+      host: 'columbus.camino.foundation',
       magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 9650,
+      port: 443,
       predefined: true,
     },
     {
