@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { mdiCubeOutline } from '@mdi/js';
-import { GasAmount } from '../../CamAmount';
+import { GasAmount } from '../../../../components/CamAmount';
 import { BlockTableData } from 'types/block';
 import Icon from '@mdi/react';
-import AddressLink from '../../AddressLink';
-import RelativeTime from '../../RelativeTime';
+import AddressLink from '../../../../components/AddressLink';
+import RelativeTime from '../../../../components/RelativeTime';
 import useWidth from 'app/hooks/useWidth';
 
 interface BlockItemProps {
@@ -14,7 +14,7 @@ interface BlockItemProps {
 }
 
 const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
-  const { isMobile, isTablet } = useWidth();
+  const { isMobile, isTablet, isDesktop } = useWidth();
 
   return (
     <Grid
@@ -24,7 +24,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
       sx={{ padding: '0.5rem 0rem 0.5rem 0rem' }}
     >
       {!isMobile && !isTablet && (
-        <Grid item xs="auto" sx={{ paddingRight: '5px' }}>
+        <Grid item sx={{ paddingRight: '5px' }} xs={1} md={1} lg={1.5} xl={1}>
           <Box
             sx={{
               display: 'flex',
@@ -67,7 +67,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
         lg={3}
         xl={2}
         alignItems="center"
-        justifyContent={isMobile && isTablet ? 'flex-start' : 'flex-end'}
+        justifyContent={!isDesktop ? 'flex-start' : 'flex-end'}
       >
         <GasAmount amount={block.gasUsed as number} />
       </Grid>

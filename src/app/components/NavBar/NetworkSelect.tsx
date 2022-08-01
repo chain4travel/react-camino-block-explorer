@@ -24,12 +24,12 @@ import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
 import { useAppSelector } from 'store/configureStore';
+import { resetValidatorsReducer } from 'store/validatorsSlice';
+import { resetXPChainReducer } from 'store/xchainSlice';
+import { resetCChainReducer } from 'store/cchainSlice';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
-// import { resetValidatorsReducer } from 'store/validatorsSlice';
-// import { resetXPChainReducer } from 'store/xchainSlice';
-// import { resetCChainReducer } from 'store/cchainSlice';
 
 function SelectedNetwork({
   value,
@@ -81,9 +81,9 @@ export default function NetworkSelect() {
   const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
     // Reset Store
-    // dispatch(resetCChainReducer());
-    // dispatch(resetValidatorsReducer());
-    // dispatch(resetXPChainReducer());
+    dispatch(resetCChainReducer());
+    dispatch(resetValidatorsReducer());
+    dispatch(resetXPChainReducer());
     dispatch(changeNetwork(event.target.value));
   };
 
@@ -124,7 +124,7 @@ export default function NetworkSelect() {
           sx={{
             height: '40px',
             maxWidth: '170px',
-            // minWidth: '170px',
+            minWidth: '170px',
             borderRadius: '10px',
             padding: '8px 16px',
             '@media (max-width:370px)': {
@@ -330,7 +330,11 @@ const NewNetwork = () => {
                 marginTop: '1rem',
               }}
             >
-              <MainButton variant="outlined" onClick={handleSubmit}>
+              <MainButton
+                variant="outlined"
+                onClick={handleSubmit}
+                style={{ color: 'white' }}
+              >
                 Add Network
               </MainButton>
               <MainButton variant="contained" onClick={handleClose}>

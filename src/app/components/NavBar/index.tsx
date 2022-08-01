@@ -57,7 +57,7 @@ export function NavBar() {
         >
           <Box sx={{ display: 'flex' }}>
             {!isDesktop && <Drawer />}
-            <Link to="/">
+            <Link to="/" aria-label="logo image">
               <Logo />
             </Link>
           </Box>

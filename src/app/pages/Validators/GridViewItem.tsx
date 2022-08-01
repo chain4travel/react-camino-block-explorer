@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { Field } from 'app/components/DetailsField';
 import { ValidatorType } from 'types/store';
 import Chip from '@mui/material/Chip';
+import moment from 'utils/helpers/moment';
 
 export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
   return (
@@ -43,13 +43,19 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           StartTime
         </Typography>
-        {getRelativeTime(validator.startTime) + ' ago '}
+        {moment(validator.startTime).format('MMM D, YYYY')}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
           EndTime
         </Typography>
-        {getRelativeTime(validator.endTime) + ' ago '}
+        {moment(validator.endTime).format('MMM D, YYYY')}
+      </Grid>
+      <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
+        <Typography variant="subtitle2" color="latestList.timestamp">
+          Duration
+        </Typography>
+        {moment(validator.endTime).fromNow()}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">

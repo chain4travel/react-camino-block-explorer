@@ -19,6 +19,7 @@ export default function ThemeSwitcherButton() {
           themeContext?.toggleColorMode();
         }
       }}
+      aria-label="theme mode"
     >
       {themeMode ? (
         <DarkModeOutlinedIcon sx={{ color: 'primary.contrastText' }} />

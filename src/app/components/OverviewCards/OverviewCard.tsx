@@ -39,7 +39,7 @@ const OverviewCard: FC<OverviewCardProps> = ({
           p: '0',
         }}
       >
-        <Typography variant="h6" component="h6" sx={{ color: 'card.title' }}>
+        <Typography variant="h6" component="span" sx={{ color: 'card.title' }}>
           {title}
         </Typography>
         <Box
@@ -53,7 +53,7 @@ const OverviewCard: FC<OverviewCardProps> = ({
           <LoadingWrapper loading={loading} failedLoadingMsg="-">
             <Typography
               variant="h4"
-              component="h4"
+              component="span"
               fontWeight="fontWeightBold"
               sx={{ color: 'card.contrastText' }}
             >
@@ -62,7 +62,7 @@ const OverviewCard: FC<OverviewCardProps> = ({
             {subValue && (
               <Typography
                 variant="h6"
-                component="h6"
+                component="span"
                 sx={{ color: 'card.subValue' }}
               >
                 {subValue}

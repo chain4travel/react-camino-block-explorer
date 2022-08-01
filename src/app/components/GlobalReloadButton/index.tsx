@@ -107,6 +107,7 @@ export default function GlobalReloadButton({
       variant="outlined"
       color="secondary"
       sx={{ borderRadius: '25px', maxHeight: '35px', ...style }}
+      aria-label="reload button"
     >
       <Replay sx={{ color: 'primary.contrastText', fontSize: '25px' }} />
     </Button>

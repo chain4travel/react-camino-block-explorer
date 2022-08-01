@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Grid, TableCell, TableRow, Typography, Chip } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
-import { getRelativeTime } from 'utils/display-utils';
 import { CADDRESS, CBLOCKS } from 'utils/route-paths';
 import { TransactionTableData } from 'types/transaction';
 import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import FilledCard from 'app/components/FilledCard';
+import moment from 'utils/helpers/moment';
 
 interface TransactionProps {
   transaction: TransactionTableData;
@@ -92,7 +92,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
           Timestamp
         </Typography>
         <Typography variant="body2">
-          {getRelativeTime(transaction.timestamp) + ' ago '}
+          {moment(transaction.timestamp).fromNow()}
         </Typography>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -167,7 +167,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
       </TableCell>
       <TableCell>
         <Typography variant="body2" component="span" noWrap={true}>
-          {getRelativeTime(transaction.timestamp) + ' ago '}
+          {moment(transaction.timestamp).fromNow()}
         </Typography>
       </TableCell>
       <TableCell>

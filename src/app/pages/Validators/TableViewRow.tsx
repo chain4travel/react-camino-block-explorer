@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TableRow, TableCell, Chip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { Field } from 'app/components/DetailsField';
 import { ValidatorType } from 'types/store';
+import moment from 'utils/helpers/moment';
 
 export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
   return (
@@ -28,10 +28,13 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
         <Field type="string" value={validator.nodeID} />
       </TableCell>
       <TableCell align="center">
-        {getRelativeTime(validator.startTime) + ' ago '}
+        {moment(validator.startTime).format('MMM D, YYYY')}
       </TableCell>
       <TableCell align="center">
-        {getRelativeTime(validator.endTime) + ' ago '}
+        {moment(validator.endTime).format('MMM D, YYYY')}
+      </TableCell>
+      <TableCell align="center">
+        {moment(validator.startTime).fromNow()}
       </TableCell>
       <TableCell align="center">
         <Field type="string" value={validator.uptime} />

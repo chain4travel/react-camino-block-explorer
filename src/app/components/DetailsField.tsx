@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { mdiOpenInNew } from '@mdi/js';
 import { Link } from 'react-router-dom';
 import { CamAmount } from 'app/components/CamAmount';
@@ -8,6 +7,7 @@ import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import Icon from '@mdi/react';
+import moment from 'utils/helpers/moment';
 
 export default function DetailsField({
   field,
@@ -39,7 +39,9 @@ export default function DetailsField({
         container
         item
         xs={6}
-        md={3}
+        md={4}
+        lg={4}
+        xl={3}
         justifyItems="center"
         alignItems="center"
         order={1}
@@ -167,10 +169,10 @@ export const Field = ({
         }}
       >
         <Typography variant="body2" component="span">
-          {getRelativeTime(value as number) + ' ago '}
+          {moment(value as number).fromNow()}
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
-          {value as string}
+          {moment(value as number).format('MMM D, YYYY, h:mm:ss A ([GMT] ZZ)')}
         </Typography>
       </Box>
     );

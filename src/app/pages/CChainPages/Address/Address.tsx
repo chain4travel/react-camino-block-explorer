@@ -8,11 +8,11 @@ import {
   Chip,
 } from '@mui/material';
 import { Field } from 'app/components/DetailsField';
-import { getRelativeTime } from 'utils/display-utils';
 import { CADDRESS, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths';
 import { CAddressTransactionTableData } from 'types/transaction';
 import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
+import moment from 'utils/helpers/moment';
 
 interface Props {
   transaction: CAddressTransactionTableData;
@@ -103,7 +103,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
       </TableCell>
       <TableCell>
         <Typography variant="body2" component="span" noWrap={true}>
-          {getRelativeTime(transaction.timestamp as number) + ' ago '}
+          {moment(transaction.timestamp as number).fromNow()}
         </Typography>
       </TableCell>
       <TableCell
@@ -177,7 +177,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Age
         </Typography>
-        {getRelativeTime(transaction.timestamp as number) + ' ago '}
+        {moment(transaction.timestamp as number).fromNow()}
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
