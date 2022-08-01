@@ -19,6 +19,7 @@ interface BlockListProps {
 
 const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
   const theme = useTheme();
+
   return (
     <Paper
       variant="outlined"
