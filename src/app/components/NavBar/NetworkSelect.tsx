@@ -24,12 +24,12 @@ import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
 import { useAppSelector } from 'store/configureStore';
+import { resetValidatorsReducer } from 'store/validatorsSlice';
+import { resetXPChainReducer } from 'store/xchainSlice';
+import { resetCChainReducer } from 'store/cchainSlice';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
-// import { resetValidatorsReducer } from 'store/validatorsSlice';
-// import { resetXPChainReducer } from 'store/xchainSlice';
-// import { resetCChainReducer } from 'store/cchainSlice';
 
 function SelectedNetwork({
   value,
@@ -81,9 +81,9 @@ export default function NetworkSelect() {
   const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
     // Reset Store
-    // dispatch(resetCChainReducer());
-    // dispatch(resetValidatorsReducer());
-    // dispatch(resetXPChainReducer());
+    dispatch(resetCChainReducer());
+    dispatch(resetValidatorsReducer());
+    dispatch(resetXPChainReducer());
     dispatch(changeNetwork(event.target.value));
   };
 
