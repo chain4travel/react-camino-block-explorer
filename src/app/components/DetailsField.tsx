@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { mdiOpenInNew } from '@mdi/js';
 import { Link } from 'react-router-dom';
 import { CamAmount } from 'app/components/CamAmount';
@@ -40,7 +39,9 @@ export default function DetailsField({
         container
         item
         xs={6}
-        md={3}
+        md={4}
+        lg={4}
+        xl={3}
         justifyItems="center"
         alignItems="center"
         order={1}

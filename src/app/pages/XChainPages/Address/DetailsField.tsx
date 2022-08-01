@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material';
 import { Link } from 'react-router-dom';
-import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import { CamAmount } from 'app/components/CamAmount';
+import CopyToClipboardButton from 'app/components/CopyToClipboardButton';
 import useWidth from 'app/hooks/useWidth';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -33,7 +33,16 @@ export default function DetailsField({
   };
   return (
     <Grid container spacing={2} alignItems="center">
-      <Grid container item xs={6} md={4} lg={3} alignItems="center" order={1}>
+      <Grid
+        container
+        item
+        xs={6}
+        md={4}
+        lg={4}
+        xl={3}
+        alignItems="center"
+        order={1}
+      >
         {(tooltip || getTooltip(field)) && (
           <Tooltip title={getTooltip(field) as string}>
             <HelpOutlineOutlinedIcon style={{ fontSize: '15px' }} />
