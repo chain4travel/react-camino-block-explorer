@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { mdiTransfer } from '@mdi/js';
-import { CamAmount } from '../../CamAmount';
+import { CamAmount } from '../../../../components/CamAmount';
 import { CTransaction } from 'types/transaction';
 import Icon from '@mdi/react';
-import AddressLink from '../../AddressLink';
-import RelativeTime from '../../RelativeTime';
+import AddressLink from '../../../../components/AddressLink';
+import RelativeTime from '../../../../components/RelativeTime';
 import useWidth from 'app/hooks/useWidth';
 import { CADDRESS } from 'utils/route-paths';
 

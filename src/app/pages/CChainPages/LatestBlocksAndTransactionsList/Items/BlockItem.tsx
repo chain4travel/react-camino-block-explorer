@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import { mdiCubeOutline } from '@mdi/js';
-import { GasAmount } from '../../CamAmount';
+import { GasAmount } from '../../../../components/CamAmount';
 import { BlockTableData } from 'types/block';
 import Icon from '@mdi/react';
-import AddressLink from '../../AddressLink';
-import RelativeTime from '../../RelativeTime';
+import AddressLink from '../../../../components/AddressLink';
+import RelativeTime from '../../../../components/RelativeTime';
 import useWidth from 'app/hooks/useWidth';
 
 interface BlockItemProps {

@@ -10,7 +10,7 @@ import {
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchBlocksTransactions } from 'store/cchainSlice/utils';
-import LatestBlocksAndTransactionsList from 'app/components/LatestBlocksAndTransactionsList';
+import LatestBlocksAndTransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList';
 import OverviewCards from 'app/components/OverviewCards';
 import DataControllers from 'app/components/DataControllers';
 import PageContainer from 'app/components/PageContainer';
