@@ -18,7 +18,7 @@ import {
   addCustomNetwork,
   removeCustomNetwork,
 } from 'store/app-config';
-import { getCchainStatus, resetCChainReducer } from 'store/cchainSlice';
+import { getCchainStatus } from 'store/cchainSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
@@ -27,8 +27,9 @@ import { useAppSelector } from 'store/configureStore';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
-import { resetValidatorsReducer } from 'store/validatorsSlice';
-import { resetXPChainReducer } from 'store/xchainSlice';
+// import { resetValidatorsReducer } from 'store/validatorsSlice';
+// import { resetXPChainReducer } from 'store/xchainSlice';
+// import { resetCChainReducer } from 'store/cchainSlice';
 
 function SelectedNetwork({
   value,
