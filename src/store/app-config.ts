@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getChains } from 'api';
 import { RootState } from 'store/configureStore';
+import { Status } from 'types';
 import { Chain, Network } from 'types/store';
 
 const getNetworkFromLocalStorage = () => {
@@ -32,6 +33,7 @@ interface initialStateAppConfigType {
   activeNetwork?: string;
   networks: Network[];
   chains: chainArgs[];
+  status: Status;
 }
 
 let initialState: initialStateAppConfigType = {
@@ -58,6 +60,7 @@ let initialState: initialStateAppConfigType = {
     ...(getCustomNetworksFromLocalStorage() as Network[]),
   ],
   chains: [],
+  status: Status.IDLE,
 };
 
 const appConfigSlice = createSlice({
@@ -82,14 +85,19 @@ const appConfigSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getChains.pending, (state, action) => {})
+      .addCase(getChains.pending, state => {
+        state.status = Status.LOADING;
+      })
       .addCase(getChains.fulfilled, (state, { payload }) => {
         state.chains = Object.entries(payload.chains).map(([key, value]) => {
           let v = value as Chain;
           return { alias: v.chainAlias, chainID: v.chainID };
         });
+        state.status = Status.SUCCEEDED;
       })
-      .addCase(getChains.rejected, (state, action) => {});
+      .addCase(getChains.rejected, state => {
+        state.status = Status.FAILED;
+      });
   },
 });
 
@@ -114,6 +122,8 @@ export const selectAllChains = (state: RootState) => state.appConfig.chains;
 // export const selectChain = (state: RootState, location: string) => {
 //   return state.appConfig.chains;
 // };
+// Select Network Status
+export const selectNetworkStatus = (state: RootState) => state.appConfig.status;
 
 export const { changeNetwork, addCustomNetwork, removeCustomNetwork } =
   appConfigSlice.actions;

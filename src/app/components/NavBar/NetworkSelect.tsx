@@ -17,6 +17,7 @@ import {
   changeNetwork,
   addCustomNetwork,
   removeCustomNetwork,
+  selectNetworkStatus,
 } from 'store/app-config';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +36,7 @@ function SelectedNetwork({
   networkStatus,
 }: {
   value: string;
-  networkStatus?: string;
+  networkStatus: string;
 }) {
   return (
     <Box
@@ -105,7 +106,7 @@ export default function NetworkSelect() {
     dispatch(changeNetwork('Columbus'));
     dispatch(removeCustomNetwork(id));
   };
-
+  const status = useAppSelector(selectNetworkStatus);
   return (
     <Box
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -117,7 +118,7 @@ export default function NetworkSelect() {
           value={network}
           IconComponent={() => <Icon path={mdiChevronDown} size={1} />}
           renderValue={() => {
-            return <SelectedNetwork value={network} />;
+            return <SelectedNetwork value={network} networkStatus={status} />;
           }}
           sx={{
             height: '40px',
