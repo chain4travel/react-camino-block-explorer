@@ -28,7 +28,9 @@ function mapToTableData(item): ValidatorType {
 const validatorsSlice = createSlice({
   name: 'validators',
   initialState,
-  reducers: {},
+  reducers: {
+    resetValidatorsReducer: () => initialState,
+  },
   extraReducers(builder) {
     builder.addCase(loadValidators.pending, state => {
       state.validatorsLoading = Status.LOADING;
@@ -69,5 +71,7 @@ export const getValidatorsOverreview = (state: RootState) => {
     numberOfValidators: state.validators.numberOfValidators,
   };
 };
+
+export const { resetValidatorsReducer } = validatorsSlice.actions;
 
 export default validatorsSlice.reducer;

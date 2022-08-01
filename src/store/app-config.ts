@@ -24,10 +24,14 @@ const getCustomNetworksFromLocalStorage = () => {
   return [];
 };
 
+interface chainArgs {
+  alias: string;
+  chainID: string;
+}
 interface initialStateAppConfigType {
   activeNetwork?: string;
   networks: Network[];
-  chains?: any;
+  chains: chainArgs[];
 }
 
 let initialState: initialStateAppConfigType = {

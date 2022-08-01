@@ -38,8 +38,10 @@ export const getBaseUrl = (): string | undefined => {
 };
 
 export const getChainID = (alias: string): string => {
-  let chainID = store
-    .getState()
-    .appConfig.chains.find(element => element.alias === alias).chainID;
-  return chainID;
+  let chains = store.getState().appConfig.chains;
+  let chainID: string | undefined;
+  if (chains)
+    chainID = chains.find(element => element.alias === alias)?.chainID;
+  if (chainID) return chainID;
+  return '';
 };

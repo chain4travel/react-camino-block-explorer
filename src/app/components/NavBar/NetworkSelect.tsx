@@ -27,6 +27,9 @@ import { useAppSelector } from 'store/configureStore';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
+// import { resetValidatorsReducer } from 'store/validatorsSlice';
+// import { resetXPChainReducer } from 'store/xchainSlice';
+// import { resetCChainReducer } from 'store/cchainSlice';
 
 function SelectedNetwork({
   value,
@@ -77,6 +80,10 @@ export default function NetworkSelect() {
   );
   const dispatch = useDispatch();
   const handleChange = (event: SelectChangeEvent) => {
+    // Reset Store
+    // dispatch(resetCChainReducer());
+    // dispatch(resetValidatorsReducer());
+    // dispatch(resetXPChainReducer());
     dispatch(changeNetwork(event.target.value));
   };
 
