@@ -11,7 +11,7 @@ import {
   getValidatorsStatus,
 } from 'store/validatorsSlice';
 import { useQuery } from 'react-query';
-import { fetchBlocksTransactionsCChain } from 'api';
+import { fetchBlocksTransactionsCChain, loadBlocksTransactionstype } from 'api';
 
 export default function CChainPage() {
   const validatorsLoading = useAppSelector(getValidatorsStatus);
@@ -27,16 +27,15 @@ export default function CChainPage() {
     transactionsLoading,
   } = useAppSelector(getCchainOverreview);
 
-  // error
-  const { data, isError, error } = useQuery(
-    'blocks-transactions-cchain',
-    fetchBlocksTransactionsCChain,
-    {
-      refetchInterval: 5000,
-      refetchOnMount: true,
-      refetchIntervalInBackground: true,
-    },
-  );
+  const { data, isError, error } = useQuery<
+    Promise<loadBlocksTransactionstype>,
+    string,
+    loadBlocksTransactionstype
+  >('blocks-transactions-cchain', fetchBlocksTransactionsCChain, {
+    refetchInterval: 5000,
+    refetchOnMount: true,
+    refetchIntervalInBackground: true,
+  });
   return (
     <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
       {isError && error ? (

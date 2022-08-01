@@ -120,7 +120,7 @@ export const getChains = createAsyncThunk('appConfig/chains', async () => {
   return res.data;
 });
 
-interface loadBlocksTransactionstype {
+export interface loadBlocksTransactionstype {
   blocks: BlockTableData[];
   transactions: CTransaction[];
 }
