@@ -124,7 +124,7 @@ export default function NetworkSelect() {
           sx={{
             height: '40px',
             maxWidth: '170px',
-            // minWidth: '170px',
+            minWidth: '170px',
             borderRadius: '10px',
             padding: '8px 16px',
             '@media (max-width:370px)': {
@@ -330,7 +330,11 @@ const NewNetwork = () => {
                 marginTop: '1rem',
               }}
             >
-              <MainButton variant="outlined" onClick={handleSubmit}>
+              <MainButton
+                variant="outlined"
+                onClick={handleSubmit}
+                style={{ color: 'white' }}
+              >
                 Add Network
               </MainButton>
               <MainButton variant="contained" onClick={handleClose}>
