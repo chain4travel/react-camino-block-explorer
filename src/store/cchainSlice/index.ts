@@ -63,6 +63,7 @@ const cchainSlice = createSlice({
     resetLoadingStatusForNPTransactions(state) {
       state.loadNextPrevStatus = Status.IDLE;
     },
+    resetCChainReducer: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -305,6 +306,9 @@ export const {
   changeCurrentIndex,
   clearTr,
   resetLoadingStatusForNPTransactions,
+  resetCChainReducer,
 } = cchainSlice.actions;
+
+export const getInitialeStateCchain = cchainSlice.getInitialState;
 // reduceer
 export default cchainSlice.reducer;
