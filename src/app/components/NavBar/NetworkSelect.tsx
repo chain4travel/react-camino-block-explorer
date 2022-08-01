@@ -23,13 +23,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
-import { useAppSelector } from 'store/configureStore';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { resetValidatorsReducer } from 'store/validatorsSlice';
 import { resetXPChainReducer } from 'store/xchainSlice';
 import { resetCChainReducer } from 'store/cchainSlice';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
+import { getChains } from 'api';
 
 function SelectedNetwork({
   value,
@@ -197,7 +198,7 @@ const NewNetwork = () => {
     port: 9650,
     predefined: false,
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // handle duplicate network id
   const handleDuplicateNetworkId = (
@@ -232,6 +233,7 @@ const NewNetwork = () => {
     localStorage.setItem('customNetworks', JSON.stringify(customNetworks));
     dispatch(addCustomNetwork(NewNetwork));
     dispatch(changeNetwork(NewNetwork.displayName));
+    dispatch(getChains());
     setOpen(false);
   };
 
