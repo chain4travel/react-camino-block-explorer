@@ -7,6 +7,7 @@ import {
   MagellanCBlocksResponse,
   MagellanTransaction,
   MagellanTxFeeAggregatesResponse,
+  MagellanXPTransactionResponse,
 } from 'types/magellan-types';
 import { CTransaction } from 'types/transaction';
 import { createTransaction } from 'utils/magellan';
@@ -110,9 +111,14 @@ export async function loadXPTransactions(offset: number, chainID: string) {
 }
 
 export async function getXPTransactions(offset: number, alias: string) {
-  let res = (await loadXPTransactions(offset, getChainID(alias))).data;
-  let newItems = res.transactions.map(item => createTransaction(item));
-  return newItems.map(mapToTableData);
+  let res: MagellanXPTransactionResponse = (
+    await loadXPTransactions(offset, getChainID(alias))
+  ).data;
+  if (res && res.transactions && res.transactions.length > 0) {
+    let newItems = res.transactions.map(item => createTransaction(item));
+    return newItems.map(mapToTableData);
+  }
+  return [];
 }
 
 export const getChains = createAsyncThunk('appConfig/chains', async () => {
