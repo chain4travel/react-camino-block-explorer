@@ -127,14 +127,14 @@ const columns: ColumnType[] = [
     label: 'Block',
     field: 'number',
     minWidth: 140,
-    align: 'left',
+    align: 'center',
   },
   {
     name: 'age',
     label: 'Age',
     field: 'timestamp',
     minWidth: 140,
-    align: 'left',
+    align: 'center',
   },
   {
     name: 'transactions',

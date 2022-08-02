@@ -180,7 +180,7 @@ const columns = [
     name: 'fee',
     value: 'fee',
     label: 'Fee',
-    align: 'left',
+    align: 'center',
     type: 'currency',
   },
 ];
