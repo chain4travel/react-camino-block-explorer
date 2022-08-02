@@ -25,7 +25,7 @@ jobs:
         name: Git Version
         with:
           release-branch: master
-          dev-branch: develop
+          dev-branch: dev
       - id: output
         run: echo "::set-output name=version::${{ steps.setversion.outputs.version }}"
 
@@ -74,4 +74,4 @@ jobs:
             ${{ steps.setTagVariables.outputs.branch }}
             c4tplatform/camino-block-explorer-dev:${{ needs.bump-version.outputs.version }}
             ${{ steps.setTagVariables.outputs.stable }}
-          push: ${{ github.ref == 'refs/heads/master' }}
+          push: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' }}
