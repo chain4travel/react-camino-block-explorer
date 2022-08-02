@@ -58,7 +58,7 @@ const BlockDetails: FC = () => {
             }}
           >
             <SubPageTitle
-              title={`C-Chain Block ${location.pathname.split('/')[3]}`}
+              title={`Block ${location.pathname.split('/')[3]}`}
               backToLink={CCHAIN}
             />
             <Box
