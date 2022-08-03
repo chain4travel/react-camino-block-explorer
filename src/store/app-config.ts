@@ -82,6 +82,9 @@ const appConfigSlice = createSlice({
         item => item.id !== action.payload,
       );
     },
+    resetChains: state => {
+      state.chains = [];
+    },
   },
   extraReducers(builder) {
     builder
@@ -125,6 +128,10 @@ export const selectAllChains = (state: RootState) => state.appConfig.chains;
 // Select Network Status
 export const selectNetworkStatus = (state: RootState) => state.appConfig.status;
 
-export const { changeNetwork, addCustomNetwork, removeCustomNetwork } =
-  appConfigSlice.actions;
+export const {
+  changeNetwork,
+  addCustomNetwork,
+  removeCustomNetwork,
+  resetChains,
+} = appConfigSlice.actions;
 export default appConfigSlice.reducer;

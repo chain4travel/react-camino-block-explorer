@@ -19,7 +19,6 @@ import {
   removeCustomNetwork,
   selectNetworkStatus,
 } from 'store/app-config';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
@@ -51,7 +50,10 @@ function SelectedNetwork({
         sx={{
           width: '8px',
           height: '8px',
-          backgroundColor: networkStatus === 'failed' ? '#DD5E56' : '#35E9AD',
+          backgroundColor:
+            networkStatus === 'failed' || value === 'Mainnet'
+              ? '#DD5E56'
+              : '#35E9AD',
         }}
       />
       <Box
@@ -78,7 +80,7 @@ export default function NetworkSelect() {
   const [network, setNetwork] = React.useState(
     nameOfActiveNetwork(networks, activeNetwork),
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleChange = (event: SelectChangeEvent) => {
     // Reset Store
     dispatch(resetCChainReducer());
