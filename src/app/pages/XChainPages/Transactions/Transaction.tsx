@@ -5,6 +5,7 @@ import {
   TableRow,
   Typography,
   Chip,
+  Box,
 } from '@mui/material';
 import AddressLink from 'app/components/AddressLink';
 import { Field } from 'app/components/DetailsField';
@@ -151,6 +152,7 @@ const CustomRow = ({ transaction }) => {
       <TableCell
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        width="20%"
       >
         <AddressLink
           to={`${XTRANSACTIONS}/${transaction.hash}`}
@@ -162,6 +164,7 @@ const CustomRow = ({ transaction }) => {
       <TableCell
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        width="22.5%"
       >
         {transaction.from[0]?.address ? (
           <AddressLink
@@ -180,6 +183,7 @@ const CustomRow = ({ transaction }) => {
       <TableCell
         align="center"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        width="22.5%"
       >
         {transaction.to[0]?.address ? (
           <AddressLink
@@ -195,20 +199,28 @@ const CustomRow = ({ transaction }) => {
           '-'
         )}
       </TableCell>
-      <TableCell align="center">
+      <TableCell align="center" width="10%">
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp as number).fromNow()}
         </Typography>
       </TableCell>
-      <TableCell align="center">
+      <TableCell align="center" width="10%">
         <Chip
           label={transaction.type}
           size="small"
           style={{ minWidth: '61px', height: 'min-content' }}
         />
       </TableCell>
-      <TableCell align="left">
-        <Field type="gwei" value={transaction.fee} />
+      <TableCell align="center" width="15%">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'right',
+            alignItems: 'center',
+          }}
+        >
+          <Field type="gwei" value={transaction.fee} />
+        </Box>
       </TableCell>
     </>
   );

@@ -1,5 +1,12 @@
 import React, { FC } from 'react';
-import { Grid, TableCell, TableRow, Typography, Chip } from '@mui/material';
+import {
+  Grid,
+  TableCell,
+  TableRow,
+  Typography,
+  Chip,
+  Box,
+} from '@mui/material';
 import { Field } from 'app/components/DetailsField';
 import { CADDRESS, CBLOCKS } from 'utils/route-paths';
 import { TransactionTableData } from 'types/transaction';
@@ -124,7 +131,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
 const CustomRow: FC<TransactionProps> = ({ transaction }) => {
   return (
     <>
-      <TableCell>
+      <TableCell width="7%" align="center">
         <AddressLink
           to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
@@ -165,12 +172,12 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           truncate={true}
         />
       </TableCell>
-      <TableCell>
+      <TableCell align="center">
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp).fromNow()}
         </Typography>
       </TableCell>
-      <TableCell>
+      <TableCell align="center">
         <Chip
           label={transaction.status}
           size="small"
@@ -178,10 +185,26 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
         />
       </TableCell>
       <TableCell>
-        <Field type="gwei" value={transaction.transactionCost} />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Field type="gwei" value={transaction.transactionCost} />
+        </Box>
       </TableCell>
       <TableCell>
-        <Field type="gwei" value={transaction.value} />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'right',
+            alignItems: 'center',
+          }}
+        >
+          <Field type="gwei" value={transaction.value} />
+        </Box>
       </TableCell>
     </>
   );
