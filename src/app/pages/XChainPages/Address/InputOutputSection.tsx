@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
-import DetailsField from './DetailsField';
+import DetailsField from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 
 export const InputOutputSection = ({ inputs, outputs }) => {

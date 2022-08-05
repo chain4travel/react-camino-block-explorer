@@ -17,6 +17,7 @@ export default function DetailsField({
   tooltip,
   detailsLink,
   allowCopy,
+  style,
 }: {
   field: string;
   value: string | number | object | Element | undefined;
@@ -25,6 +26,7 @@ export default function DetailsField({
   tooltip?: string;
   detailsLink?: string;
   allowCopy?: boolean;
+  style?: React.CSSProperties;
 }) {
   const getTooltip = (field: string): string | undefined => {
     if (Object.keys(tooltips).includes(field?.toLowerCase())) {
@@ -34,7 +36,7 @@ export default function DetailsField({
   };
   const { isMobile } = useWidth();
   return (
-    <Grid container alignItems="center" spacing={1} sx={{ p: '1rem' }}>
+    <Grid container alignItems="center" spacing={1} sx={{ ...style }}>
       <Grid
         container
         item
@@ -45,6 +47,7 @@ export default function DetailsField({
         justifyItems="center"
         alignItems="center"
         order={1}
+        sx={{ minWidth: '110px' }}
       >
         {!isMobile && (
           <>
@@ -52,9 +55,7 @@ export default function DetailsField({
               <Grid item xs={2}>
                 <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
                   {icon || (
-                    <HelpOutlineOutlinedIcon
-                      style={{ width: '20px', height: '20px' }}
-                    />
+                    <HelpOutlineOutlinedIcon style={{ width: '20px' }} />
                   )}
                 </Tooltip>
               </Grid>
@@ -66,11 +67,11 @@ export default function DetailsField({
           </>
         )}
         <Typography
-          variant="body1"
+          variant="body2"
           component="span"
           fontWeight="fontWeightBold"
           noWrap={true}
-          sx={{ textTransform: 'capitalize' }}
+          sx={{ textTransform: 'capitalize', pl: '5px' }}
         >
           {field}
         </Typography>
@@ -135,9 +136,11 @@ export default function DetailsField({
 export const Field = ({
   type,
   value,
+  fontWeight = 'fontWeightRegular',
 }: {
   type: string;
   value: string | number | object | undefined;
+  fontWeight?: string;
 }) => {
   const { isMobile } = useWidth();
   if (type === 'string' || type === 'number' || type === 'monospace') {
@@ -146,6 +149,7 @@ export const Field = ({
         variant="body2"
         component="span"
         noWrap={true}
+        fontWeight={fontWeight}
         sx={{ width: '100%', display: 'block' }}
       >
         {value as string}
