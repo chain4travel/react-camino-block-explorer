@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Grid,
   Paper,
@@ -5,15 +6,13 @@ import {
   TableRow,
   Typography,
   Chip,
-  Box,
 } from '@mui/material';
-import AddressLink from 'app/components/AddressLink';
 import { Field } from 'app/components/DetailsField';
-import useWidth from 'app/hooks/useWidth';
-import React from 'react';
 import { getAddressLink } from 'utils/route-utils';
 import { ChainType } from 'utils/types/chain-type';
 import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
+import AddressLink from 'app/components/AddressLink';
+import useWidth from 'app/hooks/useWidth';
 import moment from 'utils/helpers/moment';
 
 interface Props {
@@ -150,7 +149,7 @@ const CustomRow = ({ transaction }) => {
   return (
     <>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
         width="20%"
       >
@@ -162,7 +161,7 @@ const CustomRow = ({ transaction }) => {
         />
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
         width="22.5%"
       >
@@ -181,7 +180,7 @@ const CustomRow = ({ transaction }) => {
         )}
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
         width="22.5%"
       >
@@ -199,28 +198,20 @@ const CustomRow = ({ transaction }) => {
           '-'
         )}
       </TableCell>
-      <TableCell align="center" width="10%">
+      <TableCell align="left" width="10%">
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp as number).fromNow()}
         </Typography>
       </TableCell>
-      <TableCell align="center" width="10%">
+      <TableCell align="left" width="10%">
         <Chip
           label={transaction.type}
           size="small"
           style={{ minWidth: '61px', height: 'min-content' }}
         />
       </TableCell>
-      <TableCell align="center" width="15%">
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'right',
-            alignItems: 'center',
-          }}
-        >
-          <Field type="gwei" value={transaction.fee} />
-        </Box>
+      <TableCell align="left" width="15%">
+        <Field type="gwei" value={transaction.fee} />
       </TableCell>
     </>
   );

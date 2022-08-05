@@ -26,7 +26,11 @@ export default function TableView({
                 key={column.name}
                 align={column.align}
               >
-                <Field type="string" value={column.label} />
+                <Field
+                  type="string"
+                  value={column.label}
+                  fontWeight="fontWeightBold"
+                />
               </TableCell>
             ))}
           </TableRow>
