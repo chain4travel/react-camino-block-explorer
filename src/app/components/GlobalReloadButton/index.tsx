@@ -2,11 +2,7 @@ import * as React from 'react';
 import Replay from '@mui/icons-material/Replay';
 import { Button } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import {
-  getCchainOverreview,
-  getCchainStatus,
-  getTimeFrame,
-} from 'store/cchainSlice';
+import { getCchainOverreview, getTimeFrame } from 'store/cchainSlice';
 import {
   fetchBlocksTransactions,
   loadNumberOfTransactions,
@@ -37,7 +33,6 @@ export default function GlobalReloadButton({
   const location = useLocation();
   const dispatch = useAppDispatch();
   const frameTime = useAppSelector(getTimeFrame);
-  const status = useAppSelector(getCchainStatus);
   const timeFrameXPchain = useAppSelector(getTimeFrameXchain);
   let chainAlias = location.pathname.split('/')[1][0];
   let chainName = location.pathname.split('/')[1];
@@ -56,8 +51,7 @@ export default function GlobalReloadButton({
     if (
       chainName === ChainType.C_CHAIN &&
       gasFeesLoading !== Status.LOADING &&
-      transactionsLoading !== Status.LOADING &&
-      status !== Status.LOADING
+      transactionsLoading !== Status.LOADING
     ) {
       dispatch(fetchBlocksTransactions());
       dispatch(loadValidators());
