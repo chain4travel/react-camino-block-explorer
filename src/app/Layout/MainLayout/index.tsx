@@ -24,7 +24,6 @@ export default function MainLayout() {
     dispatch(changeNetwork('Columbus'));
   };
   useEffect(() => {
-    console.log('MainLayout: useEffect', status);
     dispatch(getChains());
   }, [activeNetwork]); // eslint-disable-line
   return (
