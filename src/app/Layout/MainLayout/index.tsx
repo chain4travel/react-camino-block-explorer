@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavBar } from 'app/components/NavBar';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
+import { Typography, Box, CircularProgress, Container } from '@mui/material';
 import {
   getActiveNetwork,
   selectAllChains,
@@ -10,7 +11,6 @@ import {
 } from 'store/app-config';
 import { Footer } from 'app/components/Footer';
 import { Status } from 'types';
-import { Typography, Box } from '@mui/material';
 import { getChains } from 'api';
 import PageContainer from 'app/components/PageContainer';
 import MainButton from 'app/components/MainButton';
@@ -23,13 +23,22 @@ export default function MainLayout() {
   const handleClick = () => {
     dispatch(changeNetwork('Columbus'));
   };
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log('MainLayout: useEffect', status);
     dispatch(getChains());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeNetwork]);
+  }, [activeNetwork]); // eslint-disable-line
   return (
     <>
       <NavBar />
+      {status === Status.LOADING && (
+        <Container fixed maxWidth="xl">
+          <CircularProgress
+            color="secondary"
+            size={75}
+            style={{ margin: 'auto', display: 'block' }}
+          />
+        </Container>
+      )}
       {status === Status.SUCCEEDED && chains?.length > 0 && <Outlet />}
       {status === Status.FAILED && (
         <PageContainer pageTitle="Error" metaContent="An error has occurred">
