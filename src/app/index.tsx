@@ -21,6 +21,7 @@ import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
 import Validators from './pages/Validators';
+import NotFound from './pages/NotFound';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -69,6 +70,7 @@ export function App() {
           <Route path="/mainnet" element={<ComingSoonPage />} />
           <Route path="/validators" element={<Validators />} />
         </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <GlobalStyle />
     </BrowserRouter>
