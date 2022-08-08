@@ -26,6 +26,7 @@ export default function CopyTitleCard({
           />
         }
         allowCopy={true}
+        style={{ padding: '1rem' }}
       />
     </OutlinedContainer>
   );

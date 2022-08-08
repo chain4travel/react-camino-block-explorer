@@ -178,6 +178,7 @@ const TransactionDetails: FC = () => {
                   />
                 }
                 allowCopy={true}
+                style={{ padding: '1rem' }}
               />
             </OutlinedContainer>
           )}

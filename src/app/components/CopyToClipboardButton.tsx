@@ -35,10 +35,11 @@ export default function CopyButton({ value }: { value: string }) {
       <Button
         onClick={handleClick(TransitionUp)}
         variant="outlined"
+        color="secondary"
         sx={{
           borderRadius: '25px',
           maxHeight: '40px',
-          borderColor: 'primary.contrastText',
+          borderWidth: '1.5px',
           minWidth: '40px',
           '&:hover': {
             borderColor: 'primary.contrastText',

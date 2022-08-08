@@ -14,6 +14,7 @@ export default function BackButton({ backToLink }: { backToLink: To }) {
         display: 'flex',
         alignItems: 'center',
         padding: '7px 18px',
+        borderWidth: '1.5px',
       }}
       onClick={() => navigate(backToLink)}
     >

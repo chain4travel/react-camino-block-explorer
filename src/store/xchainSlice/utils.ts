@@ -50,7 +50,7 @@ export const fetchXPTransactions = createAsyncThunk(
     const response = await axios.get(
       `${getBaseUrl()}/v2/transactions?chainID=${getChainID(
         chain.chainType,
-      )}&offset=0&limit=10&sort=timestamp-desc`,
+      )}&offset=0&limit=8&sort=timestamp-desc`,
     );
     return { transactions: response.data.transactions, type: chain.chainType };
   },

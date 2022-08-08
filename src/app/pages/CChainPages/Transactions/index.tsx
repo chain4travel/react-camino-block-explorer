@@ -10,7 +10,7 @@ import {
 import { useInfiniteQuery } from 'react-query';
 import { getTransactionsPage } from 'api';
 import PageContainer from 'app/components/PageContainer';
-import CutomTable from 'app/components/Table/TableView';
+import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import Transaction from './Transaction';
 import SubPageTitle from 'app/components/SubPageTitle';
@@ -98,7 +98,7 @@ const Transactions: FC = () => {
           {status === 'success' && data && (
             <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (
-                <CutomTable columns={columns}>{content}</CutomTable>
+                <TableView columns={columns}>{content}</TableView>
               ) : (
                 <Grid item container alignItems="center">
                   {content}
@@ -124,7 +124,7 @@ const columns = [
     name: 'blockNumber',
     label: 'Block',
     field: 'blockNumber',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: blockDetails,
   },
@@ -132,7 +132,7 @@ const columns = [
     name: 'from',
     label: 'From',
     field: 'from',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: addressDetails,
   },
@@ -140,7 +140,7 @@ const columns = [
     name: 'to',
     label: 'To',
     field: 'to',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: addressDetails,
   },
@@ -148,7 +148,7 @@ const columns = [
     name: 'hash',
     label: 'Hash',
     field: 'hash',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: transactionDetails,
   },
@@ -156,14 +156,14 @@ const columns = [
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'center',
+    align: 'left',
     type: 'timestamp',
   },
   {
     name: 'status',
     label: 'Status',
     field: 'status',
-    align: 'center',
+    align: 'left',
     type: 'status',
   },
   {
@@ -171,7 +171,7 @@ const columns = [
     value: 'transactionCost',
     label: 'Transaction Cost',
     field: 'transactionCost',
-    align: 'center',
+    align: 'left',
     type: 'currency',
   },
   {
@@ -179,7 +179,7 @@ const columns = [
     value: 'value',
     label: 'Value',
     field: 'value',
-    align: 'center',
+    align: 'left',
     type: 'currency',
   },
 ];
