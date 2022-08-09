@@ -1,22 +1,19 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ReactComponent as ComingSoonSvg } from './assets/comingsoon.svg';
 import { Grid, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { changeNetwork } from 'store/app-config';
+import { ReactComponent as NotFound404 } from './assets/404.svg';
 import MainButton from 'app/components/MainButton';
 import AlignedContainer from 'app/components/AlignedContainer';
 
-export function ComingSoonPage() {
-  const dispatch = useDispatch();
+const NotFoundPage: FC = () => {
   const handleClick = () => {
-    dispatch(changeNetwork('Columbus'));
+    window.location.href = '/';
   };
   return (
     <AlignedContainer maxWidth="xl">
       <Helmet>
-        <title>mainnet</title>
-        <meta name="description" content="mainnet" />
+        <title>404 Page Not Found</title>
+        <meta name="description" content="404" />
       </Helmet>
       <Grid
         sx={{ minHeight: '500px', gap: '20px' }}
@@ -25,18 +22,28 @@ export function ComingSoonPage() {
         justifyContent="space-between"
         alignItems="center"
       >
-        <ComingSoonSvg />
         <Typography
-          variant="h5"
-          color="card.contrastText"
+          variant="h3"
+          color="error.light"
           sx={{ textAlign: 'center', marginTop: '1rem' }}
         >
-          The Camino Mainnet is not available yet.
+          Ooooops.
+        </Typography>
+        <NotFound404 />
+        <Typography
+          variant="h5"
+          component="span"
+          fontWeight="fontWeightBold"
+          sx={{ textAlign: 'center', marginTop: '1rem' }}
+        >
+          The page your are looking for does not exist.
         </Typography>
         <MainButton variant="contained" onClick={handleClick}>
-          Switch to Columbus Network
+          Go to Homepage
         </MainButton>
       </Grid>
     </AlignedContainer>
   );
-}
+};
+
+export default NotFoundPage;
