@@ -21,7 +21,7 @@ import { ComingSoonPage } from './pages/ComingSoon';
 import { TransactionDetails, BlockDetails } from './pages/CChainPages';
 import XPTransactionDetails from './pages/XChainPages/Transactions/XPTransactionsDetails';
 import Validators from './pages/Validators';
-import NotFoundPage from './pages/NotFoundPage';
+import NotFoundPage from './pages/PageNotFound';
 
 export function App() {
   const { i18n } = useTranslation();

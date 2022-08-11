@@ -22,19 +22,19 @@ const NotFoundPage: FC = () => {
         justifyContent="space-between"
         alignItems="center"
       >
+        <NotFound404 />
         <Typography
           variant="h3"
-          color="error.light"
-          sx={{ textAlign: 'center', marginTop: '1rem' }}
+          sx={{ textAlign: 'center' }}
+          fontWeight="fontWeightBold"
         >
-          Ooooops.
+          404
         </Typography>
-        <NotFound404 />
         <Typography
           variant="h5"
           component="span"
           fontWeight="fontWeightBold"
-          sx={{ textAlign: 'center', marginTop: '1rem' }}
+          sx={{ textAlign: 'center' }}
         >
           The page your are looking for does not exist.
         </Typography>
