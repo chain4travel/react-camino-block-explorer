@@ -10,12 +10,12 @@ import {
 } from '@mui/material';
 import { useInfiniteQuery } from 'react-query';
 import { getBlocksPage } from 'api';
+import { CCHAIN } from 'utils/route-paths';
 import PageContainer from 'app/components/PageContainer';
 import Block from './Block';
 import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import SubPageTitle from 'app/components/SubPageTitle';
-import { CCHAIN } from 'utils/route-paths';
 
 const Blocks: FC = () => {
   const theme = useTheme();
@@ -140,14 +140,14 @@ const columns: ColumnType[] = [
     name: 'transactions',
     label: '# of tx',
     field: 'numberOfTransactions',
-    align: 'center',
+    align: 'left',
     minWidth: 50,
   },
   {
     name: 'hash',
     label: 'Hash',
     field: 'hash',
-    align: 'center',
+    align: 'left',
     minWidth: 170,
   },
   {
@@ -155,13 +155,13 @@ const columns: ColumnType[] = [
     minWidth: 50,
     label: 'Gas Used',
     field: 'gasUsed',
-    align: 'right',
+    align: 'left',
   },
   {
     minWidth: 50,
     name: 'gasLimit',
     label: 'Gas Limit',
     field: 'gasLimit',
-    align: 'right',
+    align: 'left',
   },
 ];

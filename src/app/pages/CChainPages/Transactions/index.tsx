@@ -10,7 +10,7 @@ import {
 import { useInfiniteQuery } from 'react-query';
 import { getTransactionsPage } from 'api';
 import PageContainer from 'app/components/PageContainer';
-import CutomTable from 'app/components/Table/TableView';
+import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 import Transaction from './Transaction';
 import SubPageTitle from 'app/components/SubPageTitle';
@@ -98,7 +98,7 @@ const Transactions: FC = () => {
           {status === 'success' && data && (
             <TableContainer sx={{ height: '750px' }}>
               {isWidescreen || isDesktop ? (
-                <CutomTable columns={columns}>{content}</CutomTable>
+                <TableView columns={columns}>{content}</TableView>
               ) : (
                 <Grid item container alignItems="center">
                   {content}

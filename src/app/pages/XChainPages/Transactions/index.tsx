@@ -1,22 +1,21 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Grid,
   Paper,
-  Typography,
   useTheme,
   TableContainer,
   Box,
   LinearProgress,
 } from '@mui/material';
-import PageContainer from 'app/components/PageContainer';
-import BackButton from 'app/components/BackButton';
 import { useInfiniteQuery } from 'react-query';
-import CutomTable from 'app/components/Table/TableView';
-import useWidth from 'app/hooks/useWidth';
 import { getXPTransactions } from 'api';
-import Transaction from './Transaction';
 import { useLocation } from 'react-router-dom';
 import { XCHAIN } from 'utils/route-paths';
+import PageContainer from 'app/components/PageContainer';
+import CutomTable from 'app/components/Table/TableView';
+import useWidth from 'app/hooks/useWidth';
+import Transaction from './Transaction';
+import SubPageTitle from 'app/components/SubPageTitle';
 
 export default function XPTransactions() {
   const location = useLocation();
@@ -101,21 +100,12 @@ export default function XPTransactions() {
           alignItems="center"
           sx={{ width: 1, gap: '20px' }}
         >
-          <Grid
-            item
-            container
-            alignItems="center"
-            sx={{
-              gap: '20px',
-            }}
-          >
-            <BackButton backToLink={XCHAIN} />
-            <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-              {`${location.pathname
-                .split('/')[1][0]
-                .toLocaleUpperCase()}-Transactions`}
-            </Typography>
-          </Grid>
+          <SubPageTitle
+            title={`${location.pathname
+              .split('/')[1][0]
+              .toLocaleUpperCase()}-Transactions`}
+            backToLink={XCHAIN}
+          />
           {status === 'success' && data && (
             <TableContainer sx={{ height: '650px' }}>
               {isWidescreen || isDesktop ? (
@@ -143,7 +133,7 @@ const columns = [
     name: 'hash',
     label: 'Hash',
     field: 'hash',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: transactionDetails,
   },
@@ -151,7 +141,7 @@ const columns = [
     name: 'from',
     label: 'From',
     field: 'from',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: addressDetails,
   },
@@ -159,7 +149,7 @@ const columns = [
     name: 'to',
     label: 'To',
     field: 'to',
-    align: 'center',
+    align: 'left',
     type: 'hash',
     // detailsLink: addressDetails,
   },
@@ -167,14 +157,14 @@ const columns = [
     name: 'timestamp',
     label: 'Timestamp',
     field: 'timestamp',
-    align: 'center',
+    align: 'left',
     type: 'timestamp',
   },
   {
     name: 'type',
     label: 'Type',
     field: 'Type',
-    align: 'center',
+    align: 'left',
   },
   {
     name: 'fee',

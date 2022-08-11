@@ -37,6 +37,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Number"
                   value={blockDetails['number']}
                   type="string"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -47,6 +48,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   type="string"
                   allowCopy={true}
                   detailsLink={`${CBLOCKS}/${blockDetails.number - 1}`}
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -55,6 +57,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Base Gas Fee"
                   value={blockDetails['baseGaseFee']}
                   type="wei"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -63,6 +66,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Fees"
                   value={blockDetails['fees']}
                   type="wei"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -71,6 +75,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Gas Used"
                   value={blockDetails['gasUsed']}
                   type="number"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -79,6 +84,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Timestamp"
                   value={blockDetails['time']}
                   type="timestamp"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -87,6 +93,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Transaction Count"
                   value={blockDetails['transactionsCount']}
                   type="string"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -95,6 +102,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({
                   field="Extra Data"
                   value={blockDetails['extData']}
                   type="hexdata"
+                  style={{ padding: '1rem' }}
                 />
               </Grid>
             </Grid>

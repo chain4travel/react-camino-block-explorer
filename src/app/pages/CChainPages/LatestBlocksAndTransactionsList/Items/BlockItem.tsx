@@ -24,7 +24,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
       sx={{ padding: '0.5rem 0rem 0.5rem 0rem' }}
     >
       {!isMobile && !isTablet && (
-        <Grid item sx={{ paddingRight: '5px' }} xs={1} md={1} lg={1.5} xl={1}>
+        <Grid item xs={1} md={1} lg={1.5} xl={1}>
           <Box
             sx={{
               display: 'flex',
@@ -42,7 +42,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
           </Box>
         </Grid>
       )}
-      <Grid item xs={12} md={2} justifyContent="flex-start">
+      <Grid item xs={12} md={2} lg={2} xl={1.5} justifyContent="flex-start">
         <AddressLink
           to={`${to}/${block.number}`}
           value={block.number}
@@ -51,7 +51,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
         />
         <RelativeTime value={block.timestamp} variant="subtitle2" />
       </Grid>
-      <Grid item xs={12} md={6} lg={5} xl={6}>
+      <Grid item xs={12} md={6} lg={5} xl={6.5}>
         <Typography variant="body1">
           {block.numberOfTransactions} txs
         </Typography>

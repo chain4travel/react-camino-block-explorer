@@ -124,7 +124,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
 const CustomRow: FC<TransactionProps> = ({ transaction }) => {
   return (
     <>
-      <TableCell>
+      <TableCell width="7%" align="left">
         <AddressLink
           to={`${CBLOCKS}/${transaction.blockNumber}`}
           value={transaction.blockNumber}
@@ -133,7 +133,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
         />
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
@@ -144,7 +144,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
         />
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
@@ -155,7 +155,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
         />
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
       >
         <AddressLink
@@ -165,12 +165,12 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           truncate={true}
         />
       </TableCell>
-      <TableCell>
+      <TableCell align="left">
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp).fromNow()}
         </Typography>
       </TableCell>
-      <TableCell>
+      <TableCell align="left">
         <Chip
           label={transaction.status}
           size="small"

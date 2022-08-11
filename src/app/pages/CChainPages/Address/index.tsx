@@ -56,6 +56,7 @@ const CAddressDetails: FC = () => {
             />
           }
           allowCopy={true}
+          style={{ padding: '1rem' }}
         />
       </Box>
       <Paper

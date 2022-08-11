@@ -17,19 +17,19 @@ import {
   changeNetwork,
   addCustomNetwork,
   removeCustomNetwork,
+  selectNetworkStatus,
 } from 'store/app-config';
-import { getCchainStatus } from 'store/cchainSlice';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { mdiChevronDown, mdiTrashCanOutline } from '@mdi/js';
 import { Network } from 'types/store';
-import { useAppSelector } from 'store/configureStore';
+import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { resetValidatorsReducer } from 'store/validatorsSlice';
 import { resetXPChainReducer } from 'store/xchainSlice';
 import { resetCChainReducer } from 'store/cchainSlice';
 import useWidth from 'app/hooks/useWidth';
 import MainButton from '../MainButton';
 import Icon from '@mdi/react';
+import { getChains } from 'api';
 
 function SelectedNetwork({
   value,
@@ -50,7 +50,10 @@ function SelectedNetwork({
         sx={{
           width: '8px',
           height: '8px',
-          backgroundColor: networkStatus === 'failed' ? '#DD5E56' : '#35E9AD',
+          backgroundColor:
+            networkStatus === 'failed' || value === 'Mainnet'
+              ? '#DD5E56'
+              : '#35E9AD',
         }}
       />
       <Box
@@ -71,14 +74,13 @@ const nameOfActiveNetwork = (networks, id) => {
 };
 
 export default function NetworkSelect() {
-  const status = useAppSelector(getCchainStatus);
   const navigate = useNavigate();
   const networks = useAppSelector(getNetworks);
   const activeNetwork = useAppSelector(getActiveNetwork);
   const [network, setNetwork] = React.useState(
     nameOfActiveNetwork(networks, activeNetwork),
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleChange = (event: SelectChangeEvent) => {
     // Reset Store
     dispatch(resetCChainReducer());
@@ -107,7 +109,7 @@ export default function NetworkSelect() {
     dispatch(changeNetwork('Columbus'));
     dispatch(removeCustomNetwork(id));
   };
-
+  const status = useAppSelector(selectNetworkStatus);
   return (
     <Box
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -198,7 +200,7 @@ const NewNetwork = () => {
     port: 9650,
     predefined: false,
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // handle duplicate network id
   const handleDuplicateNetworkId = (
@@ -233,6 +235,7 @@ const NewNetwork = () => {
     localStorage.setItem('customNetworks', JSON.stringify(customNetworks));
     dispatch(addCustomNetwork(NewNetwork));
     dispatch(changeNetwork(NewNetwork.displayName));
+    dispatch(getChains());
     setOpen(false);
   };
 

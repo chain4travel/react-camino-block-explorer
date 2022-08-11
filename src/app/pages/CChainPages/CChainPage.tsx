@@ -1,15 +1,7 @@
 import * as React from 'react';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
-import {
-  selectAllBlocks,
-  getCchainError,
-  selectAllTransactions,
-  getCchainOverreview,
-  getCchainStatus,
-} from 'store/cchainSlice';
+import { getCchainOverreview } from 'store/cchainSlice';
 import { Typography } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import { fetchBlocksTransactions } from 'store/cchainSlice/utils';
+import { useAppSelector } from 'store/configureStore';
 import LatestBlocksAndTransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList';
 import OverviewCards from 'app/components/OverviewCards';
 import DataControllers from 'app/components/DataControllers';
@@ -18,14 +10,10 @@ import {
   getValidatorsOverreview,
   getValidatorsStatus,
 } from 'store/validatorsSlice';
-import { Status } from 'types';
+import { useQuery } from 'react-query';
+import { fetchBlocksTransactionsCChain, loadBlocksTransactionstype } from 'api';
 
 export default function CChainPage() {
-  const dispatch = useAppDispatch();
-  const blocks = useAppSelector(selectAllBlocks);
-  const transactions = useAppSelector(selectAllTransactions);
-  const error = useAppSelector(getCchainError);
-  const status = useAppSelector(getCchainStatus);
   const validatorsLoading = useAppSelector(getValidatorsStatus);
   const {
     percentageOfActiveValidators,
@@ -39,38 +27,45 @@ export default function CChainPage() {
     transactionsLoading,
   } = useAppSelector(getCchainOverreview);
 
-  useEffectOnce(() => {
-    dispatch(fetchBlocksTransactions());
+  const { data, isError, error } = useQuery<
+    Promise<loadBlocksTransactionstype>,
+    string,
+    loadBlocksTransactionstype
+  >('blocks-transactions-cchain', fetchBlocksTransactionsCChain, {
+    refetchInterval: 10000,
+    refetchOnMount: true,
+    refetchIntervalInBackground: true,
   });
-
   return (
     <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
-      {status === Status.FAILED && error ? (
+      {isError && error ? (
         <Typography
           variant="h4"
           color="error"
           sx={{ textAlign: 'center', marginTop: '1rem' }}
         >
-          {error}
+          {error as string}
         </Typography>
       ) : (
-        <>
-          <DataControllers />
-          <OverviewCards
-            numberOfTransactions={numberOfTransactions}
-            totalGasFees={totalGasFees}
-            numberOfActiveValidators={numberOfActiveValidators}
-            numberOfValidators={numberOfValidators}
-            percentageOfActiveValidators={percentageOfActiveValidators}
-            gasFeesLoading={gasFeesLoading}
-            transactionsLoading={transactionsLoading}
-            validatorsLoading={validatorsLoading}
-          />
-          <LatestBlocksAndTransactionsList
-            blocks={blocks}
-            transactions={transactions}
-          />
-        </>
+        data && (
+          <>
+            <DataControllers />
+            <OverviewCards
+              numberOfTransactions={numberOfTransactions}
+              totalGasFees={totalGasFees}
+              numberOfActiveValidators={numberOfActiveValidators}
+              numberOfValidators={numberOfValidators}
+              percentageOfActiveValidators={percentageOfActiveValidators}
+              gasFeesLoading={gasFeesLoading}
+              transactionsLoading={transactionsLoading}
+              validatorsLoading={validatorsLoading}
+            />
+            <LatestBlocksAndTransactionsList
+              blocks={data.blocks}
+              transactions={data.transactions}
+            />
+          </>
+        )
       )}
     </PageContainer>
   );
