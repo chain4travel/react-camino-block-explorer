@@ -102,19 +102,19 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
           {moment(block.timestamp).fromNow()}
         </Typography>
       </TableCell>
-      <TableCell sx={{ maxWidth: '50px' }} align="center">
+      <TableCell sx={{ maxWidth: '50px' }} align="left">
         <Field type="number" value={block.numberOfTransactions} />
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         sx={{ maxWidth: { xs: '180px', md: '300px', lg: 'fit' } }}
       >
         <Field type="string" value={block.hash} />
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="left">
         <Field type="string" value={block.gasUsed?.toString()} />
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="left">
         <Field type="string" value={block.gasLimit?.toString()} />
       </TableCell>
     </>

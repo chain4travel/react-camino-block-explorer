@@ -24,6 +24,7 @@ function MainButton({
         color: variant === 'outlined' ? 'secondary.main' : 'white',
         borderColor: variant === 'outlined' ? 'secondary.main' : '',
         boxShadow: 'none',
+        borderWidth: '1.5px',
         '&:hover': {
           boxShadow: 'none',
           backgroundColor:

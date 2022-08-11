@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import MainButton from '../MainButton';
+import MainButton from '../../../components/MainButton';
 
 const ShowAllButton = ({ toLink }: { toLink: string }) => {
   return (

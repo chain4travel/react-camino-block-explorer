@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
-import DetailsField from './DetailsField';
+import DetailsField from 'app/components/DetailsField';
 import useWidth from 'app/hooks/useWidth';
 
 export const InputOutputSection = ({ inputs, outputs }) => {
@@ -30,7 +30,7 @@ export const InputOutputSection = ({ inputs, outputs }) => {
         )}
         {inputs.map((item, index) => {
           return (
-            <Grid key={index} item xs>
+            <Grid key={index} container item xs justifyContent="center">
               <InputCard
                 address={item.address}
                 signature={item.signature}
@@ -63,7 +63,7 @@ export const InputOutputSection = ({ inputs, outputs }) => {
         )}
         {outputs.map((item, index) => {
           return (
-            <Grid key={index} item xs>
+            <Grid key={index} container item xs justifyContent="center">
               <OutputCard address={item.address} value={item.value} />
             </Grid>
           );
@@ -83,6 +83,8 @@ const InputCard = ({ address, signature, value }) => {
         flexDirection: 'column',
         backgroundColor: 'primary.light',
         backgroundImage: 'none',
+        maxWidth: '500px',
+        width: '100%',
       }}
     >
       <Typography
@@ -121,6 +123,8 @@ const OutputCard = ({ address, value }) => {
         flexDirection: 'column',
         backgroundColor: 'primary.light',
         backgroundImage: 'none',
+        maxWidth: '500px',
+        width: '100%',
       }}
     >
       <Typography

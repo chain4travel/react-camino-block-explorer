@@ -12,7 +12,7 @@ export default function PageContainer({
   children: React.ReactNode;
 }) {
   return (
-    <Container fixed maxWidth="xl" sx={{ justifyContent: 'center' }}>
+    <Container fixed maxWidth="xl" sx={{ minHeight: '500px' }}>
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={metaContent} />

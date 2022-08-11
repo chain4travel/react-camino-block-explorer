@@ -27,6 +27,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 field="Type"
                 value={detailTr['type']}
                 type="ctxtype"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -36,6 +37,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 value={detailTr['block']}
                 type="string"
                 detailsLink={`${CBLOCKS}/${detailTr.block}`}
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -45,6 +47,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 value={detailTr['createdAt'].toString()}
                 type="timestamp"
                 tooltip="date"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -54,6 +57,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 value={detailTr['fromAddr']}
                 type="hexdata"
                 allowCopy={true}
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -63,6 +67,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 value={detailTr['toAddr']}
                 type="hexdata"
                 allowCopy={true}
+                style={{ padding: '1rem' }}
               />
             </Grid>
           </Grid>
@@ -77,6 +82,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                   field="Gas Price"
                   value={detailCr['gasPrice']}
                   type="wei"
+                  style={{ padding: '1rem' }}
                 />
                 <Divider variant="fullWidth" />
               </Grid>
@@ -88,6 +94,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                     field="Max fee per gas"
                     value={detailCr['maxFeePerGas']}
                     type="wei"
+                    style={{ padding: '1rem' }}
                   />
                   <Divider variant="fullWidth" />
                 </Grid>
@@ -96,6 +103,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                     field="Max Priority fee per gas"
                     value={detailCr['maxPriorityFeePerGas']}
                     type="wei"
+                    style={{ padding: '1rem' }}
                   />
                   <Divider variant="fullWidth" />
                 </Grid>
@@ -106,6 +114,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 field="Gas Used"
                 value={detailCr['gasUsed']}
                 type="number"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -114,6 +123,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 field="Effective Gas Price"
                 value={detailCr['effectiveGasPrice']}
                 type="wei"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -122,6 +132,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
                 field="Transaction Cost"
                 value={detailCr['transactionCost']}
                 type="wei"
+                style={{ padding: '1rem' }}
               />
             </Grid>
           </Grid>

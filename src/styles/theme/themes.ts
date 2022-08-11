@@ -351,6 +351,16 @@ const defaultComponents = {
       },
     },
   },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        borderWidth: '1.5px',
+        '&:hover': {
+          borderWidth: '1.5px',
+        },
+      },
+    },
+  },
 };
 
 export const lightTheme = createTheme({

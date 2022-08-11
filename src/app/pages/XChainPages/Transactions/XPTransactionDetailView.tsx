@@ -32,6 +32,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                   )
                 }
                 type="string"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -40,6 +41,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                 field="Type"
                 value={detailTr['type']}
                 type="ctxtype"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
@@ -49,11 +51,17 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                 value={detailTr['timestamp'].toString()}
                 type="timestamp"
                 tooltip="date"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>
             <Grid item xs={12}>
-              <DetailsField field="Fee" value={detailTr['fee']} type="wei" />
+              <DetailsField
+                field="Fee"
+                value={detailTr['fee']}
+                type="wei"
+                style={{ padding: '1rem' }}
+              />
               <Divider variant="fullWidth" />
             </Grid>
             <Grid item xs={12}>
@@ -61,6 +69,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                 field="Memo"
                 value={detailTr['memo']}
                 type="string"
+                style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
             </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Typography, useTheme, Box } from '@mui/material';
-import ShowAllButton from '../LatestBlocksAndTransactionsList/ShowAllButton';
+import ShowAllButton from '../../pages/CChainPages/LatestBlocksAndTransactionsList/ShowAllButton';
 
 export default function XPTransactionList({
   ShowAllLink,

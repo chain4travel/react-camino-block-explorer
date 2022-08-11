@@ -18,14 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
       - id: setversion
         uses: codacy/git-version@2.4.0
         name: Git Version
         with:
           release-branch: master
-          dev-branch: develop
+          dev-branch: dev
       - id: output
         run: echo "::set-output name=version::${{ steps.setversion.outputs.version }}"
 
@@ -62,6 +62,9 @@ jobs:
           if [[ "${{ github.ref_name }}" == "master" ]]; then
               echo "::set-output name=stable::c4tplatform/camino-block-explorer-dev:stable"
           fi
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "::set-output name=stable::c4tplatform/camino-block-explorer-dev:dev"
+          fi
           echo "::set-output name=branch::c4tplatform/camino-block-explorer-dev:${BRANCH_NAME////-}-${{ github.run_id }}"
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
@@ -74,4 +77,4 @@ jobs:
             ${{ steps.setTagVariables.outputs.branch }}
             c4tplatform/camino-block-explorer-dev:${{ needs.bump-version.outputs.version }}
             ${{ steps.setTagVariables.outputs.stable }}
-          push: ${{ github.ref == 'refs/heads/master' }}
+          push: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev' }}

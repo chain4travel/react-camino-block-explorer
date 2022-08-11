@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material';
-import { getRelativeTime } from 'utils/display-utils';
 import { mdiOpenInNew } from '@mdi/js';
 import { Link } from 'react-router-dom';
 import { CamAmount } from 'app/components/CamAmount';
@@ -18,6 +17,7 @@ export default function DetailsField({
   tooltip,
   detailsLink,
   allowCopy,
+  style,
 }: {
   field: string;
   value: string | number | object | Element | undefined;
@@ -26,6 +26,7 @@ export default function DetailsField({
   tooltip?: string;
   detailsLink?: string;
   allowCopy?: boolean;
+  style?: React.CSSProperties;
 }) {
   const getTooltip = (field: string): string | undefined => {
     if (Object.keys(tooltips).includes(field?.toLowerCase())) {
@@ -35,15 +36,18 @@ export default function DetailsField({
   };
   const { isMobile } = useWidth();
   return (
-    <Grid container alignItems="center" spacing={1} sx={{ p: '1rem' }}>
+    <Grid container alignItems="center" spacing={1} sx={{ ...style }}>
       <Grid
         container
         item
         xs={6}
-        md={3}
+        md={4}
+        lg={4}
+        xl={3}
         justifyItems="center"
         alignItems="center"
         order={1}
+        sx={{ minWidth: '110px' }}
       >
         {!isMobile && (
           <>
@@ -51,9 +55,7 @@ export default function DetailsField({
               <Grid item xs={2}>
                 <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
                   {icon || (
-                    <HelpOutlineOutlinedIcon
-                      style={{ width: '20px', height: '20px' }}
-                    />
+                    <HelpOutlineOutlinedIcon style={{ width: '20px' }} />
                   )}
                 </Tooltip>
               </Grid>
@@ -65,11 +67,11 @@ export default function DetailsField({
           </>
         )}
         <Typography
-          variant="body1"
+          variant="body2"
           component="span"
           fontWeight="fontWeightBold"
           noWrap={true}
-          sx={{ textTransform: 'capitalize' }}
+          sx={{ textTransform: 'capitalize', pl: '5px' }}
         >
           {field}
         </Typography>
@@ -134,9 +136,11 @@ export default function DetailsField({
 export const Field = ({
   type,
   value,
+  fontWeight = 'fontWeightRegular',
 }: {
   type: string;
   value: string | number | object | undefined;
+  fontWeight?: string;
 }) => {
   const { isMobile } = useWidth();
   if (type === 'string' || type === 'number' || type === 'monospace') {
@@ -145,6 +149,7 @@ export const Field = ({
         variant="body2"
         component="span"
         noWrap={true}
+        fontWeight={fontWeight}
         sx={{ width: '100%', display: 'block' }}
       >
         {value as string}
@@ -171,7 +176,7 @@ export const Field = ({
           {moment(value as number).fromNow()}
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
-          {value as string}
+          {moment(value as number).format('MMM D, YYYY, h:mm:ss A ([GMT] ZZ)')}
         </Typography>
       </Box>
     );

@@ -7,7 +7,7 @@ import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice';
 import { CCHAIN, CTRANSACTIONS } from 'utils/route-paths';
 import { Status } from 'types';
 import LoadingWrapper from 'app/components/LoadingWrapper';
-import TransactionsList from 'app/components/LatestBlocksAndTransactionsList/TransactionsList';
+import TransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList/TransactionsList';
 import PageContainer from 'app/components/PageContainer';
 import BlockDetailView from './BlockDetailView';
 import SubPageTitle from 'app/components/SubPageTitle';
@@ -58,7 +58,7 @@ const BlockDetails: FC = () => {
             }}
           >
             <SubPageTitle
-              title={`C-Chain Block ${location.pathname.split('/')[3]}`}
+              title={`Block ${location.pathname.split('/')[3]}`}
               backToLink={CCHAIN}
             />
             <Box
