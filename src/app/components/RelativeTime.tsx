@@ -1,22 +1,11 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Typography, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import moment from 'utils/helpers/moment';
 import useWidth from 'app/hooks/useWidth';
 
-const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 'none',
-  },
-});
-
-export default function RelativeTime({
-  variant,
-  value,
-}: {
+interface RelativeTimeProps {
   variant?:
     | 'h1'
     | 'h2'
@@ -30,7 +19,17 @@ export default function RelativeTime({
     | 'body2'
     | 'caption';
   value: number;
-}) {
+}
+
+const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+  },
+});
+
+const RelativeTime: FC<RelativeTimeProps> = ({ variant, value }) => {
   const date = new Date(value);
   const { isMobile } = useWidth();
   return (
@@ -50,4 +49,6 @@ export default function RelativeTime({
       )}
     </>
   );
-}
+};
+
+export default RelativeTime;
