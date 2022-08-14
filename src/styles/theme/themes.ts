@@ -1,5 +1,6 @@
 import { Palette } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import '../fonts.css';
 
 const grey = {
   50: '#F8FAFC',
