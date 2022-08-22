@@ -8,6 +8,7 @@ type OverviewCardProps = {
   value: string;
   loading: Status;
   subValue?: string;
+  onClick?: () => void;
 };
 
 const OverviewCard: FC<OverviewCardProps> = ({
@@ -15,6 +16,7 @@ const OverviewCard: FC<OverviewCardProps> = ({
   value,
   loading,
   subValue,
+  onClick,
 }) => {
   return (
     <Card
@@ -27,7 +29,9 @@ const OverviewCard: FC<OverviewCardProps> = ({
         textAlign: 'center',
         p: '1rem 2rem',
         borderRadius: '12px',
+        cursor: onClick ? 'pointer' : 'default',
       }}
+      onClick={onClick}
     >
       <CardContent
         sx={{
