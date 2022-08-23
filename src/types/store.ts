@@ -44,6 +44,19 @@ export interface initialCchainStateType {
   loadTransactionDetails: Status;
   transcationDetails?: TranscationDetails;
   ChainOverview: ChainOverviewType;
+  miner: undefined | string;
+  sha3Uncles: undefined | string;
+  nonce: undefined | string;
+  stateRoot: undefined | string;
+  difficulty: undefined | number;
+  gasLimit: undefined | string;
+  // receiptsRoot: undefined | string;
+  // logsBloom: undefined | string;
+  // mixHash: undefined | string;
+  // extDataHash: undefined | string;
+  // extDataGasUsed: undefined | string;
+  // blockGasCost: undefined | string;
+  // transactionsRoot: undefined | string;
 }
 
 export interface initialValidatorsStateType {

@@ -29,6 +29,19 @@ export interface BlockDetail {
   time: string;
   transactionsCount: number;
   extData: string;
+  miner: string;
+  sha3Uncles: string;
+  nonce: string;
+  stateRoot: string;
+  difficulty: number;
+  gasLimit: string;
+  // logsBloom: string;
+  // receiptsRoot: string;
+  // mixHash: string;
+  // extDataHash: string;
+  // extDataGasUsed: string;
+  // blockGasCost: string;
+  // transactionsRoot: string;
   transactions: CTransaction[];
 }
 
