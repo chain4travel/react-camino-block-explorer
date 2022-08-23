@@ -89,7 +89,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
         alignItems="center"
         justifyContent={!isDesktop ? 'flex-start' : 'flex-end'}
       >
-        <CamAmount amount={transaction.transactionCost} />
+        <CamAmount amount={transaction.value} abbreviate />
       </Grid>
     </Grid>
   );
