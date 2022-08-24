@@ -98,9 +98,10 @@ export interface TransactionCurrency {
   maxFeePerGas: number;
   maxPriorityFeePerGas: number;
   gasPrice: number;
-  gasUsed: number;
+  gasUsed: string;
   effectiveGasPrice: number;
   transactionCost: number;
+  value: number;
 }
 export interface TranscationDetails {
   transactionInformations: TransactionInformations;

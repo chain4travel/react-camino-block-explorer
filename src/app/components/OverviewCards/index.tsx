@@ -40,9 +40,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
           value={numberOfValidators.toString()}
           loading={validatorsLoading}
           subValue={`(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`}
-          onClick={() => {
-            navigate(VALIDATORS);
-          }}
+          onClick={() => navigate(VALIDATORS)}
         />
       </Grid>
       <Grid item xs={12} lg={4}>

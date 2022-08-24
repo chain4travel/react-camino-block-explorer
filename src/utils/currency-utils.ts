@@ -65,6 +65,19 @@ export function formatAmount(value: number, currency: string): string {
   return `${value.toLocaleString()} ${currency}`;
 }
 
+// ToDo: Update this function
+export function abbreviateNumber(value: number): string {
+  if (value >= 1000000000) {
+    return `${(value / 1000000000).toFixed(1)}B`;
+  } else if (value >= 1000000) {
+    return `${(value / 1000000).toFixed(1)}M`;
+  } else if (value >= 1000) {
+    return `${(value / 1000).toFixed(1)}K`;
+  } else {
+    return value.toString();
+  }
+}
+
 export const currencyFields = [
   'baseFeePerGas',
   'gasLimit',

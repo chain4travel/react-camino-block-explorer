@@ -232,4 +232,12 @@ const tooltips: { [key: string]: string } = {
   fee: 'The fee of the transaction',
   memo: 'The memo that was added to the transaction',
   signature: 'The signature of the input',
+  'mined by': 'The miner who successfully added the block onto the blockchain',
+  difficulty:
+    'The length of time it takes to mine a new block. The difficulty algorithm may change over time.',
+  'sha3 uncles': "Ethereum Javascript RLP's approach encrypts an empty string.",
+  'state root': 'The state root of the block',
+  nonce:
+    'A block nonce is a value used  to indicate proof of work for a block during mining.',
+  'transaction value': 'The value being transacted in camino.',
 };

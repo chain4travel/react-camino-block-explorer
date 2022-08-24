@@ -4,7 +4,11 @@ import { ReactComponent as GasStationOutline } from './assets/gas-station-outlin
 import { ReactComponent as ACamIcon } from './assets/a-cam.svg';
 import { ReactComponent as NCamIcon } from './assets/n-cam.svg';
 import { ReactComponent as CamIcon } from './assets/cam.svg';
-import { getDisplayAmount, getACamAmount } from '../../utils/currency-utils';
+import {
+  getDisplayAmount,
+  getACamAmount,
+  abbreviateNumber,
+} from '../../utils/currency-utils';
 
 export function AmountIcon({ currency }) {
   return (
@@ -31,10 +35,12 @@ export function CamAmount({
   amount,
   currency = 'aCam',
   style,
+  abbreviate = false,
 }: {
   amount: number;
   currency?: string;
   style?: React.CSSProperties;
+  abbreviate?: boolean;
 }) {
   return (
     <Box
@@ -46,15 +52,23 @@ export function CamAmount({
         ...style,
       }}
     >
-      <Typography variant="subtitle1">
-        {getDisplayAmount(getACamAmount(amount, currency)).value.toLocaleString(
-          'en-US',
-        )}
-      </Typography>
+      {abbreviate ? (
+        <Typography variant="subtitle2">
+          {abbreviateNumber(
+            getDisplayAmount(getACamAmount(amount, currency)).value,
+          )}
+        </Typography>
+      ) : (
+        <Typography variant="subtitle1">
+          {getDisplayAmount(
+            getACamAmount(amount, currency),
+          ).value.toLocaleString('en-US')}
+        </Typography>
+      )}
       <AmountIcon
         currency={getDisplayAmount(getACamAmount(amount, currency)).currency}
       />
-      <Typography variant="caption">
+      <Typography variant="caption" sx={{ fontSize: '11px' }}>
         {getDisplayAmount(getACamAmount(amount, currency)).currency}
       </Typography>
     </Box>
