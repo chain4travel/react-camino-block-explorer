@@ -79,7 +79,14 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
         <Chip
           label={transaction.direction}
           size="small"
-          style={{ minWidth: '61px', height: 'min-content' }}
+          style={{
+            minWidth: '61px',
+            height: 'min-content',
+            backgroundColor:
+              transaction.direction === 'in'
+                ? 'rgba(53, 233, 173, .7)'
+                : '#rgba(180, 64, 252, .7)',
+          }}
         />
       </TableCell>
       <TableCell
@@ -148,7 +155,15 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
         <Chip
           label={transaction.direction}
           size="small"
-          style={{ minWidth: '61px', height: 'min-content', fontSize: '12px' }}
+          style={{
+            minWidth: '61px',
+            height: 'min-content',
+            fontSize: '12px',
+            backgroundColor:
+              transaction.direction === 'in'
+                ? 'rgba(53, 233, 173, .7)'
+                : 'rgba(180, 64, 252, .7)',
+          }}
         />
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
