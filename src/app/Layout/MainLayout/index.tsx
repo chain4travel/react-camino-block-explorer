@@ -15,7 +15,7 @@ import { getChains } from 'api';
 import PageContainer from 'app/components/PageContainer';
 import MainButton from 'app/components/MainButton';
 
-const Content = () => {
+const Content: React.FC = () => {
   const chains = useAppSelector(selectAllChains);
   const status = useAppSelector(selectNetworkStatus);
   const dispatch = useAppDispatch();
