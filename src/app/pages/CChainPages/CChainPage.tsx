@@ -64,6 +64,7 @@ export default function CChainPage() {
           <LoadingWrapper
             loading={isLoading === true ? Status.LOADING : Status.SUCCEEDED}
             failedLoadingMsg="Failed to load blocks and transactions"
+            loadingBoxStyle={{ minHeight: '500px' }}
           >
             {data && (
               <LatestBlocksAndTransactionsList

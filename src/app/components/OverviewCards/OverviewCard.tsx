@@ -38,12 +38,15 @@ const OverviewCard: FC<OverviewCardProps> = ({
           display: 'flex',
           flex: 1,
           flexDirection: 'column',
-          justifyContent: 'space-between',
           alignItems: 'center',
           p: '0',
         }}
       >
-        <Typography variant="h6" component="span" sx={{ color: 'card.title' }}>
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{ color: 'card.title', pb: '25px' }}
+        >
           {title}
         </Typography>
         <Box

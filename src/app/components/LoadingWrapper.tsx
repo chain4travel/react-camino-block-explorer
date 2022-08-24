@@ -6,12 +6,14 @@ interface LoadingWrapperProps {
   loading: Status;
   children: React.ReactNode;
   failedLoadingMsg?: string;
+  loadingBoxStyle?: React.CSSProperties;
 }
 
 export default function LoadingWrapper({
   loading,
   failedLoadingMsg,
   children,
+  loadingBoxStyle,
 }: LoadingWrapperProps) {
   if (loading === Status.SUCCEEDED) {
     return <>{children}</>;
@@ -33,7 +35,7 @@ export default function LoadingWrapper({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '500px',
+          ...loadingBoxStyle,
         }}
       >
         <CircularProgress color="secondary" />
