@@ -124,7 +124,7 @@ const cchainSlice = createSlice({
           nonce: action.payload.header.nonce,
           stateRoot: action.payload.header.stateRoot,
           difficulty: parseInt(action.payload.header.difficulty),
-          gasLimit: action.payload.header.gasLimit,
+          gasLimit: parseInt(action.payload.header.gasLimit),
           // transactionsRoot: action.payload.header.transactionsRoot,
           // receiptsRoot: action.payload.header.receiptsRoot,
           // logsBloom: action.payload.header.logsBloom,
