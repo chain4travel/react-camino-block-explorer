@@ -85,6 +85,7 @@ export default function XAddressDetail() {
         label="Address"
         value={address}
         icon={mdiFileDocumentOutline}
+        mixedStyle
       />
       <AddressOverviewCard balance={balance} />
       <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
