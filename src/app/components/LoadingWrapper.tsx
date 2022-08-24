@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, CircularProgress } from '@mui/material';
+import { Typography, CircularProgress, Box } from '@mui/material';
 import { Status } from 'types';
 
 interface LoadingWrapperProps {
@@ -27,6 +27,17 @@ export default function LoadingWrapper({
       </Typography>
     );
   } else {
-    return <CircularProgress color="secondary" />;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '500px',
+        }}
+      >
+        <CircularProgress color="secondary" />
+      </Box>
+    );
   }
 }
