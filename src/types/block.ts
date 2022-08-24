@@ -34,7 +34,7 @@ export interface BlockDetail {
   nonce: string;
   stateRoot: string;
   difficulty: number;
-  gasLimit: string;
+  gasLimit: number;
   // logsBloom: string;
   // receiptsRoot: string;
   // mixHash: string;
