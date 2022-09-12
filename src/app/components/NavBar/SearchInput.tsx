@@ -82,6 +82,12 @@ function OutlinedSearchInput() {
   const handleClickAway = () => {
     setOpen(false);
   };
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (menuItems.length > 0) {
+      navigate(menuItems[0].link);
+    }
+  };
 
   useEffect(() => {
     handleSearch();
@@ -104,12 +110,14 @@ function OutlinedSearchInput() {
         onClickAway={handleClickAway}
       >
         <Box
+          component="form"
           sx={{
             height: '40px',
             [theme.breakpoints.down('md')]: {
               height: '50px',
             },
           }}
+          onSubmit={handleSubmit}
         >
           <OutlinedInput
             placeholder="Search by Address / Hash / Block / Token"
