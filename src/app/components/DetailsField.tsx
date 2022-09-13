@@ -194,7 +194,7 @@ export const Field = ({
   } else if (type === 'gwei') {
     return <CamAmount amount={Number(value)} />;
   } else if (type === 'wei') {
-    return <CamAmount amount={Number(value)} />;
+    return <CamAmount currency="cam" amount={Number(value)} />;
   } else return <></>;
 };
 

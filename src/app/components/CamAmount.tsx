@@ -68,7 +68,10 @@ export function CamAmount({
       <AmountIcon
         currency={getDisplayAmount(getACamAmount(amount, currency)).currency}
       />
-      <Typography variant="caption" sx={{ fontSize: '11px' }}>
+      <Typography
+        variant="caption"
+        sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
+      >
         {getDisplayAmount(getACamAmount(amount, currency)).currency}
       </Typography>
     </Box>
