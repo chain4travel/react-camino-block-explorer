@@ -59,7 +59,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
               <DetailsField
                 field="Fee"
                 value={detailTr['fee']}
-                type="wei"
+                type="ncam"
                 style={{ padding: '1rem' }}
               />
               <Divider variant="fullWidth" />
