@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageContainer from 'app/components/PageContainer';
 import SubPageTitle from 'app/components/SubPageTitle';
 import CopyTitleCard from 'app/components/CopyTitleCard';
@@ -9,7 +9,6 @@ import axios from 'axios';
 import { Typography, Box, Grid, Paper } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { CamAmount } from 'app/components/CamAmount';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { ChainType } from 'utils/types/chain-type';
 import { mdiFileDocumentOutline } from '@mdi/js';
 import { getBaseUrl } from 'api/utils';
@@ -72,9 +71,9 @@ export default function XAddressDetail() {
     }
     return [];
   }
-  useEffectOnce(() => {
+  useEffect(() => {
     loadBalances(location.pathname.split('/')[3]);
-  });
+  }, [location]);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
