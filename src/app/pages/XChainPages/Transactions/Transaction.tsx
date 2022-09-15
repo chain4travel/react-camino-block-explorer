@@ -14,7 +14,6 @@ import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
 import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import moment from 'utils/helpers/moment';
-import { NoMaxWidthTooltip } from 'app/components/RelativeTime';
 
 interface Props {
   transaction: any;

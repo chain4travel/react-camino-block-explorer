@@ -7,7 +7,6 @@ import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import FilledCard from 'app/components/FilledCard';
 import moment from 'utils/helpers/moment';
-import { NoMaxWidthTooltip } from 'app/components/RelativeTime';
 
 interface TransactionProps {
   transaction: TransactionTableData;
