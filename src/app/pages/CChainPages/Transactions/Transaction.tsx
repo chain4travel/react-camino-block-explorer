@@ -7,6 +7,7 @@ import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import FilledCard from 'app/components/FilledCard';
 import moment from 'utils/helpers/moment';
+import { NoMaxWidthTooltip } from 'app/components/RelativeTime';
 
 interface TransactionProps {
   transaction: TransactionTableData;
@@ -91,11 +92,17 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        <Typography variant="body2" component="span" noWrap={true}>
-          {moment(transaction.timestamp).format(
-            'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
           )}
-        </Typography>
+        >
+          <Typography variant="body2" component="span" noWrap={true}>
+            {moment(transaction.timestamp).format(
+              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+            )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -168,11 +175,17 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
         />
       </TableCell>
       <TableCell align="left">
-        <Typography variant="body2" component="span" noWrap={true}>
-          {moment(transaction.timestamp).format(
-            'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
           )}
-        </Typography>
+        >
+          <Typography variant="body2" component="span" noWrap={true}>
+            {moment(transaction.timestamp).format(
+              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+            )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </TableCell>
       <TableCell align="left">
         <Chip
