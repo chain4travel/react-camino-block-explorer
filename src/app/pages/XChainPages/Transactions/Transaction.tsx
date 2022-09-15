@@ -124,15 +124,11 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        <NoMaxWidthTooltip
-          title={moment(transaction.timestamp).format(
-            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+        <Typography variant="body2" component="span" noWrap={true}>
+          {moment(transaction.timestamp).format(
+            'DD,MM,YYYY\xa0\xa0\xa0\xa0h:mm:ss',
           )}
-        >
-          <Typography variant="body2" component="span" noWrap={true}>
-            {moment(transaction.timestamp as number).fromNow()}
-          </Typography>
-        </NoMaxWidthTooltip>
+        </Typography>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -208,15 +204,11 @@ const CustomRow = ({ transaction }) => {
         )}
       </TableCell>
       <TableCell align="left" width="10%">
-        <NoMaxWidthTooltip
-          title={moment(transaction.timestamp).format(
-            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+        <Typography variant="body2" component="span" noWrap={true}>
+          {moment(transaction.timestamp).format(
+            'DD,MM,YYYY\xa0\xa0\xa0\xa0h:mm:ss',
           )}
-        >
-          <Typography variant="body2" component="span" noWrap={true}>
-            {moment(transaction.timestamp as number).fromNow()}
-          </Typography>
-        </NoMaxWidthTooltip>
+        </Typography>
       </TableCell>
       <TableCell align="left" width="10%">
         <Chip
