@@ -94,7 +94,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
         </Typography>
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp).format(
-            'DD,MM,YYYY\xa0\xa0\xa0\xa0h:mm:ss',
+            'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
           )}
         </Typography>
       </Grid>
@@ -171,7 +171,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
       <TableCell align="left">
         <Typography variant="body2" component="span" noWrap={true}>
           {moment(transaction.timestamp).format(
-            'DD,MM,YYYY\xa0\xa0\xa0\xa0h:mm:ss',
+            'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
           )}
         </Typography>
       </TableCell>
