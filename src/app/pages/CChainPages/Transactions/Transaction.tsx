@@ -175,7 +175,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           truncate={true}
         />
       </TableCell>
-      <TableCell align="center" sx={{ maxWidth: { lg: '120px' } }}>
+      <TableCell align="center" sx={{ maxWidth: { lg: '140px' } }}>
         <NoMaxWidthTooltip
           title={moment(transaction.timestamp).format(
             'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
@@ -184,10 +184,10 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           <Typography variant="body2" component="span">
             {isDesktop
               ? moment(transaction.timestamp).format(
-                  'DD.MM.YYYY\xa0\xa0-  h:mm:ss',
+                  'h:mm:ss A\xa0- DD.MM.YYYY',
                 )
               : moment(transaction.timestamp).format(
-                  'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+                  'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
                 )}
           </Typography>
         </NoMaxWidthTooltip>
