@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, useTheme, Box } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
 import ShowAllButton from '../../pages/CChainPages/LatestBlocksAndTransactionsList/ShowAllButton';
 
 export default function XPTransactionList({
@@ -9,7 +9,6 @@ export default function XPTransactionList({
   ShowAllLink: string;
   children: React.ReactNode;
 }) {
-  const theme = useTheme();
   return (
     <Paper
       variant="outlined"
@@ -20,10 +19,7 @@ export default function XPTransactionList({
         width: '100%',
         minHeight: '600px',
         backgroundColor: 'primary.dark',
-        p: '1.5rem 2rem 1.5rem 2rem',
-        [theme.breakpoints.down('md')]: {
-          p: '1rem 1.5rem 1rem 1.5rem',
-        },
+        p: '1rem 1.5rem 1rem 1.5rem',
       }}
     >
       <ListTitle style={{ paddingBottom: '1.5rem' }}>

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Grid, Paper, useTheme, Box } from '@mui/material';
+import { Grid, Paper, Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
 import { fetchCBlockDetail } from 'store/cchainSlice/utils';
@@ -13,7 +13,6 @@ import BlockDetailView from './BlockDetailView';
 import SubPageTitle from 'app/components/SubPageTitle';
 
 const BlockDetails: FC = () => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const blockDetails = useAppSelector(getCBlockDetail);
@@ -42,10 +41,7 @@ const BlockDetails: FC = () => {
             borderWidth: '1px',
             borderColor: 'primary.light',
             borderStyle: 'solid',
-            p: '1.5rem 2rem 1.5rem 2rem',
-            [theme.breakpoints.down('md')]: {
-              p: '1rem 1.5rem 1rem 1.5rem',
-            },
+            p: '1rem 1.5rem 1rem 1.5rem',
           }}
         >
           <Grid

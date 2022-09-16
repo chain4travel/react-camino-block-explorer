@@ -100,10 +100,7 @@ const TransactionDetails: FC = () => {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Grid,
   Paper,
-  useTheme,
   TableContainer,
   Box,
   LinearProgress,
@@ -19,7 +18,6 @@ import SubPageTitle from 'app/components/SubPageTitle';
 
 export default function XPTransactions() {
   const location = useLocation();
-  const theme = useTheme();
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
@@ -87,11 +85,7 @@ export default function XPTransactions() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <Grid
