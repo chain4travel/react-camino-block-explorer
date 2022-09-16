@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
   Grid,
   Paper,
-  useTheme,
   Box,
   TableContainer,
   TableCellProps,
@@ -21,7 +20,6 @@ import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 
 const Validators: FC = () => {
-  const theme = useTheme();
   const { isDesktop, isWidescreen } = useWidth();
   const validators = useAppSelector(selectAllValidators);
   const dispatch = useAppDispatch();
@@ -42,10 +40,7 @@ const Validators: FC = () => {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <SubPageTitle

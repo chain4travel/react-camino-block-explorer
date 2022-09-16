@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
   Grid,
   Paper,
-  useTheme,
   TableContainer,
   TableCellProps,
   Box,
@@ -18,7 +17,6 @@ import useWidth from 'app/hooks/useWidth';
 import SubPageTitle from 'app/components/SubPageTitle';
 
 const Blocks: FC = () => {
-  const theme = useTheme();
   const intObserver = React.useRef<IntersectionObserver | null>(null);
   const { isDesktop, isWidescreen } = useWidth();
 
@@ -76,10 +74,7 @@ const Blocks: FC = () => {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <Grid

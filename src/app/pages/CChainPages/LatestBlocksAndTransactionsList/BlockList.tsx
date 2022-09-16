@@ -1,11 +1,5 @@
 import React, { FC } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  useTheme,
-  CircularProgress,
-} from '@mui/material';
+import { Box, Typography, Paper, CircularProgress } from '@mui/material';
 import { BlockTableData } from 'types/block';
 import Divider from '@mui/material/Divider';
 import ShowAllButton from './ShowAllButton';
@@ -18,8 +12,6 @@ interface BlockListProps {
 }
 
 const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
-  const theme = useTheme();
-
   return (
     <Paper
       variant="outlined"
@@ -29,10 +21,7 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
         borderWidth: '1px',
         borderColor: 'primary.light',
         borderStyle: 'solid',
-        p: '1.5rem 2rem 1.5rem 2rem',
-        [theme.breakpoints.down('md')]: {
-          p: '1rem 1.5rem 1rem 1.5rem',
-        },
+        p: '1rem 1.5rem 1rem 1.5rem',
       }}
     >
       {title && (
