@@ -131,7 +131,7 @@ const GridItem = ({ transaction }) => {
         >
           <Typography variant="body2" component="span" noWrap={true}>
             {moment(transaction.timestamp).format(
-              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+              'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
             )}
           </Typography>
         </NoMaxWidthTooltip>
@@ -217,7 +217,7 @@ const CustomRow = ({ transaction }) => {
         >
           <Typography variant="body2" component="span" noWrap={true}>
             {moment(transaction.timestamp).format(
-              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+              'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
             )}
           </Typography>
         </NoMaxWidthTooltip>
