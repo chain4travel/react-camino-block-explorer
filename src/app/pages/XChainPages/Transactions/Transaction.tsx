@@ -161,7 +161,7 @@ const CustomRow = ({ transaction }) => {
     <>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="20%"
       >
         <AddressLink
@@ -173,7 +173,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.from[0]?.address ? (
@@ -192,7 +192,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.to[0]?.address ? (
