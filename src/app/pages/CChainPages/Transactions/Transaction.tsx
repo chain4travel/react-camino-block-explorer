@@ -131,6 +131,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
 };
 
 const CustomRow: FC<TransactionProps> = ({ transaction }) => {
+  const { isDesktop } = useWidth();
   return (
     <>
       <TableCell width="7%" align="left">
@@ -174,20 +175,24 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           truncate={true}
         />
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="center" sx={{ maxWidth: { lg: '120px' } }}>
         <NoMaxWidthTooltip
           title={moment(transaction.timestamp).format(
             'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
           )}
         >
-          <Typography variant="body2" component="span" noWrap={true}>
-            {moment(transaction.timestamp).format(
-              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
-            )}
+          <Typography variant="body2" component="span">
+            {isDesktop
+              ? moment(transaction.timestamp).format(
+                  'DD.MM.YYYY\xa0\xa0-  h:mm:ss',
+                )
+              : moment(transaction.timestamp).format(
+                  'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+                )}
           </Typography>
         </NoMaxWidthTooltip>
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="left" sx={{ maxWidth: { lg: '25px' } }}>
         <Chip
           label={transaction.status}
           size="small"
