@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import { useLocation } from 'react-router-dom';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
@@ -52,9 +51,10 @@ export default function XPTransactionDetails() {
     });
   }
 
-  useEffectOnce(() => {
+  React.useEffect(() => {
     fetchTransactionDetail();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
   return (
     <PageContainer
       pageTitle={`${location.pathname

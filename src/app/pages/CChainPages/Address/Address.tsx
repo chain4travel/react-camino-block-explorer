@@ -91,7 +91,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${CTRANSACTIONS}/${transaction.hash}`}
@@ -115,7 +115,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${CADDRESS}/${transaction.from}`}
@@ -126,7 +126,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${CADDRESS}/${transaction.to}`}

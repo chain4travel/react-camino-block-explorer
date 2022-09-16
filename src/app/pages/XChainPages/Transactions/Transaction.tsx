@@ -130,7 +130,9 @@ const GridItem = ({ transaction }) => {
           )}
         >
           <Typography variant="body2" component="span" noWrap={true}>
-            {moment(transaction.timestamp as number).fromNow()}
+            {moment(transaction.timestamp).format(
+              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+            )}
           </Typography>
         </NoMaxWidthTooltip>
       </Grid>
@@ -159,7 +161,7 @@ const CustomRow = ({ transaction }) => {
     <>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="20%"
       >
         <AddressLink
@@ -171,7 +173,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.from[0]?.address ? (
@@ -190,7 +192,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.to[0]?.address ? (
@@ -214,7 +216,9 @@ const CustomRow = ({ transaction }) => {
           )}
         >
           <Typography variant="body2" component="span" noWrap={true}>
-            {moment(transaction.timestamp as number).fromNow()}
+            {moment(transaction.timestamp).format(
+              'DD.MM.YYYY\xa0\xa0-\xa0\xa0h:mm:ss',
+            )}
           </Typography>
         </NoMaxWidthTooltip>
       </TableCell>

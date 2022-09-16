@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Paper } from '@mui/material';
 import { mdiFileDocumentOutline } from '@mdi/js';
 import PageContainer from 'app/components/PageContainer';
@@ -9,6 +9,7 @@ import SubPageTitle from 'app/components/SubPageTitle';
 import useWidth from 'app/hooks/useWidth';
 import { CCHAIN } from 'utils/route-paths';
 import CopyTitleCard from 'app/components/CopyTitleCard';
+import { useLocation } from 'react-router-dom';
 
 const tabOptions = [
   {
@@ -20,8 +21,12 @@ const tabOptions = [
 const CAddressDetails: FC = () => {
   const { isDesktop } = useWidth();
   const [value, setValue] = React.useState(0);
-  const address = window.location.pathname.split('/').pop() as string;
+  const location = useLocation();
+  const [address, setAddress] = React.useState(location.pathname.split('/')[3]);
 
+  useEffect(() => {
+    setAddress(location.pathname.split('/')[3]);
+  }, [location]);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

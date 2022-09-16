@@ -22,7 +22,7 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
         />
       </TableCell>
       <TableCell
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         align="center"
       >
         <Field type="string" value={validator.nodeID} />
@@ -40,7 +40,7 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
         <Field type="string" value={validator.uptime} />
       </TableCell>
       <TableCell
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         align="center"
       >
         <Field type="string" value={validator.txID} />

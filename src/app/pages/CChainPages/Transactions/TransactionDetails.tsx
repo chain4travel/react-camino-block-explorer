@@ -42,7 +42,6 @@ const TransactionDetails: FC = () => {
   const nextPrevTX = useAppSelector(getNextPrevTx);
   const currentIndex = useAppSelector(getCurrentIndex);
   const [btnStopper, setBtnStopper] = useState(false);
-  const address = location.pathname.split('/')[3];
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -54,14 +53,14 @@ const TransactionDetails: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchTransactionDetails(address));
+    dispatch(fetchTransactionDetails(location.pathname.split('/')[3]));
     return () => {
       changeCurrentIndex(0);
       dispatch(clearTr());
       dispatch(resetLoadingStatusForNPTransactions());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (detailTr && getNPStatus === Status.IDLE) {

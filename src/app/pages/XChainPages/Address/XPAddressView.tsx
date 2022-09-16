@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid, TableContainer, Divider } from '@mui/material';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
 import axios from 'axios';
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan';
 import { MagellanXPTransaction } from 'types/magellan-types';
@@ -98,7 +97,8 @@ export default function XPAddressView({ chainType }: { chainType: ChainType }) {
       tableRef?.removeEventListener('scroll', scrollListener);
     };
   }, [scrollListener]);
-  useEffectOnce(() => {
+
+  React.useEffect(() => {
     loadTransactions({
       address: location.pathname.split('/')[3],
       offset: 0,
@@ -107,7 +107,8 @@ export default function XPAddressView({ chainType }: { chainType: ChainType }) {
     }).then(res => {
       if (res.length > 0) setRows(res);
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   return (
     <TableContainer ref={tableEl} sx={{ height: '700px' }}>
