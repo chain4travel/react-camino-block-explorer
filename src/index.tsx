@@ -32,7 +32,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import './locales/i18n';
 
 export const store = configureAppStore();
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
