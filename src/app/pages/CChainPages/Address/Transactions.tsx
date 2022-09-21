@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback, FC } from 'react';
+import React, { useRef, useEffect, useCallback, FC } from 'react';
 import { Grid, TableContainer, Box, LinearProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from 'react-query';
@@ -6,20 +6,25 @@ import { loadCAddressTransactions } from 'api';
 import Address from './Address';
 import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
+import LoadingWrapper from 'app/components/LoadingWrapper';
+import { Status } from 'types';
+import { queryClient } from 'index';
 
 const Transactions: FC = () => {
-  const [route, setRoute] = useState('in');
   const location = useLocation();
-
+  useEffect(() => {
+    queryClient.clear();
+  }, [location]); // eslint-disable-line
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
     isFetchingNextPage, // boolean
     data,
     status,
+    isLoading,
     // error,
   } = useInfiniteQuery(
-    `/c-address/${route}`,
+    `/c-address}`,
     ({ pageParam = 50 }) =>
       loadCAddressTransactions({
         address: location.pathname.split('/')[3],
@@ -31,7 +36,6 @@ const Transactions: FC = () => {
       },
     },
   );
-
   const intObserver = useRef<IntersectionObserver | null>(null);
   const lastPostRef = useCallback(
     address => {
@@ -46,9 +50,6 @@ const Transactions: FC = () => {
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   );
-  useEffect(() => {
-    setRoute(route === 'in' ? 'out' : 'in');
-  }, [location]); // eslint-disable-line
 
   const content = data?.pages?.map(pg => {
     return pg.map((transaction, i) => {
@@ -66,22 +67,28 @@ const Transactions: FC = () => {
       alignItems="center"
       sx={{ width: 1, gap: '20px' }}
     >
-      {status === 'success' && data && (
-        <TableContainer sx={{ height: '680px' }}>
-          {isWidescreen || isDesktop ? (
-            <TableView columns={columns}>{content}</TableView>
-          ) : (
-            <Grid item container alignItems="center">
-              {content}
-            </Grid>
-          )}
-        </TableContainer>
-      )}
-      {isFetchingNextPage && (
-        <Box sx={{ width: '100%' }}>
-          <LinearProgress color="secondary" />
-        </Box>
-      )}
+      <LoadingWrapper
+        loading={isLoading === true ? Status.LOADING : Status.SUCCEEDED}
+        failedLoadingMsg="Failed to load blocks and transactions"
+        loadingBoxStyle={{ minHeight: '500px' }}
+      >
+        {status === 'success' && data && (
+          <TableContainer sx={{ height: '680px' }}>
+            {isWidescreen || isDesktop ? (
+              <TableView columns={columns}>{content}</TableView>
+            ) : (
+              <Grid item container alignItems="center">
+                {content}
+              </Grid>
+            )}
+          </TableContainer>
+        )}
+        {isFetchingNextPage && (
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color="secondary" />
+          </Box>
+        )}
+      </LoadingWrapper>
     </Grid>
   );
 };
