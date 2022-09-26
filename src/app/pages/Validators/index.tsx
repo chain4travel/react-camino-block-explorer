@@ -33,7 +33,7 @@ const Validators: FC = () => {
         variant="outlined"
         square
         sx={{
-          minHeight: '680px',
+          minHeight: '544px',
           width: 1,
           backgroundColor: 'primary.dark',
           borderRadius: '12px',
