@@ -48,7 +48,7 @@ const Validators: FC = () => {
           backToLink={-1 as To}
           style={{ marginBottom: '20px' }}
         />
-        <TableContainer sx={{ height: '650px' }}>
+        <TableContainer sx={{ minHeight: '400px' }}>
           {isWidescreen || isDesktop ? (
             <TableView columns={columns}>
               {validators?.map(validator => (
