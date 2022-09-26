@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Grid, Paper, Typography, useTheme, Box } from '@mui/material';
-import { useEffectOnce } from 'app/hooks/useEffectOnce';
+import { Grid, Paper, Typography, Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PageContainer from 'app/components/PageContainer';
 import BackButton from 'app/components/BackButton';
@@ -16,7 +15,6 @@ import { useAppSelector } from 'store/configureStore';
 import { selectMagellanAddress } from 'store/app-config';
 
 export default function XPTransactionDetails() {
-  const theme = useTheme();
   const [result, setResult] = React.useState<XPTransaction>();
   const [details, setDetails] = React.useState<XPTransactionDetail>();
   const location = useLocation();
@@ -52,9 +50,10 @@ export default function XPTransactionDetails() {
     });
   }
 
-  useEffectOnce(() => {
+  React.useEffect(() => {
     fetchTransactionDetail();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
   return (
     <PageContainer
       pageTitle={`${location.pathname
@@ -73,11 +72,7 @@ export default function XPTransactionDetails() {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>

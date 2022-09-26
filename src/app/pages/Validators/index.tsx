@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
   Grid,
   Paper,
-  useTheme,
   Box,
   TableContainer,
   TableCellProps,
@@ -21,7 +20,6 @@ import TableView from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
 
 const Validators: FC = () => {
-  const theme = useTheme();
   const { isDesktop, isWidescreen } = useWidth();
   const validators = useAppSelector(selectAllValidators);
   const dispatch = useAppDispatch();
@@ -35,17 +33,14 @@ const Validators: FC = () => {
         variant="outlined"
         square
         sx={{
-          minHeight: '680px',
+          minHeight: '544px',
           width: 1,
           backgroundColor: 'primary.dark',
           borderRadius: '12px',
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <SubPageTitle
@@ -53,7 +48,7 @@ const Validators: FC = () => {
           backToLink={-1 as To}
           style={{ marginBottom: '20px' }}
         />
-        <TableContainer sx={{ height: '650px' }}>
+        <TableContainer sx={{ minHeight: '400px' }}>
           {isWidescreen || isDesktop ? (
             <TableView columns={columns}>
               {validators?.map(validator => (

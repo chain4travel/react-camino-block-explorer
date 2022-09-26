@@ -7,6 +7,7 @@ import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import FilledCard from 'app/components/FilledCard';
 import moment from 'utils/helpers/moment';
+import { NoMaxWidthTooltip } from 'app/components/RelativeTime';
 
 interface TransactionProps {
   transaction: TransactionTableData;
@@ -91,9 +92,17 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        <Typography variant="body2">
-          {moment(transaction.timestamp).fromNow()}
-        </Typography>
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+          )}
+        >
+          <Typography variant="body2" component="span" noWrap={true}>
+            {moment(transaction.timestamp).format(
+              'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
+            )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -122,6 +131,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
 };
 
 const CustomRow: FC<TransactionProps> = ({ transaction }) => {
+  const { isDesktop } = useWidth();
   return (
     <>
       <TableCell width="7%" align="left">
@@ -134,7 +144,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${CADDRESS}/${transaction.from}`}
@@ -145,7 +155,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${CADDRESS}/${transaction.to}`}
@@ -156,7 +166,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
       >
         <AddressLink
           to={`${transaction.hash}`}
@@ -165,12 +175,24 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
           truncate={true}
         />
       </TableCell>
-      <TableCell align="left">
-        <Typography variant="body2" component="span" noWrap={true}>
-          {moment(transaction.timestamp).fromNow()}
-        </Typography>
+      <TableCell align="center" sx={{ maxWidth: { lg: '140px' } }}>
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+          )}
+        >
+          <Typography variant="body2" component="span">
+            {isDesktop
+              ? moment(transaction.timestamp).format(
+                  'h:mm:ss A\xa0- DD.MM.YYYY',
+                )
+              : moment(transaction.timestamp).format(
+                  'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
+                )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </TableCell>
-      <TableCell align="left">
+      <TableCell align="left" sx={{ maxWidth: { lg: '25px' } }}>
         <Chip
           label={transaction.status}
           size="small"

@@ -34,20 +34,13 @@ const OverviewCards: FC<OverviewCardsProps> = ({
       rowSpacing={{ xs: 4, lg: '0!important' }}
       columnSpacing={{ xs: 0, lg: 4 }}
     >
-      <Grid
-        item
-        xs={12}
-        lg={4}
-        onClick={() => {
-          navigate(VALIDATORS);
-        }}
-        sx={{ cursor: 'pointer' }}
-      >
+      <Grid item xs={12} lg={4}>
         <OverviewCard
           title="Number Of Validators"
           value={numberOfValidators.toString()}
           loading={validatorsLoading}
           subValue={`(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`}
+          onClick={() => navigate(VALIDATORS)}
         />
       </Grid>
       <Grid item xs={12} lg={4}>

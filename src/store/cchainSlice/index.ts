@@ -34,6 +34,20 @@ const initialState: initialCchainStateType = {
   loadTransactionDetails: Status.IDLE,
   loadBlockDetial: Status.IDLE,
   timeFrame: Timeframe.HOURS_24,
+  sha3Uncles: undefined,
+  nonce: undefined,
+  stateRoot: undefined,
+  difficulty: undefined,
+  gasLimit: undefined,
+  // logsBloom: undefined,
+  // receiptsRoot: undefined,
+  // mixHash: undefined,
+  // extDataHash: undefined,
+  // extDataGasUsed: undefined,
+  // blockGasCost: undefined,
+  // transactionsRoot: undefined,
+  miner: undefined,
+
   ChainOverview: {
     numberOfTransactions: 0,
     totalGasFees: 0,
@@ -105,6 +119,19 @@ const cchainSlice = createSlice({
             ? action.payload.transactions.length
             : 0,
           extData: action.payload.header.extraData,
+          miner: action.payload.header.miner,
+          sha3Uncles: action.payload.header.sha3Uncles,
+          nonce: action.payload.header.nonce,
+          stateRoot: action.payload.header.stateRoot,
+          difficulty: parseInt(action.payload.header.difficulty),
+          gasLimit: parseInt(action.payload.header.gasLimit),
+          // transactionsRoot: action.payload.header.transactionsRoot,
+          // receiptsRoot: action.payload.header.receiptsRoot,
+          // logsBloom: action.payload.header.logsBloom,
+          // mixHash: action.payload.header.mixHash,
+          // extDataHash: action.payload.header.extDataHash,
+          // extDataGasUsed: action.payload.header.extDataGasUsed,
+          // blockGasCost: action.payload.header.blockGasCost,
           transactions: action.payload.transactions
             ? action.payload.transactions.map(item => ({
                 block: item.block,
@@ -148,11 +175,12 @@ const cchainSlice = createSlice({
           gasPrice: parseInt(payload.gasPrice),
           maxFeePerGas: parseInt(payload.maxFeePerGas),
           maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
-          gasUsed: parseInt(payload.receipt.gasUsed),
+          gasUsed: parseInt(payload.receipt.gasUsed).toLocaleString('en-US'),
           effectiveGasPrice: parseInt(payload.receipt.effectiveGasPrice),
           transactionCost:
             parseInt(payload.receipt.gasUsed) *
             parseInt(payload.receipt.effectiveGasPrice),
+          value: parseInt(payload.value),
         };
         state.transcationDetails = {
           transactionInformations,

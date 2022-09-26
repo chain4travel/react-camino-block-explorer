@@ -12,6 +12,8 @@ import {
 } from 'store/validatorsSlice';
 import { useQuery } from 'react-query';
 import { fetchBlocksTransactionsCChain, loadBlocksTransactionstype } from 'api';
+import { Status } from 'types';
+import LoadingWrapper from 'app/components/LoadingWrapper';
 
 export default function CChainPage() {
   const validatorsLoading = useAppSelector(getValidatorsStatus);
@@ -27,7 +29,7 @@ export default function CChainPage() {
     transactionsLoading,
   } = useAppSelector(getCchainOverreview);
 
-  const { data, isError, error } = useQuery<
+  const { data, isError, error, isLoading } = useQuery<
     Promise<loadBlocksTransactionstype>,
     string,
     loadBlocksTransactionstype
@@ -47,25 +49,31 @@ export default function CChainPage() {
           {error as string}
         </Typography>
       ) : (
-        data && (
-          <>
-            <DataControllers />
-            <OverviewCards
-              numberOfTransactions={numberOfTransactions}
-              totalGasFees={totalGasFees}
-              numberOfActiveValidators={numberOfActiveValidators}
-              numberOfValidators={numberOfValidators}
-              percentageOfActiveValidators={percentageOfActiveValidators}
-              gasFeesLoading={gasFeesLoading}
-              transactionsLoading={transactionsLoading}
-              validatorsLoading={validatorsLoading}
-            />
-            <LatestBlocksAndTransactionsList
-              blocks={data.blocks}
-              transactions={data.transactions}
-            />
-          </>
-        )
+        <>
+          <DataControllers />
+          <OverviewCards
+            numberOfTransactions={numberOfTransactions}
+            totalGasFees={totalGasFees}
+            numberOfActiveValidators={numberOfActiveValidators}
+            numberOfValidators={numberOfValidators}
+            percentageOfActiveValidators={percentageOfActiveValidators}
+            gasFeesLoading={gasFeesLoading}
+            transactionsLoading={transactionsLoading}
+            validatorsLoading={validatorsLoading}
+          />
+          <LoadingWrapper
+            loading={isLoading === true ? Status.LOADING : Status.SUCCEEDED}
+            failedLoadingMsg="Failed to load blocks and transactions"
+            loadingBoxStyle={{ minHeight: '500px' }}
+          >
+            {data && (
+              <LatestBlocksAndTransactionsList
+                blocks={data.blocks}
+                transactions={data.transactions}
+              />
+            )}
+          </LoadingWrapper>
+        </>
       )}
     </PageContainer>
   );

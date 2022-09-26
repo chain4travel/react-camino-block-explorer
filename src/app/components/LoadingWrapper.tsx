@@ -1,17 +1,19 @@
 import React from 'react';
-import { Typography, CircularProgress } from '@mui/material';
+import { Typography, CircularProgress, Box } from '@mui/material';
 import { Status } from 'types';
 
 interface LoadingWrapperProps {
   loading: Status;
   children: React.ReactNode;
   failedLoadingMsg?: string;
+  loadingBoxStyle?: React.CSSProperties;
 }
 
 export default function LoadingWrapper({
   loading,
   failedLoadingMsg,
   children,
+  loadingBoxStyle,
 }: LoadingWrapperProps) {
   if (loading === Status.SUCCEEDED) {
     return <>{children}</>;
@@ -27,6 +29,17 @@ export default function LoadingWrapper({
       </Typography>
     );
   } else {
-    return <CircularProgress color="secondary" />;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          ...loadingBoxStyle,
+        }}
+      >
+        <CircularProgress color="secondary" />
+      </Box>
+    );
   }
 }

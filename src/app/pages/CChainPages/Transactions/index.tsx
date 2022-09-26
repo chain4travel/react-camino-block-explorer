@@ -2,7 +2,6 @@ import React, { FC, useRef, useCallback } from 'react';
 import {
   Grid,
   Paper,
-  useTheme,
   TableContainer,
   Box,
   LinearProgress,
@@ -17,7 +16,6 @@ import SubPageTitle from 'app/components/SubPageTitle';
 import { CCHAIN } from 'utils/route-paths';
 
 const Transactions: FC = () => {
-  const theme = useTheme();
   const intObserver = useRef<IntersectionObserver | null>(null);
   const { isDesktop, isWidescreen } = useWidth();
 
@@ -82,10 +80,7 @@ const Transactions: FC = () => {
           borderWidth: '1px',
           borderColor: 'primary.light',
           borderStyle: 'solid',
-          p: '1.5rem 2rem 1.5rem 2rem',
-          [theme.breakpoints.down('md')]: {
-            p: '1rem 1.5rem 1rem 1.5rem',
-          },
+          p: '1rem 1.5rem 1rem 1.5rem',
         }}
       >
         <Grid

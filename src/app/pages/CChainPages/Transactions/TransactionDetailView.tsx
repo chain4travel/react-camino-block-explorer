@@ -129,6 +129,15 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({
             </Grid>
             <Grid item xs={12}>
               <DetailsField
+                field="Transaction Value"
+                value={detailCr['value'] ? detailCr['value'] : '0'}
+                type="wei"
+                style={{ padding: '1rem' }}
+              />
+              <Divider variant="fullWidth" />
+            </Grid>
+            <Grid item xs={12}>
+              <DetailsField
                 field="Transaction Cost"
                 value={detailCr['transactionCost']}
                 type="wei"

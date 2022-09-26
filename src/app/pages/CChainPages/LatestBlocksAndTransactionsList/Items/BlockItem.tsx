@@ -21,7 +21,9 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
       container
       rowSpacing={2}
       justifyContent="space-between"
-      sx={{ padding: '0.5rem 0rem 0.5rem 0rem' }}
+      sx={{
+        padding: isDesktop ? '0.5rem 0rem 0.5rem 0rem' : '1rem 0rem 1rem 0rem',
+      }}
     >
       {!isMobile && !isTablet && (
         <Grid item xs={1} md={1} lg={1.5} xl={1}>

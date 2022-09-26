@@ -21,9 +21,11 @@ interface RelativeTimeProps {
   value: number;
 }
 
-const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))({
+export const NoMaxWidthTooltip = styled(
+  ({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ),
+)({
   [`& .${tooltipClasses.tooltip}`]: {
     maxWidth: 'none',
   },

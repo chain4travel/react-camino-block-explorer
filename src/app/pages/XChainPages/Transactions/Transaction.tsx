@@ -14,6 +14,7 @@ import { XADDRESS, XTRANSACTIONS } from 'utils/route-paths';
 import AddressLink from 'app/components/AddressLink';
 import useWidth from 'app/hooks/useWidth';
 import moment from 'utils/helpers/moment';
+import { NoMaxWidthTooltip } from 'app/components/RelativeTime';
 
 interface Props {
   transaction: any;
@@ -123,7 +124,17 @@ const GridItem = ({ transaction }) => {
         <Typography variant="subtitle2" color="latestList.timestamp">
           Timestamp
         </Typography>
-        {moment(transaction.timestamp as number).fromNow()}
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+          )}
+        >
+          <Typography variant="body2" component="span" noWrap={true}>
+            {moment(transaction.timestamp).format(
+              'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
+            )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </Grid>
       <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
         <Typography variant="subtitle2" color="latestList.timestamp">
@@ -150,7 +161,7 @@ const CustomRow = ({ transaction }) => {
     <>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="20%"
       >
         <AddressLink
@@ -162,7 +173,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.from[0]?.address ? (
@@ -181,7 +192,7 @@ const CustomRow = ({ transaction }) => {
       </TableCell>
       <TableCell
         align="left"
-        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '140px' } }}
+        sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}
         width="22.5%"
       >
         {transaction.to[0]?.address ? (
@@ -199,9 +210,17 @@ const CustomRow = ({ transaction }) => {
         )}
       </TableCell>
       <TableCell align="left" width="10%">
-        <Typography variant="body2" component="span" noWrap={true}>
-          {moment(transaction.timestamp as number).fromNow()}
-        </Typography>
+        <NoMaxWidthTooltip
+          title={moment(transaction.timestamp).format(
+            'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
+          )}
+        >
+          <Typography variant="body2" component="span" noWrap={true}>
+            {moment(transaction.timestamp).format(
+              'h:mm:ss A\xa0-\xa0DD.MM.YYYY',
+            )}
+          </Typography>
+        </NoMaxWidthTooltip>
       </TableCell>
       <TableCell align="left" width="10%">
         <Chip

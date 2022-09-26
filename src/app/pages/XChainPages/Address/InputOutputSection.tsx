@@ -108,7 +108,7 @@ const InputCard = ({ address, signature, value }) => {
         type="string"
         tooltip="Fee"
       />
-      <DetailsField field="Value" value={value} type="gwei" tooltip="Fee" />
+      <DetailsField field="Value" value={value} type="ncam" tooltip="Fee" />
     </Paper>
   );
 };
@@ -142,7 +142,7 @@ const OutputCard = ({ address, value }) => {
         tooltip="Fee"
         allowCopy={true}
       />
-      <DetailsField field="Value" value={value} type="gwei" tooltip="Fee" />
+      <DetailsField field="Value" value={value} type="ncam" tooltip="Fee" />
     </Paper>
   );
 };
