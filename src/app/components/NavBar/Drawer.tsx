@@ -71,12 +71,14 @@ export default function TemporaryDrawer() {
       <Divider />
       <List>
         <DrawerListItem
+          onClick={() => window.open(DOCS)}
           label="Docs"
           to={DOCS}
           iconPath={mdiTextBoxMultipleOutline}
           newWindow
         />
         <DrawerListItem
+          onClick={() => window.open(WALLET)}
           label="Wallet"
           to={WALLET}
           iconPath={mdiWalletOutline}
@@ -124,14 +126,16 @@ const DrawerListItem = ({
   to,
   iconPath,
   newWindow = false,
+  onClick,
 }: {
   label: string;
   to: string;
   iconPath?: string;
   newWindow?: boolean;
+  onClick?: () => void;
 }) => {
   return (
-    <ListItem key={label} disablePadding>
+    <ListItem key={label} disablePadding onClick={onClick}>
       <Link
         to={{ pathname: to }}
         style={{ width: '100%', textDecoration: 'none' }}
