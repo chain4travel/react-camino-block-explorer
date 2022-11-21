@@ -71,18 +71,14 @@ export default function TemporaryDrawer() {
       <Divider />
       <List>
         <DrawerListItem
-          onClick={() => {
-            window.open(DOCS);
-          }}
+          onClick={() => window.open(DOCS)}
           label="Docs"
           to={DOCS}
           iconPath={mdiTextBoxMultipleOutline}
           newWindow
         />
         <DrawerListItem
-          onClick={() => {
-            window.open(WALLET);
-          }}
+          onClick={() => window.open(WALLET)}
           label="Wallet"
           to={WALLET}
           iconPath={mdiWalletOutline}
