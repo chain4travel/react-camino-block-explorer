@@ -30,11 +30,11 @@ export const WALLET = 'https://wallet.camino.foundation/';
 
 export const DOCS = 'https://docs.camino.foundation/';
 
-export const DISCORD = 'https://discord.gg/camino';
+export const DISCORD = 'https://discord.gg/K5THjAweFB';
 
-export const TWITTER = 'https://twitter.com/caminonetwork';
+export const TWITTER = 'https://twitter.com/CaminoFndtn';
 
-export const TELEGRAM = 'https://t.me/camino_network';
+export const TELEGRAM = 'https://t.me/caminochain';
 
 export const MEDIUM = 'https://medium.com/@caminofoundation';
 
