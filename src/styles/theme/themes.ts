@@ -211,9 +211,9 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
 const defaultTheme = {
   typography: {
     fontSize: 16,
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: '"ClashDisplay-Variable", sans-serif',
     h1: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontSize: '96px',
       lineHeight: '96px',
@@ -221,7 +221,7 @@ const defaultTheme = {
       fontWeight: '400',
     },
     h2: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontSize: '60px',
       lineHeight: '60px',

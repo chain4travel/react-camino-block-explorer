@@ -71,14 +71,12 @@ export default function TemporaryDrawer() {
       <Divider />
       <List>
         <DrawerListItem
-          onClick={() => window.open(DOCS)}
           label="Docs"
           to={DOCS}
           iconPath={mdiTextBoxMultipleOutline}
           newWindow
         />
         <DrawerListItem
-          onClick={() => window.open(WALLET)}
           label="Wallet"
           to={WALLET}
           iconPath={mdiWalletOutline}
@@ -121,26 +119,52 @@ export default function TemporaryDrawer() {
   );
 }
 
+const DrawerListItemWrapper = ({
+  to,
+  newWindow,
+  children,
+}: {
+  to: string;
+  children: JSX.Element;
+  newWindow?: boolean;
+}) => {
+  if (!newWindow)
+    return (
+      <>
+        <Link
+          to={{ pathname: to }}
+          style={{ width: '100%', textDecoration: 'none' }}
+        >
+          {children}
+        </Link>
+      </>
+    );
+  return (
+    <>
+      <div
+        onClick={() => window.open(to)}
+        style={{ width: '100%', textDecoration: 'none' }}
+      >
+        {children}
+      </div>
+    </>
+  );
+};
+
 const DrawerListItem = ({
   label,
   to,
   iconPath,
   newWindow = false,
-  onClick,
 }: {
   label: string;
   to: string;
   iconPath?: string;
   newWindow?: boolean;
-  onClick?: () => void;
 }) => {
   return (
-    <ListItem key={label} disablePadding onClick={onClick}>
-      <Link
-        to={{ pathname: to }}
-        style={{ width: '100%', textDecoration: 'none' }}
-        target={newWindow ? '_blank' : '_self'}
-      >
+    <ListItem key={label} disablePadding>
+      <DrawerListItemWrapper newWindow={newWindow} to={to}>
         <ListItemButton>
           <ListItemIcon>
             {iconPath ? (
@@ -156,7 +180,7 @@ const DrawerListItem = ({
             }}
           />
         </ListItemButton>
-      </Link>
+      </DrawerListItemWrapper>
     </ListItem>
   );
 };
