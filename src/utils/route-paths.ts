@@ -26,7 +26,7 @@ export const PADDRESS = PCHAIN + '/address';
 
 export const VALIDATORS = '/validators';
 
-export const WALLET = 'https://wallet.camino.foundation/';
+export const WALLET = 'https://wallet.columbus.camino.network/';
 
 export const DOCS = 'https://docs.camino.foundation/';
 

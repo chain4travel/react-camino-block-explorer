@@ -6,10 +6,12 @@ on:
     branches:
       - main
       - dev
+      - columbus
   pull_request:
     branches:
         - main
         - dev
+        - columbus
 
 env:
   node_version: 16
@@ -30,26 +32,28 @@ jobs:
 
       - name: Set bucket names
         id: setBucketNames
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/columbus' }}
         run: |
           if [[ "${{ github.ref_name }}" == "main" ]]; then
               echo "bucket=explorer.camino.network" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref_name }}" == "dev" ]]; then
               echo "bucket=explorer.kopernikus.camino.network" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref_name }}" == "columbus" ]]; then
+              echo "bucket=explorer.columbus.camino.network" >> $GITHUB_OUTPUT
           fi
       - name: 'gcloud authentication'
         id: 'auth'
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/columbus' }}
         uses: 'google-github-actions/auth@v1'
         with:
             credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
       - name: 'Set up Cloud SDK'
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/columbus' }}
         uses: 'google-github-actions/setup-gcloud@v1'
 
       - name: update bucket files
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/columbus' }}
         run: gsutil rsync -R -d build gs://${{ steps.setBucketNames.outputs.bucket }}
 
      
