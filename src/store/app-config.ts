@@ -49,6 +49,7 @@ let initialState: initialStateAppConfigType = {
       predefined: true,
     },
     {
+
       id: 'mainnet-testnet',
       displayName: 'Mainnet',
       protocol: 'https',
