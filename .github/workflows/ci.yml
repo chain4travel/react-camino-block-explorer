@@ -3,9 +3,6 @@ name: camino block explorer ci
 on:
   workflow_dispatch:
   push:    
-    branches:
-      - main
-      - dev
   pull_request:
     branches:
         - main
@@ -51,5 +48,9 @@ jobs:
       - name: update bucket files
         if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
         run: gsutil rsync -R -d build gs://${{ steps.setBucketNames.outputs.bucket }}
+
+      - name: update bucket files for columbus
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: gsutil rsync -R -d build gs://explorer.columbus.camino.network
 
      
