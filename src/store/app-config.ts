@@ -40,15 +40,6 @@ let initialState: initialStateAppConfigType = {
   activeNetwork: getNetworkFromLocalStorage(),
   networks: [
     {
-      id: 'camino-devnet',
-      displayName: 'Kopernikus',
-      protocol: 'https',
-      host: 'kopernikus.camino.network',
-      magellanAddress: 'https://magellan.kopernikus.camino.network',
-      port: 443,
-      predefined: true,
-    },
-    {
       id: 'camino-testnet',
       displayName: 'Columbus',
       protocol: 'https',
@@ -58,20 +49,11 @@ let initialState: initialStateAppConfigType = {
       predefined: true,
     },
     {
-      id: 'camino-testnet-old',
-      displayName: 'Columbus-Old',
-      protocol: 'https',
-      host: 'columbus.camino.foundation',
-      magellanAddress: 'https://magellan.columbus.camino.foundation',
-      port: 443,
-      predefined: true,
-    },
-    {
       id: 'mainnet-testnet',
       displayName: 'Mainnet',
       protocol: 'https',
-      host: 'columbus.camino.foundation',
-      magellanAddress: 'https://magellan.columbus.camino.foundation',
+      host: 'mainnet.camino.foundation',
+      magellanAddress: 'https://magellan.camino.foundation',
       port: 443,
       predefined: true,
     },
