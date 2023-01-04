@@ -44,7 +44,7 @@ let initialState: initialStateAppConfigType = {
       displayName: 'Columbus',
       protocol: 'https',
       host: 'columbus.camino.network',
-      magellanAddress: 'https://magellan.columbus.camino.network',
+      magellanAddress: 'https://magellan.columbus.camino.foundation',
       port: 443,
       predefined: true,
     },
@@ -71,8 +71,10 @@ const appConfigSlice = createSlice({
       let active = state.networks.find(
         item => item.displayName === action.payload,
       );
-      state.activeNetwork = active?.id;
-      localStorage.setItem('activeNetwork', JSON.stringify(active?.id));
+      if (active) {
+        state.activeNetwork = active?.id;
+        localStorage.setItem('activeNetwork', JSON.stringify(active?.id));
+      }
     },
     addCustomNetwork: (state, action) => {
       state.networks = [...state.networks, action.payload];
@@ -81,6 +83,24 @@ const appConfigSlice = createSlice({
       state.networks = state.networks.filter(
         item => item.id !== action.payload,
       );
+      if (state.activeNetwork === action.payload) {
+        let active = state.networks.find(
+          item => item.displayName === 'Columbus',
+        );
+        state.activeNetwork = active?.id;
+        localStorage.setItem('activeNetwork', JSON.stringify(active?.id));
+      }
+    },
+    editNetwork: (state, { payload }) => {
+      let {
+        newNetwork,
+        idOfNetwork,
+      }: { newNetwork: Network; idOfNetwork: string } = payload;
+      let networkToEdit = state.networks.find(item => item.id !== idOfNetwork);
+      if (networkToEdit) {
+        let indexOfNetwork = state.networks.indexOf(networkToEdit);
+        state.networks[indexOfNetwork] = newNetwork;
+      }
     },
     resetChains: state => {
       state.chains = [];
@@ -132,6 +152,7 @@ export const {
   changeNetwork,
   addCustomNetwork,
   removeCustomNetwork,
+  editNetwork,
   resetChains,
 } = appConfigSlice.actions;
 export default appConfigSlice.reducer;
