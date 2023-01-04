@@ -1,4 +1,10 @@
 import { ChainType } from './types/chain-type';
+import {
+  XADDRESS,
+  PADDRESS,
+  XTRANSACTIONS,
+  PTRANSACTIONS,
+} from 'utils/route-paths';
 
 export const DETAILS = 'details';
 export const TABLES = 'all';
@@ -77,4 +83,26 @@ export function getAddressLink(chaintype: ChainType, value: string): string {
     return 'P-' + value;
   }
   return value;
+}
+
+export function getTransactionType(chainType) {
+  switch (chainType) {
+    case ChainType.X_CHAIN:
+      return XTRANSACTIONS;
+    case ChainType.P_CHAIN:
+      return PTRANSACTIONS;
+    default:
+      return XTRANSACTIONS;
+  }
+}
+
+export function getAddressType(chainType) {
+  switch (chainType) {
+    case ChainType.X_CHAIN:
+      return XADDRESS;
+    case ChainType.P_CHAIN:
+      return PADDRESS;
+    default:
+      return XADDRESS;
+  }
 }

@@ -13,7 +13,6 @@ import { ChainType } from 'utils/types/chain-type';
 import { mdiFileDocumentOutline } from '@mdi/js';
 import { getBaseUrl } from 'api/utils';
 import { addressesApi, assetsApi } from 'utils/magellan-api-utils';
-import { XCHAIN } from 'utils/route-paths';
 
 const tabOptions = [
   {
@@ -45,6 +44,7 @@ export interface AddressBalance {
 export default function XAddressDetail() {
   // getting the address from the url by getting what comes after the last slash
   const address = window.location.pathname.split('/').pop() as string;
+  const chainType = window.location.pathname.split('/')[1] as ChainType;
   const [value, setValue] = React.useState(0);
   const [balance, setBalance] = useState(0);
   // const dispatch = useAppDispatch();
@@ -77,9 +77,22 @@ export default function XAddressDetail() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const getChainPageTitle = (chainType: ChainType) => {
+    switch (chainType) {
+      case ChainType.X_CHAIN:
+        return 'X chain';
+      case ChainType.P_CHAIN:
+        return 'P chain';
+      default:
+        return 'X chain';
+    }
+  };
   return (
-    <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
-      <SubPageTitle title="Address Detail" backToLink={XCHAIN} />
+    <PageContainer
+      pageTitle={getChainPageTitle(chainType)}
+      metaContent={`chain-overview ${chainType}`}
+    >
+      <SubPageTitle title="Address Detail" backToLink={'/' + chainType} />
       <CopyTitleCard
         label="Address"
         value={address}
