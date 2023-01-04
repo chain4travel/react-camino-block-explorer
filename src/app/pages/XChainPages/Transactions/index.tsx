@@ -9,7 +9,6 @@ import {
 import { useInfiniteQuery } from 'react-query';
 import { getXPTransactions } from 'api';
 import { useLocation } from 'react-router-dom';
-import { XCHAIN } from 'utils/route-paths';
 import PageContainer from 'app/components/PageContainer';
 import CutomTable from 'app/components/Table/TableView';
 import useWidth from 'app/hooks/useWidth';
@@ -18,6 +17,7 @@ import SubPageTitle from 'app/components/SubPageTitle';
 
 export default function XPTransactions() {
   const location = useLocation();
+  const chainType = location.pathname.split('/')[1];
   const {
     fetchNextPage, //function
     hasNextPage, // boolean
@@ -27,8 +27,7 @@ export default function XPTransactions() {
     // error,
   } = useInfiniteQuery(
     '/xtransactions',
-    ({ pageParam = 0 }) =>
-      getXPTransactions(pageParam, location.pathname.split('/')[1][0]),
+    ({ pageParam = 0 }) => getXPTransactions(pageParam, chainType[0]),
     {
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.length === 50 ? (allPages.length + 1) * 50 : undefined;
@@ -69,10 +68,8 @@ export default function XPTransactions() {
   const { isDesktop, isWidescreen } = useWidth();
   return (
     <PageContainer
-      pageTitle={`${location.pathname
-        .split('/')[1][0]
-        .toLocaleUpperCase()} Transactions`}
-      metaContent="list of transactions x-chain"
+      pageTitle={`${chainType[0].toLocaleUpperCase()} Transactions`}
+      metaContent={`list of transactions ${chainType}`}
     >
       <Paper
         variant="outlined"
@@ -95,10 +92,8 @@ export default function XPTransactions() {
           sx={{ width: 1, gap: '20px' }}
         >
           <SubPageTitle
-            title={`${location.pathname
-              .split('/')[1][0]
-              .toLocaleUpperCase()}-Transactions`}
-            backToLink={XCHAIN}
+            title={`${chainType[0].toLocaleUpperCase()}-Transactions`}
+            backToLink={'/' + chainType}
           />
           {status === 'success' && data && (
             <TableContainer sx={{ height: '650px' }}>
