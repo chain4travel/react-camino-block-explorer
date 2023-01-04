@@ -229,28 +229,28 @@ const defaultTheme = {
       fontWeight: '400',
     },
     h3: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontSize: '48px',
       lineHeight: '50px',
       fontWeight: '400',
     },
     h4: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontSize: '34px',
       lineHeight: '40px',
       fontWeight: '400',
     },
     h5: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontWeight: '400',
       fontSize: '24px',
       lineHeight: '32px',
     },
     h6: {
-      fontFamily: 'Inter',
+      fontFamily: 'ClashDisplay-Variable',
       fontStyle: 'normal',
       fontWeight: '400',
       fontSize: '18px',
@@ -401,6 +401,22 @@ export const lightTheme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& fieldset': {
+            borderRadius: '12px',
+            borderColor: '#CBD5E1 !important',
+          },
+          '& label': {
+            color: '#4A5568',
+          },
+          '& label.Mui-focused': {
+            color: '#4A5568',
+          },
+        },
+      },
+    },
     ...defaultComponents,
   },
   ...defaultTheme,
@@ -454,6 +470,22 @@ export const darkTheme = createTheme({
         root: {
           backgroundColor: '#1E293B',
           fontSize: '0.6875rem',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& fieldset': {
+            borderRadius: '12px',
+            borderColor: '#94A3B8 !important',
+          },
+          '& label': {
+            color: '#94A3B8',
+          },
+          '& label.Mui-focused': {
+            color: '#94A3B8',
+          },
         },
       },
     },
