@@ -233,7 +233,6 @@ const tooltips: { [key: string]: string } = {
   status: 'The transaction status',
   fee: 'The fee of the transaction',
   memo: 'The memo that was added to the transaction',
-  signature: 'The signature of the input',
   'mined by': 'The miner who successfully added the block onto the blockchain',
   difficulty:
     'The length of time it takes to mine a new block. The difficulty algorithm may change over time.',
