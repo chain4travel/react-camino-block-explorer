@@ -30,7 +30,7 @@ export default function XPTransactions() {
     ({ pageParam = 0 }) => getXPTransactions(pageParam, chainType[0]),
     {
       getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length === 50 ? (allPages.length + 1) * 50 : undefined;
+        return lastPage.length === 50 ? allPages.length * 50 : undefined;
       },
     },
   );
