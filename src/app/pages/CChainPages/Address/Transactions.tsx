@@ -32,7 +32,7 @@ const Transactions: FC = () => {
       }),
     {
       getNextPageParam: (lastPage, allPages) => {
-        return lastPage.length ? (allPages.length + 1) * 50 : undefined;
+        return lastPage.length ? allPages.length * 50 : undefined;
       },
     },
   );

@@ -318,21 +318,19 @@ function NewNetworkForm({
         } else {
           const ll = localStorage.getItem('customNetworks') as string;
           customNetworks = JSON.parse(ll) || [];
-          customNetworks = [...networks, ...customNetworks];
         }
         customNetworks.push(newNetwork);
         localStorage.setItem(
           'customNetworks',
           JSON.stringify(customNetworks.filter(net => net.predefined !== true)),
         );
-        dispatch(changeNetworks(customNetworks));
+        dispatch(changeNetworks([...networks, newNetwork]));
         dispatch(changeNetwork(newNetwork.displayName));
         dispatch(getChains());
         setSubmitting(false);
         resetForm();
         handleClose();
       } catch (error) {
-        console.log('error', error);
         console.error(error);
       }
     },
