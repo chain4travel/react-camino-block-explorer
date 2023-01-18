@@ -8,7 +8,6 @@ import {
   TextField,
   Chip,
   Menu,
-  DialogTitle,
   DialogContent,
   DialogActions,
   useTheme,
@@ -18,17 +17,16 @@ import {
   getActiveNetwork,
   getNetworks,
   changeNetwork,
-  addCustomNetwork,
   removeCustomNetwork,
   selectNetworkStatus,
-  // editNetwork,
+  changeNetworks,
 } from 'store/app-config';
 import { useNavigate } from 'react-router-dom';
 import {
   mdiChevronDown,
   mdiChevronUp,
   mdiTrashCanOutline,
-  // mdiPencilOutline,
+  mdiPencilOutline,
 } from '@mdi/js';
 import { Network } from 'types/store';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
@@ -53,6 +51,7 @@ function NetworkSelectButton({
   handleOpenModal,
   setSelectedEvent,
   setSelectedNetwork,
+  openModel,
 }) {
   const dispatch = useAppDispatch();
   const theme = useTheme();
@@ -76,10 +75,11 @@ function NetworkSelectButton({
     dispatch(removeCustomNetwork(id));
   };
 
-  // const handleEditCustomNetwork = (id: string) => {
-  //   setSelectedEvent('edit');
-  //   setSelectedNetwork(id);
-  // };
+  const handleEditCustomNetwork = (id: string) => {
+    setSelectedEvent('edit');
+    setSelectedNetwork(id);
+    openModel();
+  };
 
   const handleNetworkChange = value => {
     dispatch(changeNetwork(value));
@@ -161,9 +161,9 @@ function NetworkSelectButton({
           },
         }}
       >
-        {networks.map(net => (
+        {networks.map((net, index) => (
           <MenuItem
-            key={net.displayName}
+            key={index}
             selected={net.displayName === network}
             onClick={() => handleNetworkChange(net.displayName)}
             sx={{
@@ -186,7 +186,7 @@ function NetworkSelectButton({
             </Typography>
             {!net.predefined && (
               <Box sx={{ display: 'flex', gap: 1, ml: 1 }}>
-                {/* <Button
+                <Button
                   sx={{
                     width: '30px',
                     height: '30px',
@@ -207,7 +207,7 @@ function NetworkSelectButton({
                   }}
                 >
                   <Icon path={mdiPencilOutline} size={0.7} />
-                </Button> */}
+                </Button>
                 <Button
                   sx={{
                     width: '30px',
@@ -318,14 +318,18 @@ function NewNetworkForm({
         } else {
           const ll = localStorage.getItem('customNetworks') as string;
           customNetworks = JSON.parse(ll) || [];
+          customNetworks = [...networks, ...customNetworks];
         }
         customNetworks.push(newNetwork);
-        localStorage.setItem('customNetworks', JSON.stringify(customNetworks));
-        dispatch(addCustomNetwork(newNetwork));
+        localStorage.setItem(
+          'customNetworks',
+          JSON.stringify(customNetworks.filter(net => net.predefined !== true)),
+        );
+        dispatch(changeNetworks(customNetworks));
         dispatch(changeNetwork(newNetwork.displayName));
         dispatch(getChains());
-        resetForm();
         setSubmitting(false);
+        resetForm();
         handleClose();
       } catch (error) {
         console.log('error', error);
@@ -352,7 +356,7 @@ function NewNetworkForm({
             fullWidth
             label="Protocol"
             {...getFieldProps('protocol')}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 5 }}
             error={Boolean(touched.protocol && errors.protocol)}
             helperText={touched.protocol && errors.protocol}
             sx={{ mb: 3, '& fieldset': { borderRadius: '12px' } }}
@@ -434,10 +438,6 @@ export default function NetworkSelect() {
   const [selectedEvent, setSelectedEvent] = React.useState('add');
   const [selectedNetwork, setSelectedNetwork] = React.useState(null);
 
-  React.useEffect(() => {
-    if (selectedEvent === 'edit') setOpen(true);
-  }, [selectedEvent]);
-
   const handleOpen = () => {
     setSelectedEvent('add');
     setOpen(true);
@@ -454,19 +454,20 @@ export default function NetworkSelect() {
         network={network}
         networkStatus={status}
         handleOpenModal={handleOpen}
+        openModel={() => {
+          setOpen(!open);
+        }}
         setSelectedEvent={setSelectedEvent}
         setSelectedNetwork={setSelectedNetwork}
       />
       <DialogAnimate open={open} onClose={handleCloseModal}>
-        <DialogTitle>
-          <Typography
-            variant="h5"
-            sx={{ textAlign: 'center' }}
-            fontWeight="bold"
-          >
-            {selectedEvent === 'edit' ? 'Edit Network' : 'Add New Network'}
-          </Typography>
-        </DialogTitle>
+        <Typography
+          variant="h5"
+          sx={{ textAlign: 'center', marginTop: '1rem' }}
+          fontWeight="bold"
+        >
+          {selectedEvent === 'edit' ? 'Edit Network' : 'Add New Network'}
+        </Typography>
         <NewNetworkForm
           selectedEvent={selectedEvent}
           selectedNetwork={selectedNetwork}

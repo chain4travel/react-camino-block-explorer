@@ -79,6 +79,9 @@ const appConfigSlice = createSlice({
     addCustomNetwork: (state, action) => {
       state.networks = [...state.networks, action.payload];
     },
+    changeNetworks: (state, action) => {
+      state.networks = action.payload;
+    },
     removeCustomNetwork: (state, action) => {
       state.networks = state.networks.filter(
         item => item.id !== action.payload,
@@ -151,6 +154,7 @@ export const selectNetworkStatus = (state: RootState) => state.appConfig.status;
 export const {
   changeNetwork,
   addCustomNetwork,
+  changeNetworks,
   removeCustomNetwork,
   editNetwork,
   resetChains,
