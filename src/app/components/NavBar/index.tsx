@@ -1,85 +1,71 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Container, AppBar, Toolbar, useTheme } from '@mui/material';
-import Logo from './Logo';
-import SearchInput from './SearchInput';
-import ThemeSwitcherButton from './ThemeSwitcherButton';
-import NetworkSelect from './NetworkSelect';
-import Links from './Links';
-import Drawer from './Drawer';
-import useWidth from 'app/hooks/useWidth';
+import * as React from 'react'
+import { Box, Container, Toolbar, AppBar, useTheme } from '@mui/material'
+import SearchInput from './SearchInput'
+import Links from './Links'
+import useWidth from 'app/hooks/useWidth'
 
 export function NavBar() {
-  const theme = useTheme();
-  const { isDesktop } = useWidth();
-  const themeMode = theme.palette.mode === 'light' ? true : false;
+    const theme = useTheme()
+    const { isDesktop } = useWidth()
 
-  return (
-    <AppBar
-      position="fixed"
-      sx={{
-        top: 0,
-        left: 0,
-        transition: 'box-shadow 0s',
-        boxShadow: `0px 1px 3px ${themeMode ? '#eeeeee' : '#424242'}`,
-        backgroundColor: 'primary.dark',
-        backgroundImage: 'none',
-        borderRadius: '0px',
-      }}
-    >
-      <Container
-        maxWidth="xl"
-        sx={{
-          paddingLeft: '0px !important',
-          paddingRight: '0px !important',
-          marginBottom: '0px',
-          marginTop: '0px',
-          gap: '0px',
-          '@media (max-width: 899px)': {
-            marginTop: '0px',
-          },
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            height: 'auto',
-            backgroundColor: 'primary.dark',
-            p: '1rem',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '1rem',
-            minHeight: 'auto',
-            [theme.breakpoints.down('md')]: {
-              padding: '1rem 0.5rem',
-            },
-          }}
-        >
-          <Box sx={{ display: 'flex' }}>
-            {!isDesktop && <Drawer />}
-            <Link to="/" aria-label="logo image">
-              <Logo />
-            </Link>
-          </Box>
-          <Box sx={{ display: 'flex', marginLeft: !isDesktop ? 'auto' : '0' }}>
-            <SearchInput />
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              [theme.breakpoints.down('md')]: {
-                gap: '0.5rem',
-              },
-            }}
-          >
-            <NetworkSelect />
-            <ThemeSwitcherButton />
-          </Box>
-        </Toolbar>
-        {isDesktop && <Links />}
-      </Container>
-    </AppBar>
-  );
+    return (
+        <>
+            <AppBar
+                sx={{
+                    borderBottom: '1px solid',
+                    borderColor: 'card.border',
+                    backgroundColor: 'card.navBar',
+                    borderRadius: '0px',
+                    backgroundImage: 'none',
+                    boxShadow: 'none',
+                    top: '65px',
+                    [theme.breakpoints.up('md')]: { top: '69px' },
+                }}
+                position="fixed"
+            >
+                <Container
+                    maxWidth="xl"
+                    sx={{
+                        width: '100%',
+                        paddingLeft: '0px !important',
+                        paddingRight: '0px !important',
+                        marginBottom: '0px',
+                        marginTop: '0px',
+                        gap: '0px',
+                        '@media (max-width: 899px)': {
+                            marginTop: '0px',
+                        },
+                    }}
+                >
+                    <Toolbar
+                        sx={{
+                            display: 'flex',
+                            height: 'auto',
+                            backgroundColor: 'card.navBar',
+                            p: '1rem',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: '1rem',
+                            minHeight: 'auto',
+                            [theme.breakpoints.down('md')]: { p: '.5rem 1rem' },
+                            [theme.breakpoints.down('sm')]: { p: '.5rem .3rem' },
+                        }}
+                    >
+                        <Links />
+                        <Box sx={{ display: 'flex', ml: !isDesktop ? 'auto' : '0' }}>
+                            <SearchInput />
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+            <AppBar
+                position="relative"
+                sx={{
+                    [theme.breakpoints.up('md')]: { minHeight: '81px' },
+                    minHeight: '65px',
+                    boxShadow: 'none',
+                }}
+            />
+        </>
+    )
 }

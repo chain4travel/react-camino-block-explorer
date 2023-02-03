@@ -1,7 +1,7 @@
 export interface SearchMenuItem {
-  type: string;
-  link: string;
-  label: string;
-  avatar: string;
-  avatarColor: string;
+    type: string
+    link: string
+    label: string
+    avatar: string
+    avatarColor: string
 }

@@ -1,5 +1,5 @@
 export interface Amount {
-  value: number;
-  currency: string;
-  currencyIcon: string;
+    value: number
+    currency: string
+    currencyIcon: string
 }

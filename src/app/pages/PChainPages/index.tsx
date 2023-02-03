@@ -1,3 +1,3 @@
-import PChainPage from './PChainPage';
+import PChainPage from './PChainPage'
 
-export { PChainPage };
+export { PChainPage }

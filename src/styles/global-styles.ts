@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   html,
@@ -17,4 +17,4 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
-`;
+`

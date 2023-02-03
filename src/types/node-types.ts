@@ -1,8 +1,8 @@
 export interface NodeValidatorsResponse {
-  numberOfActiveValidators: number;
-  numberOfValidators: number;
+    numberOfActiveValidators: number
+    numberOfValidators: number
 }
 
 export interface NodeValidator {
-  connected: boolean;
+    connected: boolean
 }
