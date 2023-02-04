@@ -42,4 +42,4 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
 
       - name: update bucket files
-        run: gsutil rsync -R -d dist gs://${{ steps.setBucketNames.outputs.bucket }}
+        run: gsutil -m rsync -R -d dist gs://${{ steps.setBucketNames.outputs.bucket }}
