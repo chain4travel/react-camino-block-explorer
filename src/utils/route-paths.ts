@@ -32,7 +32,7 @@ export const DOCS = 'https://docs.camino.network/';
 
 export const DISCORD = 'https://discord.gg/camino';
 
-export const TWITTER = 'https://twitter.com/caminonetwork';
+export const TWITTER = 'https://twitter.com/camino_network';
 
 export const TELEGRAM = 'https://t.me/camino_network';
 
