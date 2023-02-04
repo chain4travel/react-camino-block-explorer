@@ -28,7 +28,7 @@ export const VALIDATORS = '/validators';
 
 export const WALLET = 'https://wallet.camino.network/';
 
-export const DOCS = 'https://docs.camino.foundation/';
+export const DOCS = 'https://docs.camino.network/';
 
 export const DISCORD = 'https://discord.gg/camino';
 
@@ -36,6 +36,6 @@ export const TWITTER = 'https://twitter.com/caminonetwork';
 
 export const TELEGRAM = 'https://t.me/camino_network';
 
-export const MEDIUM = 'https://medium.com/@caminofoundation';
+export const MEDIUM = 'https://medium.com/@caminonetwork';
 
 export const GITHUB = 'https://github.com/chain4travel/camino-docs';
