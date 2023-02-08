@@ -23,13 +23,7 @@ export default function CopyTitleCard({
                         field={label}
                         value={value}
                         type="string"
-                        icon={
-                            <Icon
-                                path={icon}
-                                color="latestList.iconColor"
-                                style={{ width: '20px', height: '20px' }}
-                            />
-                        }
+                        icon={<Icon path={icon} style={{ width: '20px', height: '20px' }} />}
                         allowCopy={true}
                         style={{ padding: '1rem' }}
                     />
@@ -40,13 +34,7 @@ export default function CopyTitleCard({
                         field={label}
                         value={value}
                         type="string"
-                        icon={
-                            <Icon
-                                path={icon}
-                                color="latestList.iconColor"
-                                style={{ width: '20px', height: '20px' }}
-                            />
-                        }
+                        icon={<Icon path={icon} style={{ width: '20px', height: '20px' }} />}
                         allowCopy={true}
                         style={{ padding: '1rem' }}
                     />

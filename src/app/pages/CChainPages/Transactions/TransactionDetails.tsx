@@ -164,7 +164,6 @@ const TransactionDetails: FC = () => {
                                 icon={
                                     <Icon
                                         path={mdiTransfer}
-                                        color="latestList.iconColor"
                                         style={{ width: '20px', height: '20px' }}
                                     />
                                 }
