@@ -211,3 +211,69 @@ export async function loadValidatorsInfo() {
             })
     })
 }
+
+export const fetchDailyEmissions = (dates: any) => {
+    return new Promise((resolve, reject) => {
+        console.log("datesDailyEmissions",dates);
+        var data = JSON.stringify({});
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                Name: "",
+                Value: []
+            });
+        });
+    });
+}
+
+export const fetchNetworkEmissions = (dates) => {
+    return new Promise((resolve, reject) => {
+        var data = JSON.stringify({});
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                Name: "",
+                Value: []
+            });
+        });
+    });
+}
+
+export const fetchTransactionsEmissions = (dates) => {
+    return new Promise((resolve, reject) => {
+        var data = JSON.stringify({});
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                Name: "",
+                Value: []
+            });
+        });
+    });
+}

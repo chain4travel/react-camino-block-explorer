@@ -7,6 +7,7 @@ import { configureStore, StoreEnhancer } from '@reduxjs/toolkit'
 import blocksReducer from './cchainSlice'
 import xchainReducer from './xchainSlice'
 import appConfigReducer from './app-config'
+import co2emissionsReducer from './co2emissionsSlice'
 import { store } from 'index'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import validatorsSlice from './validatorsSlice'
@@ -20,6 +21,7 @@ export function configureAppStore() {
             xchain: xchainReducer,
             validators: validatorsSlice,
             appConfig: appConfigReducer,
+            co2emissions: co2emissionsReducer
         },
         middleware: getDefaultMiddleware =>
             getDefaultMiddleware({

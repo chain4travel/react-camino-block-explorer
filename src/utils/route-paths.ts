@@ -37,3 +37,5 @@ export const TWITTER = 'https://twitter.com/CaminoFndtn'
 export const TELEGRAM = 'https://t.me/caminochain'
 
 export const GITHUB = 'https://github.com/chain4travel/camino-docs'
+
+export const STATISTICS = BASE_PATH + '/statistics';
