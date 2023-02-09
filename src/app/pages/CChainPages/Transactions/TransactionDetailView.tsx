@@ -4,15 +4,22 @@ import { CBLOCKS } from 'utils/route-paths'
 import OutlinedContainer from 'app/components/OutlinedContainer'
 import DetailsField from 'app/components/DetailsField'
 import { TransactionInformations, TransactionCurrency } from 'types/transaction'
+import { Status } from 'types'
+import LoadingWrapper from '../../../components/LoadingWrapper'
 
 interface TxDetailsViewProps {
     detailTr?: TransactionInformations
     detailCr?: TransactionCurrency
+    loading: Status
 }
 
-const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr }) => {
+const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loading }) => {
     return (
-        <>
+        <LoadingWrapper
+            loading={loading}
+            failedLoadingMsg="Failed to load transaction details"
+            loadingBoxStyle={{ minHeight: '500px' }}
+        >
             {detailTr && (
                 <OutlinedContainer>
                     <Grid item container alignItems="center">
@@ -141,7 +148,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr }) =
                     </Grid>
                 </OutlinedContainer>
             )}
-        </>
+        </LoadingWrapper>
     )
 }
 

@@ -176,7 +176,11 @@ const TransactionDetails: FC = () => {
                             />
                         </OutlinedContainer>
                     )}
-                    <TransactionDetailView detailTr={detailTr} detailCr={detailCr} />
+                    <TransactionDetailView
+                        loading={loading}
+                        detailTr={detailTr}
+                        detailCr={detailCr}
+                    />
                 </Grid>
                 {(detailTr || detailCr) && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
