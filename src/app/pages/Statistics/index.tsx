@@ -17,6 +17,7 @@ import Grid from '@mui/material/Grid';
 import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionCharts/index';
 import { typesMeter } from './ChartSelector';
 import { typesStatistic } from './ChartSelector';
+import CountriesBarMeter from '../../components/Statistics/CO2ConsumptionCharts/CountriesBarMeter';
 
 const Statistics: FC = () => {
     const theme = useTheme();
@@ -77,6 +78,11 @@ const Statistics: FC = () => {
                                 titleText="Network Emissions Per Transaction"
                             />
                         </Grid>
+
+                        <Grid item md={6} xs={12}>
+                            <CountriesBarMeter darkMode={dark} titleText="Country Emissions" />
+                        </Grid>
+                        
                     </Grid>
                 </Box>
             </Paper>
