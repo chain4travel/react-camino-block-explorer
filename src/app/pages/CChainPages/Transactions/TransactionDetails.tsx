@@ -77,7 +77,11 @@ const TransactionDetails: FC = () => {
     }, [detailTr])
 
     useEffect(() => {
-        if (nextPrevTX.length > 0 && getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash)
+        if (
+            nextPrevTX.length > 0 &&
+            nextPrevTX[currentIndex] &&
+            getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash
+        )
             navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
