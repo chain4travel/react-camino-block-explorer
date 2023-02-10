@@ -6,7 +6,7 @@ import moment from 'moment';
 import TextField from '@mui/material/TextField';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Button } from '@mui/material';
-
+import 'react-datepicker/dist/react-datepicker.css'
 
 const PickerContainer = styled.div`
   display: flex;

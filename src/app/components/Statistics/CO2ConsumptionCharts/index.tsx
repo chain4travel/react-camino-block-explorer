@@ -17,10 +17,44 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import moment from 'moment';
 import CountriesBarMeter from './CountriesBarMeter';
+import '../styles.css';
+import styled from 'styled-components';
+import Tooltip from '@mui/material/Tooltip';
+import InfoIcon from '@mui/icons-material/Info';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+
+const TooltipContainer = styled.div`
+  display: flex;
+  padding-top: 2rem;
+`;
+const TooltipStyle = styled(Tooltip)`
+  margin-right: 20rem;
+`
+const CardHeaderStyle = styled(CardHeader)`
+  margin-bottom: 0rem;
+  margin-left: 1.5rem;
+`;
+
+const DateRangeContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const Text = styled.p`
+  margin-left: 3rem !important;
+  margin-right: 1rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  // border: solid 2px black;
+  border-radius: 0.5rem;
+  // background: #1e293b;
+  background: #0f172a;
+  padding: 0.5rem;
+`;
 
 const CO2ConsumptionCharts = ({
   utilSlice, typeMeter, darkMode, sliceGetter, sliceGetterLoader, titleText
 }) => {
+
 
   const { isDesktop } = useWidth();
 
@@ -31,14 +65,13 @@ const CO2ConsumptionCharts = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if(startDate != undefined && endDate != undefined)
-    {
+    if (startDate != undefined && endDate != undefined) {
       dispatch(utilSlice({
         startDate: moment(startDate).toISOString(),
         endDate: moment(endDate).toISOString()
       }));
     }
-  },[startDate, endDate])
+  }, [startDate, endDate])
 
   useEffect(() => {
     setStartDate(new Date(moment().subtract(1, 'months').format()));
@@ -84,7 +117,7 @@ const CO2ConsumptionCharts = ({
                   color="info"
                   component="label"
                   onClick={() => setOpenModal(false)}
-                  style={{ cursor: 'default'}}
+                  style={{ cursor: 'default', color: 'white'  }}
                 >
                   <FontAwesomeIcon icon={faXmark} />
                 </IconButton>} />
@@ -109,15 +142,25 @@ const CO2ConsumptionCharts = ({
         </> : <>
 
           <Card style={{ backgroundColor: darkMode ? "#060F24" : "white" }}>
-            <CardHeader title={titleText} action={
-              <IconButton
-                color="info"
-                component="label"
-                onClick={() => setOpenModal(true)}
-                style={{ cursor: 'default', color: 'white' }}
-              >
-                <FontAwesomeIcon icon={faSquareArrowUpRight} />
-              </IconButton>
+            <CardHeaderStyle title={titleText} action={
+              <TooltipContainer>
+                {/* <TooltipStyle title={tooltipTitle} placement="top">
+                  <IconButton>
+                    <InfoIcon />
+                  </IconButton>
+                </TooltipStyle> */}
+                <IconButton
+                  color="info"
+                  component="label"
+                  onClick={() => setOpenModal(true)}
+                  style={{
+                    cursor: 'default',
+                    color: 'GrayText',
+                  }}
+                >
+                  <ArrowOutwardIcon />
+                </IconButton>
+              </TooltipContainer>
             } />
             <CardContent>
               {typeMeter == typesMeter.BAR && <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
