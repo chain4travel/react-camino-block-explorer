@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'store/configureStore'
 import { Status } from 'types'
-import { loadDailyEmissions, loadNetworkEmissions, loadTransactionsEmissions } from './utils'
+import { loadCountryEmissions, loadDailyEmissions, loadNetworkEmissions, loadTransactionsEmissions } from './utils'
 
 let initialStateCO2Data = {
-    Name: '',
-    Value: [],
+    name: '',
+    value: [],
 }
 
 let initialState = {
@@ -17,6 +17,8 @@ let initialState = {
     transactionsEmissionsStatus: Status.IDLE,
     carbonIntensityFactor: {},
     carbonIntensityFactorStatus: Status.IDLE,
+    countryEmissions: initialStateCO2Data,
+    countryEmissionsStatus: Status.IDLE
 }
 
 const co2EmissionsSlice = createSlice({
@@ -81,7 +83,26 @@ const co2EmissionsSlice = createSlice({
         })
         builder.addCase(loadTransactionsEmissions.rejected, state => {
             state.transactionsEmissionsStatus = Status.FAILED
+        });
+
+        //Country Emissions
+        builder.addCase(loadCountryEmissions.pending, state => {
+            state.countryEmissionsStatus = Status.LOADING
         })
+        builder.addCase(loadCountryEmissions.fulfilled, (state, { payload }) => {
+            let data: any = payload
+
+            if (data != null && data != undefined) {
+                state.countryEmissions = data
+            } else {
+                state.countryEmissions = initialStateCO2Data
+            }
+
+            state.countryEmissionsStatus = Status.SUCCEEDED
+        })
+        builder.addCase(loadCountryEmissions.rejected, state => {
+            state.countryEmissionsStatus = Status.FAILED
+        });
     },
 })
 
@@ -96,6 +117,11 @@ export const getTransactionsEmissions = (state: RootState) =>
     state.co2emissions.transactionsEmissions
 export const getTransactionsEmissionsStatus = (state: RootState) =>
     state.co2emissions.transactionsEmissionsStatus
+
+    export const getCountryEmissions = (state: RootState) =>
+    state.co2emissions.countryEmissions
+export const getCountryEmissionsStatus = (state: RootState) =>
+    state.co2emissions.countryEmissionsStatus
 
 export const { co2EmissionsReducer } = co2EmissionsSlice.actions
 

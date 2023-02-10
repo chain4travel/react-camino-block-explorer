@@ -16,6 +16,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import moment from 'moment';
+import CountriesBarMeter from './CountriesBarMeter';
 
 const CO2ConsumptionCharts = ({
   utilSlice, typeMeter, darkMode, sliceGetter, sliceGetterLoader, titleText
@@ -99,6 +100,7 @@ const CO2ConsumptionCharts = ({
 
                     {typeMeter == typesMeter.BAR && <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
                     {typeMeter == typesMeter.TIME_SERIES && <TimeSeriesMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
+                    {typeMeter == typesMeter.COUNTRIES_BAR && <CountriesBarMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
                   </Fragment>
                 </CardContent></Card>
             </Box>
@@ -120,6 +122,7 @@ const CO2ConsumptionCharts = ({
             <CardContent>
               {typeMeter == typesMeter.BAR && <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
               {typeMeter == typesMeter.TIME_SERIES && <TimeSeriesMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
+              {typeMeter == typesMeter.COUNTRIES_BAR && <CountriesBarMeter darkMode={darkMode} dataSeries={meterCO2.value} titleText={titleText} />}
             </CardContent>
           </Card>
         </>}

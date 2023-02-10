@@ -215,7 +215,6 @@ export async function loadValidatorsInfo() {
 export const fetchDailyEmissions = (dates: any) => {
     return new Promise((resolve, reject) => {
         console.log("datesDailyEmissions",dates);
-        var data = JSON.stringify({});
         var config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
@@ -227,8 +226,8 @@ export const fetchDailyEmissions = (dates: any) => {
             resolve(response.data);
         }).catch(function (error) {
             resolve({
-                Name: "",
-                Value: []
+                name: "",
+                value: []
             });
         });
     });
@@ -236,21 +235,19 @@ export const fetchDailyEmissions = (dates: any) => {
 
 export const fetchNetworkEmissions = (dates) => {
     return new Promise((resolve, reject) => {
-        var data = JSON.stringify({});
         var config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
             headers: {
                 'Content-Type': 'application/json'
-            },
-            data: data
+            }
         };
         axios(config).then(function (response) {
             resolve(response.data);
         }).catch(function (error) {
             resolve({
-                Name: "",
-                Value: []
+                name: "",
+                value: []
             });
         });
     });
@@ -258,21 +255,39 @@ export const fetchNetworkEmissions = (dates) => {
 
 export const fetchTransactionsEmissions = (dates) => {
     return new Promise((resolve, reject) => {
-        var data = JSON.stringify({});
         var config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
             headers: {
                 'Content-Type': 'application/json'
-            },
-            data: data
+            }
         };
         axios(config).then(function (response) {
             resolve(response.data);
         }).catch(function (error) {
             resolve({
-                Name: "",
-                Value: []
+                name: "",
+                value: []
+            });
+        });
+    });
+}
+
+export const fetchCountryEmissions = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/countryEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                name: "",
+                value: []
             });
         });
     });

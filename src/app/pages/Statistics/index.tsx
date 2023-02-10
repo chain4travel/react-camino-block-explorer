@@ -8,7 +8,9 @@ import {
     getNetworkEmissions,
     getNetworkEmissionsStatus,
     getTransactionsEmissions,
-    getTransactionsEmissionsStatus
+    getTransactionsEmissionsStatus,
+    getCountryEmissions,
+    getCountryEmissionsStatus
 } from 'store/co2emissionsSlice';
 import { loadDailyEmissions, loadNetworkEmissions, loadTransactionsEmissions } from 'store/co2emissionsSlice/utils';
 
@@ -16,8 +18,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionCharts/index';
 import { typesMeter } from './ChartSelector';
-import { typesStatistic } from './ChartSelector';
-import CountriesBarMeter from '../../components/Statistics/CO2ConsumptionCharts/CountriesBarMeter';
+import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils';
 
 const Statistics: FC = () => {
     const theme = useTheme();
@@ -80,9 +81,16 @@ const Statistics: FC = () => {
                         </Grid>
 
                         <Grid item md={6} xs={12}>
-                            <CountriesBarMeter darkMode={dark} titleText="Country Emissions" />
+                            <CO2ConsumptionCharts
+                                typeMeter={typesMeter.COUNTRIES_BAR}
+                                darkMode={dark}
+                                utilSlice={(dates) => loadCountryEmissions(dates)}
+                                sliceGetter={getCountryEmissions}
+                                sliceGetterLoader={getCountryEmissionsStatus}
+                                titleText="Country Emissions"
+                            />
                         </Grid>
-                        
+
                     </Grid>
                 </Box>
             </Paper>
