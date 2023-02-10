@@ -20,9 +20,9 @@ export default function BlockTxIcon({ iconType }: { iconType?: string }) {
             }}
         >
             {iconType === 'block' ? (
-                <Icon path={mdiCubeOutline} size={1} color="latestList.iconColor" />
+                <Icon path={mdiCubeOutline} size={1} />
             ) : (
-                <Icon path={mdiTransfer} size={1} color="latestList.iconColor" />
+                <Icon path={mdiTransfer} size={1} />
             )}
         </Box>
     )

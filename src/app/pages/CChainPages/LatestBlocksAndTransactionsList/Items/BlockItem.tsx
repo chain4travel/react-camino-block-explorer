@@ -40,7 +40,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
                             height: '50px',
                         }}
                     >
-                        <Icon path={mdiCubeOutline} size={1} color="latestList.iconColor" />
+                        <Icon path={mdiCubeOutline} size={1} />
                     </Box>
                 </Grid>
             )}

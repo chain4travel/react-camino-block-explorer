@@ -1,11 +1,10 @@
 import React from 'react'
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material'
-import { mdiOpenInNew } from '@mdi/js'
+import { mdiOpenInNew, mdiInformationOutline } from '@mdi/js'
 import { Link } from 'react-router-dom'
 import { CamAmount } from 'app/components/CamAmount'
 import CopyToClipboardButton from 'app/components/CopyToClipboardButton'
 import useWidth from 'app/hooks/useWidth'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import Icon from '@mdi/react'
 import moment from 'utils/helpers/moment'
 
@@ -54,7 +53,12 @@ export default function DetailsField({
                         {tooltip?.toLowerCase() || getTooltip(field?.toLowerCase()) ? (
                             <Grid item xs={2}>
                                 <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
-                                    {icon || <HelpOutlineOutlinedIcon style={{ width: '20px' }} />}
+                                    {icon || (
+                                        <Icon
+                                            path={mdiInformationOutline}
+                                            style={{ width: '20px' }}
+                                        />
+                                    )}
                                 </Tooltip>
                             </Grid>
                         ) : (

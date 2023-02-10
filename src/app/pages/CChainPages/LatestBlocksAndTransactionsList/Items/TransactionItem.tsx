@@ -40,7 +40,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
                             height: '50px',
                         }}
                     >
-                        <Icon path={mdiTransfer} size={1} color="latestList.iconColor" />
+                        <Icon path={mdiTransfer} size={1} />
                     </Box>
                 </Grid>
             )}

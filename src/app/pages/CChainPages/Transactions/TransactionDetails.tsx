@@ -77,7 +77,11 @@ const TransactionDetails: FC = () => {
     }, [detailTr])
 
     useEffect(() => {
-        if (nextPrevTX.length > 0 && getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash)
+        if (
+            nextPrevTX.length > 0 &&
+            nextPrevTX[currentIndex] &&
+            getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash
+        )
             navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
@@ -164,7 +168,6 @@ const TransactionDetails: FC = () => {
                                 icon={
                                     <Icon
                                         path={mdiTransfer}
-                                        color="latestList.iconColor"
                                         style={{ width: '20px', height: '20px' }}
                                     />
                                 }
@@ -173,7 +176,11 @@ const TransactionDetails: FC = () => {
                             />
                         </OutlinedContainer>
                     )}
-                    <TransactionDetailView detailTr={detailTr} detailCr={detailCr} />
+                    <TransactionDetailView
+                        loading={loading}
+                        detailTr={detailTr}
+                        detailCr={detailCr}
+                    />
                 </Grid>
                 {(detailTr || detailCr) && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
