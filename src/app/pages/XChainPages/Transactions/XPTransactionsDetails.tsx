@@ -98,7 +98,7 @@ export default function XPTransactionDetails() {
                 </Grid>
                 {details && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                        <BackButton backToLink={`/${getChainTypeFromUrl()}`} />
+                        <BackButton backToLink={`/explorer/${getChainTypeFromUrl()}`} />
                     </Box>
                 )}
             </Paper>

@@ -10,7 +10,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
             <Grid container item xs={12} lg={6} alignItems="center" justifyContent="center">
                 <Grid item xs={12}>
                     <AddressLink
-                        to={`/${chainType}/transactions/${id}`}
+                        to={`/explorer/${chainType}/transactions/${id}`}
                         value={id}
                         typographyVariant="subtitle1"
                         truncate={true}
