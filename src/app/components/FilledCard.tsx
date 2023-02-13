@@ -6,7 +6,9 @@ interface BlockCardProps {
     children: React.ReactNode
 }
 
-const FilledCard: FC<BlockCardProps> = ({ ref, children }) => {
+const FilledCard: FC<BlockCardProps> = React.forwardRef((props, ref) => {
+    const { children } = props
+
     return (
         <Paper
             sx={{
@@ -24,6 +26,6 @@ const FilledCard: FC<BlockCardProps> = ({ ref, children }) => {
             {children}
         </Paper>
     )
-}
+})
 
 export default FilledCard
