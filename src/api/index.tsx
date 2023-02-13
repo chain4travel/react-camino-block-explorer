@@ -87,27 +87,29 @@ export async function loadBlocksAndTransactions({ address, offset }) {
     }
 }
 
-export async function loadCAddressTransactions({ address, offset }) {
+export async function loadCAddressTransactions({ address, allPages }) {
     try {
-        let res = await loadBlocksAndTransactions({ address, offset })
-        return res.transactions.map(transaction => {
-            return {
-                blockNumber: parseInt(transaction.block),
-                transactionIndex: parseInt(transaction.index),
-                from: transaction.from,
-                hash: transaction.hash,
-                status:
-                    parseInt(transaction.status) === 1
-                        ? 'Success'
-                        : `Failed-${parseInt(transaction.status)}`,
-                timestamp: parseInt(transaction.timestamp) * 1000,
-                to: transaction.to,
-                value: parseInt(transaction.value),
-                transactionCost:
-                    parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
-                direction: transaction.from === address ? 'out' : 'in',
-            }
-        })
+        let res = await loadBlocksAndTransactions({ address, offset: (allPages + 1) * 50 })
+        let transactions = res?.transactions?.slice(allPages * 50)
+        if (transactions)
+            return transactions.map(transaction => {
+                return {
+                    blockNumber: parseInt(transaction.block),
+                    transactionIndex: parseInt(transaction.index),
+                    from: transaction.from,
+                    hash: transaction.hash,
+                    status:
+                        parseInt(transaction.status) === 1
+                            ? 'Success'
+                            : `Failed-${parseInt(transaction.status)}`,
+                    timestamp: parseInt(transaction.timestamp) * 1000,
+                    to: transaction.to,
+                    value: parseInt(transaction.value),
+                    transactionCost:
+                        parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+                    direction: transaction.from === address ? 'out' : 'in',
+                }
+            })
     } catch (e) {
         throw new Error(e.message)
     }
