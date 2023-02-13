@@ -26,6 +26,128 @@ const Statistics: FC = () => {
 
     return (
         <PageContainer pageTitle="Statistics" metaContent="statistics">
+            
+            
+            <Paper
+        variant="outlined"
+        square
+        sx={{
+          minHeight: '544px',
+          width: 1,
+          backgroundColor: 'primary.dark',
+          borderRadius: '12px',
+          borderWidth: '1px',
+          borderColor: 'primary.light',
+          borderStyle: 'solid',
+          p: '1rem 1.5rem 1rem 1.5rem',
+        }}
+      >
+        <SubPageTitle
+          title="Blockchain Data"
+          style={{ marginBottom: '2rem', marginTop: '2rem', fontSize: '2rem' }}
+          hiddenBackButton={true}
+        />
+        {/* <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Daily Transactions'}
+                utilSlice={(dates) => loadDailyTransactionsStatistics(dates)}
+                sliceGetter={getTransactionsPerDay}
+                sliceGetterLoader={getTransactionsPerDayStatus}
+                typeStatistic={typesStatistic.DAILY_TRANSACTIONS}
+              />
+            </Grid>
+
+            
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Unique Adresses'}
+                utilSlice={() => loadUniqueAddresses()}
+                sliceGetter={getUniqueAddresses}
+                sliceGetterLoader={getUniqueAddressesLoading}
+                typeStatistic={typesStatistic.UNIQUE_ADRESSES}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Daily Token Transfer'}
+                utilSlice={() => loadDailyTokenTransfer()}
+                sliceGetter={getDailyTokenTransfers}
+                sliceGetterLoader={getDailyTokenTransfersLoading}
+                typeStatistic={typesStatistic.DAILY_TOKEN_TRANSFER}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Gas Used'}
+                utilSlice={() => loadGasUsed()}
+                sliceGetter={getGasUsed}
+                sliceGetterLoader={getGasUsedLoading}
+                typeStatistic={typesStatistic.GAS_USED}
+              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Active Addresses'}
+                utilSlice={() => loadActiveAddresses()}
+                sliceGetter={getActiveAddresses}
+                sliceGetterLoader={getActiveAddressesInfo}
+                typeStatistic={typesStatistic.ACTIVE_ADDRESSES}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Gas Average Price'}
+                utilSlice={() => loadGasAveragePrice()}
+                sliceGetter={getGasAveragePrice}
+                sliceGetterLoader={getGasAveragePriceInfo}
+                typeStatistic={typesStatistic.GAS_AVERAGE_PRICE}
+              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Gas Average Limit'}
+                utilSlice={() => loadGasAverageLimit()}
+                sliceGetter={getGasAverageLimit}
+                sliceGetterLoader={getGasAverageLimitInfo}
+                typeStatistic={typesStatistic.GAS_AVERAGE_LIMIT}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                darkMode={dark}
+                titleText={'Average Block Limit'}
+                utilSlice={() => loadAverageBlockSize()}
+                sliceGetter={getAverageBlockSize}
+                sliceGetterLoader={getAverageBlockSizeInfo}
+                typeStatistic={typesStatistic.AVERAGE_BLOCK_SIZE}
+              />
+            </Grid>
+          </Grid>
+        </Box> */}
+      </Paper>
+            
+            
+            
+            {/* */}
             <Paper
                 variant="outlined"
                 square
