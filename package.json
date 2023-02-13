@@ -112,6 +112,10 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
+        "@ethersproject/bignumber": "^5.7.0",
+        "bignumber.js": "^9.1.1",
+        "bn.js": "^5.2.1",
+        "ethers": "^6.0.2",
         "path": "^0.12.7"
     }
 }

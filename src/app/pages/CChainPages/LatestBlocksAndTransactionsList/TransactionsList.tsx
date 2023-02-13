@@ -18,11 +18,13 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
             variant="outlined"
             square
             sx={{
+                display: 'flex',
                 backgroundColor: 'card.background',
                 borderWidth: '1px',
                 borderColor: 'primary.light',
                 borderStyle: 'solid',
                 p: '1rem 1.5rem 1rem 1.5rem',
+                flexDirection: 'column',
             }}
         >
             {title && (
@@ -56,6 +58,14 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                     <CircularProgress color="secondary" />
                 </Box>
             )}
+            <Typography
+                variant="caption"
+                component="span"
+                fontWeight="fontWeightBold"
+                sx={{ color: 'error.main', alignSelf: 'flex-end', my: '.5rem' }}
+            >
+                Hover on tx value to view full exact amount.
+            </Typography>
             {link && <ShowAllButton toLink="transactions" />}
         </Paper>
     )

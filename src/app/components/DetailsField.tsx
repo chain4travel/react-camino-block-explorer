@@ -2,11 +2,12 @@ import React from 'react'
 import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material'
 import { mdiOpenInNew, mdiInformationOutline } from '@mdi/js'
 import { Link } from 'react-router-dom'
-import { CamAmount } from 'app/components/CamAmount'
-import CopyToClipboardButton from 'app/components/CopyToClipboardButton'
-import useWidth from 'app/hooks/useWidth'
+import { CamAmount } from './CamAmount'
+import CopyToClipboardButton from './CopyToClipboardButton'
+import useWidth from '../hooks/useWidth'
 import Icon from '@mdi/react'
-import moment from 'utils/helpers/moment'
+import moment from '../../utils/helpers/moment'
+import { roundedToLocaleString } from '../../utils/currency-utils'
 
 export default function DetailsField({
     field,
@@ -17,6 +18,7 @@ export default function DetailsField({
     detailsLink,
     allowCopy,
     style,
+    abbreviate,
 }: {
     field: string
     value: string | number | object | Element | undefined
@@ -26,6 +28,7 @@ export default function DetailsField({
     detailsLink?: string
     allowCopy?: boolean
     style?: React.CSSProperties
+    abbreviate?: boolean
 }) {
     const getTooltip = (field: string): string | undefined => {
         if (Object.keys(tooltips).includes(field?.toLowerCase())) {
@@ -79,7 +82,7 @@ export default function DetailsField({
                 </Typography>
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Field type={type} value={value} />
+                <Field type={type} value={value} abbreviate={abbreviate} />
             </Grid>
             <>
                 {(detailsLink || allowCopy) &&
@@ -143,13 +146,27 @@ export const Field = ({
     type,
     value,
     fontWeight = 'fontWeightRegular',
+    abbreviate,
 }: {
     type: string
     value: string | number | object | undefined
     fontWeight?: string
+    abbreviate?: boolean
 }) => {
     const { isMobile } = useWidth()
-    if (type === 'string' || type === 'number' || type === 'monospace') {
+    if (type === 'number') {
+        return (
+            <Typography
+                variant="body2"
+                component="span"
+                noWrap={true}
+                fontWeight={fontWeight}
+                sx={{ width: '100%', display: 'block' }}
+            >
+                {roundedToLocaleString(value as number)}
+            </Typography>
+        )
+    } else if (type === 'string' || type === 'monospace') {
         return (
             <Typography
                 variant="body2"
@@ -198,11 +215,11 @@ export const Field = ({
             </Typography>
         )
     } else if (type === 'gwei') {
-        return <CamAmount amount={Number(value)} />
+        return <CamAmount amount={Number(value)} abbreviate={abbreviate} />
     } else if (type === 'wei') {
-        return <CamAmount amount={Number(value)} />
+        return <CamAmount amount={Number(value)} abbreviate={abbreviate} />
     } else if (type === 'ncam') {
-        return <CamAmount currency="ncam" amount={Number(value)} />
+        return <CamAmount currency="ncam" amount={Number(value)} abbreviate={abbreviate} />
     } else return <></>
 }
 
