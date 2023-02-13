@@ -25,6 +25,7 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                 borderStyle: 'solid',
                 p: '1rem 1.5rem 1rem 1.5rem',
                 flexDirection: 'column',
+                height: '100%',
             }}
         >
             {title && (
@@ -64,7 +65,8 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                 fontWeight="fontWeightBold"
                 sx={{ color: 'error.main', alignSelf: 'flex-end', my: '.5rem' }}
             >
-                Hover on tx value to view full exact amount.
+                Transaction values are approximate, hover on number or click on transaction to view
+                full details.
             </Typography>
             {link && <ShowAllButton toLink="transactions" />}
         </Paper>

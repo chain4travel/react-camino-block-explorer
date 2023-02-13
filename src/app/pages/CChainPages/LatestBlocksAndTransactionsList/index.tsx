@@ -17,10 +17,10 @@ const LatestBlocksAndTransactionsList: FC<LatestBlocksAndTransactionsListProps> 
 }) => {
     return (
         <Grid container rowSpacing={{ xs: 4, lg: '0!important' }} columnSpacing={{ xs: 0, lg: 4 }}>
-            <Grid item xs={12} lg={6} sx={{ gridTemplateColumns: '1fr', display: 'grid' }}>
+            <Grid item xs={12} lg={6}>
                 <BlockList title="Latest Blocks" items={blocks} to={`${CBLOCKS}`} />
             </Grid>
-            <Grid item xs={12} lg={6} sx={{ gridTemplateColumns: '1fr', display: 'grid' }}>
+            <Grid item xs={12} lg={6}>
                 <TransactionsList
                     title="Latest Transactions"
                     items={transactions}

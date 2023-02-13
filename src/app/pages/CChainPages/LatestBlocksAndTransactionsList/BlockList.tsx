@@ -24,6 +24,7 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
                 borderStyle: 'solid',
                 p: '1rem 1.5rem 1rem 1.5rem',
                 flexDirection: 'column',
+                height: '100%',
             }}
         >
             {title && (
