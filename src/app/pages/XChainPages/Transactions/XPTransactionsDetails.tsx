@@ -53,7 +53,7 @@ export default function XPTransactionDetails() {
     return (
         <PageContainer
             pageTitle={`${location.pathname
-                .split('/')[1][0]
+                .split('/')[2][0]
                 .toLocaleUpperCase()} TransactionDetails`}
             metaContent="chain-overview x-chain"
         >
