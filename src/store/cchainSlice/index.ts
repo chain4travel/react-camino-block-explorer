@@ -106,7 +106,7 @@ const cchainSlice = createSlice({
                     // parentBlockNumber: parseInt(action.payload.header.number), to review
                     baseGaseFee: parseInt(action.payload.header.baseFeePerGas),
                     fees: 0,
-                    gasUsed: parseInt(action.payload.header.gasUsed).toLocaleString('en-US'),
+                    gasUsed: parseInt(action.payload.header.gasUsed),
                     time: new Date(parseInt(action.payload.header.timestamp) * 1000).toString(),
                     transactionsCount: action.payload.transactions
                         ? action.payload.transactions.length
@@ -168,7 +168,7 @@ const cchainSlice = createSlice({
                     gasPrice: parseInt(payload.gasPrice),
                     maxFeePerGas: parseInt(payload.maxFeePerGas),
                     maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
-                    gasUsed: parseInt(payload.receipt.gasUsed).toLocaleString('en-US'),
+                    gasUsed: parseInt(payload.receipt.gasUsed),
                     effectiveGasPrice: parseInt(payload.receipt.effectiveGasPrice),
                     transactionCost:
                         parseInt(payload.receipt.gasUsed) *

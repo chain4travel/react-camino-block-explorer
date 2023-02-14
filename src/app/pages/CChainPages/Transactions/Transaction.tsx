@@ -168,7 +168,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
                         'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
                     )}
                 >
-                    <Typography variant="body2" component="span">
+                    <Typography variant="caption" component="span">
                         {isDesktop
                             ? moment(transaction.timestamp).format('h:mm:ss A\xa0- DD.MM.YYYY')
                             : moment(transaction.timestamp).format('h:mm:ss A\xa0-\xa0DD.MM.YYYY')}
