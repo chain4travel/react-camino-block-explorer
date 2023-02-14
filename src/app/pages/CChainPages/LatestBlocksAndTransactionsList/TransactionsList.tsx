@@ -63,10 +63,16 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                 variant="caption"
                 component="span"
                 fontWeight="fontWeightBold"
-                sx={{ color: 'error.main', alignSelf: 'flex-end', my: '.5rem' }}
+                sx={{
+                    color: 'error.main',
+                    alignSelf: 'flex-end',
+                    my: '.5rem',
+                    fontSize: '11px',
+                    textAlign: 'right',
+                }}
             >
-                Transaction values are approximate, hover on number or click on transaction to view
-                full details.
+                Some transaction values may be approximate <br /> Hover over number or click on
+                transaction to view full details.
             </Typography>
             {link && <ShowAllButton toLink="transactions" />}
         </Paper>
