@@ -89,7 +89,7 @@ export function abbreviateNumber(value: number): string {
 
 export function customToLocaleString(value, toFixed = 4, abbreviate = false) {
     if (!abbreviate) {
-        let unrounded = value.toFixed(20)
+        let unrounded = new BigNumber(value).toFixed(20)
         let split = unrounded.split('.')
         let wholeStr = parseInt(split[0])
             .toString()

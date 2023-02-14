@@ -38,6 +38,7 @@ const TransactionDetails: FC = () => {
     const location = useLocation()
     const detailTr = useAppSelector(getCTransactionInformations)
     const detailCr = useAppSelector(getCTransactionCurrency)
+
     const loading = useAppSelector(getCTransactionDetailsStatus)
     const getNPStatus = useAppSelector(getNextPrevStatus)
     const nextPrevTX = useAppSelector(getNextPrevTx)

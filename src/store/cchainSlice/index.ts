@@ -15,6 +15,7 @@ import {
     fetchNextTransactionDetails,
     fetchPrevTransactionDetails,
 } from 'app/pages/CChainPages/Transactions/utils'
+import BigNumber from 'bignumber.js'
 
 const initialState: initialCchainStateType = {
     transactionCount: NaN,
@@ -135,10 +136,12 @@ const cchainSlice = createSlice({
                               timestamp: new Date(item.createdAt),
                               to: item.toAddr,
                               transactionCost: item.receipt.gasUsed
-                                  ? parseInt(item.receipt.gasUsed) *
-                                    parseInt(item.receipt.effectiveGasPrice)
-                                  : parseInt(item.maxFeePerGas) *
-                                    parseInt(item.receipt.effectiveGasPrice),
+                                  ? BigNumber(item.receipt.gasUsed)
+                                        .multipliedBy(BigNumber(item.receipt.effectiveGasPrice))
+                                        .toNumber()
+                                  : BigNumber(item.maxFeePerGas)
+                                        .multipliedBy(BigNumber(item.receipt.effectiveGasPrice))
+                                        .toNumber(),
                               value: parseInt(item.value),
                           }))
                         : [],
@@ -170,9 +173,9 @@ const cchainSlice = createSlice({
                     maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
                     gasUsed: parseInt(payload.receipt.gasUsed),
                     effectiveGasPrice: parseInt(payload.receipt.effectiveGasPrice),
-                    transactionCost:
-                        parseInt(payload.receipt.gasUsed) *
-                        parseInt(payload.receipt.effectiveGasPrice),
+                    transactionCost: BigNumber(payload.receipt.gasUsed)
+                        .multipliedBy(BigNumber(payload.receipt.effectiveGasPrice))
+                        .toNumber(),
                     value: parseInt(payload.value),
                 }
                 state.transcationDetails = {
