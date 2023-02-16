@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper, Typography, Box } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
 import { ValidatorType } from 'types/store'
 import Chip from '@mui/material/Chip'
 import moment from 'utils/helpers/moment'
 import Tooltip from '@mui/material/Tooltip'
+import CopyButton from '../../components/CopyToClipboardButton'
 
 export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
     return (
@@ -39,7 +40,18 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     NodeID
                 </Typography>
-                <Field type="string" value={validator.nodeID} />
+                <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    <Typography
+                        variant="body2"
+                        component="span"
+                        noWrap={true}
+                        fontWeight="fontWeightRegular"
+                        sx={{ width: '100%', display: 'block' }}
+                    >
+                        {validator.nodeID}
+                    </Typography>
+                    <CopyButton value={validator.nodeID} bordered={false} />
+                </Box>
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
@@ -81,7 +93,18 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     txID
                 </Typography>
-                <Field type="string" value={validator.txID} />
+                <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    <Typography
+                        variant="body2"
+                        component="span"
+                        noWrap={true}
+                        fontWeight="fontWeightRegular"
+                        sx={{ width: '100%', display: 'block' }}
+                    >
+                        {validator.txID}
+                    </Typography>
+                    <CopyButton value={validator.txID} bordered={false} />
+                </Box>
             </Grid>
         </Paper>
     )
