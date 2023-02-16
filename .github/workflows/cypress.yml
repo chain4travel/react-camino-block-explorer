@@ -61,12 +61,13 @@ jobs:
           USE_HTTP: true
         with:
           wait-on: 'http://localhost:5002/'
+          working-directory: camino-wallet
           start: yarn start
           # wait for 3 minutes for the server to respond
           wait-on-timeout: 180
           browser: chrome
           headless: true
-          config-file: ./camino-wallet/cypress.config.ts
+          config-file: cypress.config.ts
       # These extract all artifacts out from the container to git so they can be previewed
       - name: extract screenshots to git
         uses: actions/upload-artifact@v3
