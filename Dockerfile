@@ -24,7 +24,7 @@ ARG BUILD_ENV
 WORKDIR /app
 ARG WALLET_BRANCH=suite
 RUN git clone -b $WALLET_BRANCH https://github.com/chain4travel/camino-wallet.git
-WORKDIR /app/wallet
+WORKDIR /app/camino-wallet
 RUN yarn install
 RUN yarn build:$BUILD_ENV
 
