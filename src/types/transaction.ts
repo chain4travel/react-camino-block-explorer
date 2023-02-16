@@ -17,8 +17,8 @@ export interface XPTransaction {
     from: Fund[]
     to: Fund[]
     fee: number
-    inputTotals: Record<string, string>
-    outputTotals: Record<string, string>
+    inputTotals: Record<string, number>
+    outputTotals: Record<string, number>
     memo?: string
 }
 

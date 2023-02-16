@@ -47,11 +47,6 @@ const DateRange = ({
     setEndDate(new Date());
     setStartDate(new Date(date));
   };
-  console.log({
-    day: moment().subtract(1, 'days'),
-    year: moment().subtract(1, 'years'),
-    all: moment('01/01/2000'),
-  });
   const CustomInput = forwardRef(({ value, onClick, label }: any, ref) => (
     <CustomInputContainer style={{ cursor: 'default' }} >
       <NewTextField

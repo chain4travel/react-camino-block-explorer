@@ -15,7 +15,7 @@ module.exports = {
             styles: path.resolve(__dirname, 'src/styles'),
         },
     },
-
+    cache: false,
     module: {
         rules: [
             {

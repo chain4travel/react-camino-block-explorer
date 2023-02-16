@@ -118,14 +118,14 @@ const XPTransactionSecondSection = ({
                                 <CamAmount
                                     amount={tx.value}
                                     currency="nCam"
-                                    style={{
-                                        marginLeft: !isMobile ? 'auto' : '',
+                                    camAmountStyle={{
                                         color:
                                             from &&
                                             from[0] &&
                                             tx.address === from[0].address &&
                                             '#616161',
                                     }}
+                                    style={{ marginLeft: !isMobile ? 'auto' : '' }}
                                 />
                             </Grid>
                             {index === 4 && dataLeft > 0 && (
