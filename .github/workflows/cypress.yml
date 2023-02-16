@@ -50,9 +50,10 @@ jobs:
           git clone -b ${{ steps.setBranch.outputs.branch }} https://github.com/chain4travel/camino-suite.git
           cd camino-wallet
           yarn install
-          (yarn start&)
           cd ../camino-suite
           yarn install
+          (yarn start&)
+          cd ..
           (yarn start&)
 
       - name: cypress-run
