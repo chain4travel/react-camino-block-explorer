@@ -13,8 +13,8 @@
         "lint": "yarn run eslint src",
         "lint:fix": "yarn run eslint --fix src",
         "prepare": "husky install",
-        "format-check": "prettier --check '{*.js, src/**/*.{js,jsx,ts,tsx}, .github/workflows/*.yml}'",
-        "format": "prettier --write '{*.js, src/**/*.{js,jsx,ts,tsx}, .github/workflows/*.yml}'"
+        "format-check": "prettier --check '{*.js, src/**/*.{js,jsx,ts,tsx}, .github/workflows/*.{yml,yaml}}'",
+        "format": "prettier --write '{*.js, src/**/*.{js,jsx,ts,tsx}, .github/workflows/*.{yml,yaml}}'"
     },
     "devDependencies": {
         "@babel/core": "^7.15.8",
@@ -117,6 +117,8 @@
         "@ethersproject/bignumber": "^5.7.0",
         "bignumber.js": "^9.1.1",
         "bn.js": "^5.2.1",
+        "eslint-config-react-app": "^7.0.1",
+        "eslint-plugin-react": "^7.32.2",
         "ethers": "^6.0.2",
         "path": "^0.12.7"
     }
