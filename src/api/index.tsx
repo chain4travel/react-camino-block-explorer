@@ -222,7 +222,6 @@ export async function loadValidatorsInfo() {
 
 export const fetchDailyEmissions = (dates: any) => {
     return new Promise((resolve, reject) => {
-        console.log("datesDailyEmissions",dates);
         var config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
@@ -297,6 +296,29 @@ export const fetchCountryEmissions = (dates) => {
                 name: "",
                 value: []
             });
+        });
+    });
+}
+
+export const fetchBlockchainChartDailyTransactions = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                "highestValue": 0,
+                "highestDate": "",
+                "lowerValue": 0,
+                "lowerDate": "",
+                "txInfo": []
+              });
         });
     });
 }

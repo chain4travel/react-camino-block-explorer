@@ -106,3 +106,21 @@ export interface TranscationDetails {
     transactionInformations: TransactionInformations
     transactionCurrency: TransactionCurrency
 }
+
+export type DailyTransactionsInfo = {
+    date: string,
+    totalTransactions: number;
+    avgBlockTime: number;
+    avgBlockSize: number;
+    totalBlockCount: number;
+    totalUnclesCount: number;
+    newAddressSeen: string
+  }
+  
+  export type DailyTransactions = {
+    highestValue: number;
+    highestDate: string;
+    lowerValue: number;
+    lowerDate: string;
+    txInfo: DailyTransactionsInfo[]
+  };

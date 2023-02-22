@@ -10,7 +10,8 @@ import appConfigReducer from './app-config'
 import co2emissionsReducer from './co2emissionsSlice'
 import { store } from 'index'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
-import validatorsSlice from './validatorsSlice'
+import validatorsSlice from './validatorsSlice';
+import blockchainDatachartsReducer from './blockchainDatachartsSlice'
 
 export function configureAppStore() {
     const enhancers = [] as StoreEnhancer[]
@@ -21,7 +22,8 @@ export function configureAppStore() {
             xchain: xchainReducer,
             validators: validatorsSlice,
             appConfig: appConfigReducer,
-            co2emissions: co2emissionsReducer
+            co2emissions: co2emissionsReducer,
+            blockchainDataCharts: blockchainDatachartsReducer
         },
         middleware: getDefaultMiddleware =>
             getDefaultMiddleware({
