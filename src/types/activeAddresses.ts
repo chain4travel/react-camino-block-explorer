@@ -1,14 +1,16 @@
 export interface ActiveAddreses {
-    HighestNumber: number,
-    LowestNumber: number,
-    ActiveAddresesInfo: ActiveAddresesInfo[]
+    highestValue: number,
+    highestDate: string,
+    lowestValue: number,
+    lowestDate: string
+    addressInfo: ActiveAddresesInfo[]
 }
 
 export interface ActiveAddresesInfo {
-    Date: string,
-    ActiveAddresses: number,
-    ReceiveCount: number,
-    SendCount: number
+    dateAt: string,
+    total: number,
+    receiveCount: number,
+    sendCount: number
 }
 
 export default ActiveAddreses;

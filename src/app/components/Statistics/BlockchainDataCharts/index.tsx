@@ -143,7 +143,7 @@ const BlockchainCharts = ({
                       <Grid xs={12}>
                         <Text>{tooltipTitle}</Text>
                       </Grid>
-                      <Grid xs={6}>
+                      {/* <Grid xs={6}>
                         <Text>
                           Highest number of 38000 transactions on{' '}
                           {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
@@ -154,7 +154,7 @@ const BlockchainCharts = ({
                           Lowest number of 643 transactions on{' '}
                           {`${moment(endDate).format('dddd, MMMM DD, YYYY')}`}
                         </Text>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <DateRangeContainer>
                       <DateRange

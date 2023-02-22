@@ -71,15 +71,15 @@ export const gasUsedTooltip = (data: GasUsed) => {
 //Active Addresses
 export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
   const header = `<span>
-    ${moment(new Date(data.Date)).format('MMMM Do YYYY')}
+    ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Gas Used:</label> <b>${
-          data.ActiveAddresses
+          data.total
         }</b>]
         <br/>
         <br/>
-        <b>Receive Count:</b>${data.ReceiveCount}<br/>
-        <b>Send Count:</b>${data.SendCount}<br/>
+        <b>Receive Count:</b>${data.receiveCount}<br/>
+        <b>Send Count:</b>${data.sendCount}<br/>
         </span>`;
   return header;
 };

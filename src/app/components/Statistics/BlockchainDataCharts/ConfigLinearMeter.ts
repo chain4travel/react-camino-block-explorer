@@ -31,11 +31,10 @@ class ConfigLinearMeter {
                 this.data = dataChart
                 break
             case typesStatistic.GAS_USED:
-                console.log('dataChart', dataChart)
                 this.data = dataChart.txInfo
                 break
             case typesStatistic.ACTIVE_ADDRESSES:
-                this.data = dataChart.ActiveAddresesInfo
+                this.data = dataChart.addressInfo
                 break
             case typesStatistic.GAS_AVERAGE_PRICE:
                 this.data = dataChart
@@ -59,6 +58,8 @@ class ConfigLinearMeter {
                 )
             case typesStatistic.GAS_USED:
                 return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
+                case typesStatistic.ACTIVE_ADDRESSES:
+                return this.data.map((value, index) => moment(new Date(value.dateAt)).format('D MMM'))
             default:
                 return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
         }
@@ -107,7 +108,7 @@ class ConfigLinearMeter {
 
             case typesStatistic.ACTIVE_ADDRESSES:
                 return this.data.map((value, index) => {
-                    return { y: value.ActiveAddresses, name: value.Date }
+                    return { y: value.total, name: value.dateAt }
                 })
 
             case typesStatistic.GAS_AVERAGE_PRICE:

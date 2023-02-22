@@ -2,15 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 //API
 import {
+    fetchBlockchainActiveAddresses,
     fetchBlockchainChartDailyTransactions,
     fetchBlockchainChartUniqueAddresses,
     fetchBlockchainDailyGasUsed,
 } from '../../api/index'
 
 //Temporally JSON Test
-import uniqueAddresesData from '../../app/components/Statistics/json/uniqueAddresesData.json'
 import dailyTokenTransferData from '../../app/components/Statistics/json/dailyTokenTransaction.json'
-import gasUsedData from '../../app/components/Statistics/json/gasUsed.json'
 import activeAddressesData from '../../app/components/Statistics/json/activeAddresses.json'
 import gasAveragePriceData from '../../app/components/Statistics/json/gasAveragePrice.json'
 import gasAverageLimitData from '../../app/components/Statistics/json/gasAverageLimit.json'
@@ -38,6 +37,7 @@ export const loadUniqueAddresses = createAsyncThunk(
     },
 )
 
+//Pending Fetch
 export const loadDailyTokenTransfer = createAsyncThunk(
     'blockchainDataCharts/dailyTokenTransfers',
     async () => {
@@ -56,11 +56,12 @@ export const loadGasUsed = createAsyncThunk(
 
 export const loadActiveAddresses = createAsyncThunk(
     'blockchainDataCharts/activeAdresses',
-    async () => {
-        let data = activeAddressesData
+    async (dates: any, thunk) => {
+        let data = await fetchBlockchainActiveAddresses(dates)
         return data
     },
 )
+
 export const loadGasAveragePrice = createAsyncThunk(
     'blockchainDataCharts/gasAveragePrice',
     async () => {
@@ -68,6 +69,7 @@ export const loadGasAveragePrice = createAsyncThunk(
         return data
     },
 )
+
 export const loadGasAverageLimit = createAsyncThunk(
     'blockchainDataCharts/gasAverageLimit',
     async () => {
@@ -75,6 +77,7 @@ export const loadGasAverageLimit = createAsyncThunk(
         return data
     },
 )
+
 export const loadAverageBlockSize = createAsyncThunk(
     'blockchainDataCharts/averageBlockSizeData',
     async () => {

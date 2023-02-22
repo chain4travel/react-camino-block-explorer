@@ -368,3 +368,26 @@ export const fetchBlockchainDailyGasUsed = (dates) => {
         });
     });
 }
+
+export const fetchBlockchainActiveAddresses = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                "highestValue": 0,
+                "highestDate": "",
+                "lowestValue": 0,
+                "lowestDate": "",
+                "addressInfo": []
+              });
+        });
+    });
+}
