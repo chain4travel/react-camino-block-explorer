@@ -345,3 +345,26 @@ export const fetchBlockchainChartUniqueAddresses = (dates) => {
         });
     });
 }
+
+export const fetchBlockchainDailyGasUsed = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                "highestValue": 0,
+                "highestDate": "",
+                "lowerValue": 0,
+                "lowerDate": "",
+                "txInfo": []
+              });
+        });
+    });
+}

@@ -59,10 +59,10 @@ export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
 //Gas Used
 export const gasUsedTooltip = (data: GasUsed) => {
   const header = `<span>
-    ${moment(new Date(data.Date)).format('MMMM Do YYYY')}
+    ${moment(new Date(data.date)).format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Gas Used:</label> <b>${
-          data.TotalGasUsed
+          data.avgGas
         }</b>]
         </span>`;
   return header;

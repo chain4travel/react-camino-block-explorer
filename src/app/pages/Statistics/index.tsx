@@ -101,18 +101,19 @@ const Statistics: FC = () => {
                 typeStatistic={typeBlockchainDataChart.UNIQUE_ADRESSES}
               />
             </Grid>
-{/* 
+
             <Grid item md={6} xs={12}>
               <BlockchainCharts
-                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                tooltipTitle="The Camino Daily Gas Used Chart shows the historical total daily gas used of the Camino network."
                 darkMode={dark}
-                titleText={'Daily Token Transfer'}
-                utilSlice={() => loadDailyTokenTransfer()}
-                sliceGetter={getDailyTokenTransfers}
-                sliceGetterLoader={getDailyTokenTransfersLoading}
-                typeStatistic={typeBlockchainDataChart.DAILY_TOKEN_TRANSFER}
+                titleText={'Gas Used'}
+                utilSlice={(dates) => loadGasUsed(dates)}
+                sliceGetter={getGasUsed}
+                sliceGetterLoader={getGasUsedLoading}
+                typeStatistic={typeBlockchainDataChart.GAS_USED}
               />
-            </Grid> */}
+            </Grid>
+            
 {/*             
             
             <Grid item md={6} xs={12}>

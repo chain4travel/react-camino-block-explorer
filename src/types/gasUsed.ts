@@ -1,6 +1,6 @@
 export interface GasUsed {
-    Date: string;
-    TotalGasUsed: number;
+    date: string;
+    avgGas: number;
 }
 
 export default GasUsed;
