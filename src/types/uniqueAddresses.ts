@@ -1,13 +1,13 @@
 export type AddressInfo = {
-    Date: string,
-    TotalDistinctAddresses: number;
-    DailyIncrease: number;
+    dateAt: string,
+    totalAddresses: number;
+    dailyIncrease: number;
 }
 
 export type UniqueAdressesInfo = {
-    HighestValue: number;
-    HighestDate: string;
-    LowerValue: number;
-    LowerDate: string;
-    AddressInfo: AddressInfo[]
+    highestValue: number;
+    highestDate: string;
+    lowestValue: number;
+    lowestDate: string;
+    addressInfo: AddressInfo[]
 };

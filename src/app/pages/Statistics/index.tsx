@@ -89,19 +89,19 @@ const Statistics: FC = () => {
                 typeStatistic={typeBlockchainDataChart.DAILY_TRANSACTIONS}
               />
             </Grid>
-{/* 
             
             <Grid item md={6} xs={12}>
               <BlockchainCharts
-                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
+                tooltipTitle="The chart shows the total distinct numbers of address on the Camino blockchain and the increase in the number of address daily."
                 darkMode={dark}
                 titleText={'Unique Adresses'}
-                utilSlice={() => loadUniqueAddresses()}
+                utilSlice={(dates) => loadUniqueAddresses(dates)}
                 sliceGetter={getUniqueAddresses}
                 sliceGetterLoader={getUniqueAddressesLoading}
                 typeStatistic={typeBlockchainDataChart.UNIQUE_ADRESSES}
               />
             </Grid>
+{/* 
             <Grid item md={6} xs={12}>
               <BlockchainCharts
                 tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
@@ -112,7 +112,9 @@ const Statistics: FC = () => {
                 sliceGetterLoader={getDailyTokenTransfersLoading}
                 typeStatistic={typeBlockchainDataChart.DAILY_TOKEN_TRANSFER}
               />
-            </Grid>
+            </Grid> */}
+{/*             
+            
             <Grid item md={6} xs={12}>
               <BlockchainCharts
                 tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."

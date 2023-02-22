@@ -32,14 +32,14 @@ export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
 //Unique Addresses
 export const uniqueAddressesDailyIncreaseTooltip = (data: AddressInfo) => {
   const header = `<span>
-        ${moment(new Date(data.Date)).format('MMMM Do YYYY')}
+        ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Disctinct Addresses:</label> <b>${
-          data.TotalDistinctAddresses
+          data.totalAddresses
         }</b>]
         <br/>
         <br/>
-        <b>Daily Increase:</b>${data.DailyIncrease}<br/>
+        <b>Daily Increase:</b>${data.dailyIncrease}<br/>
         </span>`;
   return header;
 };

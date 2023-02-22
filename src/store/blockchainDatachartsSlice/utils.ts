@@ -2,7 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 //API
 import {
-    fetchBlockchainChartDailyTransactions
+    fetchBlockchainChartDailyTransactions,
+    fetchBlockchainChartUniqueAddresses
 } from '../../api/index'; 
 
 //Temporally JSON Test
@@ -33,8 +34,8 @@ export const loadDailyTransactionsStatistics = createAsyncThunk("blockchainDataC
     return data;
 });
 
-export const loadUniqueAddresses = createAsyncThunk("blockchainDataCharts/uniqueAddressesInfo", async () => {
-    let data = uniqueAddresesData;  
+export const loadUniqueAddresses = createAsyncThunk("blockchainDataCharts/uniqueAddressesInfo", async (dates: any, thunk) => {
+    let data = await fetchBlockchainChartUniqueAddresses(dates);  
     return data;
 });
 
