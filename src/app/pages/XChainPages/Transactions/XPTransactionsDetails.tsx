@@ -53,7 +53,7 @@ export default function XPTransactionDetails() {
     return (
         <PageContainer
             pageTitle={`${location.pathname
-                .split('/')[1][0]
+                .split('/')[2][0]
                 .toLocaleUpperCase()} TransactionDetails`}
             metaContent="chain-overview x-chain"
         >
@@ -98,7 +98,7 @@ export default function XPTransactionDetails() {
                 </Grid>
                 {details && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                        <BackButton backToLink={`/${getChainTypeFromUrl()}`} />
+                        <BackButton backToLink={`/explorer/${getChainTypeFromUrl()}`} />
                     </Box>
                 )}
             </Paper>

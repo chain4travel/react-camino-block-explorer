@@ -7,11 +7,11 @@ const ShowAllButton = ({ toLink }: { toLink: string }) => {
     return (
         <Box
             sx={{
-                marginTop: '1rem',
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                marginTop: 'auto',
             }}
         >
             <Link style={{ textDecoration: 'none' }} to={toLink} rel="noopener noreferrer">

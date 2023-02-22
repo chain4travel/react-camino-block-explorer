@@ -210,7 +210,7 @@ const CustomRow = ({ transaction }) => {
                         'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
                     )}
                 >
-                    <Typography variant="body2" component="span" noWrap={true}>
+                    <Typography variant="caption" component="span" noWrap={true}>
                         {moment(transaction.timestamp).format('h:mm:ss A\xa0-\xa0DD.MM.YYYY')}
                     </Typography>
                 </NoMaxWidthTooltip>

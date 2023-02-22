@@ -15,7 +15,7 @@ const Transactions: FC = () => {
     const location = useLocation()
     useEffect(() => {
         queryClient.clear()
-  }, [location]); // eslint-disable-line
+    }, [location]) // eslint-disable-line
     const {
         fetchNextPage, //function
         hasNextPage, // boolean
@@ -26,14 +26,15 @@ const Transactions: FC = () => {
         error,
     } = useInfiniteQuery(
         `/c-address}`,
-        async ({ pageParam = 50 }) =>
+        async ({ pageParam = 0 }) =>
             await loadCAddressTransactions({
                 address: getAddressFromUrl(),
-                offset: pageParam,
+                allPages: pageParam,
             }),
         {
             getNextPageParam: (lastPage, allPages) => {
-                return lastPage.length ? (allPages.length + 1) * 50 : undefined
+                if (!lastPage.length || lastPage.length < 50) return undefined
+                return allPages.length
             },
         },
     )

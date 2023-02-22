@@ -95,7 +95,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                                 <DetailsField
                                     field="Gas Limit"
                                     value={blockDetails['gasLimit']}
-                                    type="hexdata"
+                                    type="number"
                                     style={{ padding: '1rem' }}
                                 />
                                 <Divider variant="fullWidth" />
@@ -152,71 +152,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />
-                                {/* <Divider variant="fullWidth" /> */}
                             </Grid>
-
-                            {/* <Grid item xs={12}>
-                <DetailsField
-                  field="Transactions Root"
-                  value={blockDetails['transactionsRoot']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Receipts Root"
-                  value={blockDetails['receiptsRoot']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Block Gas Cost"
-                  value={blockDetails['blockGasCost']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Mix Hash"
-                  value={blockDetails['mixHash']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Ext Data Hash"
-                  value={blockDetails['extDataHash']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Ext Data Gas Used"
-                  value={blockDetails['extDataGasUsed']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-                <Divider variant="fullWidth" />
-              </Grid>
-              <Grid item xs={12}>
-                <DetailsField
-                  field="Logs Bloom"
-                  value={blockDetails['logsBloom']}
-                  type="hexdata"
-                  style={{ padding: '1rem' }}
-                />
-              </Grid> */}
                         </Grid>
                     </OutlinedContainer>
                 </>

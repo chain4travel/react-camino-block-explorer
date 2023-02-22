@@ -13,6 +13,7 @@ import { CTransaction } from 'types/transaction'
 import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
+import BigNumber from 'bignumber.js'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -26,7 +27,9 @@ export const getBlocksPage = async (startingBlock: number) => {
             gasLimit: parseInt(block.gasLimit),
             gasUsed: parseInt(block.gasUsed),
             numberOfTransactions: block.evmTx ? block.evmTx : 0,
-            blockCost: parseInt(block.gasUsed) * parseInt(block.baseFeePerGas),
+            blockCost: BigNumber(block.gasUsed)
+                .multipliedBy(BigNumber(block.baseFeePerGas))
+                .toNumber(),
         }
     })
 }
@@ -52,8 +55,9 @@ export async function getTransactionsPage(
             timestamp: parseInt(transaction.timestamp) * 1000,
             to: transaction.to,
             value: parseInt(transaction.value),
-            transactionCost:
-                parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+            transactionCost: BigNumber(transaction.gasUsed)
+                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                .toNumber(),
         }
     })
 }
@@ -87,27 +91,30 @@ export async function loadBlocksAndTransactions({ address, offset }) {
     }
 }
 
-export async function loadCAddressTransactions({ address, offset }) {
+export async function loadCAddressTransactions({ address, allPages }) {
     try {
-        let res = await loadBlocksAndTransactions({ address, offset })
-        return res.transactions.map(transaction => {
-            return {
-                blockNumber: parseInt(transaction.block),
-                transactionIndex: parseInt(transaction.index),
-                from: transaction.from,
-                hash: transaction.hash,
-                status:
-                    parseInt(transaction.status) === 1
-                        ? 'Success'
-                        : `Failed-${parseInt(transaction.status)}`,
-                timestamp: parseInt(transaction.timestamp) * 1000,
-                to: transaction.to,
-                value: parseInt(transaction.value),
-                transactionCost:
-                    parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
-                direction: transaction.from === address ? 'out' : 'in',
-            }
-        })
+        let res = await loadBlocksAndTransactions({ address, offset: (allPages + 1) * 50 })
+        let transactions = res?.transactions?.slice(allPages * 50)
+        if (transactions)
+            return transactions.map(transaction => {
+                return {
+                    blockNumber: parseInt(transaction.block),
+                    transactionIndex: parseInt(transaction.index),
+                    from: transaction.from,
+                    hash: transaction.hash,
+                    status:
+                        parseInt(transaction.status) === 1
+                            ? 'Success'
+                            : `Failed-${parseInt(transaction.status)}`,
+                    timestamp: parseInt(transaction.timestamp) * 1000,
+                    to: transaction.to,
+                    value: parseInt(transaction.value),
+                    transactionCost: BigNumber(transaction.gasUsed)
+                        .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                        .toNumber(),
+                    direction: transaction.from === address ? 'out' : 'in',
+                }
+            })
     } catch (e) {
         throw new Error(e.message)
     }
@@ -179,8 +186,9 @@ export const fetchBlocksTransactionsCChain = async (): Promise<loadBlocksTransac
                         timestamp: parseInt(element.timestamp) * 1000,
                         to: element.to,
                         value: parseInt(element.value),
-                        transactionCost:
-                            parseInt(element.gasUsed) * parseInt(element.effectiveGasPrice),
+                        transactionCost: BigNumber(element.gasUsed)
+                            .multipliedBy(BigNumber(element.effectiveGasPrice))
+                            .toNumber(),
                     }
                     return result
                 },

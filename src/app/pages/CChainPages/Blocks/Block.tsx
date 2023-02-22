@@ -66,19 +66,19 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     hash
                 </Typography>
-                <Field type="number" value={block.hash} />
+                <Field type="hexdata" value={block.hash} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Gas Used
                 </Typography>
-                <Field type="string" value={block.gasUsed?.toString()} />
+                <Field type="string" value={block.gasUsed} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Gas Limit
                 </Typography>
-                <Field type="string" value={block.gasLimit?.toString()} />
+                <Field type="string" value={block.gasLimit} />
             </Grid>
         </>
     )
@@ -107,10 +107,10 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
                 <Field type="string" value={block.hash} />
             </TableCell>
             <TableCell align="left">
-                <Field type="string" value={block.gasUsed?.toString()} />
+                <Field type="number" value={block.gasUsed} />
             </TableCell>
             <TableCell align="left">
-                <Field type="string" value={block.gasLimit?.toString()} />
+                <Field type="number" value={block.gasLimit} />
             </TableCell>
         </>
     )
