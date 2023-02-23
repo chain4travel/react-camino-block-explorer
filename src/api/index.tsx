@@ -318,7 +318,7 @@ export const fetchBlockchainChartDailyTransactions = (dates) => {
                 "lowerValue": 0,
                 "lowerDate": "",
                 "txInfo": []
-              });
+            });
         });
     });
 }
@@ -341,7 +341,7 @@ export const fetchBlockchainChartUniqueAddresses = (dates) => {
                 "lowestValue": 0,
                 "lowestDate": "",
                 "addressInfo": []
-              });
+            });
         });
     });
 }
@@ -364,7 +364,7 @@ export const fetchBlockchainDailyGasUsed = (dates) => {
                 "lowerValue": 0,
                 "lowerDate": "",
                 "txInfo": []
-              });
+            });
         });
     });
 }
@@ -387,7 +387,7 @@ export const fetchBlockchainActiveAddresses = (dates) => {
                 "lowestValue": 0,
                 "lowestDate": "",
                 "addressInfo": []
-              });
+            });
         });
     });
 }
@@ -408,3 +408,27 @@ export const fetchBlockchainAverageBlockSize = (dates) => {
         });
     });
 }
+
+export const fetchBlockchainAverageGasPriceUsed = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve({
+                "highestValue": 0,
+                "highestDate": "",
+                "lowerValue": 0,
+                "lowerDate": "",
+                "txInfo": null
+            });
+        });
+    });
+}
+

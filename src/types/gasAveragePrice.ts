@@ -1,8 +1,15 @@
+
+export interface GasAveragePriceInfo {
+  avgGas: number,
+  date: string
+}
+
 export interface GasAveragePrice {
-  MaxGasPrice: number;
-  MinGasPrice: number;
-  AverageGasPrice: number;
-  Date: string;
+  highestValue: number;
+  highestDate: string;
+  lowerValue: number;
+  lowerDate: string;
+  txInfo: GasAveragePriceInfo[]
 }
 
 

@@ -16,6 +16,7 @@ class ConfigLinearMeter {
     categories: any[] = []
     typeBlockchainDataChart: any
     data: any[] = []
+    highestAndLowestInfo: any
 
     constructor(typeBlockchainDataChart: any, title: string, dataChart: any) {
         this.typeBlockchainDataChart = typeBlockchainDataChart
@@ -37,13 +38,19 @@ class ConfigLinearMeter {
                 this.data = dataChart.addressInfo
                 break
             case typesStatistic.GAS_AVERAGE_PRICE:
-                this.data = dataChart
+                this.highestAndLowestInfo = {
+                    highestValue: dataChart.highestValue,
+                    highestDate: dataChart.highestDate,
+                    lowerValue: dataChart.lowerValue,
+                    lowerDate: dataChart.lowerDate,
+                }
+                this.data = dataChart.txInfo
                 break
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 this.data = dataChart
                 break
             case typesStatistic.AVERAGE_BLOCK_SIZE:
-                console.log('dataAverageBlockSize', dataChart);
+                console.log('dataAverageBlockSize', dataChart)
                 this.data = dataChart
                 break
         }
@@ -67,6 +74,8 @@ class ConfigLinearMeter {
                 return this.data.map((value, index) =>
                     moment(new Date(value.dateInfo)).format('D MMM'),
                 )
+            case typesStatistic.GAS_AVERAGE_PRICE:
+                return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
             default:
                 return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
         }
@@ -85,7 +94,7 @@ class ConfigLinearMeter {
             case typesStatistic.ACTIVE_ADDRESSES:
                 return activeAddressesTooltip(this.data[index])
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return averageGasPriceTooltip(this.data[index])
+                return averageGasPriceTooltip(this.data[index], this.highestAndLowestInfo)
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 return averageGasLimitTooltip(this.data[index])
             case typesStatistic.AVERAGE_BLOCK_SIZE:
@@ -107,27 +116,22 @@ class ConfigLinearMeter {
                 return this.data.map((value, index) => {
                     return { y: value.TotalTokenTransfer, name: value.Date }
                 })
-
             case typesStatistic.GAS_USED:
                 return this.data.map((value, index) => {
                     return { y: value.avgGas, name: value.date }
                 })
-
             case typesStatistic.ACTIVE_ADDRESSES:
                 return this.data.map((value, index) => {
                     return { y: value.total, name: value.dateAt }
                 })
-
             case typesStatistic.GAS_AVERAGE_PRICE:
                 return this.data.map((value, index) => {
-                    return { y: value.AverageGasPrice, name: value.Date }
+                    return { y: value.avgGas, name: value.date }
                 })
-
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 return this.data.map((value, index) => {
                     return { y: value.AverageGasLimit, name: value.Date }
                 })
-
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 return this.data.map((value, index) => {
                     return { y: value.blockSize, name: value.dateInfo }
