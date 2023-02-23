@@ -391,3 +391,20 @@ export const fetchBlockchainActiveAddresses = (dates) => {
         });
     });
 }
+
+export const fetchBlockchainAverageBlockSize = (dates) => {
+    return new Promise((resolve, reject) => {
+        var config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios(config).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            resolve([]);
+        });
+    });
+}

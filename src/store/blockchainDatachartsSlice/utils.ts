@@ -6,19 +6,18 @@ import {
     fetchBlockchainChartDailyTransactions,
     fetchBlockchainChartUniqueAddresses,
     fetchBlockchainDailyGasUsed,
+    fetchBlockchainAverageBlockSize
 } from '../../api/index'
 
 //Temporally JSON Test
 import dailyTokenTransferData from '../../app/components/Statistics/json/dailyTokenTransaction.json'
-import activeAddressesData from '../../app/components/Statistics/json/activeAddresses.json'
 import gasAveragePriceData from '../../app/components/Statistics/json/gasAveragePrice.json'
 import gasAverageLimitData from '../../app/components/Statistics/json/gasAverageLimit.json'
 import averageBlockSizeData from '../../app/components/Statistics/json/averageBlockSize.json'
 
 /*
-    /activeAddresses
-    /averageBlockSize
     /avgGasPriceUsed
+    /averageBlockSize
 */
 
 export const loadDailyTransactionsStatistics = createAsyncThunk(
@@ -80,8 +79,8 @@ export const loadGasAverageLimit = createAsyncThunk(
 
 export const loadAverageBlockSize = createAsyncThunk(
     'blockchainDataCharts/averageBlockSizeData',
-    async () => {
-        let data = averageBlockSizeData
+    async (dates: any, thunk) => {
+        let data = await fetchBlockchainAverageBlockSize(dates);
         return data
     },
 )

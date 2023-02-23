@@ -43,6 +43,7 @@ class ConfigLinearMeter {
                 this.data = dataChart
                 break
             case typesStatistic.AVERAGE_BLOCK_SIZE:
+                console.log('dataAverageBlockSize', dataChart);
                 this.data = dataChart
                 break
         }
@@ -58,8 +59,14 @@ class ConfigLinearMeter {
                 )
             case typesStatistic.GAS_USED:
                 return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
-                case typesStatistic.ACTIVE_ADDRESSES:
-                return this.data.map((value, index) => moment(new Date(value.dateAt)).format('D MMM'))
+            case typesStatistic.ACTIVE_ADDRESSES:
+                return this.data.map((value, index) =>
+                    moment(new Date(value.dateAt)).format('D MMM'),
+                )
+            case typesStatistic.AVERAGE_BLOCK_SIZE:
+                return this.data.map((value, index) =>
+                    moment(new Date(value.dateInfo)).format('D MMM'),
+                )
             default:
                 return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
         }
@@ -123,7 +130,7 @@ class ConfigLinearMeter {
 
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 return this.data.map((value, index) => {
-                    return { y: value.BlockSize, name: value.Date }
+                    return { y: value.blockSize, name: value.dateInfo }
                 })
         }
     }

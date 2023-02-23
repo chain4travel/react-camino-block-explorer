@@ -126,6 +126,18 @@ const Statistics: FC = () => {
               />
             </Grid>
 
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="The Camino Average Block Size Chart indicates the historical average block size in bytes of the Camino blockchain."
+                darkMode={dark}
+                titleText={'Average Block Size'}
+                utilSlice={(dates) => loadAverageBlockSize(dates)}
+                sliceGetter={getAverageBlockSize}
+                sliceGetterLoader={getAverageBlockSizeInfo}
+                typeStatistic={typeBlockchainDataChart.AVERAGE_BLOCK_SIZE}
+              />
+            </Grid>
+
             {/*             
             
             <Grid item md={6} xs={12}>
@@ -165,17 +177,7 @@ const Statistics: FC = () => {
                 typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_LIMIT}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
-              <BlockchainCharts
-                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
-                darkMode={dark}
-                titleText={'Average Block Limit'}
-                utilSlice={() => loadAverageBlockSize()}
-                sliceGetter={getAverageBlockSize}
-                sliceGetterLoader={getAverageBlockSizeInfo}
-                typeStatistic={typeBlockchainDataChart.AVERAGE_BLOCK_SIZE}
-              />
-            </Grid> */}
+             */}
           </Grid>
         </Box>
       </Paper>
