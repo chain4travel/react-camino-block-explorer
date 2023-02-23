@@ -24,13 +24,15 @@ import InfoIcon from '@mui/icons-material/Info';
 import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import moment from 'moment';
+import { typeBlockchainDataChart } from '../../../pages/Statistics/ChartSelector';
+
 
 const TooltipContainer = styled.div`
   display: flex;
   padding-top: 2rem;
 `;
 const TooltipStyle = styled(Tooltip)`
-  margin-right: 20rem;
+  
 `
 const CardHeaderStyle = styled(CardHeader)`
   margin-bottom: 0rem;
@@ -69,6 +71,8 @@ const BlockchainCharts = ({
   const [openModal, setOpenModal] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>(new Date());
+
+  const { isTablet, isMobile, isSmallMobile } = useWidth();
 
   const dispatch = useAppDispatch();
 
@@ -118,6 +122,10 @@ const BlockchainCharts = ({
                 padding: '1.5rem',
                 minWidth: isDesktop ? '1500px' : '0px',
               }}
+              style={{
+                maxHeight: isSmallMobile ? 550 : '80%',
+                overflowY: 'scroll'
+              }}
             >
               <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
                 <CardHeaderStyle
@@ -144,18 +152,25 @@ const BlockchainCharts = ({
                       <Grid xs={12}>
                         <Text>{tooltipTitle}</Text>
                       </Grid>
-                      {/* <Grid xs={6}>
-                        <Text>
-                          Highest number of 38000 transactions on{' '}
-                          {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                        </Text>
-                      </Grid>
-                      <Grid xs={6}>
-                        <Text>
-                          Lowest number of 643 transactions on{' '}
-                          {`${moment(endDate).format('dddd, MMMM DD, YYYY')}`}
-                        </Text>
-                      </Grid> */}
+
+                      {
+                        dataStatistics != null && dataStatistics != undefined ? <>
+                          <Grid xs={12} md={6}>
+                            {
+                              typeStatistic == typeBlockchainDataChart.DAILY_TRANSACTIONS ? <Text>
+                                Highest number of {dataStatistics.highestValue} transactions on{' '}
+                                {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
+                              </Text> : null
+                            }
+                          </Grid>
+                          <Grid xs={12} md={6}>
+                            {typeStatistic == typeBlockchainDataChart.DAILY_TRANSACTIONS ? <Text>
+                              Lowest number of {dataStatistics.lowerValue} transactions on{' '}
+                              {`${moment(endDate).format('dddd, MMMM DD, YYYY')}`}
+                            </Text> : null}
+                          </Grid>
+                        </> : null
+                      }
                     </Grid>
                     <DateRangeContainer>
                       <DateRange
@@ -168,12 +183,13 @@ const BlockchainCharts = ({
                     </DateRangeContainer>
 
                     {dataStatistics !== undefined && dataStatistics !== null && (
-                      <LinearMeterContainer>
+                      <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
                         <LinearMeter
                           darkMode={darkMode}
                           titleText={titleText}
                           data={dataStatistics}
                           typeStatistic={typeStatistic}
+
                         />
                       </LinearMeterContainer>
                     )}
