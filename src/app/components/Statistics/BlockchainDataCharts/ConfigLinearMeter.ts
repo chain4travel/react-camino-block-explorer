@@ -10,6 +10,7 @@ import {
     averageBlockSizeTooltip,
 } from './Tooltips'
 import moment from 'moment'
+import { ethers } from 'ethers'
 
 class ConfigLinearMeter {
     title: string
@@ -115,7 +116,8 @@ class ConfigLinearMeter {
                 })
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return this.data.map((value, index) => {
-                    return { y: value.counter, name: value.dateAt }
+                    let convertedCounter = parseFloat(ethers.formatEther(value.counter.toString())).toFixed(3);
+                    return { y: parseInt(convertedCounter), name: value.dateAt }
                 })
             case typesStatistic.GAS_USED:
                 return this.data.map((value, index) => {

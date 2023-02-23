@@ -29,7 +29,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
         labels: {
           useHTML: true,
           formatter: function (obj) { return `<span style="text-align: center;color:${darkMode === true ? 'white' : 'black'}"> ${obj.value}</span>` },
-        },
+        }
       },
       xAxis: {
         accessibility: {
