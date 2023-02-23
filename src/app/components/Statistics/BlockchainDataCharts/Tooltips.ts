@@ -47,10 +47,10 @@ export const uniqueAddressesDailyIncreaseTooltip = (data: AddressInfo) => {
 //Daily Token Transfer
 export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
   const header = `<span>
-    ${moment(new Date(data.Date)).format('MMMM Do YYYY')}
+    ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Token Transfer:</label> <b>${
-          data.TotalTokenTransfer
+          data.counter
         }</b>]
         </span>`;
   return header;
@@ -89,7 +89,7 @@ export const averageGasPriceTooltip = (data: GasAveragePriceInfo, highestAndLowe
   const header = `<span>
     ${moment(new Date(data.date)).format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">average gas price:</label> <b>${
+        [<label style="color: blue">Average gas price:</label> <b>${
           data.avgGas
         } Gwei</b>]
         <br/>
