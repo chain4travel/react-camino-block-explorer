@@ -426,8 +426,8 @@ export const fetchBlockchainAverageGasPriceUsed = (dates) => {
                 "highestDate": "",
                 "lowerValue": 0,
                 "lowerDate": "",
-                "txInfo": null
-            });
+                "txInfo": []
+              });
         });
     });
 }

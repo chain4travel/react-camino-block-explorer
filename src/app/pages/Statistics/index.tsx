@@ -73,11 +73,22 @@ const Statistics: FC = () => {
       >
         <SubPageTitle
           title="Blockchain Data"
-          style={{ marginBottom: '2rem', marginTop: '2rem', fontSize: '2rem' }}
+          styleTyphography={{ marginBottom: '2rem', marginTop: '2rem', fontSize: '2rem' }}
           hiddenBackButton={true}
         />
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
+              <BlockchainCharts
+                tooltipTitle="The chart shows the number of Camino tokens transferred daily."
+                darkMode={dark}
+                titleText={'Gas Limit'}
+                utilSlice={(dates) => loadGasAverageLimit(dates)}
+                sliceGetter={getGasAverageLimit}
+                sliceGetterLoader={getGasAverageLimitInfo}
+                typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_LIMIT}
+              />
+            </Grid>
             <Grid item md={6} xs={12}>
               <BlockchainCharts
                 tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
@@ -160,28 +171,9 @@ const Statistics: FC = () => {
                 typeStatistic={typeBlockchainDataChart.DAILY_TOKEN_TRANSFER}
               />
             </Grid>
-
-            {/*
-
-            <Grid item md={6} xs={12}>
-              <BlockchainCharts
-                tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."
-                darkMode={dark}
-                titleText={'Gas Average Limit'}
-                utilSlice={() => loadGasAverageLimit()}
-                sliceGetter={getGasAverageLimit}
-                sliceGetterLoader={getGasAverageLimitInfo}
-                typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_LIMIT}
-              />
-            </Grid>
-             */}
           </Grid>
         </Box>
       </Paper>
-
-
-
-      {/* */}
       <Paper
         variant="outlined"
         square
@@ -198,7 +190,7 @@ const Statistics: FC = () => {
       >
         <SubPageTitle
           title="CO2 Emissions"
-          style={{ marginBottom: '20px' }}
+          styleTyphography={{ marginBottom: '2rem', marginTop: '2rem', fontSize: '2rem' }}
           hiddenBackButton={true}
         />
         <Box sx={{ flexGrow: 1 }}>

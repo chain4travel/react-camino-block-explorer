@@ -34,8 +34,9 @@ const TooltipStyle = styled(Tooltip)`
 `
 const CardHeaderStyle = styled(CardHeader)`
   margin-bottom: 0rem;
-  margin-left: 1.5rem;
+  margin-left: 0.5rem;
 `;
+
 const LinearMeterContainer = styled.div`
   margin-top: -3rem;
 `;
@@ -68,17 +69,17 @@ const BlockchainCharts = ({
   const [openModal, setOpenModal] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>(new Date());
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if(startDate != undefined && endDate != undefined)
-    {
+    if (startDate != undefined && endDate != undefined) {
       dispatch(utilSlice({
         startDate: moment(startDate).toISOString(),
         endDate: moment(endDate).toISOString()
       }));
     }
-  },[startDate, endDate])
+  }, [startDate, endDate])
 
   useEffect(() => {
     setStartDate(new Date(moment().subtract(1, 'months').format()));
@@ -184,21 +185,25 @@ const BlockchainCharts = ({
 
           <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
             <CardHeaderStyle
-              title={titleText}
-              action={
-                <TooltipContainer>
+              title={
+                <span>
+                  {titleText}
                   <TooltipStyle title={tooltipTitle} placement="top">
                     <IconButton>
                       <InfoIcon />
                     </IconButton>
                   </TooltipStyle>
+                </span>
+              }
+              action={
+                <TooltipContainer>
                   <IconButton
                     color="info"
                     component="label"
                     onClick={() => setOpenModal(true)}
                     style={{
                       cursor: 'default',
-                      color:'GrayText',
+                      color: 'GrayText',
                     }}
                   >
                     <ArrowOutwardIcon />
