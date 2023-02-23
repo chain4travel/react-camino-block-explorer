@@ -79,15 +79,15 @@ const BlockchainCharts = ({
   useEffect(() => {
     if (startDate != undefined && endDate != undefined) {
       dispatch(utilSlice({
-        startDate: moment(startDate).toISOString(),
-        endDate: moment(endDate).toISOString()
+        startDate: moment(startDate).toISOString(true),
+        endDate: moment(endDate).toISOString(true)
       }));
     }
   }, [startDate, endDate])
 
   useEffect(() => {
-    setStartDate(new Date(moment().subtract(1, 'months').format()));
-    setEndDate(new Date());
+    setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')));
+    setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')));
   }, []);
 
   const dataStatistics: any = useAppSelector(sliceGetter);

@@ -72,18 +72,27 @@ const DateRange = ({
   darkMode
 }) => {
 
-
   const { isTablet, isDesktop, isSmallMobile } = useWidth();
 
-  const changeDate = date => {
-    setEndDate(new Date());
-    setStartDate(new Date(date));
-  };
-  console.log({
-    day: moment().subtract(1, 'days'),
-    year: moment().subtract(1, 'years'),
-    all: moment('01/01/2000'),
-  });
+  const handleClickOneDay = () => {
+    setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')));
+    setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')));
+  }
+
+  const handleClickOneMonth = () => {
+    setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')));
+    setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')));
+  }
+  
+  const handleClickOneYear = () => {
+    setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')));
+    setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')));
+  }
+
+  const handleClickOneAllTime = () => {
+    setStartDate(new Date(moment('01/01/2000', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss')));
+    setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')));
+  }
 
   const CustomInput = forwardRef(({ value, onClick, label }: any, ref: any) => (
     <CustomInputContainer style={{ cursor: 'default' }} >
@@ -131,7 +140,7 @@ const DateRange = ({
           <FilterContainer>
             <StyledButton
               onClick={() =>
-                changeDate(moment().subtract(1, 'days').format('YYYY-MM-DD'))
+                handleClickOneDay()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -141,7 +150,7 @@ const DateRange = ({
 
             <StyledButton
               onClick={() =>
-                changeDate(moment().subtract(1, 'months').format('YYYY-MM-DD'))
+                handleClickOneMonth()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -150,7 +159,7 @@ const DateRange = ({
             </StyledButton>
             <StyledButton
               onClick={() =>
-                changeDate(moment().subtract(1, 'years').format('YYYY-MM-DD'))
+                handleClickOneYear()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -160,7 +169,7 @@ const DateRange = ({
 
             <StyledButton
               onClick={() =>
-                changeDate(moment('01/01/2000', 'DD/MM/YYYY').format('YYYY-MM-DD'))
+                handleClickOneAllTime()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -198,7 +207,7 @@ const DateRange = ({
           <Grid item xs={6}>
             <StyledButtonMobile
               onClick={() =>
-                changeDate(moment().subtract(1, 'days').format('YYYY-MM-DD'))
+                handleClickOneDay()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -208,7 +217,7 @@ const DateRange = ({
 
             <StyledButtonMobile
               onClick={() =>
-                changeDate(moment().subtract(1, 'months').format('YYYY-MM-DD'))
+                handleClickOneMonth()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -219,7 +228,7 @@ const DateRange = ({
           <Grid item xs={6}>
             <StyledButtonMobile
               onClick={() =>
-                changeDate(moment().subtract(1, 'years').format('YYYY-MM-DD'))
+                handleClickOneYear()
               }
               style={{ cursor: 'default' }}
               variant="contained"
@@ -229,7 +238,7 @@ const DateRange = ({
 
             <StyledButtonMobile
               onClick={() =>
-                changeDate(moment('01/01/2000', 'DD/MM/YYYY').format('YYYY-MM-DD'))
+                handleClickOneAllTime()
               }
               style={{ cursor: 'default' }}
               variant="contained"
