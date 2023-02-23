@@ -8,23 +8,41 @@ export const PCHAIN = BASE_PATH + '/p-chain'
 
 export const MAINNET = BASE_PATH + '/mainnet'
 
-export const CTRANSACTIONS = CCHAIN + '/transactions'
+export const TRANSACTION = '/tx'
 
-export const CBLOCKS = CCHAIN + '/blocks'
+export const BLOCK = '/block'
 
-export const CADDRESS = CCHAIN + '/address'
+export const ADDRESS = '/address'
 
-export const XTRANSACTIONS = XCHAIN + '/transactions'
+export const DETAILS = '/details'
 
-export const XBLOCKS = XCHAIN + '/blocks'
+export const BLOCKS = '/blocks'
 
-export const XADDRESS = XCHAIN + '/address'
+export const TRANSACTIONS = '/txs'
 
-export const PTRANSACTIONS = PCHAIN + '/transactions'
+export const CTRANSACTION = CCHAIN + TRANSACTION
 
-export const PBLOCKS = PCHAIN + '/blocks'
+export const CTRANSACTIONS = CCHAIN + TRANSACTIONS
 
-export const PADDRESS = PCHAIN + '/address'
+export const CBLOCKS = CCHAIN + BLOCK
+
+export const CADDRESS = CCHAIN + ADDRESS
+
+export const XTRANSACTION = XCHAIN + TRANSACTION
+
+export const XTRANSACTIONS = XCHAIN + TRANSACTIONS
+
+export const XBLOCKS = XCHAIN + BLOCK
+
+export const XADDRESS = XCHAIN + ADDRESS
+
+export const PTRANSACTION = PCHAIN + TRANSACTION
+
+export const PTRANSACTIONS = PCHAIN + TRANSACTIONS
+
+export const PBLOCKS = PCHAIN + BLOCK
+
+export const PADDRESS = PCHAIN + ADDRESS
 
 export const VALIDATORS = BASE_PATH + '/validators'
 

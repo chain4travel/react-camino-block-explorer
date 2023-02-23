@@ -5,6 +5,7 @@ import { BlockTableData } from 'types/block'
 import useWidth from 'app/hooks/useWidth'
 import AddressLink from 'app/components/AddressLink'
 import FilledCard from 'app/components/FilledCard'
+import { CBLOCKS } from 'utils/route-paths'
 import moment from 'moment'
 
 interface BlockProps {
@@ -44,7 +45,7 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
                     Block
                 </Typography>
                 <AddressLink
-                    to={`${block.number}`}
+                    to={`${CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}
@@ -89,7 +90,7 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
         <>
             <TableCell>
                 <AddressLink
-                    to={`${block.number}`}
+                    to={`${CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}

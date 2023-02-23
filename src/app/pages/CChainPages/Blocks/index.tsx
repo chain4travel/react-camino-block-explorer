@@ -20,7 +20,7 @@ const Blocks: FC = () => {
         data,
         status,
         // error,
-    } = useInfiniteQuery('/blocks', ({ pageParam = NaN }) => getBlocksPage(pageParam), {
+    } = useInfiniteQuery('/block', ({ pageParam = NaN }) => getBlocksPage(pageParam), {
         getNextPageParam: (lastPage, allPages) => {
             return lastPage.length ? lastPage[lastPage.length - 1].number - 1 : undefined
         },

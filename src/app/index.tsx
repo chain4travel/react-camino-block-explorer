@@ -29,30 +29,22 @@ export function App() {
                     />
                     <Route path="c-chain">
                         <Route index element={<CChainPage />} />
-                        <Route path="blocks">
-                            <Route index element={<Blocks />} />
-                            <Route path=":id" element={<BlockDetails />} />
-                        </Route>
-                        <Route path="transactions">
-                            <Route index element={<CTransactions />} />
-                            <Route path=":id" element={<TransactionDetails />} />
-                        </Route>
+                        <Route path="blocks" element={<Blocks />} />
+                        <Route path="txs" element={<CTransactions />} />
+                        <Route path="block/:id" element={<BlockDetails />} />
+                        <Route path="tx/:id" element={<TransactionDetails />} />
                         <Route path="address/:id" element={<Address />} />
                     </Route>
                     <Route path="x-chain">
                         <Route index element={<XChainPage />} />
-                        <Route path="transactions">
-                            <Route index element={<XPTransactions />} />
-                            <Route path=":id" element={<XPTransactionDetails />} />
-                        </Route>
+                        <Route path="txs" element={<XPTransactions />} />
+                        <Route path="tx/:id" element={<XPTransactionDetails />} />
                         <Route path="address/:id" element={<XAddressDetail />} />
                     </Route>
                     <Route path="p-chain">
                         <Route index element={<PChainPage />} />
-                        <Route path="transactions">
-                            <Route index element={<XPTransactions />} />
-                            <Route path=":id" element={<XPTransactionDetails />} />
-                        </Route>
+                        <Route path="txs" element={<XPTransactions />} />
+                        <Route path="tx/:id" element={<XPTransactionDetails />} />
                         <Route path="address/:id" element={<XAddressDetail />} />
                     </Route>
                     <Route path={`${BASE_PATH}/mainnet`} element={<ComingSoonPage />} />
