@@ -64,7 +64,7 @@ const CustomInputContainer = styled.div`
 `
 
 const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate, darkMode }) => {
-    const { isTablet, isDesktop } = useWidth()
+    const { isWideScreenDown, isWidescreen } = useWidth()
 
     const handleClickOneDay = () => {
         setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')))
@@ -130,7 +130,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
 
     return (
         <Container>
-            {isDesktop && (
+            {isWidescreen && (
                 <>
                     <div style={{ position: 'relative', right: '12%' }}>
                         <FilterContainer>
@@ -194,10 +194,10 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                 </>
             )}
 
-            {isTablet && (
+            {isWideScreenDown && (
                 <>
                     <Grid container>
-                        <Grid item xs={6}>
+                        <Grid item sm={6}>
                             <StyledButtonMobile
                                 onClick={() => handleClickOneDay()}
                                 style={{ cursor: 'default' }}
@@ -214,7 +214,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                                 1 Month
                             </StyledButtonMobile>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item sm={6}>
                             <StyledButtonMobile
                                 onClick={() => handleClickOneYear()}
                                 style={{ cursor: 'default' }}

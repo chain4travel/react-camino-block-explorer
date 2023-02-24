@@ -58,13 +58,11 @@ const BlockchainCharts = ({
     typeStatistic,
     tooltipTitle,
 }) => {
-    const { isDesktop } = useWidth()
-
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
 
-    const { isTablet, isSmallMobile } = useWidth()
+    const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
     const dispatch = useAppDispatch()
 
@@ -115,7 +113,7 @@ const BlockchainCharts = ({
                                 backgroundColor: 'transparent',
                                 borderRadius: '7px',
                                 padding: '1.5rem',
-                                minWidth: isDesktop ? '1500px' : '0px',
+                                minWidth: isWidescreen ? '1300px' : '0px',
                             }}
                             style={{
                                 maxHeight: isSmallMobile ? 550 : '80%',
