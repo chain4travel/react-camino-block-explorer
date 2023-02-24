@@ -102,106 +102,6 @@ const BlockchainCharts = ({
                 </>
             ) : (
                 <>
-                    <Modal
-                        open={openModal}
-                        onClose={e => {
-                            setOpenModal(false)
-                        }}
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                        disableScrollLock={true}
-                    >
-                        <Box
-                            sx={{
-                                backgroundColor: 'transparent',
-                                borderRadius: '7px',
-                                padding: '1.5rem',
-                                width: isWidescreen ? '1300px' : '80%',
-                            }}
-                            style={{
-                                maxHeight: isSmallMobile ? 550 : '80%',
-                                overflowY: 'auto',
-                            }}
-                        >
-                            <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
-                                <CardHeader
-                                    title={titleText}
-                                    action={
-                                        <IconButton
-                                            color="info"
-                                            component="label"
-                                            onClick={() => setOpenModal(false)}
-                                            style={{
-                                                cursor: 'default',
-                                                color: isDark ? 'white' : 'black',
-                                            }}
-                                        >
-                                            <Icon path={mdiClose} size={1} />
-                                        </IconButton>
-                                    }
-                                    style={{
-                                        marginBottom: '0rem',
-                                        marginLeft: '0.5rem',
-                                    }}
-                                />
-                                <CardContent>
-                                    <Fragment>
-                                        <Grid
-                                            container
-                                            spacing={2}
-                                            justifyContent="center"
-                                            alignItems="center"
-                                        >
-                                            <Grid xs={12}>
-                                                <Text
-                                                    backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}
-                                                >
-                                                    {tooltipTitle}
-                                                </Text>
-                                            </Grid>
-
-                                            {dataStatistics != null &&
-                                                dataStatistics !== undefined && (
-                                                    <TextBlockchainDatachart
-                                                        Text={Text}
-                                                        dataStatistics={dataStatistics}
-                                                        endDate={endDate}
-                                                        startDate={startDate}
-                                                        typeStatistic={typeStatistic}
-                                                    />
-                                                )}
-                                        </Grid>
-                                        <DateRangeContainer>
-                                            <DateRange
-                                                initialStartDate={startDate}
-                                                InitianEndDate={endDate}
-                                                setEndDate={setEndDate}
-                                                setStartDate={setStartDate}
-                                                darkMode={darkMode}
-                                            />
-                                        </DateRangeContainer>
-
-                                        {dataStatistics !== undefined && dataStatistics !== null && (
-                                            <LinearMeterContainer
-                                                style={{ marginTop: isTablet ? 20 : 0 }}
-                                            >
-                                                <LinearMeter
-                                                    darkMode={darkMode}
-                                                    titleText={titleText}
-                                                    data={dataStatistics}
-                                                    typeStatistic={typeStatistic}
-                                                />
-                                            </LinearMeterContainer>
-                                        )}
-                                    </Fragment>
-                                </CardContent>
-                            </Card>
-                        </Box>
-                    </Modal>
-
                     <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
                         <CardHeader
                             title={
@@ -246,6 +146,97 @@ const BlockchainCharts = ({
                     </Card>
                 </>
             )}
+
+            <Modal
+                open={openModal}
+                onClose={e => {
+                    setOpenModal(false)
+                }}
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                disableScrollLock={true}
+            >
+                <Box
+                    sx={{
+                        backgroundColor: 'transparent',
+                        borderRadius: '7px',
+                        padding: '1.5rem',
+                        width: isWidescreen ? '1300px' : '80%',
+                    }}
+                    style={{
+                        maxHeight: isSmallMobile ? 550 : '80%',
+                        overflowY: 'auto',
+                    }}
+                >
+                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
+                        <CardHeader
+                            title={titleText}
+                            action={
+                                <IconButton
+                                    color="info"
+                                    component="label"
+                                    onClick={() => setOpenModal(false)}
+                                    style={{
+                                        cursor: 'default',
+                                        color: isDark ? 'white' : 'black',
+                                    }}
+                                >
+                                    <Icon path={mdiClose} size={1} />
+                                </IconButton>
+                            }
+                            style={{
+                                marginBottom: '0rem',
+                                marginLeft: '0.5rem',
+                            }}
+                        />
+                        <CardContent>
+                            {dataStatistics != null && dataStatistics !== undefined && (
+                                <Fragment>
+                                    <Grid
+                                        container
+                                        spacing={2}
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Grid xs={12}>
+                                            <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                                {tooltipTitle}
+                                            </Text>
+                                        </Grid>
+                                        <TextBlockchainDatachart
+                                            Text={Text}
+                                            dataStatistics={dataStatistics}
+                                            endDate={endDate}
+                                            startDate={startDate}
+                                            typeStatistic={typeStatistic}
+                                        />
+                                    </Grid>
+                                    <DateRangeContainer>
+                                        <DateRange
+                                            initialStartDate={startDate}
+                                            InitianEndDate={endDate}
+                                            setEndDate={setEndDate}
+                                            setStartDate={setStartDate}
+                                            darkMode={darkMode}
+                                        />
+                                    </DateRangeContainer>
+                                    <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
+                                        <LinearMeter
+                                            darkMode={darkMode}
+                                            titleText={titleText}
+                                            data={dataStatistics}
+                                            typeStatistic={typeStatistic}
+                                        />
+                                    </LinearMeterContainer>
+                                </Fragment>
+                            )}
+                        </CardContent>
+                    </Card>
+                </Box>
+            </Modal>
         </Fragment>
     )
 }

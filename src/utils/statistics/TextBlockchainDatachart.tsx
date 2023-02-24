@@ -18,19 +18,19 @@ export const TextBlockchainDatachart = ({
             <Grid xs={12} md={6}>
                 {typeStatistic === typeBlockchainDataChart.DAILY_TRANSACTIONS && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                        Highest number of {dataStatistics.highestValue} transactions on{' '}
+                        Highest number of {dataStatistics.highestValue} transactions on <br />
                         {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
                 {typeStatistic === typeBlockchainDataChart.UNIQUE_ADRESSES && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
                         Highest increase of {dataStatistics.highestValue} new addresses was recorded
-                        on {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
+                        on <br /> {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
                 {typeStatistic === typeBlockchainDataChart.ACTIVE_ADDRESSES && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                        Highest number of {dataStatistics.highestValue} addresses on{' '}
+                        Highest number of {dataStatistics.highestValue} addresses on <br />
                         {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
@@ -38,19 +38,19 @@ export const TextBlockchainDatachart = ({
             <Grid xs={12} md={6}>
                 {typeStatistic === typeBlockchainDataChart.DAILY_TRANSACTIONS && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                        Lowest number of {dataStatistics.lowerValue} transactions on{' '}
+                        Lowest number of {dataStatistics.lowerValue} transactions on <br />
                         {`${moment(endDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
                 {typeStatistic === typeBlockchainDataChart.UNIQUE_ADRESSES && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
                         Lowest increase of {dataStatistics.lowestValue} new addresses was recorded
-                        on {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
+                        on <br /> {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
                 {typeStatistic === typeBlockchainDataChart.ACTIVE_ADDRESSES && (
                     <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                        Lowest number of {dataStatistics.lowestValue} addresses on{' '}
+                        Lowest number of {dataStatistics.lowestValue} addresses on <br />
                         {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
                     </Text>
                 )}
