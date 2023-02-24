@@ -59,26 +59,32 @@ class ConfigLinearMeter {
     public getCategories() {
         switch (this.typeBlockchainDataChart) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
+                return this.data.map((value, index) =>
+                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
+                )
             case typesStatistic.UNIQUE_ADRESSES:
                 return this.data.map((value, index) =>
-                    moment(new Date(value.dateAt)).format('D MMM'),
+                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
                 )
             case typesStatistic.GAS_USED:
-                return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
+                return this.data.map((value, index) =>
+                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
+                )
             case typesStatistic.ACTIVE_ADDRESSES:
                 return this.data.map((value, index) =>
-                    moment(new Date(value.dateAt)).format('D MMM'),
+                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
                 )
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 return this.data.map((value, index) =>
-                    moment(new Date(value.dateInfo)).format('D MMM'),
+                    moment(value.dateInfo, 'YYYY-MM-DD').format('D MMM'),
                 )
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
+                return this.data.map((value, index) =>
+                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
+                )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return this.data.map((value, index) =>
-                    moment(new Date(value.dateAt)).format('D MMM'),
+                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
                 )
             default:
                 return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
