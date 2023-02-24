@@ -8,7 +8,7 @@ import RelativeTime from 'app/components/RelativeTime'
 import AddressLink from '../AddressLink'
 import BlockTxIcon from './BlockTxIcon'
 import useWidth from 'app/hooks/useWidth'
-import { BASE_PATH } from '../../../utils/route-paths'
+import { BASE_PATH, ADDRESS, TRANSACTION } from '../../../utils/route-paths'
 
 export default function XPTransactionItem({ chainType, data }) {
     return (
@@ -18,7 +18,7 @@ export default function XPTransactionItem({ chainType, data }) {
                     id={data.id}
                     timestamp={data.timestamp}
                     type={data.type}
-                    to={`${BASE_PATH}/${chainType}/transactions/${data.id}`}
+                    to={`${BASE_PATH}/${chainType}${TRANSACTION}/${data.id}`}
                 />
             </Grid>
             <Grid container item xs={12} md={8} columnSpacing={2}>
@@ -105,7 +105,7 @@ const XPTransactionSecondSection = ({
                         <Grid container style={{ padding: '0rem 0rem .5rem 0rem' }} key={index}>
                             <Grid item xs={12} sm={6} xl={7}>
                                 <AddressLink
-                                    to={`${BASE_PATH}/${chainType}/address/${getAddressLink(
+                                    to={`${BASE_PATH}/${chainType}${ADDRESS}/${getAddressLink(
                                         chainType,
                                         tx.address,
                                     )}`}

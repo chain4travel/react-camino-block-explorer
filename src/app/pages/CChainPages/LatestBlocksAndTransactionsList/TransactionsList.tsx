@@ -1,20 +1,20 @@
 import React, { FC } from 'react'
 import { Box, Typography, Paper, CircularProgress, Tooltip } from '@mui/material'
-import { CTransaction } from 'types/transaction'
+import { CTransaction } from '../../../../types/transaction'
 import Divider from '@mui/material/Divider'
 import ShowAllButton from './ShowAllButton'
 import TransactionItem from './Items/TransactionItem'
+import { CCHAIN, TRANSACTIONS } from 'utils/route-paths'
 import Icon from '@mdi/react'
 import { mdiInformationOutline } from '@mdi/js'
 
 interface TransactionsListProps {
     title: string
     items: CTransaction[]
-    to: string
     link: boolean
 }
 
-const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link }) => {
+const TransactionsList: FC<TransactionsListProps> = ({ title, items, link }) => {
     return (
         <Paper
             variant="outlined"
@@ -47,7 +47,7 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                 <>
                     {items.map((item, index) => (
                         <React.Fragment key={index}>
-                            <TransactionItem transaction={item} to={to} />
+                            <TransactionItem transaction={item} />
                             {index !== items.length - 1 && <Divider variant="fullWidth" />}
                         </React.Fragment>
                     ))}
@@ -64,7 +64,7 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, to, link })
                     <CircularProgress color="secondary" />
                 </Box>
             )}
-            {link && <ShowAllButton toLink="transactions" />}
+            {link && <ShowAllButton toLink={`${CCHAIN}${TRANSACTIONS}`} />}
         </Paper>
     )
 }

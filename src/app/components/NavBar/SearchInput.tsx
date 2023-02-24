@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store/configureStore'
 import { selectMagellanAddress } from 'store/app-config'
 import { searchApi } from 'utils/magellan-api-utils'
+import { BASE_PATH } from 'utils/route-paths'
 
 function OutlinedSearchInput() {
     const theme = useTheme()
@@ -84,7 +85,7 @@ function OutlinedSearchInput() {
 
     useEffect(() => {
         handleSearch()
-  }, [search]); // eslint-disable-line
+    }, [search]) // eslint-disable-line
 
     return (
         <Box
@@ -259,7 +260,7 @@ const SearchResultMenuList = ({ menuItems }) => {
                 <MenuItem
                     key={item.label + Math.random().toString(36).substring(2, 15)}
                     onClick={() => {
-                        navigate(`/explorer${item.link}`)
+                        navigate(`${BASE_PATH}/${item.link}`)
                     }}
                     sx={{ gap: '10px' }}
                 >
