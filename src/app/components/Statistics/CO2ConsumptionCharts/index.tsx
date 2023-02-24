@@ -20,15 +20,11 @@ import styled from 'styled-components'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
+import { useTheme } from '@mui/material'
 
 const TooltipContainer = styled.div`
     display: flex;
     padding-top: 2rem;
-`
-
-const CardHeaderStyle = styled(CardHeader)`
-    margin-bottom: 0rem;
-    margin-left: 1.5rem;
 `
 
 const CO2ConsumptionCharts = ({
@@ -39,7 +35,10 @@ const CO2ConsumptionCharts = ({
     sliceGetterLoader,
     titleText,
 }) => {
-    const { isDesktop } = useWidth()
+    const theme = useTheme()
+    const isDark = theme.palette.mode === 'dark'
+
+    const { isWidescreen } = useWidth()
 
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
@@ -97,7 +96,7 @@ const CO2ConsumptionCharts = ({
                                         backgroundColor: 'transparent',
                                         borderRadius: '7px',
                                         padding: '1.5rem',
-                                        minWidth: isDesktop ? '1500px' : '0px',
+                                        minWidth: isWidescreen ? '1300px' : '0px',
                                     }}
                                 >
                                     <Card
@@ -110,7 +109,7 @@ const CO2ConsumptionCharts = ({
                                                     color="info"
                                                     component="label"
                                                     onClick={() => setOpenModal(false)}
-                                                    style={{ cursor: 'default', color: 'white' }}
+                                                    style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
                                                 >
                                                     <Icon path={mdiClose} size={1} />
                                                 </IconButton>
@@ -155,8 +154,12 @@ const CO2ConsumptionCharts = ({
                     ) : (
                         <>
                             <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
-                                <CardHeaderStyle
+                                <CardHeader
                                     title={titleText}
+                                    style={{
+                                        marginBottom: '0rem',
+                                        marginLeft: '0.5rem'
+                                    }}
                                     action={
                                         <TooltipContainer>
                                             <IconButton

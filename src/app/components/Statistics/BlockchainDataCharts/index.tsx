@@ -19,7 +19,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Tooltip from '@mui/material/Tooltip'
 import InfoIcon from '@mui/icons-material/Info'
 import styled from 'styled-components'
-import { Grid } from '@mui/material'
+import { Grid, useTheme } from '@mui/material'
 import moment from 'moment'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
 
@@ -27,25 +27,23 @@ const TooltipContainer = styled.div`
     display: flex;
     padding-top: 2rem;
 `
-const TooltipStyle = styled(Tooltip)``
-const CardHeaderStyle = styled(CardHeader)`
-    margin-bottom: 0rem;
-    margin-left: 0.5rem;
-`
-
 const LinearMeterContainer = styled.div`
     margin-top: -3rem;
 `
 const DateRangeContainer = styled.div`
     margin-top: 2rem;
 `
-const Text = styled.p`
+interface TextProps {
+    backgroundColor: string;
+}
+
+const Text = styled('p') <TextProps>`
     margin-left: 3rem !important;
     margin-right: 1rem !important;
     margin-top: 0.5rem !important;
     margin-bottom: 0.5rem !important;
     border-radius: 0.5rem;
-    background: #0f172a;
+    background: ${({ backgroundColor }) => backgroundColor};
     padding: 0.5rem;
 `
 
@@ -58,6 +56,10 @@ const BlockchainCharts = ({
     typeStatistic,
     tooltipTitle,
 }) => {
+
+    const theme = useTheme()
+
+    const isDark = theme.palette.mode === 'dark'
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
@@ -121,18 +123,22 @@ const BlockchainCharts = ({
                             }}
                         >
                             <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
-                                <CardHeaderStyle
+                                <CardHeader
                                     title={titleText}
                                     action={
                                         <IconButton
                                             color="info"
                                             component="label"
                                             onClick={() => setOpenModal(false)}
-                                            style={{ cursor: 'default', color: 'white' }}
+                                            style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
                                         >
                                             <Icon path={mdiClose} size={1} />
                                         </IconButton>
                                     }
+                                    style={{
+                                        marginBottom: '0rem',
+                                        marginLeft: '0.5rem'
+                                    }}
                                 />
                                 <CardContent>
                                     <Fragment>
@@ -143,7 +149,7 @@ const BlockchainCharts = ({
                                             alignItems="center"
                                         >
                                             <Grid xs={12}>
-                                                <Text>{tooltipTitle}</Text>
+                                                <Text backgroundColor={isDark ? "#0f172a" : "#F5F6FA"}>{tooltipTitle}</Text>
                                             </Grid>
 
                                             {dataStatistics != null &&
@@ -186,15 +192,15 @@ const BlockchainCharts = ({
                     </Modal>
 
                     <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
-                        <CardHeaderStyle
+                        <CardHeader
                             title={
                                 <span>
                                     {titleText}
-                                    <TooltipStyle title={tooltipTitle} placement="top">
+                                    <Tooltip title={tooltipTitle} placement="top">
                                         <IconButton>
                                             <InfoIcon />
                                         </IconButton>
-                                    </TooltipStyle>
+                                    </Tooltip>
                                 </span>
                             }
                             action={
