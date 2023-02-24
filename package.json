@@ -115,9 +115,6 @@
     },
     "dependencies": {
         "@ethersproject/bignumber": "^5.7.0",
-        "@fortawesome/fontawesome-svg-core": "^6.3.0",
-        "@fortawesome/free-solid-svg-icons": "^6.3.0",
-        "@fortawesome/react-fontawesome": "^0.2.0",
         "bignumber.js": "^9.1.1",
         "bn.js": "^5.2.1",
         "eslint-config-react-app": "^7.0.1",
