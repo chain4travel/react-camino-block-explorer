@@ -78,17 +78,6 @@ const Statistics: FC = () => {
                 />
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
-                        {/* <Grid item md={6} xs={12}>
-              <BlockchainCharts
-                tooltipTitle="The Camino Average Gas Limit Chart shows the historical daily average gas limit of the Camino network."
-                darkMode={dark}
-                titleText={'Gas Limit'}
-                utilSlice={(dates) => loadGasAverageLimit(dates)}
-                sliceGetter={getGasAverageLimit}
-                sliceGetterLoader={getGasAverageLimitInfo}
-                typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_LIMIT}
-              />
-            </Grid> */}
                         <Grid item md={6} xs={12}>
                             <BlockchainCharts
                                 tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."

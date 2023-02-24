@@ -5,8 +5,8 @@ import { Status } from 'types'
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearMeter from './LinearMeter'
 import IconButton from '@mui/material/IconButton'
-import Icon from '@mdi/react';
-import { mdiClose } from '@mdi/js';
+import Icon from '@mdi/react'
+import { mdiClose } from '@mdi/js'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
@@ -21,7 +21,6 @@ import InfoIcon from '@mui/icons-material/Info'
 import styled from 'styled-components'
 import { Grid } from '@mui/material'
 import moment from 'moment'
-import { typeBlockchainDataChart } from '../../../../utils/statistics/ChartSelector'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
 
 const TooltipContainer = styled.div`
@@ -150,9 +149,15 @@ const BlockchainCharts = ({
                                             </Grid>
 
                                             {dataStatistics != null &&
-                                            dataStatistics !== undefined && (
-                                                <TextBlockchainDatachart Text={Text} dataStatistics={dataStatistics} endDate={endDate} startDate={startDate} typeStatistic={typeStatistic} />
-                                            )}
+                                                dataStatistics !== undefined && (
+                                                    <TextBlockchainDatachart
+                                                        Text={Text}
+                                                        dataStatistics={dataStatistics}
+                                                        endDate={endDate}
+                                                        startDate={startDate}
+                                                        typeStatistic={typeStatistic}
+                                                    />
+                                                )}
                                         </Grid>
                                         <DateRangeContainer>
                                             <DateRange

@@ -17,9 +17,9 @@ import moment from 'moment'
 import CountriesBarMeter from './CountriesBarMeter'
 import '../../../../styles/custompicker.css'
 import styled from 'styled-components'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import Icon from '@mdi/react';
-import { mdiClose } from '@mdi/js';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
+import Icon from '@mdi/react'
+import { mdiClose } from '@mdi/js'
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -159,11 +159,6 @@ const CO2ConsumptionCharts = ({
                                     title={titleText}
                                     action={
                                         <TooltipContainer>
-                                            {/* <TooltipStyle title={tooltipTitle} placement="top">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </TooltipStyle> */}
                                             <IconButton
                                                 color="info"
                                                 component="label"
@@ -180,10 +175,7 @@ const CO2ConsumptionCharts = ({
                                 />
                                 <CardContent>
                                     {typeMeter === typesMeter.BAR && (
-                                        <BarMeter
-                                            darkMode={darkMode}
-                                            dataSeries={meterCO2.value}
-                                        />
+                                        <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} />
                                     )}
                                     {typeMeter === typesMeter.TIME_SERIES && (
                                         <TimeSeriesMeter
