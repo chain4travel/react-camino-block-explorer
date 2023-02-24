@@ -213,9 +213,9 @@ export async function loadValidatorsInfo() {
             .then(function (response: any) {
                 resolve(response.data.value)
             })
-            .catch(function (error) {
+            .catch((e) => {
+                console.error(e)
                 reject([])
-                console.error(error, 500)
             })
     })
 }
@@ -231,7 +231,8 @@ export const fetchDailyEmissions = (dates: any) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 name: "",
                 value: []
@@ -251,7 +252,8 @@ export const fetchNetworkEmissions = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 name: "",
                 value: []
@@ -271,7 +273,8 @@ export const fetchTransactionsEmissions = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 name: "",
                 value: []
@@ -291,7 +294,8 @@ export const fetchCountryEmissions = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 name: "",
                 value: []
@@ -311,7 +315,8 @@ export const fetchBlockchainChartDailyTransactions = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 "highestValue": 0,
                 "highestDate": "",
@@ -334,7 +339,8 @@ export const fetchBlockchainChartUniqueAddresses = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 "highestValue": 0,
                 "highestDate": "",
@@ -357,7 +363,8 @@ export const fetchBlockchainDailyGasUsed = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 "highestValue": 0,
                 "highestDate": "",
@@ -380,7 +387,8 @@ export const fetchBlockchainActiveAddresses = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 "highestValue": 0,
                 "highestDate": "",
@@ -403,7 +411,8 @@ export const fetchBlockchainAverageBlockSize = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve([]);
         });
     });
@@ -420,14 +429,15 @@ export const fetchBlockchainAverageGasPriceUsed = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve({
                 "highestValue": 0,
                 "highestDate": "",
                 "lowerValue": 0,
                 "lowerDate": "",
                 "txInfo": []
-              });
+            });
         });
     });
 }
@@ -443,7 +453,8 @@ export const fetchBlockchainDailyTokenTransfer = (dates) => {
         };
         axios(config).then(function (response) {
             resolve(response.data);
-        }).catch(function (error) {
+        }).catch((e) => {
+            console.error(e);
             resolve([]);
         });
     });
