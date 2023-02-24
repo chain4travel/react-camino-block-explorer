@@ -42,7 +42,7 @@ interface TextProps {
     backgroundColor: string
 }
 
-const Text = styled('p')<TextProps>`
+const Text = styled('p') <TextProps>`
     margin-left: 3rem !important;
     margin-right: 1rem !important;
     margin-top: 0.5rem !important;
@@ -76,8 +76,8 @@ const BlockchainCharts = ({
         if (startDate !== undefined && endDate !== undefined) {
             dispatch(
                 utilSlice({
-                    startDate: moment(startDate).toISOString(true),
-                    endDate: moment(endDate).toISOString(true),
+                    startDate: moment(startDate).toISOString(true).replace('.000-05:00', 'Z'),
+                    endDate: moment(endDate).toISOString(true).replace('.000-05:00', 'Z'),
                 }),
             )
         }
