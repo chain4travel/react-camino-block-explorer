@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Grid, Paper, TableCell, TableRow, Typography, Chip } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
-import { CADDRESS, CTRANSACTIONS, CBLOCKS } from 'utils/route-paths'
+import { CADDRESS, CTRANSACTION, CBLOCKS } from 'utils/route-paths'
 import { CAddressTransactionTableData } from 'types/transaction'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
@@ -84,7 +84,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CTRANSACTIONS}/${transaction.hash}`}
+                    to={`${CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -155,7 +155,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
                     Txn Hash
                 </Typography>
                 <AddressLink
-                    to={`${CTRANSACTIONS}/${transaction.hash}`}
+                    to={`${CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}

@@ -3,6 +3,7 @@ import { Grid, Box, Chip } from '@mui/material'
 import AddressLink from 'app/components/AddressLink'
 import moment from 'utils/helpers/moment'
 import { getAddressFromUrl } from 'utils/route-utils'
+import { BASE_PATH, TRANSACTION } from 'utils/route-paths'
 
 export const AddressSection = ({ type, timestamp, id, chainType }) => {
     return (
@@ -10,7 +11,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
             <Grid container item xs={12} lg={6} alignItems="center" justifyContent="center">
                 <Grid item xs={12}>
                     <AddressLink
-                        to={`/explorer/${chainType}/transactions/${id}`}
+                        to={`${BASE_PATH}/${chainType}${TRANSACTION}/${id}`}
                         value={id}
                         typographyVariant="subtitle1"
                         truncate={true}
@@ -47,7 +48,11 @@ export const AddressSection = ({ type, timestamp, id, chainType }) => {
                     <Chip
                         label={type}
                         size="small"
-                        style={{ minWidth: '61px', height: 'min-content' }}
+                        style={{
+                            minWidth: '61px',
+                            height: 'min-content',
+                            backgroundColor: '#334155',
+                        }}
                     />
                 </Grid>
             </Grid>

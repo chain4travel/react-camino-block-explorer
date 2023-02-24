@@ -73,21 +73,21 @@ export default function Links() {
                     disableRipple
                     label="C-Chain"
                     {...a11yProps(0)}
-                    sx={{ alignItems: { xs: 'center', sm: 'self-start' } }}
+                    sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
                 <Tab
                     className="tab"
                     disableRipple
                     label="X-Chain"
                     {...a11yProps(1)}
-                    sx={{ alignItems: { xs: 'center', sm: 'self-start' } }}
+                    sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
                 <Tab
                     className="tab"
                     disableRipple
                     label="P-Chain"
                     {...a11yProps(2)}
-                    sx={{ alignItems: { xs: 'center', sm: 'self-start' } }}
+                    sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
                 <Tab className="tab" value={5} disableRipple label="Statistics" {...a11yProps(5)} />
             </Tabs>

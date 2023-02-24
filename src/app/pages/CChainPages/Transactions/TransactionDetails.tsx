@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Status } from 'types'
 import { mdiTransfer } from '@mdi/js'
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
-import { CCHAIN, CTRANSACTIONS } from 'utils/route-paths'
+import { CCHAIN, CTRANSACTION } from 'utils/route-paths'
 import PageContainer from 'app/components/PageContainer'
 import BackButton from 'app/components/BackButton'
 import OutlinedContainer from 'app/components/OutlinedContainer'
@@ -83,7 +83,7 @@ const TransactionDetails: FC = () => {
             nextPrevTX[currentIndex] &&
             getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash
         )
-            navigate(`${CTRANSACTIONS}/${nextPrevTX[currentIndex]?.hash}`)
+            navigate(`${CTRANSACTION}/${nextPrevTX[currentIndex]?.hash}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
 
