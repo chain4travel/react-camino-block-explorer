@@ -5,11 +5,6 @@ import { Status } from 'types';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearMeter from './LinearMeter';
 import IconButton from '@mui/material/IconButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSquareArrowUpRight,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -24,7 +19,10 @@ import InfoIcon from '@mui/icons-material/Info';
 import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import moment from 'moment';
-import { typeBlockchainDataChart } from '../../../pages/Statistics/ChartSelector';
+import { typeBlockchainDataChart } from '../../../../utils/statistics/ChartSelector';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
+import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart';
 
 
 const TooltipContainer = styled.div`
@@ -50,9 +48,7 @@ const Text = styled.p`
   margin-right: 1rem !important;
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
-  // border: solid 2px black;
   border-radius: 0.5rem;
-  // background: #1e293b;
   background: #0f172a;
   padding: 0.5rem;
 `;
@@ -137,7 +133,7 @@ const BlockchainCharts = ({
                       onClick={() => setOpenModal(false)}
                       style={{ cursor: 'default', color: 'white' }}
                     >
-                      <FontAwesomeIcon icon={faXmark} />
+                      <Icon path={mdiClose} size={1} />
                     </IconButton>
                   }
                 />
@@ -152,47 +148,10 @@ const BlockchainCharts = ({
                       <Grid xs={12}>
                         <Text>{tooltipTitle}</Text>
                       </Grid>
-
                       {
-                        dataStatistics != null && dataStatistics != undefined ? <>
-                          <Grid xs={12} md={6}>
-                            {
-                              typeStatistic == typeBlockchainDataChart.DAILY_TRANSACTIONS ? <Text>
-                                Highest number of {dataStatistics.highestValue} transactions on{' '}
-                                {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                              </Text> :
-
-                                typeStatistic == typeBlockchainDataChart.UNIQUE_ADRESSES ? <Text>
-                                  Highest increase of {dataStatistics.highestValue} new addresses was recorded on{' '}
-                                  {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                                </Text> :
-
-                                  typeStatistic == typeBlockchainDataChart.ACTIVE_ADDRESSES ? <Text>
-                                    Highest number of {dataStatistics.highestValue} addresses on {' '}
-                                    {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                                  </Text> : null
-
-                            }
-                          </Grid>
-                          <Grid xs={12} md={6}>
-                            {typeStatistic == typeBlockchainDataChart.DAILY_TRANSACTIONS ? <Text>
-                              Lowest number of {dataStatistics.lowerValue} transactions on{' '}
-                              {`${moment(endDate).format('dddd, MMMM DD, YYYY')}`}
-                            </Text> :
-
-                              typeStatistic == typeBlockchainDataChart.UNIQUE_ADRESSES ? <Text>
-                                Lowest increase of {dataStatistics.lowestValue} new addresses was recorded on{' '}
-                                {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                              </Text> :
-
-                                typeStatistic == typeBlockchainDataChart.ACTIVE_ADDRESSES ? <Text>
-                                  Lowest number of {dataStatistics.lowestValue} addresses on{' '}
-                                  {`${moment(startDate).format('dddd, MMMM DD, YYYY')}`}
-                                </Text> : null
-
-                            }
-                          </Grid>
-                        </> : null
+                        dataStatistics != null && dataStatistics != undefined && (
+                          <TextBlockchainDatachart Text={Text} dataStatistics={dataStatistics} endDate={endDate} startDate={startDate} typeStatistic={typeStatistic} />
+                        )
                       }
                     </Grid>
                     <DateRangeContainer>

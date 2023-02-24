@@ -25,7 +25,7 @@ const SubPageTitle: FC<SubPageTitleProps> = ({ title, backToLink, style, childre
             spacing={2}
         >
             <Grid item xs sm={4} lg={2} order={1}>
-            {hiddenBackButton == undefined || hiddenBackButton == false ? <BackButton backToLink={backToLink} /> : null}
+            {(hiddenBackButton == undefined || hiddenBackButton == false) && <BackButton backToLink={backToLink} /> }
             </Grid>
             <Grid item xs={12} sm={4} lg={8} justifyContent="center" order={{ xs: 3, sm: 2 }}>
                 <Typography

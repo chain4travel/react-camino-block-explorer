@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { CCHAIN, XCHAIN, PCHAIN, MAINNET, STATISTICS } from 'utils/route-paths'
 import { ChainType } from 'utils/types/chain-type'
 import { getChainTypeFromUrl } from 'utils/route-utils'
+import { STATISTICS_LINK } from '../../../utils/types/statistics-type';
 
 function a11yProps(index: number) {
     return {
@@ -21,7 +22,7 @@ const activeTab = (path: string): number => {
             return 1
         case ChainType.P_CHAIN:
             return 2
-        case "statistics":
+        case STATISTICS_LINK:
             return 5;
     }
     return 0

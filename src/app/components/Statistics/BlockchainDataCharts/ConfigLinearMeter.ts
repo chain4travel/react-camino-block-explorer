@@ -1,4 +1,4 @@
-import { typeBlockchainDataChart as typesStatistic } from '../../../pages/Statistics/ChartSelector'
+import { typeBlockchainDataChart as typesStatistic } from '../../../../utils/statistics/ChartSelector'
 import {
     dailyTransactionsTooltip,
     uniqueAddressesDailyIncreaseTooltip,

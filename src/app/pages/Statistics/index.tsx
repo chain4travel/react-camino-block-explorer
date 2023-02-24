@@ -42,13 +42,13 @@ import {
   loadAverageBlockSize,
 } from 'store/blockchainDatachartsSlice/utils';
 import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts';
-import { typeBlockchainDataChart } from './ChartSelector';
+import { typeBlockchainDataChart } from '../../../utils/statistics/ChartSelector';
 
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionCharts/index';
-import { typesMeter } from './ChartSelector';
+import { typesMeter } from '../../../utils/statistics/ChartSelector';
 import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils';
 
 const Statistics: FC = () => {
@@ -78,17 +78,6 @@ const Statistics: FC = () => {
         />
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            {/* <Grid item md={6} xs={12}>
-              <BlockchainCharts
-                tooltipTitle="The Camino Average Gas Limit Chart shows the historical daily average gas limit of the Camino network."
-                darkMode={dark}
-                titleText={'Gas Limit'}
-                utilSlice={(dates) => loadGasAverageLimit(dates)}
-                sliceGetter={getGasAverageLimit}
-                sliceGetterLoader={getGasAverageLimitInfo}
-                typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_LIMIT}
-              />
-            </Grid> */}
             <Grid item md={6} xs={12}>
               <BlockchainCharts
                 tooltipTitle="This chart highlights the total number of transactions on the Camino blockchain with daily individual breakdown for estimated hash rate, average block time and size, total block and uncle block count and total new address seen."

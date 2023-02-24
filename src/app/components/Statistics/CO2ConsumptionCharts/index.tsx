@@ -1,13 +1,11 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/configureStore';
-import { typesMeter } from '../../../pages/Statistics/ChartSelector';
+import { typesMeter } from '../../../../utils/statistics/ChartSelector';
 import BarMeter from './BarMeter';
 import TimeSeriesMeter from './TimeSeriesMeter';
 import { Status } from "types";
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareArrowUpRight, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import useWidth from 'app/hooks/useWidth';
@@ -17,44 +15,23 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import moment from 'moment';
 import CountriesBarMeter from './CountriesBarMeter';
-import '../styles.css';
+import '../../../../styles/datacharts.css';
 import styled from 'styled-components';
-import Tooltip from '@mui/material/Tooltip';
-import InfoIcon from '@mui/icons-material/Info';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const TooltipContainer = styled.div`
   display: flex;
   padding-top: 2rem;
 `;
-const TooltipStyle = styled(Tooltip)`
-  margin-right: 20rem;
-`
+
 const CardHeaderStyle = styled(CardHeader)`
   margin-bottom: 0rem;
   margin-left: 1.5rem;
 `;
 
-const DateRangeContainer = styled.div`
-  margin-top: 2rem;
-`;
-
-const Text = styled.p`
-  margin-left: 3rem !important;
-  margin-right: 1rem !important;
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-  // border: solid 2px black;
-  border-radius: 0.5rem;
-  // background: #1e293b;
-  background: #0f172a;
-  padding: 0.5rem;
-`;
-
 const CO2ConsumptionCharts = ({
   utilSlice, typeMeter, darkMode, sliceGetter, sliceGetterLoader, titleText
 }) => {
-
 
   const { isDesktop } = useWidth();
 
@@ -119,7 +96,7 @@ const CO2ConsumptionCharts = ({
                   onClick={() => setOpenModal(false)}
                   style={{ cursor: 'default', color: 'white'  }}
                 >
-                  <FontAwesomeIcon icon={faXmark} />
+                  <Icon path={mdiClose} size={1} />
                 </IconButton>} />
                 <CardContent>
                   <Fragment>
@@ -144,11 +121,6 @@ const CO2ConsumptionCharts = ({
           <Card style={{ backgroundColor: darkMode ? "#060F24" : "white" }}>
             <CardHeaderStyle title={titleText} action={
               <TooltipContainer>
-                {/* <TooltipStyle title={tooltipTitle} placement="top">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </TooltipStyle> */}
                 <IconButton
                   color="info"
                   component="label"

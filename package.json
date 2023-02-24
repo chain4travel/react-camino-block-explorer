@@ -114,16 +114,16 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
+        "@ethersproject/bignumber": "^5.7.0",
         "@fortawesome/fontawesome-svg-core": "^6.3.0",
         "@fortawesome/free-solid-svg-icons": "^6.3.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
-        "react-datepicker": "^4.10.0",
-        "@ethersproject/bignumber": "^5.7.0",
         "bignumber.js": "^9.1.1",
         "bn.js": "^5.2.1",
         "eslint-config-react-app": "^7.0.1",
         "eslint-plugin-react": "^7.32.2",
         "ethers": "^6.0.2",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "react-datepicker": "^4.10.0"
     }
 }
