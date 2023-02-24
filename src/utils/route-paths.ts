@@ -56,4 +56,4 @@ export const TELEGRAM = 'https://t.me/caminochain'
 
 export const GITHUB = 'https://github.com/chain4travel/camino-docs'
 
-export const STATISTICS = BASE_PATH + '/statistics';
+export const STATISTICS = BASE_PATH + '/statistics'

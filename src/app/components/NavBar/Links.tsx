@@ -21,8 +21,8 @@ const activeTab = (path: string): number => {
             return 1
         case ChainType.P_CHAIN:
             return 2
-        case "statistics":
-            return 5;
+        case 'statistics':
+            return 5
     }
     return 0
 }
@@ -44,7 +44,7 @@ export default function Links() {
         else if (location.pathname === CCHAIN) setValue(0)
         else if (location.pathname === XCHAIN) setValue(1)
         else if (location.pathname === PCHAIN) setValue(2)
-        else if (location.pathname === STATISTICS) setValue(5);
+        else if (location.pathname === STATISTICS) setValue(5)
     }, [location])
 
     let navigate = useNavigate()

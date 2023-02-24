@@ -1,6 +1,4 @@
 export interface GasAverageLimit {
-  AverageGasLimit: number;
-  Date: string;
+    AverageGasLimit: number
+    Date: string
 }
-
-

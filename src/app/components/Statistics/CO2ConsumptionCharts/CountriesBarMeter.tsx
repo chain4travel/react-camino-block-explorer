@@ -1,23 +1,22 @@
-import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import sortBy from 'lodash/sortBy';
+import React from 'react'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import sortBy from 'lodash/sortBy'
 
 const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
-
-    const sortByAndLoadBar = (data) => {
-        let sortedData = sortBy(data, o => -o.Value);
+    const sortByAndLoadBar = data => {
+        let sortedData = sortBy(data, o => -o.Value)
         let dataChart = sortedData.map((dat, index) => {
             return {
-                name: dat.Country.replace("_"," "),
+                name: dat.Country.replace('_', ' '),
                 y: dat.Value,
-                drilldown: dat.Country.replace("_",""),
-                color: `hsl(221, 48%, ${(index + 1) * (90/sortedData.length)}%)`,
+                drilldown: dat.Country.replace('_', ''),
+                color: `hsl(221, 48%, ${(index + 1) * (90 / sortedData.length)}%)`,
                 value: dat.Value,
-                country: dat.Country.replace("_","")
+                country: dat.Country.replace('_', ''),
             }
-        });
-        return dataChart;
+        })
+        return dataChart
     }
 
     const options = {
@@ -29,41 +28,43 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
             align: 'left',
             text: titleText,
             style: {
-                color: darkMode ? 'white' : 'black'
-            }
+                color: darkMode ? 'white' : 'black',
+            },
         },
         xAxis: {
             type: 'category',
             labels: {
                 useHTML: true,
                 formatter: function (obj) {
-                    return `<div style="text-align: center;color:${darkMode == true ? 'white' : 'black'
-                        }">
-                        <br/> ${obj.value}</div>`;
+                    return `<div style="text-align: center;color:${
+                        darkMode === true ? 'white' : 'black'
+                    }">
+                        <br/> ${obj.value}</div>`
                 },
-            }
+            },
         },
         yAxis: {
             title: {
                 text: 'CO2',
                 style: {
-                    color: darkMode ? 'white' : 'black'
-                }
+                    color: darkMode ? 'white' : 'black',
+                },
             },
             labels: {
                 useHTML: true,
                 formatter: function (obj) {
-                    return `<span style="color:${darkMode == true ? 'white' : 'black'}">${obj.value}</span>`;
+                    return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
+                        obj.value
+                    }</span>`
                 },
-            }
-
+            },
         },
         legend: {
-            enabled: false
+            enabled: false,
         },
 
         tooltip: {
-            enabled: false
+            enabled: false,
         },
         credits: {
             enabled: false,
@@ -71,20 +72,19 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
         series: [
             {
                 borderColor: 'transparent',
-                name: "",
+                name: '',
                 color: '#41547C',
-                data: sortByAndLoadBar(dataSeries)
-            }
-        ]
+                data: sortByAndLoadBar(dataSeries),
+            },
+        ],
     }
-
 
     return (
         <div>
             <br />
             <HighchartsReact type="" highcharts={Highcharts} options={options} />
         </div>
-    );
-};
+    )
+}
 
-export default CountriesBarMeter;
+export default CountriesBarMeter
