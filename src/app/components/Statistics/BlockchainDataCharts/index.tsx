@@ -32,12 +32,17 @@ const LinearMeterContainer = styled.div`
 `
 const DateRangeContainer = styled.div`
     margin-top: 2rem;
+
+    @media only screen and (min-width: 1200px) {
+        margin-left: 5rem;
+        margin-right: 11rem;
+    }
 `
 interface TextProps {
-    backgroundColor: string;
+    backgroundColor: string
 }
 
-const Text = styled('p') <TextProps>`
+const Text = styled('p')<TextProps>`
     margin-left: 3rem !important;
     margin-right: 1rem !important;
     margin-top: 0.5rem !important;
@@ -56,7 +61,6 @@ const BlockchainCharts = ({
     typeStatistic,
     tooltipTitle,
 }) => {
-
     const theme = useTheme()
 
     const isDark = theme.palette.mode === 'dark'
@@ -115,11 +119,11 @@ const BlockchainCharts = ({
                                 backgroundColor: 'transparent',
                                 borderRadius: '7px',
                                 padding: '1.5rem',
-                                minWidth: isWidescreen ? '1300px' : '0px',
+                                width: isWidescreen ? '1300px' : '80%',
                             }}
                             style={{
                                 maxHeight: isSmallMobile ? 550 : '80%',
-                                overflowY: 'scroll',
+                                overflowY: 'auto',
                             }}
                         >
                             <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
@@ -130,14 +134,17 @@ const BlockchainCharts = ({
                                             color="info"
                                             component="label"
                                             onClick={() => setOpenModal(false)}
-                                            style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
+                                            style={{
+                                                cursor: 'default',
+                                                color: isDark ? 'white' : 'black',
+                                            }}
                                         >
                                             <Icon path={mdiClose} size={1} />
                                         </IconButton>
                                     }
                                     style={{
                                         marginBottom: '0rem',
-                                        marginLeft: '0.5rem'
+                                        marginLeft: '0.5rem',
                                     }}
                                 />
                                 <CardContent>
@@ -149,7 +156,11 @@ const BlockchainCharts = ({
                                             alignItems="center"
                                         >
                                             <Grid xs={12}>
-                                                <Text backgroundColor={isDark ? "#0f172a" : "#F5F6FA"}>{tooltipTitle}</Text>
+                                                <Text
+                                                    backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}
+                                                >
+                                                    {tooltipTitle}
+                                                </Text>
                                             </Grid>
 
                                             {dataStatistics != null &&

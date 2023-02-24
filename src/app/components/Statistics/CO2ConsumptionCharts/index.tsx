@@ -98,6 +98,9 @@ const CO2ConsumptionCharts = ({
                                         padding: '1.5rem',
                                         minWidth: isWidescreen ? '1300px' : '0px',
                                     }}
+                                    style={{
+                                        overflowY: 'auto',
+                                    }}
                                 >
                                     <Card
                                         style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}
@@ -109,7 +112,10 @@ const CO2ConsumptionCharts = ({
                                                     color="info"
                                                     component="label"
                                                     onClick={() => setOpenModal(false)}
-                                                    style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
+                                                    style={{
+                                                        cursor: 'default',
+                                                        color: isDark ? 'white' : 'black',
+                                                    }}
                                                 >
                                                     <Icon path={mdiClose} size={1} />
                                                 </IconButton>
@@ -158,7 +164,7 @@ const CO2ConsumptionCharts = ({
                                     title={titleText}
                                     style={{
                                         marginBottom: '0rem',
-                                        marginLeft: '0.5rem'
+                                        marginLeft: '0.5rem',
                                     }}
                                     action={
                                         <TooltipContainer>

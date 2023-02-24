@@ -50,6 +50,7 @@ import Grid from '@mui/material/Grid'
 import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionCharts/index'
 import { typesMeter } from '../../../utils/statistics/ChartSelector'
 import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils'
+import '../../../styles/datacharts.css'
 
 const Statistics: FC = () => {
     const theme = useTheme()
