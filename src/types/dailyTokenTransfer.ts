@@ -1,6 +1,6 @@
 export interface DailyTokenTransfer {
-    dateAt: string;
-    counter: number;
+    dateAt: string
+    counter: number
 }
 
-export default DailyTokenTransfer;
+export default DailyTokenTransfer

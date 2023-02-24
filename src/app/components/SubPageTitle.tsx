@@ -8,11 +8,18 @@ interface SubPageTitleProps {
     backToLink: To
     style?: React.CSSProperties
     children?: React.ReactNode
-    hiddenBackButton: boolean,
+    hiddenBackButton: boolean
     styleTyphography?: React.CSSProperties
 }
 
-const SubPageTitle: FC<SubPageTitleProps> = ({ title, backToLink, style, children, hiddenBackButton,styleTyphography }) => {
+const SubPageTitle: FC<SubPageTitleProps> = ({
+    title,
+    backToLink,
+    style,
+    children,
+    hiddenBackButton,
+    styleTyphography,
+}) => {
     return (
         <Grid
             container

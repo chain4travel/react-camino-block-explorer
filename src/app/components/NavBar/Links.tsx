@@ -45,7 +45,7 @@ export default function Links() {
         else if (location.pathname === CCHAIN) setValue(0)
         else if (location.pathname === XCHAIN) setValue(1)
         else if (location.pathname === PCHAIN) setValue(2)
-        else if (location.pathname === STATISTICS) setValue(5);
+        else if (location.pathname === STATISTICS) setValue(5)
     }, [location])
 
     let navigate = useNavigate()

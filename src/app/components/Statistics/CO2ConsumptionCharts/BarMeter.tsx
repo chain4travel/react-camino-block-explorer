@@ -1,73 +1,71 @@
-import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
-import sortBy from 'lodash/sortBy';
+import React from 'react'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+import sortBy from 'lodash/sortBy'
 
-const BarMeter = ({ dataSeries, darkMode, titleText }) => {
-    const sortByAndLoadBar = (data) => {
-        try
-        {
-            let sortedData = sortBy(data, o => -o.value);
+const BarMeter = ({ dataSeries, darkMode }) => {
+    const sortByAndLoadBar = data => {
+        try {
+            let sortedData = sortBy(data, o => -o.value)
             let dataChart = sortedData.map((dat, index) => {
                 return {
                     name: dat.chain,
                     y: dat.value,
                     drilldown: dat.chain,
-                    color: `hsl(221, 48%, ${(index + 1) * (80/sortedData.length)}%)`
+                    color: `hsl(221, 48%, ${(index + 1) * (80 / sortedData.length)}%)`,
                 }
-            });
-            return dataChart;
-        }
-        catch(e)
-        {
-            return [];
+            })
+            return dataChart
+        } catch (e) {
+            return []
         }
     }
 
-   const options = {
+    const options = {
         chart: {
             type: 'column',
             backgroundColor: 'rgba(0,0,0,0)',
         },
         title: {
             align: 'center',
-            text: "",
+            text: '',
             style: {
-                color: darkMode ? 'white' : 'black'
-            }
+                color: darkMode ? 'white' : 'black',
+            },
         },
         xAxis: {
             type: 'category',
             labels: {
                 useHTML: true,
                 formatter: function (obj) {
-                    let index = obj.pos;
-                    return `<span style="color:${darkMode == true ? 'white' : 'black'}">${obj.value}</span>`;
+                    return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
+                        obj.value
+                    }</span>`
                 },
-            }
+            },
         },
         yAxis: {
             title: {
                 text: 'gCO2',
                 style: {
-                    color: darkMode ? 'white' : 'black'
-                }
+                    color: darkMode ? 'white' : 'black',
+                },
             },
             labels: {
                 useHTML: true,
                 formatter: function (obj) {
-                    let index = obj.pos;
-                    return `<span style="color:${darkMode == true ? 'white' : 'black'}">${obj.value}</span>`;
+                    return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
+                        obj.value
+                    }</span>`
                 },
-            }
-
+            },
         },
         legend: {
-            enabled: false
+            enabled: false,
         },
 
         tooltip: {
-            enabled: false
+            enabled: false,
         },
         credits: {
             enabled: false,
@@ -75,19 +73,18 @@ const BarMeter = ({ dataSeries, darkMode, titleText }) => {
         series: [
             {
                 borderColor: 'transparent',
-                name: "",
-                data: sortByAndLoadBar(dataSeries)
-            }
-        ]
-    } 
-    
+                name: '',
+                data: sortByAndLoadBar(dataSeries),
+            },
+        ],
+    }
 
     return (
         <div>
             <br />
             <HighchartsReact type="" highcharts={Highcharts} options={options} />
         </div>
-    );
-};
+    )
+}
 
-export default BarMeter;
+export default BarMeter

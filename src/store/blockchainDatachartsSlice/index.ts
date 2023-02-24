@@ -142,15 +142,18 @@ const blockchainDataChartsSlice = createSlice({
     },
 })
 
-export const getTransactionsPerDay = (state: RootState) => state.blockchainDataCharts.transactionsPerDay
+export const getTransactionsPerDay = (state: RootState) =>
+    state.blockchainDataCharts.transactionsPerDay
 export const getTransactionsPerDayStatus = (state: RootState) =>
     state.blockchainDataCharts.transactionsPerDayLoading
 
-export const getUniqueAddresses = (state: RootState) => state.blockchainDataCharts.uniqueAddressesInfo
+export const getUniqueAddresses = (state: RootState) =>
+    state.blockchainDataCharts.uniqueAddressesInfo
 export const getUniqueAddressesLoading = (state: RootState) =>
     state.blockchainDataCharts.uniqueAddressesInfoLoading
 
-export const getDailyTokenTransfers = (state: RootState) => state.blockchainDataCharts.dailyTokenTransfers
+export const getDailyTokenTransfers = (state: RootState) =>
+    state.blockchainDataCharts.dailyTokenTransfers
 export const getDailyTokenTransfersLoading = (state: RootState) =>
     state.blockchainDataCharts.dailyTokenTransfersLoading
 
@@ -158,13 +161,16 @@ export const getGasUsed = (state: RootState) => state.blockchainDataCharts.gasUs
 export const getGasUsedLoading = (state: RootState) => state.blockchainDataCharts.gasUsedLoading
 
 export const getActiveAddresses = (state: RootState) => state.blockchainDataCharts.activeAdresses
-export const getActiveAddressesInfo = (state: RootState) => state.blockchainDataCharts.activeAdressesLoading
+export const getActiveAddressesInfo = (state: RootState) =>
+    state.blockchainDataCharts.activeAdressesLoading
 
 export const getGasAveragePrice = (state: RootState) => state.blockchainDataCharts.gasAveragePrice
-export const getGasAveragePriceInfo = (state: RootState) => state.blockchainDataCharts.gasAveragePriceLoading
+export const getGasAveragePriceInfo = (state: RootState) =>
+    state.blockchainDataCharts.gasAveragePriceLoading
 
 export const getGasAverageLimit = (state: RootState) => state.blockchainDataCharts.gasAverageLimit
-export const getGasAverageLimitInfo = (state: RootState) => state.blockchainDataCharts.gasAverageLimitLoading
+export const getGasAverageLimitInfo = (state: RootState) =>
+    state.blockchainDataCharts.gasAverageLimitLoading
 
 export const getAverageBlockSize = (state: RootState) => state.blockchainDataCharts.averageBlockSize
 export const getAverageBlockSizeInfo = (state: RootState) =>

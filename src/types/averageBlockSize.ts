@@ -1,6 +1,4 @@
 export interface AverageBlockSize {
-  blockSize: number;
-  dateInfo: string;
+    blockSize: number
+    dateInfo: string
 }
-
-

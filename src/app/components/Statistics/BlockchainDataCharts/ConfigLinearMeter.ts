@@ -77,7 +77,9 @@ class ConfigLinearMeter {
             case typesStatistic.GAS_AVERAGE_PRICE:
                 return this.data.map((value, index) => moment(new Date(value.date)).format('D MMM'))
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return this.data.map((value, index) => moment(new Date(value.dateAt)).format('D MMM'))
+                return this.data.map((value, index) =>
+                    moment(new Date(value.dateAt)).format('D MMM'),
+                )
             default:
                 return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
         }
@@ -116,7 +118,9 @@ class ConfigLinearMeter {
                 })
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return this.data.map((value, index) => {
-                    let convertedCounter = parseFloat(ethers.formatEther(value.counter.toString())).toFixed(3);
+                    let convertedCounter = parseFloat(
+                        ethers.formatEther(value.counter.toString()),
+                    ).toFixed(3)
                     return { y: parseInt(convertedCounter), name: value.dateAt }
                 })
             case typesStatistic.GAS_USED:

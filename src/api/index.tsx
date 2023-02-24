@@ -213,7 +213,7 @@ export async function loadValidatorsInfo() {
             .then(function (response: any) {
                 resolve(response.data.value)
             })
-            .catch((e) => {
+            .catch(e => {
                 console.error(e)
                 reject([])
             })
@@ -224,239 +224,282 @@ export const fetchDailyEmissions = (dates: any) => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                name: "",
-                value: []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
 }
 
-export const fetchNetworkEmissions = (dates) => {
+export const fetchNetworkEmissions = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                name: "",
-                value: []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
 }
 
-export const fetchTransactionsEmissions = (dates) => {
+export const fetchTransactionsEmissions = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                name: "",
-                value: []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
 }
 
-export const fetchCountryEmissions = (dates) => {
+export const fetchCountryEmissions = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/countryEmissions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/countryEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                name: "",
-                value: []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainChartDailyTransactions = (dates) => {
+export const fetchBlockchainChartDailyTransactions = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                "highestValue": 0,
-                "highestDate": "",
-                "lowerValue": 0,
-                "lowerDate": "",
-                "txInfo": []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainChartUniqueAddresses = (dates) => {
+export const fetchBlockchainChartUniqueAddresses = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                "highestValue": 0,
-                "highestDate": "",
-                "lowestValue": 0,
-                "lowestDate": "",
-                "addressInfo": []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
+                    addressInfo: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainDailyGasUsed = (dates) => {
+export const fetchBlockchainDailyGasUsed = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                "highestValue": 0,
-                "highestDate": "",
-                "lowerValue": 0,
-                "lowerDate": "",
-                "txInfo": []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainActiveAddresses = (dates) => {
+export const fetchBlockchainActiveAddresses = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                "highestValue": 0,
-                "highestDate": "",
-                "lowestValue": 0,
-                "lowestDate": "",
-                "addressInfo": []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
+                    addressInfo: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainAverageBlockSize = (dates) => {
+export const fetchBlockchainAverageBlockSize = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve([]);
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve([])
+            })
+    })
 }
 
-export const fetchBlockchainAverageGasPriceUsed = (dates) => {
+export const fetchBlockchainAverageGasPriceUsed = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve({
-                "highestValue": 0,
-                "highestDate": "",
-                "lowerValue": 0,
-                "lowerDate": "",
-                "txInfo": []
-            });
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
 }
 
-export const fetchBlockchainDailyTokenTransfer = (dates) => {
+export const fetchBlockchainDailyTokenTransfer = dates => {
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${dates.startDate}&endTime=${dates.endDate}`,
+            url: `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
             headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        axios(config).then(function (response) {
-            resolve(response.data);
-        }).catch((e) => {
-            console.error(e);
-            resolve([]);
-        });
-    });
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve([])
+            })
+    })
 }
-
