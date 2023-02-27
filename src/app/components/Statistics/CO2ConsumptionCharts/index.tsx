@@ -26,6 +26,14 @@ const TooltipContainer = styled.div`
     display: flex;
     padding-top: 2rem;
 `
+const DateRangeContainer = styled.div`
+    margin-top: 2rem;
+
+    @media only screen and (min-width: 1200px) {
+        margin-left: 5rem;
+        margin-right: 11rem;
+    }
+`
 
 const CO2ConsumptionCharts = ({
     utilSlice,
@@ -61,8 +69,8 @@ const CO2ConsumptionCharts = ({
     }, [startDate, endDate])
 
     useEffect(() => {
-        setStartDate(new Date(moment().subtract(1, 'months').format()))
-        setEndDate(new Date())
+        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 
     const meterCO2: any = useAppSelector(sliceGetter)
@@ -111,6 +119,7 @@ const CO2ConsumptionCharts = ({
                                     darkMode={darkMode}
                                     dataSeries={meterCO2.value}
                                     titleText={titleText}
+                                    seeTimeAxis={seeTimeAxis}
                                 />
                             )}
                             {typeMeter === typesMeter.COUNTRIES_BAR && (
@@ -169,7 +178,7 @@ const CO2ConsumptionCharts = ({
                                 />
                                 <CardContent>
                                     {meterCO2 != null && meterCO2 !== undefined && (
-                                        <Fragment>
+                                        <DateRangeContainer>
                                             <DateRange
                                                 initialStartDate={startDate}
                                                 InitianEndDate={endDate}
@@ -177,6 +186,7 @@ const CO2ConsumptionCharts = ({
                                                 setStartDate={setStartDate}
                                                 darkMode={darkMode}
                                                 setSeeTimeAxis={setSeeTimeAxis}
+                                                disableFuture={true}
                                             />
 
                                             {typeMeter === typesMeter.BAR && (
@@ -190,6 +200,7 @@ const CO2ConsumptionCharts = ({
                                                     darkMode={darkMode}
                                                     dataSeries={meterCO2.value}
                                                     titleText={titleText}
+                                                    seeTimeAxis={seeTimeAxis}
                                                 />
                                             )}
                                             {typeMeter === typesMeter.COUNTRIES_BAR && (
@@ -199,7 +210,7 @@ const CO2ConsumptionCharts = ({
                                                     titleText={titleText}
                                                 />
                                             )}
-                                        </Fragment>
+                                        </DateRangeContainer>
                                     )}
                                 </CardContent>
                             </Card>

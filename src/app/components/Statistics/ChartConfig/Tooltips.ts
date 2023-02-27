@@ -114,3 +114,13 @@ export const averageBlockSizeTooltip = (data: AverageBlockSize) => {
         <br/>`
     return header
 }
+
+//CO2 Emissions
+export const co2EmissionsTooltip = (data: any) => {
+    const header = `<span>
+    ${moment(data.time, 'YYYY-MM-DD').format('MMMM Do YYYY')}
+        <br/>
+        [<label style="color: blue">CO2 Emissions:</label> <b>${data.value}</b>]
+        <br/>`
+    return header
+}

@@ -70,6 +70,7 @@ const DateRange = ({
     setStartDate,
     darkMode,
     setSeeTimeAxis,
+    disableFuture,
 }) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
@@ -82,13 +83,23 @@ const DateRange = ({
     const handleClickOneMonth = () => {
         setSeeTimeAxis('month')
         setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+
+        if (!disableFuture) {
+            setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        }
     }
 
     const handleClickOneYear = () => {
         setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
+
+        if (!disableFuture) {
+            setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        }
     }
 
     const handleClickOneAllTime = () => {
@@ -129,6 +140,14 @@ const DateRange = ({
             />
         </CustomInputContainer>
     ))
+
+    const getMaxDate = () => {
+        if (!disableFuture) {
+            return null
+        } else {
+            return new Date()
+        }
+    }
 
     const CustomInputMobile = forwardRef(({ value, onClick, label }: any, refMobile: any) => (
         <CustomInputContainer style={{ cursor: 'default' }}>
@@ -199,6 +218,7 @@ const DateRange = ({
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInput label="Initial Date" />}
+                            maxDate={getMaxDate()}
                             // readOnly
                         />
                         <DatePicker
@@ -209,6 +229,7 @@ const DateRange = ({
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInput label="End Date" />}
+                            maxDate={getMaxDate()}
                             // readOnly
                         />
                     </PickerContainer>

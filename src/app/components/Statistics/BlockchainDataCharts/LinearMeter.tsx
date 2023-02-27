@@ -1,7 +1,7 @@
 import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import ConfigLinearMeter from './ConfigLinearMeter'
+import ConfigLinearMeter from '../ChartConfig/ChartConfig'
 
 const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) => {
     let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis)

@@ -1,4 +1,4 @@
-import { typeBlockchainDataChart as typesStatistic } from '../../../../utils/statistics/ChartSelector'
+import { typeChartData as typesStatistic } from '../../../../utils/statistics/ChartSelector'
 import {
     dailyTransactionsTooltip,
     uniqueAddressesDailyIncreaseTooltip,
@@ -8,23 +8,24 @@ import {
     averageGasPriceTooltip,
     averageGasLimitTooltip,
     averageBlockSizeTooltip,
+    co2EmissionsTooltip,
 } from './Tooltips'
 import moment from 'moment'
 import { ethers } from 'ethers'
 import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 
-class ConfigLinearMeter {
+class ChartConfig {
     title: string
     categories: any[] = []
-    typeBlockchainDataChart: any
+    typeChartData: any
     data: any[] = []
     highestAndLowestInfo: any
     timeSeeAxis: any
 
-    constructor(typeBlockchainDataChart: any, title: string, dataChart: any, timeSeeAxis: String) {
-        this.typeBlockchainDataChart = typeBlockchainDataChart
+    constructor(typeChartData: any, title: string, dataChart: any, timeSeeAxis: String) {
+        this.typeChartData = typeChartData
         this.title = title
-        switch (this.typeBlockchainDataChart) {
+        switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 this.data = dataChart.txInfo
                 break
@@ -55,13 +56,16 @@ class ConfigLinearMeter {
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 this.data = dataChart
                 break
+            case typesStatistic.CO2_EMISSIONS:
+                this.data = dataChart
+                break
         }
 
         this.checkRangeTimeString(timeSeeAxis)
     }
 
     public getCategories() {
-        switch (this.typeBlockchainDataChart) {
+        switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
             case typesStatistic.UNIQUE_ADRESSES:
@@ -76,6 +80,8 @@ class ConfigLinearMeter {
                 return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
+            case typesStatistic.CO2_EMISSIONS:
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.time))
             default:
                 return this.data.map((value, index) => this.getCheckTimeCategories(value.Date))
         }
@@ -96,7 +102,7 @@ class ConfigLinearMeter {
 
         for (let i = 0; i < this.data.length; i++) {
             let data: Date
-            switch (this.typeBlockchainDataChart) {
+            switch (this.typeChartData) {
                 case typesStatistic.DAILY_TRANSACTIONS:
                     data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
                     break
@@ -121,11 +127,13 @@ class ConfigLinearMeter {
                 case typesStatistic.AVERAGE_BLOCK_SIZE:
                     data = moment(this.data[i].dateInfo, 'YYYY-MM-DD').toDate()
                     break
+                case typesStatistic.CO2_EMISSIONS:
+                    data = moment(this.data[i].time, 'YYYY-MM-DD').toDate()
+                    break
                 default:
                     data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
                     break
             }
-
             if (data < lowestDate) {
                 lowestDate = data
             }
@@ -133,7 +141,6 @@ class ConfigLinearMeter {
                 highestDate = data
             }
         }
-
         if (
             highestDate.getDay() === lowestDate.getDay() &&
             highestDate.getMonth() === lowestDate.getMonth() &&
@@ -171,7 +178,7 @@ class ConfigLinearMeter {
     }
 
     public getTooltip(index: any) {
-        switch (this.typeBlockchainDataChart) {
+        switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return dailyTransactionsTooltip(this.data[index])
             case typesStatistic.UNIQUE_ADRESSES:
@@ -188,11 +195,13 @@ class ConfigLinearMeter {
                 return averageGasLimitTooltip(this.data[index])
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 return averageBlockSizeTooltip(this.data[index])
+            case typesStatistic.CO2_EMISSIONS:
+                return co2EmissionsTooltip(this.data[index])
         }
     }
 
     public getMappedSeries() {
-        switch (this.typeBlockchainDataChart) {
+        switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return this.data.map((value, index) => {
                     return { y: value.totalTransactions, name: value.date }
@@ -228,8 +237,16 @@ class ConfigLinearMeter {
                 return this.data.map((value, index) => {
                     return { y: value.blockSize, name: value.dateInfo }
                 })
+
+            case typesStatistic.CO2_EMISSIONS:
+                return this.data.map((value, index) => {
+                    return {
+                        name: index,
+                        y: value.value,
+                    }
+                })
         }
     }
 }
 
-export default ConfigLinearMeter
+export default ChartConfig

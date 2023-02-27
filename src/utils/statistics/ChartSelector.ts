@@ -7,7 +7,7 @@ export const typesMeter = {
 }
 
 //Statistic if using Statistics Charts
-export const typeBlockchainDataChart = {
+export const typeChartData = {
     DAILY_TRANSACTIONS: 'DAILY_TRANSACTIONS',
     UNIQUE_ADRESSES: 'UNIQUE_ADRESSES',
     DAILY_TOKEN_TRANSFER: 'DAILY_TOKEN_TRANSFER',
@@ -16,4 +16,5 @@ export const typeBlockchainDataChart = {
     GAS_AVERAGE_PRICE: 'GAS_AVERAGE_PRICE',
     GAS_AVERAGE_LIMIT: 'GAS_AVERAGE_LIMIT',
     AVERAGE_BLOCK_SIZE: 'AVERAGE_BLOCK_SIZE',
+    CO2_EMISSIONS: 'CO2_EMISSIONS',
 }
