@@ -50,8 +50,8 @@ const CO2ConsumptionCharts = ({
         if (startDate !== undefined && endDate !== undefined) {
             dispatch(
                 utilSlice({
-                    startDate: moment(startDate).toISOString(),
-                    endDate: moment(endDate).toISOString(),
+                    startDate: moment(startDate).toISOString(true).replace('.000-05:00', 'Z'),
+                    endDate: moment(endDate).toISOString(true).replace('.000-05:00', 'Z'),
                 }),
             )
         }
@@ -63,7 +63,7 @@ const CO2ConsumptionCharts = ({
         setEndDate(new Date())
     }, [])
 
-    const meterCO2 = useAppSelector(sliceGetter)
+    const meterCO2: any = useAppSelector(sliceGetter)
 
     const loader = useAppSelector(sliceGetterLoader)
 
@@ -77,133 +77,131 @@ const CO2ConsumptionCharts = ({
                 </>
             ) : (
                 <>
-                    {openModal === true ? (
-                        <>
-                            <Modal
-                                open={openModal}
-                                onClose={e => {
-                                    setOpenModal(false)
-                                }}
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                                disableScrollLock={true}
-                            >
-                                <Box
-                                    sx={{
-                                        backgroundColor: 'transparent',
-                                        borderRadius: '7px',
-                                        padding: '1.5rem',
-                                        minWidth: isWidescreen ? '1300px' : '0px',
-                                    }}
-                                    style={{
-                                        overflowY: 'auto',
-                                    }}
-                                >
-                                    <Card
-                                        style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}
+                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
+                        <CardHeader
+                            title={titleText}
+                            style={{
+                                marginBottom: '0rem',
+                                marginLeft: '0.5rem',
+                            }}
+                            action={
+                                <TooltipContainer>
+                                    <IconButton
+                                        color="info"
+                                        component="label"
+                                        onClick={() => setOpenModal(true)}
+                                        style={{
+                                            cursor: 'default',
+                                            color: 'GrayText',
+                                        }}
                                     >
-                                        <CardHeader
-                                            title={titleText}
-                                            action={
-                                                <IconButton
-                                                    color="info"
-                                                    component="label"
-                                                    onClick={() => setOpenModal(false)}
-                                                    style={{
-                                                        cursor: 'default',
-                                                        color: isDark ? 'white' : 'black',
-                                                    }}
-                                                >
-                                                    <Icon path={mdiClose} size={1} />
-                                                </IconButton>
-                                            }
-                                        />
-                                        <CardContent>
-                                            <Fragment>
-                                                <DateRange
-                                                    initialStartDate={startDate}
-                                                    InitianEndDate={endDate}
-                                                    setEndDate={setEndDate}
-                                                    setStartDate={setStartDate}
-                                                    darkMode={darkMode}
-                                                />
+                                        <ArrowOutwardIcon />
+                                    </IconButton>
+                                </TooltipContainer>
+                            }
+                        />
+                        <CardContent>
+                            {typeMeter === typesMeter.BAR && (
+                                <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} />
+                            )}
+                            {typeMeter === typesMeter.TIME_SERIES && (
+                                <TimeSeriesMeter
+                                    darkMode={darkMode}
+                                    dataSeries={meterCO2.value}
+                                    titleText={titleText}
+                                />
+                            )}
+                            {typeMeter === typesMeter.COUNTRIES_BAR && (
+                                <CountriesBarMeter
+                                    darkMode={darkMode}
+                                    dataSeries={meterCO2.value}
+                                    titleText={titleText}
+                                />
+                            )}
+                        </CardContent>
+                    </Card>
+                </>
+            )}
 
-                                                {typeMeter === typesMeter.BAR && (
-                                                    <BarMeter
-                                                        darkMode={darkMode}
-                                                        dataSeries={meterCO2.value}
-                                                    />
-                                                )}
-                                                {typeMeter === typesMeter.TIME_SERIES && (
-                                                    <TimeSeriesMeter
-                                                        darkMode={darkMode}
-                                                        dataSeries={meterCO2.value}
-                                                        titleText={titleText}
-                                                    />
-                                                )}
-                                                {typeMeter === typesMeter.COUNTRIES_BAR && (
-                                                    <CountriesBarMeter
-                                                        darkMode={darkMode}
-                                                        dataSeries={meterCO2.value}
-                                                        titleText={titleText}
-                                                    />
-                                                )}
-                                            </Fragment>
-                                        </CardContent>
-                                    </Card>
-                                </Box>
-                            </Modal>
-                        </>
-                    ) : (
-                        <>
+            {openModal === true && (
+                <>
+                    <Modal
+                        open={openModal}
+                        onClose={e => {
+                            setOpenModal(false)
+                        }}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        disableScrollLock={true}
+                    >
+                        <Box
+                            sx={{
+                                backgroundColor: 'transparent',
+                                borderRadius: '7px',
+                                padding: '1.5rem',
+                                minWidth: isWidescreen ? '1300px' : '0px',
+                            }}
+                            style={{
+                                overflowY: 'auto',
+                            }}
+                        >
                             <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
                                 <CardHeader
                                     title={titleText}
-                                    style={{
-                                        marginBottom: '0rem',
-                                        marginLeft: '0.5rem',
-                                    }}
                                     action={
-                                        <TooltipContainer>
-                                            <IconButton
-                                                color="info"
-                                                component="label"
-                                                onClick={() => setOpenModal(true)}
-                                                style={{
-                                                    cursor: 'default',
-                                                    color: 'GrayText',
-                                                }}
-                                            >
-                                                <ArrowOutwardIcon />
-                                            </IconButton>
-                                        </TooltipContainer>
+                                        <IconButton
+                                            color="info"
+                                            component="label"
+                                            onClick={() => setOpenModal(false)}
+                                            style={{
+                                                cursor: 'default',
+                                                color: isDark ? 'white' : 'black',
+                                            }}
+                                        >
+                                            <Icon path={mdiClose} size={1} />
+                                        </IconButton>
                                     }
                                 />
                                 <CardContent>
-                                    {typeMeter === typesMeter.BAR && (
-                                        <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} />
-                                    )}
-                                    {typeMeter === typesMeter.TIME_SERIES && (
-                                        <TimeSeriesMeter
-                                            darkMode={darkMode}
-                                            dataSeries={meterCO2.value}
-                                            titleText={titleText}
-                                        />
-                                    )}
-                                    {typeMeter === typesMeter.COUNTRIES_BAR && (
-                                        <CountriesBarMeter
-                                            darkMode={darkMode}
-                                            dataSeries={meterCO2.value}
-                                            titleText={titleText}
-                                        />
+                                    {meterCO2 != null && meterCO2 !== undefined && (
+                                        <Fragment>
+                                            <DateRange
+                                                initialStartDate={startDate}
+                                                InitianEndDate={endDate}
+                                                setEndDate={setEndDate}
+                                                setStartDate={setStartDate}
+                                                darkMode={darkMode}
+                                            />
+
+                                            {typeMeter === typesMeter.BAR && (
+                                                <BarMeter
+                                                    darkMode={darkMode}
+                                                    dataSeries={meterCO2.value}
+                                                />
+                                            )}
+                                            {typeMeter === typesMeter.TIME_SERIES && (
+                                                <TimeSeriesMeter
+                                                    darkMode={darkMode}
+                                                    dataSeries={meterCO2.value}
+                                                    titleText={titleText}
+                                                />
+                                            )}
+                                            {typeMeter === typesMeter.COUNTRIES_BAR && (
+                                                <CountriesBarMeter
+                                                    darkMode={darkMode}
+                                                    dataSeries={meterCO2.value}
+                                                    titleText={titleText}
+                                                />
+                                            )}
+                                        </Fragment>
                                     )}
                                 </CardContent>
                             </Card>
-                        </>
-                    )}
+                        </Box>
+                    </Modal>
                 </>
             )}
         </Fragment>

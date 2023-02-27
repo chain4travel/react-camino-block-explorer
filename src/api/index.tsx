@@ -201,7 +201,7 @@ export const fetchBlocksTransactionsCChain = async (): Promise<loadBlocksTransac
 export async function loadValidatorsInfo() {
     return new Promise((resolve, reject) => {
         const urlValidators = `${getBaseUrl()}${baseEndpoint}/validatorsInfo`
-        var request = {
+        let request = {
             method: 'post',
             url: urlValidators,
             headers: {
@@ -222,7 +222,7 @@ export async function loadValidatorsInfo() {
 
 export const fetchDailyEmissions = (dates: any) => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${
                 dates.startDate
@@ -247,7 +247,7 @@ export const fetchDailyEmissions = (dates: any) => {
 
 export const fetchNetworkEmissions = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${
                 dates.startDate
@@ -272,7 +272,7 @@ export const fetchNetworkEmissions = dates => {
 
 export const fetchTransactionsEmissions = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${
                 dates.startDate
@@ -297,7 +297,7 @@ export const fetchTransactionsEmissions = dates => {
 
 export const fetchCountryEmissions = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/countryEmissions?startTime=${
                 dates.startDate
@@ -322,7 +322,7 @@ export const fetchCountryEmissions = dates => {
 
 export const fetchBlockchainChartDailyTransactions = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${
                 dates.startDate
@@ -350,7 +350,7 @@ export const fetchBlockchainChartDailyTransactions = dates => {
 
 export const fetchBlockchainChartUniqueAddresses = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${
                 dates.startDate
@@ -378,7 +378,7 @@ export const fetchBlockchainChartUniqueAddresses = dates => {
 
 export const fetchBlockchainDailyGasUsed = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${
                 dates.startDate
@@ -406,7 +406,7 @@ export const fetchBlockchainDailyGasUsed = dates => {
 
 export const fetchBlockchainActiveAddresses = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${
                 dates.startDate
@@ -434,7 +434,7 @@ export const fetchBlockchainActiveAddresses = dates => {
 
 export const fetchBlockchainAverageBlockSize = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${
                 dates.startDate
@@ -456,7 +456,7 @@ export const fetchBlockchainAverageBlockSize = dates => {
 
 export const fetchBlockchainAverageGasPriceUsed = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${
                 dates.startDate
@@ -484,7 +484,7 @@ export const fetchBlockchainAverageGasPriceUsed = dates => {
 
 export const fetchBlockchainDailyTokenTransfer = dates => {
     return new Promise((resolve, reject) => {
-        var config = {
+        let config = {
             method: 'get',
             url: `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${
                 dates.startDate
