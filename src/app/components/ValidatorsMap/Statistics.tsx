@@ -24,7 +24,7 @@ const Statistics = ({ nodesPerCountry, darkMode }) => {
             lineColor: 'transparent',
             gridLineColor: '#666666',
             title: '',
-            allowDecimals: false
+            allowDecimals: false,
         },
         xAxis: {
             lineColor: 'transparent',
@@ -41,7 +41,7 @@ const Statistics = ({ nodesPerCountry, darkMode }) => {
                     )}" /> ${obj.value}</span>`
                 },
             },
-            allowDecimals: false
+            allowDecimals: false,
         },
 
         legend: {
