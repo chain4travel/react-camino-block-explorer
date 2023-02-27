@@ -57,7 +57,7 @@ class ConfigLinearMeter {
                 break
         }
 
-        this.checkRangeTime(timeSeeAxis)
+        this.checkRangeTimeString(timeSeeAxis)
     }
 
     public getCategories() {
@@ -81,11 +81,79 @@ class ConfigLinearMeter {
         }
     }
 
-    private checkRangeTime(timeSeeAxis: String) {
+    private checkRangeTimeString(timeSeeAxis: String) {
+        console.log(timeSeeAxis)
         if (timeSeeAxis === 'custom') {
-            this.timeSeeAxis = 'month'
+            this.timeSeeAxis = this.verifyRangeTime()
         } else {
             this.timeSeeAxis = timeSeeAxis
+        }
+    }
+
+    private verifyRangeTime() {
+        let lowestDate: Date = new Date('2099/12/31')
+        let highestDate: Date = new Date('2000/01/01')
+
+        for (let i = 0; i < this.data.length; i++) {
+            let data: Date
+            switch (this.typeBlockchainDataChart) {
+                case typesStatistic.DAILY_TRANSACTIONS:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.UNIQUE_ADRESSES:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.DAILY_TOKEN_TRANSFER:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_USED:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.ACTIVE_ADDRESSES:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_AVERAGE_PRICE:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_AVERAGE_LIMIT:
+                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.AVERAGE_BLOCK_SIZE:
+                    data = moment(this.data[i].dateInfo, 'YYYY-MM-DD').toDate()
+                    break
+                default:
+                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
+                    break
+            }
+
+            if (data < lowestDate) {
+                lowestDate = data
+            }
+            if (data > highestDate) {
+                highestDate = data
+            }
+        }
+
+        if (
+            highestDate.getDay() === lowestDate.getDay() &&
+            highestDate.getMonth() === lowestDate.getMonth() &&
+            highestDate.getFullYear() === lowestDate.getFullYear()
+        ) {
+            return 'day'
+        } else if (
+            highestDate.getMonth() === lowestDate.getMonth() &&
+            highestDate.getFullYear() === lowestDate.getFullYear()
+        ) {
+            return 'month'
+        } else if (
+            highestDate.getMonth() !== lowestDate.getMonth() &&
+            highestDate.getFullYear() === lowestDate.getFullYear()
+        ) {
+            return 'year'
+        } else if (highestDate.getFullYear() !== lowestDate.getFullYear()) {
+            return 'all'
+        } else {
+            return 'month'
         }
     }
 

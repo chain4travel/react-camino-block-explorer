@@ -94,6 +94,16 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
         setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
     }
 
+    const handleChangeStartDate = (date: any) => {
+        setSeeTimeAxis('custom')
+        setStartDate(date)
+    }
+
+    const handleChangeEndDate = (date: any) => {
+        setSeeTimeAxis('custom')
+        setEndDate(date)
+    }
+
     const CustomInput = forwardRef(({ value, onClick, label }: any, ref: any) => (
         <CustomInputContainer style={{ cursor: 'default' }}>
             <NewTextField
@@ -177,22 +187,22 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                     >
                         <DatePicker
                             selected={initialStartDate}
-                            onChange={date => setStartDate(date)}
+                            onChange={(date: any) => handleChangeStartDate(date)}
                             selectsStart
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInput label="Initial Date" />}
-                            // readOnly
+                        // readOnly
                         />
                         <DatePicker
                             selected={InitianEndDate}
-                            onChange={date => setEndDate(date)}
+                            onChange={(date: any) => handleChangeEndDate(date)}
                             selectsEnd
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInput label="End Date" />}
-                            // readOnly
+                        // readOnly
                         />
                     </PickerContainer>
                 </>
@@ -244,7 +254,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInputMobile label="Initial Date" />}
-                            // readOnly
+                        // readOnly
                         />
                         <DatePicker
                             selected={InitianEndDate}
@@ -254,7 +264,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInputMobile label="End Date" />}
-                            // readOnly
+                        // readOnly
                         />
                     </FilterContainerMobile>
                 </>

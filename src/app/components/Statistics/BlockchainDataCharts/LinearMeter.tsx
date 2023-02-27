@@ -27,7 +27,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
                 },
                 labels: {
                     useHTML: true,
-                    formatter: function (obj) {
+                    formatter: function (obj: any) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -42,7 +42,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
 
                 labels: {
                     useHTML: true,
-                    formatter: function (obj) {
+                    formatter: function (obj: any) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
