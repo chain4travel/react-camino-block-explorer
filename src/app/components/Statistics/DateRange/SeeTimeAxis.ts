@@ -3,5 +3,5 @@ export const seeTimeAxis = {
     month: 'month',
     year: 'year',
     all: 'all',
-    custom: 'custom'
+    custom: 'custom',
 }

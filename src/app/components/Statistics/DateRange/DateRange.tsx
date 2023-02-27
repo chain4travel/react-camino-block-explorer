@@ -63,7 +63,14 @@ const CustomInputContainer = styled.div`
     cursor: pointer;
 `
 
-const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate, darkMode, setSeeTimeAxis }) => {
+const DateRange = ({
+    initialStartDate,
+    InitianEndDate,
+    setEndDate,
+    setStartDate,
+    darkMode,
+    setSeeTimeAxis,
+}) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
     const handleClickOneDay = () => {
@@ -192,7 +199,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInput label="Initial Date" />}
-                        // readOnly
+                            // readOnly
                         />
                         <DatePicker
                             selected={InitianEndDate}
@@ -202,7 +209,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInput label="End Date" />}
-                        // readOnly
+                            // readOnly
                         />
                     </PickerContainer>
                 </>
@@ -254,7 +261,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInputMobile label="Initial Date" />}
-                        // readOnly
+                            // readOnly
                         />
                         <DatePicker
                             selected={InitianEndDate}
@@ -264,7 +271,7 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInputMobile label="End Date" />}
-                        // readOnly
+                            // readOnly
                         />
                     </FilterContainerMobile>
                 </>

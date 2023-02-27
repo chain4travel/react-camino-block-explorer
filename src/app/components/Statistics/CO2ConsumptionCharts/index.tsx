@@ -43,6 +43,7 @@ const CO2ConsumptionCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
 
     const dispatch = useAppDispatch()

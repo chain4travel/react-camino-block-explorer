@@ -58,7 +58,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
                 },
                 itemHoverStyle: {
                     color: darkMode ? 'white' : 'black',
-                }
+                },
             },
             plotOptions: {
                 series: {
