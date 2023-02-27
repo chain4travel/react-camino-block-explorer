@@ -3,8 +3,8 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import ConfigLinearMeter from './ConfigLinearMeter'
 
-const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
-    let config = new ConfigLinearMeter(typeStatistic, titleText, data)
+const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) => {
+    let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis)
 
     if (config.data !== undefined && config.data != null) {
         const options = {

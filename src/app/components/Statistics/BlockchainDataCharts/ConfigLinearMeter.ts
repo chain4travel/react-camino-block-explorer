@@ -11,6 +11,7 @@ import {
 } from './Tooltips'
 import moment from 'moment'
 import { ethers } from 'ethers'
+import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 
 class ConfigLinearMeter {
     title: string
@@ -18,8 +19,9 @@ class ConfigLinearMeter {
     typeBlockchainDataChart: any
     data: any[] = []
     highestAndLowestInfo: any
+    timeSeeAxis: any
 
-    constructor(typeBlockchainDataChart: any, title: string, dataChart: any) {
+    constructor(typeBlockchainDataChart: any, title: string, dataChart: any, timeSeeAxis: String) {
         this.typeBlockchainDataChart = typeBlockchainDataChart
         this.title = title
         switch (this.typeBlockchainDataChart) {
@@ -54,44 +56,53 @@ class ConfigLinearMeter {
                 this.data = dataChart
                 break
         }
+
+        this.checkRangeTime(timeSeeAxis)
     }
 
     public getCategories() {
         switch (this.typeBlockchainDataChart) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                return this.data.map((value, index) =>
-                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
             case typesStatistic.UNIQUE_ADRESSES:
-                return this.data.map((value, index) =>
-                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
             case typesStatistic.GAS_USED:
-                return this.data.map((value, index) =>
-                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
             case typesStatistic.ACTIVE_ADDRESSES:
-                return this.data.map((value, index) =>
-                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
             case typesStatistic.AVERAGE_BLOCK_SIZE:
-                return this.data.map((value, index) =>
-                    moment(value.dateInfo, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateInfo))
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return this.data.map((value, index) =>
-                    moment(value.date, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return this.data.map((value, index) =>
-                    moment(value.dateAt, 'YYYY-MM-DD').format('D MMM'),
-                )
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
             default:
-                return this.data.map((value, index) => moment(new Date(value.Date)).format('D MMM'))
+                return this.data.map((value, index) => this.getCheckTimeCategories(value.Date))
         }
     }
 
-    public getTooltip(index) {
+    private checkRangeTime(timeSeeAxis: String) {
+        if (timeSeeAxis === 'custom') {
+            this.timeSeeAxis = 'month'
+        } else {
+            this.timeSeeAxis = timeSeeAxis
+        }
+    }
+
+    private getCheckTimeCategories(date: any) {
+        switch (this.timeSeeAxis) {
+            case seeTimeAxis.day:
+                return moment(date, 'YYYY-MM-DD').format('D MMM')
+            case seeTimeAxis.month:
+                return moment(date, 'YYYY-MM-DD').format('D MMM')
+            case seeTimeAxis.year:
+                return moment(date, 'YYYY-MM-DD').format('MMM')
+            case seeTimeAxis.all:
+                return moment(date, 'YYYY-MM-DD').format('YYYY')
+        }
+    }
+
+    public getTooltip(index: any) {
         switch (this.typeBlockchainDataChart) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return dailyTransactionsTooltip(this.data[index])

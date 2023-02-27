@@ -63,25 +63,29 @@ const CustomInputContainer = styled.div`
     cursor: pointer;
 `
 
-const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate, darkMode }) => {
+const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate, darkMode, setSeeTimeAxis }) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
     const handleClickOneDay = () => {
+        setSeeTimeAxis('day')
         setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneMonth = () => {
+        setSeeTimeAxis('month')
         setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneYear = () => {
+        setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneAllTime = () => {
+        setSeeTimeAxis('all')
         setStartDate(
             new Date(
                 moment('01/01/2000', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss'),

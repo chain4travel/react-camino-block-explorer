@@ -43,6 +43,7 @@ const CO2ConsumptionCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>()
+    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
 
     const dispatch = useAppDispatch()
 
@@ -174,6 +175,7 @@ const CO2ConsumptionCharts = ({
                                                 setEndDate={setEndDate}
                                                 setStartDate={setStartDate}
                                                 darkMode={darkMode}
+                                                setSeeTimeAxis={setSeeTimeAxis}
                                             />
 
                                             {typeMeter === typesMeter.BAR && (

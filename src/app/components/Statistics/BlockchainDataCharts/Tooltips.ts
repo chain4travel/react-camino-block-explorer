@@ -12,7 +12,7 @@ import { ethers } from 'ethers'
 //Transactions
 export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
     const header = `<span>
-        ${moment(new Date(data.date)).format('MMMM Do YYYY')}
+        ${moment(data.date,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Transactions:</label> <b>${data.totalTransactions}</b>]
         <br/>
@@ -31,7 +31,7 @@ export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
 //Unique Addresses
 export const uniqueAddressesDailyIncreaseTooltip = (data: AddressInfo) => {
     const header = `<span>
-        ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
+        ${moment(data.dateAt,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Disctinct Addresses:</label> <b>${
             data.totalAddresses
@@ -46,7 +46,7 @@ export const uniqueAddressesDailyIncreaseTooltip = (data: AddressInfo) => {
 //Daily Token Transfer
 export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
     const header = `<span>
-    ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
+    ${moment(data.dateAt,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Token Transfer:</label> <b>${parseFloat(
             ethers.formatEther(data.counter.toString()),
@@ -60,7 +60,7 @@ export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
 //Gas Used
 export const gasUsedTooltip = (data: GasUsed) => {
     const header = `<span>
-    ${moment(new Date(data.date)).format('MMMM Do YYYY')}
+    ${moment(data.date,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Gas Used:</label> <b>${data.avgGas}</b>]
         </span>`
@@ -70,7 +70,7 @@ export const gasUsedTooltip = (data: GasUsed) => {
 //Active Addresses
 export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
     const header = `<span>
-    ${moment(new Date(data.dateAt)).format('MMMM Do YYYY')}
+    ${moment(data.dateAt,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Total Gas Used:</label> <b>${data.total}</b>]
         <br/>
@@ -84,7 +84,7 @@ export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
 //Gas Average Price
 export const averageGasPriceTooltip = (data: GasAveragePriceInfo, highestAndLowestInfo: any) => {
     const header = `<span>
-    ${moment(new Date(data.date)).format('MMMM Do YYYY')}
+    ${moment(data.date,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Average gas price:</label> <b>${data.avgGas} Gwei</b>]
         <br/>
@@ -98,7 +98,7 @@ export const averageGasPriceTooltip = (data: GasAveragePriceInfo, highestAndLowe
 //Gas Average Limit
 export const averageGasLimitTooltip = (data: GasAverageLimit) => {
     const header = `<span>
-    ${moment(new Date(data.Date)).format('MMMM Do YYYY')}
+    ${moment(data.Date,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">average gas limit:</label> <b>${data.AverageGasLimit}</b>]
         <br/>`
@@ -108,7 +108,7 @@ export const averageGasLimitTooltip = (data: GasAverageLimit) => {
 //Gas Average Size
 export const averageBlockSizeTooltip = (data: AverageBlockSize) => {
     const header = `<span>
-    ${moment(new Date(data.dateInfo)).format('MMMM Do YYYY')}
+    ${moment(data.dateInfo,'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
         [<label style="color: blue">Gas (gWei):</label> <b>${data.blockSize}</b>]
         <br/>`

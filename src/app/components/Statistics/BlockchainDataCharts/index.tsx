@@ -67,6 +67,7 @@ const BlockchainCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
+    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
@@ -139,6 +140,7 @@ const BlockchainCharts = ({
                                         titleText={titleText}
                                         data={dataStatistics}
                                         typeStatistic={typeStatistic}
+                                        timeSeeAxis={seeTimeAxis}
                                     />
                                 </>
                             ) : null}
@@ -221,6 +223,7 @@ const BlockchainCharts = ({
                                             setEndDate={setEndDate}
                                             setStartDate={setStartDate}
                                             darkMode={darkMode}
+                                            setSeeTimeAxis={setSeeTimeAxis}
                                         />
                                     </DateRangeContainer>
                                     <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
@@ -229,6 +232,7 @@ const BlockchainCharts = ({
                                             titleText={titleText}
                                             data={dataStatistics}
                                             typeStatistic={typeStatistic}
+                                            timeSeeAxis={seeTimeAxis}
                                         />
                                     </LinearMeterContainer>
                                 </Fragment>
