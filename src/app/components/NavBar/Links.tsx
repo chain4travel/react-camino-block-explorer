@@ -3,9 +3,10 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { CCHAIN, XCHAIN, PCHAIN, MAINNET } from 'utils/route-paths'
+import { CCHAIN, XCHAIN, PCHAIN, MAINNET, STATISTICS } from 'utils/route-paths'
 import { ChainType } from 'utils/types/chain-type'
 import { getChainTypeFromUrl } from 'utils/route-utils'
+import { STATISTICS_LINK } from '../../../utils/types/statistics-type'
 
 function a11yProps(index: number) {
     return {
@@ -21,6 +22,8 @@ const activeTab = (path: string): number => {
             return 1
         case ChainType.P_CHAIN:
             return 2
+        case STATISTICS_LINK:
+            return 5
     }
     return 0
 }
@@ -33,6 +36,7 @@ export default function Links() {
             if (newValue === 0) navigate(CCHAIN)
             else if (newValue === 1) navigate(XCHAIN)
             else if (newValue === 2) navigate(PCHAIN)
+            else if (newValue === 5) navigate(STATISTICS)
             if (newValue !== 3 && newValue !== 4) setValue(newValue)
         }
     }
@@ -41,6 +45,7 @@ export default function Links() {
         else if (location.pathname === CCHAIN) setValue(0)
         else if (location.pathname === XCHAIN) setValue(1)
         else if (location.pathname === PCHAIN) setValue(2)
+        else if (location.pathname === STATISTICS) setValue(5)
     }, [location])
 
     let navigate = useNavigate()
@@ -85,6 +90,7 @@ export default function Links() {
                     {...a11yProps(2)}
                     sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
+                <Tab className="tab" value={5} disableRipple label="Statistics" {...a11yProps(5)} />
             </Tabs>
         </Box>
     )
