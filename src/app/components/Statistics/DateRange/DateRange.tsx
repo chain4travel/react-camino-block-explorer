@@ -84,10 +84,10 @@ const DateRange = ({
         setSeeTimeAxis('month')
         setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
 
-        if (!disableFuture) {
-            setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        } else {
+        if (disableFuture) {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
         }
     }
 
@@ -96,9 +96,9 @@ const DateRange = ({
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
 
         if (!disableFuture) {
-            setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
-        } else {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
         }
     }
 
@@ -142,9 +142,7 @@ const DateRange = ({
     ))
 
     const getMaxDate = () => {
-        if (!disableFuture) {
-            return null
-        } else {
+        if (disableFuture) {
             return new Date()
         }
     }
