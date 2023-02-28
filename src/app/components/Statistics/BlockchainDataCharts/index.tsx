@@ -98,6 +98,7 @@ const BlockchainCharts = ({
         if (firstLoad === false && dataStatistics !== null && dataStatistics !== undefined) {
             setFirstLoad(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataStatistics])
 
     return (

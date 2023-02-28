@@ -81,6 +81,7 @@ const CO2ConsumptionCharts = ({
         if (firstLoad === false && meterCO2 !== null && meterCO2 !== undefined) {
             setFirstLoad(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meterCO2])
 
     return (
