@@ -42,7 +42,7 @@ interface TextProps {
     backgroundColor: string
 }
 
-const Text = styled('p') <TextProps>`
+const Text = styled('p')<TextProps>`
     margin-left: 3rem !important;
     margin-right: 1rem !important;
     margin-top: 0.5rem !important;

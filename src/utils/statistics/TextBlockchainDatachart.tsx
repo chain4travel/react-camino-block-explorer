@@ -1,6 +1,6 @@
 import React from 'react'
 import { typeChartData } from './ChartSelector'
-import { Grid, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import moment from 'moment'
 
 export const TextBlockchainDatachart = ({
