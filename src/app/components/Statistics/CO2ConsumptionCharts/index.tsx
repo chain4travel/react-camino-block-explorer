@@ -53,6 +53,7 @@ const CO2ConsumptionCharts = ({
     const [endDate, setEndDate] = useState<Date>()
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [firstLoad, setFirstLoad] = useState(false)
 
     const dispatch = useAppDispatch()
 
@@ -74,12 +75,17 @@ const CO2ConsumptionCharts = ({
     }, [])
 
     const meterCO2: any = useAppSelector(sliceGetter)
-
     const loader = useAppSelector(sliceGetterLoader)
+
+    useEffect(() => {
+        if (firstLoad === false && meterCO2 !== null && meterCO2 !== undefined) {
+            setFirstLoad(true)
+        }
+    }, [meterCO2])
 
     return (
         <Fragment>
-            {loader === Status.LOADING ? (
+            {loader === Status.LOADING && firstLoad === false ? (
                 <>
                     <div style={{ textAlign: 'center' }}>
                         <CircularProgress color="secondary" />
@@ -111,23 +117,27 @@ const CO2ConsumptionCharts = ({
                             }
                         />
                         <CardContent>
-                            {typeMeter === typesMeter.BAR && (
-                                <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} />
-                            )}
-                            {typeMeter === typesMeter.TIME_SERIES && (
-                                <TimeSeriesMeter
-                                    darkMode={darkMode}
-                                    dataSeries={meterCO2.value}
-                                    titleText={titleText}
-                                    seeTimeAxis={seeTimeAxis}
-                                />
-                            )}
-                            {typeMeter === typesMeter.COUNTRIES_BAR && (
-                                <CountriesBarMeter
-                                    darkMode={darkMode}
-                                    dataSeries={meterCO2.value}
-                                    titleText={titleText}
-                                />
+                            {firstLoad === true && (
+                                <>
+                                    {typeMeter === typesMeter.BAR && (
+                                        <BarMeter darkMode={darkMode} dataSeries={meterCO2.value} />
+                                    )}
+                                    {typeMeter === typesMeter.TIME_SERIES && (
+                                        <TimeSeriesMeter
+                                            darkMode={darkMode}
+                                            dataSeries={meterCO2.value}
+                                            titleText={titleText}
+                                            seeTimeAxis={seeTimeAxis}
+                                        />
+                                    )}
+                                    {typeMeter === typesMeter.COUNTRIES_BAR && (
+                                        <CountriesBarMeter
+                                            darkMode={darkMode}
+                                            dataSeries={meterCO2.value}
+                                            titleText={titleText}
+                                        />
+                                    )}
+                                </>
                             )}
                         </CardContent>
                     </Card>

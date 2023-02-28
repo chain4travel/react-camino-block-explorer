@@ -68,6 +68,7 @@ const BlockchainCharts = ({
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
     const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [firstLoad, setFirstLoad] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
@@ -93,9 +94,15 @@ const BlockchainCharts = ({
     const dataStatistics: any = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
+    useEffect(() => {
+        if (firstLoad === false && dataStatistics !== null && dataStatistics !== undefined) {
+            setFirstLoad(true)
+        }
+    }, [dataStatistics])
+
     return (
         <Fragment>
-            {loader === Status.LOADING ? (
+            {loader === Status.LOADING && firstLoad === false ? (
                 <>
                     <div style={{ textAlign: 'center' }}>
                         <CircularProgress color="secondary" />
@@ -195,7 +202,7 @@ const BlockchainCharts = ({
                             }}
                         />
                         <CardContent>
-                            {dataStatistics != null && dataStatistics !== undefined && (
+                            {firstLoad === true && (
                                 <Fragment>
                                     <Grid
                                         container
