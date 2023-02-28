@@ -238,6 +238,7 @@ const BlockchainCharts = ({
                                             darkMode={darkMode}
                                             setSeeTimeAxis={setSeeTimeAxis}
                                             disableFuture={false}
+                                            seeTimeAxis={seeTimeAxis}
                                         />
                                     </DateRangeContainer>
                                     <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>

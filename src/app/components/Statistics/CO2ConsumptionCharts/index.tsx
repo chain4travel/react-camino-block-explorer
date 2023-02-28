@@ -187,6 +187,7 @@ const CO2ConsumptionCharts = ({
                                                 darkMode={darkMode}
                                                 setSeeTimeAxis={setSeeTimeAxis}
                                                 disableFuture={true}
+                                                seeTimeAxis={seeTimeAxis}
                                             />
 
                                             {typeMeter === typesMeter.BAR && (
