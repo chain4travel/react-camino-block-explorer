@@ -23,6 +23,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                         label="Block"
                         value={blockDetails['hash']}
                         icon={mdiCubeOutline}
+                        data-cy="block-id"
                     />
                     <OutlinedContainer>
                         <Grid item container alignItems="center">
@@ -61,6 +62,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                                     value={blockDetails['transactionsCount']}
                                     type="string"
                                     style={{ padding: '1rem' }}
+                                    data-cy="transaction-count"
                                 />
                                 <Divider variant="fullWidth" />
                             </Grid>
@@ -88,6 +90,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                                     value={blockDetails['gasUsed']}
                                     type="number"
                                     style={{ padding: '1rem' }}
+                                    data-cy="gas-used"
                                 />
                                 <Divider variant="fullWidth" />
                             </Grid>

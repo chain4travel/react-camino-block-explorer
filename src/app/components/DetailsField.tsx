@@ -79,7 +79,7 @@ export default function DetailsField({
                 </Typography>
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Field type={type} value={value} />
+                <Field type={type} value={value} field={field} />
             </Grid>
             <>
                 {(detailsLink || allowCopy) &&
@@ -143,10 +143,12 @@ export const Field = ({
     type,
     value,
     fontWeight = 'fontWeightRegular',
+    field
 }: {
     type: string
     value: string | number | object | undefined
     fontWeight?: string
+    field? : string
 }) => {
     const { isMobile } = useWidth()
     if (type === 'string' || type === 'number' || type === 'monospace') {
@@ -157,6 +159,7 @@ export const Field = ({
                 noWrap={true}
                 fontWeight={fontWeight}
                 sx={{ width: '100%', display: 'block' }}
+                data-cy={field}
             >
                 {value as string}
             </Typography>
