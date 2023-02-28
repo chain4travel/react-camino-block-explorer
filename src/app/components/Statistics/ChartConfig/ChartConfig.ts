@@ -88,7 +88,6 @@ class ChartConfig {
     }
 
     private checkRangeTimeString(timeSeeAxis: String) {
-        console.log(timeSeeAxis)
         if (timeSeeAxis === 'custom') {
             this.timeSeeAxis = this.verifyRangeTime()
         } else {

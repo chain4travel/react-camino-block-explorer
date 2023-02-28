@@ -42,7 +42,7 @@ interface TextProps {
     backgroundColor: string
 }
 
-const Text = styled('p')<TextProps>`
+const Text = styled('p') <TextProps>`
     margin-left: 3rem !important;
     margin-right: 1rem !important;
     margin-top: 0.5rem !important;
@@ -208,13 +208,26 @@ const BlockchainCharts = ({
                                                 {tooltipTitle}
                                             </Text>
                                         </Grid>
-                                        <TextBlockchainDatachart
-                                            Text={Text}
-                                            dataStatistics={dataStatistics}
-                                            endDate={endDate}
-                                            startDate={startDate}
-                                            typeStatistic={typeStatistic}
-                                        />
+                                        <Grid xs={12} md={6}>
+                                            <TextBlockchainDatachart
+                                                Text={Text}
+                                                dataStatistics={dataStatistics}
+                                                endDate={endDate}
+                                                startDate={startDate}
+                                                typeStatistic={typeStatistic}
+                                                isDescriptionOfHighest={true}
+                                            />
+                                        </Grid>
+                                        <Grid xs={12} md={6}>
+                                            <TextBlockchainDatachart
+                                                Text={Text}
+                                                dataStatistics={dataStatistics}
+                                                endDate={endDate}
+                                                startDate={startDate}
+                                                typeStatistic={typeStatistic}
+                                                isDescriptionOfHighest={false}
+                                            />
+                                        </Grid>
                                     </Grid>
                                     <DateRangeContainer>
                                         <DateRange
