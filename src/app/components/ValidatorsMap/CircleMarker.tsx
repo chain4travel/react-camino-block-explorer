@@ -15,7 +15,7 @@ const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) =
 
     const id = open ? 'simple-popover' : undefined
 
-    const isFirefox = navigator.userAgent.indexOf('Firefox') != -1 ? true : false
+    const isFirefox = navigator.userAgent.indexOf('Firefox') !== -1 ? true : false
 
     return (
         <Fragment>
