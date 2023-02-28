@@ -203,12 +203,12 @@ const BlockchainCharts = ({
                                         justifyContent="center"
                                         alignItems="center"
                                     >
-                                        <Grid xs={12}>
+                                        <Grid item xs={12}>
                                             <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
                                                 {tooltipTitle}
                                             </Text>
                                         </Grid>
-                                        <Grid xs={12} md={6}>
+                                        <Grid item xs={12} md={6}>
                                             <TextBlockchainDatachart
                                                 Text={Text}
                                                 dataStatistics={dataStatistics}
@@ -218,7 +218,7 @@ const BlockchainCharts = ({
                                                 isDescriptionOfHighest={true}
                                             />
                                         </Grid>
-                                        <Grid xs={12} md={6}>
+                                        <Grid item xs={12} md={6}>
                                             <TextBlockchainDatachart
                                                 Text={Text}
                                                 dataStatistics={dataStatistics}
