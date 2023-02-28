@@ -15,6 +15,8 @@ const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) =
 
     const id = open ? 'simple-popover' : undefined
 
+    const isFirefox = navigator.userAgent.indexOf('Firefox') != -1 ? true : false
+
     return (
         <Fragment>
             <Marker ref={anchorEl} coordinates={[lng, lat]} aria-describedby={id}>
@@ -43,7 +45,12 @@ const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) =
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper>
                             <Typography sx={{ p: 2 }}>
-                                <div>
+                                <div
+                                    style={{
+                                        marginLeft: isFirefox ? 15 : 5,
+                                        marginRight: isFirefox ? 15 : 5,
+                                    }}
+                                >
                                     <li>
                                         <b>Country:</b>
                                         {country}
