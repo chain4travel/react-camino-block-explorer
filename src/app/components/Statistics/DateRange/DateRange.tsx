@@ -5,10 +5,10 @@ import styled from 'styled-components'
 import moment from 'moment'
 import TextField from '@mui/material/TextField'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import { Button } from '@mui/material'
 import 'react-datepicker/dist/react-datepicker.css'
-import { Grid } from '@mui/material'
 import useWidth from '../../../hooks/useWidth'
+import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material'
+import { seeTimeAxis as typeSeeTimeAxis } from '../DateRange/SeeTimeAxis'
 
 const PickerContainer = styled.div`
     display: flex;
@@ -22,13 +22,6 @@ const Container = styled.div`
         flex-direction: column;
     }
 `
-const FilterContainer = styled.div`
-    display: flex;
-
-    @media only screen and (max-width: 700px) {
-        margin: 0px;
-    }
-`
 
 const FilterContainerMobile = styled.div`
     display: flex;
@@ -36,22 +29,6 @@ const FilterContainerMobile = styled.div`
     justify-content: center;
     margin-left: 5%;
 `
-
-const StyledButton = styled(Button)`
-    margin-top: 0rem;
-    margin-bottom: 1rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
-`
-
-const StyledButtonMobile = styled(Button)`
-    margin-top: 0rem;
-    margin-bottom: 1.5rem;
-    margin-right: 0.5rem;
-    width: 80%;
-    margin-left: 0.5rem;
-`
-
 const NewTextField = styled(TextField)`
     margin: 1rem;
     width: 125px;
@@ -63,31 +40,81 @@ const CustomInputContainer = styled.div`
     cursor: pointer;
 `
 
-const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate, darkMode }) => {
+const DateRange = ({
+    initialStartDate,
+    InitianEndDate,
+    setEndDate,
+    setStartDate,
+    darkMode,
+    setSeeTimeAxis,
+    disableFuture,
+    seeTimeAxis,
+}) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
     const handleClickOneDay = () => {
+        setSeeTimeAxis('day')
         setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneMonth = () => {
+        setSeeTimeAxis('month')
         setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+
+        if (disableFuture) {
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        }
     }
 
     const handleClickOneYear = () => {
+        setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
+
+        if (!disableFuture) {
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        } else {
+            setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
+        }
     }
 
     const handleClickOneAllTime = () => {
+        setSeeTimeAxis('all')
         setStartDate(
             new Date(
                 moment('01/01/2000', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
             ),
         )
         setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+    }
+
+    const handleChangeStartDate = (date: any) => {
+        setSeeTimeAxis('custom')
+        setStartDate(date)
+    }
+
+    const handleChangeEndDate = (date: any) => {
+        setSeeTimeAxis('custom')
+        setEndDate(date)
+    }
+
+    const handleChangeRadioButtons = (value: any) => {
+        switch (value) {
+            case typeSeeTimeAxis.day:
+                handleClickOneDay()
+                break
+            case typeSeeTimeAxis.month:
+                handleClickOneMonth()
+                break
+            case typeSeeTimeAxis.year:
+                handleClickOneYear()
+                break
+            case typeSeeTimeAxis.all:
+                handleClickOneAllTime()
+                break
+        }
     }
 
     const CustomInput = forwardRef(({ value, onClick, label }: any, ref: any) => (
@@ -108,6 +135,12 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
             />
         </CustomInputContainer>
     ))
+
+    const getMaxDate = () => {
+        if (disableFuture) {
+            return new Date()
+        }
+    }
 
     const CustomInputMobile = forwardRef(({ value, onClick, label }: any, refMobile: any) => (
         <CustomInputContainer style={{ cursor: 'default' }}>
@@ -132,40 +165,74 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
         <Container>
             {isWidescreen && (
                 <>
-                    <div style={{ position: 'relative', right: '12%' }}>
-                        <FilterContainer>
-                            <StyledButton
-                                onClick={() => handleClickOneDay()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 Day
-                            </StyledButton>
-
-                            <StyledButton
-                                onClick={() => handleClickOneMonth()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 Month
-                            </StyledButton>
-                            <StyledButton
-                                onClick={() => handleClickOneYear()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 year
-                            </StyledButton>
-
-                            <StyledButton
-                                onClick={() => handleClickOneAllTime()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                All
-                            </StyledButton>
-                        </FilterContainer>
-                    </div>
+                    <FormControl>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={seeTimeAxis}
+                            onChange={e => {
+                                handleChangeRadioButtons(e.target.value)
+                            }}
+                        >
+                            <FormControlLabel
+                                key={0}
+                                value={'day'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 Day'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'month'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 Month'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'year'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 Year'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'all'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'All'}
+                            />
+                        </RadioGroup>
+                    </FormControl>
 
                     <PickerContainer
                         className={darkMode ? 'picker-container' : ''}
@@ -173,21 +240,23 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
                     >
                         <DatePicker
                             selected={initialStartDate}
-                            onChange={date => setStartDate(date)}
+                            onChange={(date: any) => handleChangeStartDate(date)}
                             selectsStart
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInput label="Initial Date" />}
+                            maxDate={getMaxDate()}
                             // readOnly
                         />
                         <DatePicker
                             selected={InitianEndDate}
-                            onChange={date => setEndDate(date)}
+                            onChange={(date: any) => handleChangeEndDate(date)}
                             selectsEnd
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInput label="End Date" />}
+                            maxDate={getMaxDate()}
                             // readOnly
                         />
                     </PickerContainer>
@@ -196,42 +265,75 @@ const DateRange = ({ initialStartDate, InitianEndDate, setEndDate, setStartDate,
 
             {isWideScreenDown && (
                 <>
-                    <Grid container>
-                        <Grid item sm={6}>
-                            <StyledButtonMobile
-                                onClick={() => handleClickOneDay()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 Day
-                            </StyledButtonMobile>
-
-                            <StyledButtonMobile
-                                onClick={() => handleClickOneMonth()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 Month
-                            </StyledButtonMobile>
-                        </Grid>
-                        <Grid item sm={6}>
-                            <StyledButtonMobile
-                                onClick={() => handleClickOneYear()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                1 year
-                            </StyledButtonMobile>
-
-                            <StyledButtonMobile
-                                onClick={() => handleClickOneAllTime()}
-                                style={{ cursor: 'default' }}
-                                variant="contained"
-                            >
-                                All
-                            </StyledButtonMobile>
-                        </Grid>
-                    </Grid>
+                    <FormControl>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={seeTimeAxis}
+                            onChange={e => {
+                                handleChangeRadioButtons(e.target.value)
+                            }}
+                        >
+                            <FormControlLabel
+                                key={0}
+                                value={'day'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 D'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'month'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 M'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'year'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'1 Y'}
+                            />
+                            <FormControlLabel
+                                key={0}
+                                value={'all'}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            '&.Mui-checked': {
+                                                color: 'secondary.main',
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={'All'}
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                    <br />
                     <FilterContainerMobile>
                         <DatePicker
                             selected={initialStartDate}

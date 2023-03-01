@@ -43,7 +43,7 @@ import {
     loadAverageBlockSize,
 } from 'store/blockchainDatachartsSlice/utils'
 import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts'
-import { typeBlockchainDataChart } from '../../../utils/statistics/ChartSelector'
+import { typeChartData } from '../../../utils/statistics/ChartSelector'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -87,7 +87,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadDailyTransactionsStatistics(dates)}
                                 sliceGetter={getTransactionsPerDay}
                                 sliceGetterLoader={getTransactionsPerDayStatus}
-                                typeStatistic={typeBlockchainDataChart.DAILY_TRANSACTIONS}
+                                typeStatistic={typeChartData.DAILY_TRANSACTIONS}
                             />
                         </Grid>
 
@@ -99,7 +99,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadUniqueAddresses(dates)}
                                 sliceGetter={getUniqueAddresses}
                                 sliceGetterLoader={getUniqueAddressesLoading}
-                                typeStatistic={typeBlockchainDataChart.UNIQUE_ADRESSES}
+                                typeStatistic={typeChartData.UNIQUE_ADRESSES}
                             />
                         </Grid>
 
@@ -111,7 +111,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadGasUsed(dates)}
                                 sliceGetter={getGasUsed}
                                 sliceGetterLoader={getGasUsedLoading}
-                                typeStatistic={typeBlockchainDataChart.GAS_USED}
+                                typeStatistic={typeChartData.GAS_USED}
                             />
                         </Grid>
 
@@ -123,7 +123,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadActiveAddresses(dates)}
                                 sliceGetter={getActiveAddresses}
                                 sliceGetterLoader={getActiveAddressesInfo}
-                                typeStatistic={typeBlockchainDataChart.ACTIVE_ADDRESSES}
+                                typeStatistic={typeChartData.ACTIVE_ADDRESSES}
                             />
                         </Grid>
 
@@ -135,7 +135,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadAverageBlockSize(dates)}
                                 sliceGetter={getAverageBlockSize}
                                 sliceGetterLoader={getAverageBlockSizeInfo}
-                                typeStatistic={typeBlockchainDataChart.AVERAGE_BLOCK_SIZE}
+                                typeStatistic={typeChartData.AVERAGE_BLOCK_SIZE}
                             />
                         </Grid>
                         <Grid item md={6} xs={12}>
@@ -146,7 +146,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadGasAveragePrice(dates)}
                                 sliceGetter={getGasAveragePrice}
                                 sliceGetterLoader={getGasAveragePriceInfo}
-                                typeStatistic={typeBlockchainDataChart.GAS_AVERAGE_PRICE}
+                                typeStatistic={typeChartData.GAS_AVERAGE_PRICE}
                             />
                         </Grid>
 
@@ -158,7 +158,7 @@ const Statistics: FC = () => {
                                 utilSlice={dates => loadDailyTokenTransfer(dates)}
                                 sliceGetter={getDailyTokenTransfers}
                                 sliceGetterLoader={getDailyTokenTransfersLoading}
-                                typeStatistic={typeBlockchainDataChart.DAILY_TOKEN_TRANSFER}
+                                typeStatistic={typeChartData.DAILY_TOKEN_TRANSFER}
                             />
                         </Grid>
                     </Grid>

@@ -1,10 +1,10 @@
 import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import ConfigLinearMeter from './ConfigLinearMeter'
+import ConfigLinearMeter from '../ChartConfig/ChartConfig'
 
-const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
-    let config = new ConfigLinearMeter(typeStatistic, titleText, data)
+const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) => {
+    let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis)
 
     if (config.data !== undefined && config.data != null) {
         const options = {
@@ -27,7 +27,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
                 },
                 labels: {
                     useHTML: true,
-                    formatter: function (obj) {
+                    formatter: function (obj: any) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -42,7 +42,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
 
                 labels: {
                     useHTML: true,
-                    formatter: function (obj) {
+                    formatter: function (obj: any) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -54,6 +54,9 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic }) => {
                 align: 'center',
                 verticalAlign: 'bottom',
                 itemStyle: {
+                    color: darkMode ? 'white' : 'black',
+                },
+                itemHoverStyle: {
                     color: darkMode ? 'white' : 'black',
                 },
             },

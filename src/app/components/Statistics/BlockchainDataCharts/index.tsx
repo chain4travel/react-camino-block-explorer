@@ -67,6 +67,8 @@ const BlockchainCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
+    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [firstLoad, setFirstLoad] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
@@ -92,9 +94,16 @@ const BlockchainCharts = ({
     const dataStatistics: any = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
+    useEffect(() => {
+        if (firstLoad === false && dataStatistics !== null && dataStatistics !== undefined) {
+            setFirstLoad(true)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataStatistics])
+
     return (
         <Fragment>
-            {loader === Status.LOADING ? (
+            {loader === Status.LOADING && firstLoad === false ? (
                 <>
                     <div style={{ textAlign: 'center' }}>
                         <CircularProgress color="secondary" />
@@ -139,6 +148,7 @@ const BlockchainCharts = ({
                                         titleText={titleText}
                                         data={dataStatistics}
                                         typeStatistic={typeStatistic}
+                                        timeSeeAxis={seeTimeAxis}
                                     />
                                 </>
                             ) : null}
@@ -193,7 +203,7 @@ const BlockchainCharts = ({
                             }}
                         />
                         <CardContent>
-                            {dataStatistics != null && dataStatistics !== undefined && (
+                            {firstLoad === true && (
                                 <Fragment>
                                     <Grid
                                         container
@@ -201,18 +211,31 @@ const BlockchainCharts = ({
                                         justifyContent="center"
                                         alignItems="center"
                                     >
-                                        <Grid xs={12}>
+                                        <Grid item xs={12}>
                                             <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
                                                 {tooltipTitle}
                                             </Text>
                                         </Grid>
-                                        <TextBlockchainDatachart
-                                            Text={Text}
-                                            dataStatistics={dataStatistics}
-                                            endDate={endDate}
-                                            startDate={startDate}
-                                            typeStatistic={typeStatistic}
-                                        />
+                                        <Grid item xs={12} md={6}>
+                                            <TextBlockchainDatachart
+                                                Text={Text}
+                                                dataStatistics={dataStatistics}
+                                                endDate={endDate}
+                                                startDate={startDate}
+                                                typeStatistic={typeStatistic}
+                                                isDescriptionOfHighest={true}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} md={6}>
+                                            <TextBlockchainDatachart
+                                                Text={Text}
+                                                dataStatistics={dataStatistics}
+                                                endDate={endDate}
+                                                startDate={startDate}
+                                                typeStatistic={typeStatistic}
+                                                isDescriptionOfHighest={false}
+                                            />
+                                        </Grid>
                                     </Grid>
                                     <DateRangeContainer>
                                         <DateRange
@@ -221,6 +244,9 @@ const BlockchainCharts = ({
                                             setEndDate={setEndDate}
                                             setStartDate={setStartDate}
                                             darkMode={darkMode}
+                                            setSeeTimeAxis={setSeeTimeAxis}
+                                            disableFuture={false}
+                                            seeTimeAxis={seeTimeAxis}
                                         />
                                     </DateRangeContainer>
                                     <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
@@ -229,6 +255,7 @@ const BlockchainCharts = ({
                                             titleText={titleText}
                                             data={dataStatistics}
                                             typeStatistic={typeStatistic}
+                                            timeSeeAxis={seeTimeAxis}
                                         />
                                     </LinearMeterContainer>
                                 </Fragment>
