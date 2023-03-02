@@ -22,6 +22,11 @@ import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
 import { useTheme } from '@mui/material'
 
+type DatesChart = {
+    starterDate: any
+    endingDate: any
+}
+
 const TooltipContainer = styled.div`
     display: flex;
     padding-top: 2rem;
@@ -59,6 +64,7 @@ const CO2ConsumptionCharts = ({
 
     useEffect(() => {
         if (startDate !== undefined && endDate !== undefined) {
+            //CO2EmissionsDate()
             dispatch(
                 utilSlice({
                     startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
@@ -70,8 +76,7 @@ const CO2ConsumptionCharts = ({
     }, [startDate, endDate])
 
     useEffect(() => {
-        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        defaultDatesCO2Emissions()
     }, [])
 
     const meterCO2: any = useAppSelector(sliceGetter)
@@ -83,6 +88,44 @@ const CO2ConsumptionCharts = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meterCO2])
+
+    function defaultDatesCO2Emissions() {
+        let todayDay = new Date().getDate()
+
+        //First 5 days of Month
+        if (todayDay <= 5) {
+            setStartDate(
+                new Date(
+                    moment()
+                        .add(-7, 'days')
+                        .startOf('month')
+                        .startOf('day')
+                        .format('YYYY-MM-DD HH:mm:ss'),
+                ),
+            )
+            setEndDate(
+                new Date(
+                    moment()
+                        .add(-7, 'days')
+                        .endOf('month')
+                        .endOf('day')
+                        .format('YYYY-MM-DD HH:mm:ss'),
+                ),
+            )
+        } else {
+            setStartDate(
+                new Date(moment().startOf('month').startOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
+            setEndDate(new Date(moment().endOf('month').endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        }
+    }
+
+    function CO2EmissionsDate(): DatesChart {
+        return {
+            starterDate: startDate,
+            endingDate: endDate,
+        }
+    }
 
     return (
         <Fragment>
