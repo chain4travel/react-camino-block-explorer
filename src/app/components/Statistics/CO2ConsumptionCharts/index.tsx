@@ -61,8 +61,8 @@ const CO2ConsumptionCharts = ({
         if (startDate !== undefined && endDate !== undefined) {
             dispatch(
                 utilSlice({
-                    startDate: moment(startDate).toISOString(true).replace('.000-05:00', 'Z'),
-                    endDate: moment(endDate).toISOString(true).replace('.000-05:00', 'Z'),
+                    startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
+                    endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
                 }),
             )
         }
