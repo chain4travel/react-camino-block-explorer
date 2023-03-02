@@ -17,3 +17,8 @@
 .picker-container .react-datepicker__day-name {
     color: white;
 }
+
+.picker-container .react-datepicker__day--disabled, 
+.react-datepicker__month-text--disabled, .react-datepicker__quarter-text--disabled, .react-datepicker__year-text--disabled{
+    color: rgb(133, 133, 133) !important;
+}
