@@ -18,10 +18,11 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                         backgroundColor:
                             validator.status === 'Connected' ? 'success.main' : 'error.main',
                     }}
+                    data-cy="validator-status"
                 />
             </TableCell>
             <TableCell sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }} align="center">
-                <Field type="string" value={validator.nodeID} />
+                <Field dataCy="nodeId" type="string" value={validator.nodeID} />
             </TableCell>
             <TableCell align="center">
                 <Tooltip
@@ -30,7 +31,7 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                         moment(validator.startTime).fromNow().replace(' ago', '')
                     }
                 >
-                    <span style={{ cursor: 'pointer' }}>
+                    <span data-cy="startTime" style={{ cursor: 'pointer' }}>
                         {moment(validator.startTime).format('MMM D, YYYY')}
                     </span>
                 </Tooltip>
@@ -42,16 +43,16 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                         moment(validator.endTime).fromNow().replace('in ', '')
                     }
                 >
-                    <span style={{ cursor: 'pointer' }}>
+                    <span data-cy="endTime" style={{ cursor: 'pointer' }}>
                         {moment(validator.endTime).format('MMM D, YYYY')}
                     </span>
                 </Tooltip>
             </TableCell>
             <TableCell align="center">
-                <Field type="string" value={validator.uptime} />
+                <Field dataCy="uptime" type="string" value={validator.uptime} />
             </TableCell>
             <TableCell sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }} align="center">
-                <Field type="string" value={validator.txID} />
+                <Field dataCy="txID" type="string" value={validator.txID} />
             </TableCell>
         </TableRow>
     )

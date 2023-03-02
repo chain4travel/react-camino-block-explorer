@@ -9,9 +9,17 @@ type OverviewCardProps = {
     loading: Status
     subValue?: string
     onClick?: () => void
+    dataCy?: string
 }
 
-const OverviewCard: FC<OverviewCardProps> = ({ title, value, loading, subValue, onClick }) => {
+const OverviewCard: FC<OverviewCardProps> = ({
+    title,
+    value,
+    loading,
+    subValue,
+    onClick,
+    dataCy,
+}) => {
     return (
         <Card
             variant="outlined"
@@ -53,6 +61,7 @@ const OverviewCard: FC<OverviewCardProps> = ({ title, value, loading, subValue, 
                             component="span"
                             fontWeight="fontWeightBold"
                             sx={{ color: 'card.contrastText' }}
+                            data-cy={dataCy}
                         >
                             {value}
                         </Typography>

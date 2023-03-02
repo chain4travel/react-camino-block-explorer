@@ -10,19 +10,19 @@ export function acceptCookies() {
 
 export function addKopernikusNetwork(cy: Cypress.cy & CyEventEmitter) {
     acceptCookies();
-    // let configNetwork = {
-    //     networkName: 'Localhost',
-    //     urlAndPort: 'http://localhost:9650',
-    //     magellandUrl: 'http://localhost:8080',
-    //     sigavaultAddress: '',
-    // }
-
     let configNetwork = {
-        networkName: 'Kopernikus',
-        urlAndPort: 'https://kopernikus.camino.network:443',
-        magellandUrl: 'https://magellan.kopernikus.camino.network',
-        sigavaultAddress: ''
+        networkName: 'Localhost',
+        urlAndPort: 'http://localhost:9650',
+        magellandUrl: 'http://localhost:8080',
+        sigavaultAddress: '',
     }
+
+    // let configNetwork = {
+    //     networkName: 'Kopernikus',
+    //     urlAndPort: 'https://kopernikus.camino.network:443',
+    //     magellandUrl: 'https://magellan.kopernikus.camino.network',
+    //     sigavaultAddress: ''
+    // }
 
     cy.get('[data-cy="network-selector"]', { timeout: 12000 }).click()
     cy.get('[data-cy="add-custom-network"]', { timeout: 12000 }).click()

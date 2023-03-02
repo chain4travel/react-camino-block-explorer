@@ -1,12 +1,12 @@
 import { addKopernikusNetwork } from '../utils/utils'
 // import dataBody from '../fixtures/block_data/data.json'
 
-describe('Wallet Creation', () => {
+describe('Display block details', () => {
     before(() => {
         cy.visit('/')
     })
 
-    it('open suite/create wallet', () => {
+    it('display block details', () => {
         addKopernikusNetwork(cy)
         cy.intercept('GET', '**/v2/ctxdata/**', req => {
             console.log(dataBody)
@@ -24,7 +24,7 @@ describe('Wallet Creation', () => {
                 expect(blockId).equal(dataBody.hash)
                 cy.log(blockId).as('blockId')
             })
-            cy.get('[data-cy="Gas Used"]')
+        cy.get('[data-cy="Gas Used"]')
             .invoke('text')
             .then(usedGas => {
                 expect(parseInt(usedGas.replace(/,/g, ''))).equal(
@@ -32,13 +32,13 @@ describe('Wallet Creation', () => {
                 )
                 cy.log(usedGas).as('usedGas')
             })
-            cy.get('[data-cy="Transaction Count"]')
+        cy.get('[data-cy="Transaction Count"]')
             .invoke('text')
             .then(transactionCount => {
                 expect(parseInt(transactionCount)).equal(dataBody.transactions[0].receipt.status)
                 cy.log(transactionCount).as('transactionCount')
             })
-            cy.get('[data-cy="transaction-hash"]')
+        cy.get('[data-cy="transaction-hash"]')
             .invoke('text')
             .then(blockTransaction => {
                 expect(blockTransaction).equal(dataBody.transactions[0].hash)

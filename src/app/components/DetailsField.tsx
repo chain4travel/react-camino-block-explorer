@@ -17,6 +17,7 @@ export default function DetailsField({
     detailsLink,
     allowCopy,
     style,
+    dataCy,
 }: {
     field: string
     value: string | number | object | Element | undefined
@@ -26,6 +27,7 @@ export default function DetailsField({
     detailsLink?: string
     allowCopy?: boolean
     style?: React.CSSProperties
+    dataCy?: string
 }) {
     const getTooltip = (field: string): string | undefined => {
         if (Object.keys(tooltips).includes(field?.toLowerCase())) {
@@ -34,6 +36,7 @@ export default function DetailsField({
         return undefined
     }
     const { isMobile } = useWidth()
+
     return (
         <Grid container alignItems="center" spacing={1} sx={{ ...style }}>
             <Grid
@@ -74,12 +77,13 @@ export default function DetailsField({
                     fontWeight="fontWeightBold"
                     noWrap={true}
                     sx={{ textTransform: 'capitalize', pl: '5px' }}
+                    data-cy={dataCy}
                 >
                     {field}
                 </Typography>
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Field type={type} value={value} field={field} />
+                <Field type={type} value={value} field={field} dataCy={dataCy} />
             </Grid>
             <>
                 {(detailsLink || allowCopy) &&
@@ -143,14 +147,17 @@ export const Field = ({
     type,
     value,
     fontWeight = 'fontWeightRegular',
-    field
+    field,
+    dataCy,
 }: {
     type: string
     value: string | number | object | undefined
     fontWeight?: string
-    field? : string
+    field?: string
+    dataCy?: string
 }) => {
     const { isMobile } = useWidth()
+    console.log({ dataCy })
     if (type === 'string' || type === 'number' || type === 'monospace') {
         return (
             <Typography
@@ -159,7 +166,7 @@ export const Field = ({
                 noWrap={true}
                 fontWeight={fontWeight}
                 sx={{ width: '100%', display: 'block' }}
-                data-cy={field}
+                data-cy={dataCy || field}
             >
                 {value as string}
             </Typography>
