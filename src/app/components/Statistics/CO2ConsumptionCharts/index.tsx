@@ -64,13 +64,7 @@ const CO2ConsumptionCharts = ({
 
     useEffect(() => {
         if (startDate !== undefined && endDate !== undefined) {
-            //CO2EmissionsDate()
-            dispatch(
-                utilSlice({
-                    startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
-                    endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
-                }),
-            )
+            CO2EmissionsDate()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
@@ -121,10 +115,25 @@ const CO2ConsumptionCharts = ({
     }
 
     function CO2EmissionsDate(): DatesChart {
-        return {
+        let datesChart: DatesChart = {
             starterDate: startDate,
             endingDate: endDate,
         }
+
+        let diffDays = moment(datesChart.endingDate).diff(moment(datesChart.starterDate), 'days')
+
+        if (diffDays <= 0) {
+            let newStarterDate = moment(datesChart.endingDate).add(-1, 'days').toDate()
+            setStartDate(newStarterDate)
+        } else {
+            dispatch(
+                utilSlice({
+                    startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
+                    endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
+                }),
+            )
+        }
+        return datesChart
     }
 
     return (
