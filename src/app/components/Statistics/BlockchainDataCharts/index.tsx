@@ -22,6 +22,7 @@ import styled from 'styled-components'
 import { Grid, useTheme } from '@mui/material'
 import moment from 'moment'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
+import '../../../../styles/scrollbarModal.css'
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -173,7 +174,7 @@ const BlockchainCharts = ({
                     sx={{
                         backgroundColor: 'transparent',
                         borderRadius: '7px',
-                        padding: '1.5rem',
+                        padding: 0,
                         width: isWidescreen ? '1300px' : '80%',
                     }}
                     style={{
@@ -181,7 +182,7 @@ const BlockchainCharts = ({
                         overflowY: 'auto',
                     }}
                 >
-                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
+                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white', position:'relative', width:'100%' }}>
                         <CardHeader
                             title={titleText}
                             action={

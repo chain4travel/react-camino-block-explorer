@@ -21,6 +21,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
 import { useTheme } from '@mui/material'
+import '../../../../styles/scrollbarModal.css'
 
 type DatesChart = {
     starterDate: any
@@ -215,7 +216,7 @@ const CO2ConsumptionCharts = ({
                             sx={{
                                 backgroundColor: 'transparent',
                                 borderRadius: '7px',
-                                padding: '1.5rem',
+                                padding: 0,
                                 minWidth: isWidescreen ? '1300px' : '0px',
                             }}
                             style={{
