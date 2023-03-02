@@ -15,6 +15,7 @@ import {
     fetchNextTransactionDetails,
     fetchPrevTransactionDetails,
 } from 'app/pages/CChainPages/Transactions/utils'
+import BigNumber from 'bignumber.js'
 
 const initialState: initialCchainStateType = {
     transactionCount: NaN,
@@ -106,7 +107,7 @@ const cchainSlice = createSlice({
                     // parentBlockNumber: parseInt(action.payload.header.number), to review
                     baseGaseFee: parseInt(action.payload.header.baseFeePerGas),
                     fees: 0,
-                    gasUsed: parseInt(action.payload.header.gasUsed).toLocaleString('en-US'),
+                    gasUsed: parseInt(action.payload.header.gasUsed),
                     time: new Date(parseInt(action.payload.header.timestamp) * 1000).toString(),
                     transactionsCount: action.payload.transactions
                         ? action.payload.transactions.length
@@ -135,10 +136,12 @@ const cchainSlice = createSlice({
                               timestamp: new Date(item.createdAt),
                               to: item.toAddr,
                               transactionCost: item.receipt.gasUsed
-                                  ? parseInt(item.receipt.gasUsed) *
-                                    parseInt(item.receipt.effectiveGasPrice)
-                                  : parseInt(item.maxFeePerGas) *
-                                    parseInt(item.receipt.effectiveGasPrice),
+                                  ? BigNumber(item.receipt.gasUsed)
+                                        .multipliedBy(BigNumber(item.receipt.effectiveGasPrice))
+                                        .toNumber()
+                                  : BigNumber(item.maxFeePerGas)
+                                        .multipliedBy(BigNumber(item.receipt.effectiveGasPrice))
+                                        .toNumber(),
                               value: parseInt(item.value),
                           }))
                         : [],
@@ -168,11 +171,11 @@ const cchainSlice = createSlice({
                     gasPrice: parseInt(payload.gasPrice),
                     maxFeePerGas: parseInt(payload.maxFeePerGas),
                     maxPriorityFeePerGas: parseInt(payload.maxPriorityFeePerGas),
-                    gasUsed: parseInt(payload.receipt.gasUsed).toLocaleString('en-US'),
+                    gasUsed: parseInt(payload.receipt.gasUsed),
                     effectiveGasPrice: parseInt(payload.receipt.effectiveGasPrice),
-                    transactionCost:
-                        parseInt(payload.receipt.gasUsed) *
-                        parseInt(payload.receipt.effectiveGasPrice),
+                    transactionCost: BigNumber(payload.receipt.gasUsed)
+                        .multipliedBy(BigNumber(payload.receipt.effectiveGasPrice))
+                        .toNumber(),
                     value: parseInt(payload.value),
                 }
                 state.transcationDetails = {

@@ -1,6 +1,8 @@
 import React from 'react'
-import { Paper, Typography, Box } from '@mui/material'
+import { Paper, Typography, Box, Tooltip } from '@mui/material'
 import ShowAllButton from '../../pages/CChainPages/LatestBlocksAndTransactionsList/ShowAllButton'
+import Icon from '@mdi/react'
+import { mdiInformationOutline } from '@mdi/js'
 
 export default function XPTransactionList({
     ShowAllLink,
@@ -22,7 +24,17 @@ export default function XPTransactionList({
                 p: '1rem 1.5rem 1rem 1.5rem',
             }}
         >
-            <ListTitle style={{ paddingBottom: '1.5rem' }}>Latest Transactions</ListTitle>
+            <Box sx={{ display: 'flex', alignItems: 'center', pb: '1rem', gap: '.75rem' }}>
+                <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
+                    Latest Transactions
+                </Typography>
+                <Tooltip
+                    title="Some transaction values may be approximate. Hover over the number or click on the transaction to view full details."
+                    placement="top"
+                >
+                    <Icon path={mdiInformationOutline} size={0.85} />
+                </Tooltip>
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
@@ -34,19 +46,5 @@ export default function XPTransactionList({
             </Box>
             <ShowAllButton toLink={ShowAllLink} />
         </Paper>
-    )
-}
-
-const ListTitle = ({
-    children,
-    style,
-}: {
-    children: React.ReactNode
-    style?: React.CSSProperties
-}) => {
-    return (
-        <Typography variant="h5" component="h5" fontWeight="fontWeightBold" sx={{ ...style }}>
-            {children}
-        </Typography>
     )
 }

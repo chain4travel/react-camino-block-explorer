@@ -3,7 +3,7 @@ import { Box, Typography, Grid } from '@mui/material'
 import { mdiTransfer } from '@mdi/js'
 import { CamAmount } from '../../../../components/CamAmount'
 import { CTransaction } from 'types/transaction'
-import { CADDRESS } from 'utils/route-paths'
+import { CADDRESS, CTRANSACTION } from 'utils/route-paths'
 import Icon from '@mdi/react'
 import AddressLink from '../../../../components/AddressLink'
 import RelativeTime from '../../../../components/RelativeTime'
@@ -11,10 +11,9 @@ import useWidth from 'app/hooks/useWidth'
 
 interface TransactionItemProps {
     transaction: CTransaction
-    to: string
 }
 
-const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
+const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
     const { isMobile, isTablet, isDesktop } = useWidth()
     return (
         <Grid
@@ -46,7 +45,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction, to }) => {
             )}
             <Grid item xs={12} md={4} lg={2.5} xl={3} justifyContent="flex-start">
                 <AddressLink
-                    to={`${to}/${transaction.hash}`}
+                    to={`${CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}

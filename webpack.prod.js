@@ -7,6 +7,7 @@ const publicPath = process.env.PUBLIC_PATH
 module.exports = merge(common, {
     mode: 'production',
     devtool: 'source-map',
+    cache: false,
 
     output: {
         publicPath: publicPath,

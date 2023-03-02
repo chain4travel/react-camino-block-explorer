@@ -13,6 +13,7 @@ import { CTransaction } from 'types/transaction'
 import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
+import BigNumber from 'bignumber.js'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -26,7 +27,9 @@ export const getBlocksPage = async (startingBlock: number) => {
             gasLimit: parseInt(block.gasLimit),
             gasUsed: parseInt(block.gasUsed),
             numberOfTransactions: block.evmTx ? block.evmTx : 0,
-            blockCost: parseInt(block.gasUsed) * parseInt(block.baseFeePerGas),
+            blockCost: BigNumber(block.gasUsed)
+                .multipliedBy(BigNumber(block.baseFeePerGas))
+                .toNumber(),
         }
     })
 }
@@ -52,8 +55,9 @@ export async function getTransactionsPage(
             timestamp: parseInt(transaction.timestamp) * 1000,
             to: transaction.to,
             value: parseInt(transaction.value),
-            transactionCost:
-                parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+            transactionCost: BigNumber(transaction.gasUsed)
+                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                .toNumber(),
         }
     })
 }
@@ -105,8 +109,9 @@ export async function loadCAddressTransactions({ address, allPages }) {
                     timestamp: parseInt(transaction.timestamp) * 1000,
                     to: transaction.to,
                     value: parseInt(transaction.value),
-                    transactionCost:
-                        parseInt(transaction.gasUsed) * parseInt(transaction.effectiveGasPrice),
+                    transactionCost: BigNumber(transaction.gasUsed)
+                        .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                        .toNumber(),
                     direction: transaction.from === address ? 'out' : 'in',
                 }
             })
@@ -181,8 +186,9 @@ export const fetchBlocksTransactionsCChain = async (): Promise<loadBlocksTransac
                         timestamp: parseInt(element.timestamp) * 1000,
                         to: element.to,
                         value: parseInt(element.value),
-                        transactionCost:
-                            parseInt(element.gasUsed) * parseInt(element.effectiveGasPrice),
+                        transactionCost: BigNumber(element.gasUsed)
+                            .multipliedBy(BigNumber(element.effectiveGasPrice))
+                            .toNumber(),
                     }
                     return result
                 },
@@ -195,7 +201,7 @@ export const fetchBlocksTransactionsCChain = async (): Promise<loadBlocksTransac
 export async function loadValidatorsInfo() {
     return new Promise((resolve, reject) => {
         const urlValidators = `${getBaseUrl()}${baseEndpoint}/validatorsInfo`
-        var request = {
+        let request = {
             method: 'post',
             url: urlValidators,
             headers: {
@@ -207,9 +213,293 @@ export async function loadValidatorsInfo() {
             .then(function (response: any) {
                 resolve(response.data.value)
             })
-            .catch(function (error) {
+            .catch(e => {
+                console.error(e)
                 reject([])
-                console.error(error, 500)
+            })
+    })
+}
+
+export const fetchDailyEmissions = (dates: any) => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
+}
+
+export const fetchNetworkEmissions = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/networkEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
+}
+
+export const fetchTransactionsEmissions = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/transactionEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
+}
+
+export const fetchCountryEmissions = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/countryEmissions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    name: '',
+                    value: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainChartDailyTransactions = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainChartUniqueAddresses = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
+                    addressInfo: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainDailyGasUsed = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainActiveAddresses = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
+                    addressInfo: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainAverageBlockSize = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve([])
+            })
+    })
+}
+
+export const fetchBlockchainAverageGasPriceUsed = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve({
+                    highestValue: 0,
+                    highestDate: '',
+                    lowerValue: 0,
+                    lowerDate: '',
+                    txInfo: [],
+                })
+            })
+    })
+}
+
+export const fetchBlockchainDailyTokenTransfer = dates => {
+    return new Promise((resolve, reject) => {
+        let config = {
+            method: 'get',
+            url: `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${
+                dates.startDate
+            }&endTime=${dates.endDate}`,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        axios(config)
+            .then(function (response) {
+                resolve(response.data)
+            })
+            .catch(e => {
+                console.error(e)
+                resolve([])
             })
     })
 }

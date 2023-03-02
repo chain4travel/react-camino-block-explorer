@@ -18,6 +18,7 @@ export function NavBar() {
                     borderRadius: '0px',
                     backgroundImage: 'none',
                     boxShadow: 'none',
+                    px: '1.5rem',
                     top: '65px',
                     [theme.breakpoints.up('md')]: { top: '69px' },
                 }}
@@ -42,13 +43,13 @@ export function NavBar() {
                             display: 'flex',
                             height: 'auto',
                             backgroundColor: 'card.navBar',
-                            p: '1rem',
+                            py: '1rem',
+                            px: '0rem !important',
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             gap: '1rem',
                             minHeight: 'auto',
-                            [theme.breakpoints.down('md')]: { p: '.5rem 1rem' },
-                            [theme.breakpoints.down('sm')]: { p: '.5rem .3rem' },
+                            [theme.breakpoints.down('md')]: { py: '.5rem' },
                         }}
                     >
                         <Links />

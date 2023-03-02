@@ -1,23 +1,21 @@
 import * as React from 'react'
-import { Typography, Box } from '@mui/material'
+import { Typography, Tooltip, Box } from '@mui/material'
 import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg'
 import { ReactComponent as ACamIcon } from './assets/a-cam.svg'
 import { ReactComponent as NCamIcon } from './assets/n-cam.svg'
 import { ReactComponent as CamIcon } from './assets/cam.svg'
-import { getDisplayAmount, getACamAmount, abbreviateNumber } from '../../utils/currency-utils'
+import {
+    getDisplayAmount,
+    getACamAmount,
+    customToLocaleString,
+    roundedToLocaleString,
+} from '../../utils/currency-utils'
 
 export function AmountIcon({ currency }) {
     return (
-        <div
-            style={{
-                width: '26px',
-                height: '26px',
-                marginLeft: '6px',
-                marginRight: '6px',
-            }}
-        >
-            {currency === 'nCam' ? <NCamIcon /> : currency === 'aCAM' ? <ACamIcon /> : <CamIcon />}
-        </div>
+        <Box sx={{ width: '26px', height: '26px', marginLeft: '6px', marginRight: '6px' }}>
+            {currency === 'nCAM' ? <NCamIcon /> : currency === 'aCAM' ? <ACamIcon /> : <CamIcon />}
+        </Box>
     )
 }
 
@@ -25,52 +23,95 @@ export function CamAmount({
     amount,
     currency = 'aCam',
     style,
-    abbreviate = false,
+    camAmountStyle,
+    abbreviate = true,
 }: {
     amount: number
     currency?: string
     style?: React.CSSProperties
+    camAmountStyle?: React.CSSProperties
     abbreviate?: boolean
 }) {
+    const tooltipAmount = customToLocaleString(getDisplayAmount(amount).value, 20, false)
+    const tooltipCurrency = getDisplayAmount(getACamAmount(amount, currency)).currency
+    const tooltipText = `${tooltipAmount} ${tooltipCurrency}`
+
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                width: 'min-content',
-                flexDirection: 'row',
-                alignItems: 'center',
-                ...style,
-            }}
-        >
-            {abbreviate ? (
-                <Typography variant="subtitle2">
-                    {abbreviateNumber(getDisplayAmount(getACamAmount(amount, currency)).value)}
-                </Typography>
-            ) : (
-                <Typography variant="subtitle1">
-                    {getDisplayAmount(getACamAmount(amount, currency)).value.toLocaleString(
-                        'en-US',
+        <AmountTooltip value={tooltipText} show={abbreviate} style={style}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    width: 'min-content',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    ...camAmountStyle,
+                }}
+            >
+                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                    {roundedToLocaleString(
+                        getDisplayAmount(amount).value,
+                        abbreviate ? 4 : 20,
+                        abbreviate,
                     )}
                 </Typography>
-            )}
-            <AmountIcon currency={getDisplayAmount(getACamAmount(amount, currency)).currency} />
-            <Typography
-                variant="caption"
-                sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
-            >
-                {getDisplayAmount(getACamAmount(amount, currency)).currency}
-            </Typography>
-        </Box>
+                <AmountIcon currency={getDisplayAmount(getACamAmount(amount, currency)).currency} />
+                <Typography
+                    variant="caption"
+                    sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
+                >
+                    {getDisplayAmount(getACamAmount(amount, currency)).currency}
+                </Typography>
+            </Box>
+        </AmountTooltip>
     )
 }
 
-export function GasAmount({ amount }: { amount: number }) {
+export function GasAmount({
+    amount,
+    abbreviate = false,
+}: {
+    amount: number
+    abbreviate?: boolean
+}) {
+    return (
+        <AmountTooltip value={customToLocaleString(amount, 20, false)} show={abbreviate}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    width: 'min-content',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                    {roundedToLocaleString(amount, abbreviate ? 4 : 20, abbreviate)}
+                </Typography>
+                <GasStationOutline style={{ width: '24px', height: '24px', marginLeft: '3px' }} />
+            </Box>
+        </AmountTooltip>
+    )
+}
+
+function AmountTooltip({
+    value,
+    show,
+    style,
+    children,
+}: {
+    value: string
+    show: boolean
+    style?: React.CSSProperties
+    children: React.ReactNode
+}) {
     return (
         <>
-            <Typography variant="body1">
-                {new Intl.NumberFormat('nb-NO', { maximumSignificantDigits: 3 }).format(amount)}
-            </Typography>
-            <GasStationOutline style={{ width: '24px', height: '24px', marginLeft: '6px' }} />
+            {show ? (
+                <Tooltip title={value} placement="top" sx={{ width: 'min-content', ...style }}>
+                    <Box>{children}</Box>
+                </Tooltip>
+            ) : (
+                <Box>{children}</Box>
+            )}
         </>
     )
 }

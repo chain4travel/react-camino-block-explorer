@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Grid } from '@mui/material'
 import { Status } from 'types'
-import { getDisplayValueForGewi } from 'utils/currency-utils'
+import { getDisplayValueForGewi, customToLocaleString } from 'utils/currency-utils'
 import OverviewCard from './OverviewCard'
 import { useNavigate } from 'react-router-dom'
 import { VALIDATORS } from 'utils/route-paths'
@@ -33,7 +33,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
             <Grid item xs={12} lg={4}>
                 <OverviewCard
                     title="Number Of Validators"
-                    value={numberOfValidators.toString()}
+                    value={customToLocaleString(numberOfValidators, 0)}
                     loading={validatorsLoading}
                     subValue={`(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`}
                     onClick={() => navigate(VALIDATORS)}
@@ -42,7 +42,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
             <Grid item xs={12} lg={4}>
                 <OverviewCard
                     title="Number of Transactions"
-                    value={numberOfTransactions.toLocaleString('en-US')}
+                    value={customToLocaleString(numberOfTransactions, 2)}
                     loading={transactionsLoading}
                 />
             </Grid>

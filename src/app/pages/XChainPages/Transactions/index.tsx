@@ -86,7 +86,7 @@ export default function XPTransactions() {
                 >
                     <SubPageTitle
                         title={`${chainType[0].toLocaleUpperCase()}-Transactions`}
-                        backToLink={'/' + chainType}
+                        backToLink={'/explorer/' + chainType}
                     />
                     {status === 'success' && data && (
                         <TableContainer sx={{ height: '650px' }}>

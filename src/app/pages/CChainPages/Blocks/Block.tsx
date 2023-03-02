@@ -5,6 +5,7 @@ import { BlockTableData } from 'types/block'
 import useWidth from 'app/hooks/useWidth'
 import AddressLink from 'app/components/AddressLink'
 import FilledCard from 'app/components/FilledCard'
+import { CBLOCKS } from 'utils/route-paths'
 import moment from 'moment'
 
 interface BlockProps {
@@ -44,7 +45,7 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
                     Block
                 </Typography>
                 <AddressLink
-                    to={`${block.number}`}
+                    to={`${CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}
@@ -66,19 +67,19 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     hash
                 </Typography>
-                <Field type="number" value={block.hash} />
+                <Field type="hexdata" value={block.hash} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Gas Used
                 </Typography>
-                <Field type="string" value={block.gasUsed?.toString()} />
+                <Field type="string" value={block.gasUsed} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Gas Limit
                 </Typography>
-                <Field type="string" value={block.gasLimit?.toString()} />
+                <Field type="string" value={block.gasLimit} />
             </Grid>
         </>
     )
@@ -89,7 +90,7 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
         <>
             <TableCell>
                 <AddressLink
-                    to={`${block.number}`}
+                    to={`${CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}
@@ -107,10 +108,10 @@ const CustomRow = ({ block }: { block: BlockTableData }) => {
                 <Field type="string" value={block.hash} />
             </TableCell>
             <TableCell align="left">
-                <Field type="string" value={block.gasUsed?.toString()} />
+                <Field type="number" value={block.gasUsed} />
             </TableCell>
             <TableCell align="left">
-                <Field type="string" value={block.gasLimit?.toString()} />
+                <Field type="number" value={block.gasLimit} />
             </TableCell>
         </>
     )

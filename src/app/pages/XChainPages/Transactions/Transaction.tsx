@@ -136,7 +136,7 @@ const GridItem = ({ transaction }) => {
                 <Chip
                     label={transaction.type}
                     size="small"
-                    style={{ minWidth: '61px', height: 'min-content' }}
+                    style={{ minWidth: '61px', height: 'min-content', backgroundColor: '#334155' }}
                 />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -210,7 +210,7 @@ const CustomRow = ({ transaction }) => {
                         'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
                     )}
                 >
-                    <Typography variant="body2" component="span" noWrap={true}>
+                    <Typography variant="caption" component="span" noWrap={true}>
                         {moment(transaction.timestamp).format('h:mm:ss A\xa0-\xa0DD.MM.YYYY')}
                     </Typography>
                 </NoMaxWidthTooltip>
@@ -219,7 +219,7 @@ const CustomRow = ({ transaction }) => {
                 <Chip
                     label={transaction.type}
                     size="small"
-                    style={{ minWidth: '61px', height: 'min-content' }}
+                    style={{ minWidth: '61px', height: 'min-content', backgroundColor: '#334155' }}
                 />
             </TableCell>
             <TableCell align="left" width="15%">

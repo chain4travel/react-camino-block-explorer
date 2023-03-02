@@ -8,6 +8,7 @@ import useWidth from 'app/hooks/useWidth'
 import FilledCard from 'app/components/FilledCard'
 import moment from 'utils/helpers/moment'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
+import { CTRANSACTION } from '../../../../utils/route-paths'
 
 interface TransactionProps {
     transaction: TransactionTableData
@@ -80,7 +81,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                     Hash
                 </Typography>
                 <AddressLink
-                    to={`${transaction.hash}`}
+                    to={`${CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -156,7 +157,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${transaction.hash}`}
+                    to={`${CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -168,7 +169,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
                         'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)',
                     )}
                 >
-                    <Typography variant="body2" component="span">
+                    <Typography variant="caption" component="span">
                         {isDesktop
                             ? moment(transaction.timestamp).format('h:mm:ss A\xa0- DD.MM.YYYY')
                             : moment(transaction.timestamp).format('h:mm:ss A\xa0-\xa0DD.MM.YYYY')}

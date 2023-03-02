@@ -69,7 +69,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
                 alignItems="center"
                 justifyContent={!isDesktop ? 'flex-start' : 'flex-end'}
             >
-                <GasAmount amount={block.gasUsed as number} />
+                <GasAmount amount={block.gasUsed as number} abbreviate />
             </Grid>
         </Grid>
     )

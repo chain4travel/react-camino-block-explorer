@@ -134,6 +134,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                                 value={detailCr['value'] ? detailCr['value'] : '0'}
                                 type="wei"
                                 style={{ padding: '1rem' }}
+                                abbreviate={false}
                             />
                             <Divider variant="fullWidth" />
                         </Grid>
@@ -143,6 +144,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                                 value={detailCr['transactionCost']}
                                 type="wei"
                                 style={{ padding: '1rem' }}
+                                abbreviate={false}
                             />
                         </Grid>
                     </Grid>

@@ -1,20 +1,20 @@
 import { ChainType } from './types/chain-type'
-import { XADDRESS, PADDRESS, XTRANSACTIONS, PTRANSACTIONS } from 'utils/route-paths'
-
-export const DETAILS = 'details'
-export const TABLES = 'all'
-
-const transactions = 'transactions'
-const blocks = 'blocks'
-const address = 'address'
-const validators = 'validators'
+import {
+    XADDRESS,
+    PADDRESS,
+    XTRANSACTION,
+    PTRANSACTION,
+    TRANSACTION,
+    BLOCK,
+    ADDRESS,
+} from './route-paths'
 
 export function getPathElement(type: ChainType): string {
     return type.toLowerCase()
 }
 
 export function getTransactionDetailsPath(chaintype: ChainType, transactionId: string): string {
-    const basePath = `/${getPathElement(chaintype)}/${transactions}/`
+    const basePath = `/${getPathElement(chaintype)}${TRANSACTION}/`
     if (transactionId) {
         return basePath + transactionId
     }
@@ -22,43 +22,15 @@ export function getTransactionDetailsPath(chaintype: ChainType, transactionId: s
 }
 
 export function getAddressDetailsPath(chaintype: ChainType, addressId: string): string {
-    return `/${getPathElement(chaintype)}/${address}/${addressId}`
+    return `/${getPathElement(chaintype)}${ADDRESS}/${addressId}`
 }
 
 export function getBlockDetailsPath(chaintype: ChainType, blockId: string | number): string {
-    const basePath = `/${getPathElement(chaintype)}/${blocks}/`
+    const basePath = `/${getPathElement(chaintype)}${BLOCK}/`
     if (blockId !== undefined) {
         return basePath + blockId
     }
     return basePath
-}
-
-export function getAllBlocksPath(chaintype: ChainType) {
-    return `/${TABLES}/${getPathElement(chaintype)}/${blocks}`
-}
-
-export function getAllTransactionsPath(chaintype: ChainType) {
-    return `/${TABLES}/${getPathElement(chaintype)}/${transactions}`
-}
-
-export function getAllValidatorsPath() {
-    return `/${TABLES}/${validators}`
-}
-
-export function getTransactionsPathName(chaintype: ChainType) {
-    return `${chaintype}-${transactions}-${DETAILS}`
-}
-
-export function getBlockDetailsPathName(chaintype: ChainType) {
-    return `${chaintype}-${blocks}-${DETAILS}`
-}
-
-export function getAllBlocksPathName(chaintype: ChainType) {
-    return `${chaintype}-${blocks}-${TABLES}`
-}
-
-export function getAllTransactionsPathName(chaintype: ChainType) {
-    return `${chaintype}-${transactions}-${TABLES}`
 }
 
 export function getAddressLink(chaintype: ChainType, value: string): string {
@@ -98,11 +70,11 @@ export function getChainTypeFromUrl(): ChainType {
 export function getTransactionType(chainType) {
     switch (chainType) {
         case ChainType.X_CHAIN:
-            return XTRANSACTIONS
+            return XTRANSACTION
         case ChainType.P_CHAIN:
-            return PTRANSACTIONS
+            return PTRANSACTION
         default:
-            return XTRANSACTIONS
+            return XTRANSACTION
     }
 }
 

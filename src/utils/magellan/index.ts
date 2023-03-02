@@ -29,7 +29,7 @@ export function createTransaction(magellanTransaction: MagellanXPTransaction): X
         type: magellanTransaction.type,
         from: getInputFunds(magellanTransaction),
         to: getOutputFunds(magellanTransaction),
-        fee: magellanTransaction.txFee,
+        fee: parseInt(magellanTransaction.txFee),
         inputTotals: magellanTransaction.inputTotals,
         outputTotals: magellanTransaction.outputTotals,
         status: 'accepted', //TODO: set dynamically when magellan delivers this information
@@ -59,6 +59,6 @@ export function getInputFunds(magellanTransaction: MagellanXPTransaction): Fund[
 function createFundFromOutput(magellanOutput: MagellanXPOutput): Fund {
     return {
         address: magellanOutput && magellanOutput.addresses ? magellanOutput.addresses[0] : null,
-        value: magellanOutput.amount,
+        value: parseInt(magellanOutput.amount),
     } as Fund
 }

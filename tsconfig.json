@@ -1,18 +1,26 @@
 {
     "compilerOptions": {
-        "jsx": "react"
+        "baseUrl": "./src",
+        "target": "es5",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
     },
-    "include": ["src"],
-    "ts-node": {
-        "compilerOptions": {
-            "jsx": "react",
-            "esModuleInterop": true,
-            "module": "commonjs",
-            "moduleResolution": "node",
-            "noEmit": true,
-            "allowSyntheticDefaultImports": true
-        }
-    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
     "paths": {
         "@/*": ["./src/*"],
         "@/utils/*": ["./src/utils/*"]

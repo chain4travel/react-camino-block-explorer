@@ -55,11 +55,11 @@ export default function MainLayout() {
     const themeContext = useContext(ColorModeContext)
     useEffect(() => {
         dispatch(getChains())
-  }, [activeNetwork]); // eslint-disable-line
+    }, [activeNetwork]) // eslint-disable-line
     const currentTheme = useAppSelector(selectedTheme)
     useEffect(() => {
         themeContext?.toggleColorMode(currentTheme)
-  }, [currentTheme]); // eslint-disable-line
+    }, [currentTheme]) // eslint-disable-line
     return (
         <>
             <Box sx={{ marginBottom: '20px' }}>

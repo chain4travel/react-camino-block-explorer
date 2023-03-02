@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { TableRow, TableCell, Chip } from '@mui/material'
+import { TableRow, TableCell, Chip, Typography, Box } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
 import { ValidatorType } from 'types/store'
 import moment from 'utils/helpers/moment'
 import Tooltip from '@mui/material/Tooltip'
+import CopyButton from './../../components/CopyToClipboardButton'
 
 export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
     return (
@@ -21,7 +22,18 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                 />
             </TableCell>
             <TableCell sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }} align="center">
-                <Field type="string" value={validator.nodeID} />
+                <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    <Typography
+                        variant="body2"
+                        component="span"
+                        noWrap={true}
+                        fontWeight="fontWeightRegular"
+                        sx={{ width: '100%', display: 'block' }}
+                    >
+                        {validator.nodeID}
+                    </Typography>
+                    <CopyButton value={validator.nodeID} bordered={false} />
+                </Box>
             </TableCell>
             <TableCell align="center">
                 <Tooltip
@@ -51,7 +63,18 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                 <Field type="string" value={validator.uptime} />
             </TableCell>
             <TableCell sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }} align="center">
-                <Field type="string" value={validator.txID} />
+                <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    <Typography
+                        variant="body2"
+                        component="span"
+                        noWrap={true}
+                        fontWeight="fontWeightRegular"
+                        sx={{ width: '100%', display: 'block' }}
+                    >
+                        {validator.txID}
+                    </Typography>
+                    <CopyButton value={validator.txID} bordered={false} />
+                </Box>
             </TableCell>
         </TableRow>
     )
