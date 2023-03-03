@@ -73,7 +73,7 @@ const DateRange = ({
         setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
 
-        if (!disableFuture) {
+        if (disableFuture) {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         } else {
             setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
