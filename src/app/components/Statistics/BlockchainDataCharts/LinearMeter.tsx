@@ -9,9 +9,9 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
     if (config.data !== undefined && config.data != null) {
         const options = {
             title: {
-                text: '',
+                text: titleText,
                 style: {
-                    color: darkMode ? 'white' : 'black',
+                    display: 'none',
                 },
             },
             chart: {

@@ -73,7 +73,7 @@ const DateRange = ({
         setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
 
-        if (!disableFuture) {
+        if (disableFuture) {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         } else {
             setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
@@ -136,7 +136,11 @@ const DateRange = ({
         </CustomInputContainer>
     ))
 
-    const getMaxDate = () => {
+    const getMaxDate = (isStartDate: boolean) => {
+        if (InitianEndDate !== null && InitianEndDate !== undefined && isStartDate === true) {
+            return InitianEndDate
+        }
+
         if (disableFuture) {
             return new Date()
         }
@@ -245,7 +249,7 @@ const DateRange = ({
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInput label="Initial Date" />}
-                            maxDate={getMaxDate()}
+                            maxDate={getMaxDate(true)}
                             // readOnly
                         />
                         <DatePicker
@@ -256,7 +260,7 @@ const DateRange = ({
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInput label="End Date" />}
-                            maxDate={getMaxDate()}
+                            maxDate={getMaxDate(false)}
                             // readOnly
                         />
                     </PickerContainer>
@@ -334,7 +338,7 @@ const DateRange = ({
                         </RadioGroup>
                     </FormControl>
                     <br />
-                    <FilterContainerMobile>
+                    <FilterContainerMobile className={darkMode ? 'picker-container' : ''}>
                         <DatePicker
                             selected={initialStartDate}
                             onChange={date => setStartDate(date)}
@@ -342,6 +346,8 @@ const DateRange = ({
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
                             customInput={<CustomInputMobile label="Initial Date" />}
+                            maxDate={getMaxDate(true)}
+                            withPortal
                             // readOnly
                         />
                         <DatePicker
@@ -352,6 +358,8 @@ const DateRange = ({
                             endDate={InitianEndDate}
                             minDate={initialStartDate}
                             customInput={<CustomInputMobile label="End Date" />}
+                            maxDate={getMaxDate(false)}
+                            withPortal
                             // readOnly
                         />
                     </FilterContainerMobile>
