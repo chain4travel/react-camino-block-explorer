@@ -178,11 +178,17 @@ const BlockchainCharts = ({
                         width: isWidescreen ? '1300px' : '80%',
                     }}
                     style={{
-                        maxHeight: isSmallMobile ? 550 : '80%',
+                        maxHeight: isSmallMobile ? 550 : '90%',
                         overflowY: 'auto',
                     }}
                 >
-                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white', position:'relative', width:'100%' }}>
+                    <Card
+                        style={{
+                            backgroundColor: darkMode ? '#060F24' : 'white',
+                            position: 'relative',
+                            width: '100%',
+                        }}
+                    >
                         <CardHeader
                             title={titleText}
                             action={

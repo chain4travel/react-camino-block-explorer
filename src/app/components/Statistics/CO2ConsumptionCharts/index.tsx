@@ -52,7 +52,7 @@ const CO2ConsumptionCharts = ({
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 
-    const { isWidescreen } = useWidth()
+    const { isSmallMobile, isWidescreen } = useWidth()
 
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
@@ -117,7 +117,9 @@ const CO2ConsumptionCharts = ({
 
     function CO2EmissionsDate(): DatesChart {
         let datesChart: DatesChart = {
+            // @ts-ignore
             starterDate: startDate,
+            // @ts-ignore
             endingDate: endDate,
         }
 
@@ -220,6 +222,7 @@ const CO2ConsumptionCharts = ({
                                 minWidth: isWidescreen ? '1300px' : '0px',
                             }}
                             style={{
+                                maxHeight: isSmallMobile ? 550 : '90%',
                                 overflowY: 'auto',
                             }}
                         >
