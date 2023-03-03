@@ -137,7 +137,7 @@ const DateRange = ({
     ))
 
     const getMaxDate = (isStartDate: boolean) => {
-        if (InitianEndDate != null && InitianEndDate !== undefined && isStartDate === true) {
+        if (InitianEndDate !== null && InitianEndDate !== undefined && isStartDate === true) {
             return InitianEndDate
         }
 
