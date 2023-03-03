@@ -23,8 +23,8 @@ import { mdiClose } from '@mdi/js'
 import { useTheme } from '@mui/material'
 
 type DatesChart = {
-    starterDate: any
-    endingDate: any
+    starterDate: Date
+    endingDate: Date
 }
 
 const TooltipContainer = styled.div`
