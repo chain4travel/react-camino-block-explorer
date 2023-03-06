@@ -111,7 +111,7 @@ const CO2ConsumptionCharts = ({
             setStartDate(
                 new Date(moment().startOf('month').startOf('day').format('YYYY-MM-DD HH:mm:ss')),
             )
-            setEndDate(new Date(moment().endOf('month').endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         }
     }
 
