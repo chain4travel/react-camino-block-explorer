@@ -1,7 +1,7 @@
 import { addKopernikusNetwork } from '../utils/utils'
 import * as moment from 'moment'
 
-describe('Display validators, () => {
+describe('Display validators', () => {
     before(() => {
         cy.visit('/')
     })

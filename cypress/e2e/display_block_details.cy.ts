@@ -27,10 +27,10 @@ describe('Display block details', () => {
         cy.get('[data-cy="Gas Used"]')
             .invoke('text')
             .then(usedGas => {
-                expect(parseInt(usedGas.replace(/,/g, ''))).equal(
+                expect(parseInt(usedGas.replace(/\s+/g, ''))).equal(
                     dataBody.transactions[0].receipt.gasUsed,
                 )
-                cy.log(usedGas).as('usedGas')
+                cy.log('3 ' + usedGas).as('usedGas')
             })
         cy.get('[data-cy="Transaction Count"]')
             .invoke('text')
@@ -42,17 +42,20 @@ describe('Display block details', () => {
             .invoke('text')
             .then(blockTransaction => {
                 expect(blockTransaction).equal(dataBody.transactions[0].hash)
-                cy.log(blockTransaction).as('blockTransaction')})
+                cy.log(blockTransaction).as('blockTransaction')
+            })
         cy.get('[data-cy="transaction-from"]')
             .invoke('text')
             .then(blockTransactionFrom => {
                 expect(blockTransactionFrom).equal(dataBody.transactions[0].fromAddr)
-                cy.log(blockTransactionFrom).as('blockTransactionFrom')})
+                cy.log(blockTransactionFrom).as('blockTransactionFrom')
+            })
         cy.get('[data-cy="transaction-to"]')
             .invoke('text')
             .then(blockTransactionTo => {
                 expect(blockTransactionTo).equal(dataBody.transactions[0].toAddr)
-                cy.log(blockTransactionTo).as('blockTransactionTo')})
+                cy.log(blockTransactionTo).as('blockTransactionTo')
+            })
     })
 })
 let dataBody = {

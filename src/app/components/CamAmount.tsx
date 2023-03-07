@@ -25,12 +25,14 @@ export function CamAmount({
     style,
     camAmountStyle,
     abbreviate = true,
+    dataCy,
 }: {
     amount: number
     currency?: string
     style?: React.CSSProperties
     camAmountStyle?: React.CSSProperties
     abbreviate?: boolean
+    dataCy?: string
 }) {
     const tooltipAmount = customToLocaleString(getDisplayAmount(amount).value, 20, false)
     const tooltipCurrency = getDisplayAmount(getACamAmount(amount, currency)).currency
@@ -47,7 +49,7 @@ export function CamAmount({
                     ...camAmountStyle,
                 }}
             >
-                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography data-cy={dataCy} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {roundedToLocaleString(
                         getDisplayAmount(amount).value,
                         abbreviate ? 4 : 20,
@@ -69,9 +71,11 @@ export function CamAmount({
 export function GasAmount({
     amount,
     abbreviate = false,
+    dataCy
 }: {
     amount: number
     abbreviate?: boolean
+    dataCy?:string
 }) {
     return (
         <AmountTooltip value={customToLocaleString(amount, 20, false)} show={abbreviate}>
@@ -83,7 +87,7 @@ export function GasAmount({
                     alignItems: 'center',
                 }}
             >
-                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography data-cy={dataCy} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {roundedToLocaleString(amount, abbreviate ? 4 : 20, abbreviate)}
                 </Typography>
                 <GasStationOutline style={{ width: '24px', height: '24px', marginLeft: '3px' }} />

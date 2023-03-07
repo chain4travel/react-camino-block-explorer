@@ -116,6 +116,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                                 value={detailCr['gasUsed']}
                                 type="number"
                                 style={{ padding: '1rem' }}
+                                dataCy="Gas Used"
                             />
                             <Divider variant="fullWidth" />
                         </Grid>
