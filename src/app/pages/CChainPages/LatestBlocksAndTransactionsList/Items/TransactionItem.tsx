@@ -49,6 +49,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
+                    dataCy="transaction-hash"
                 />
                 <RelativeTime value={transaction.timestamp} variant="subtitle2" />
             </Grid>
@@ -63,6 +64,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                             value={transaction.from}
                             typographyVariant="body1"
                             truncate={true}
+                            dataCy="transaction-from"
                         />
                     </Grid>
                 </Grid>
@@ -76,6 +78,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                             value={transaction.to}
                             typographyVariant="body1"
                             truncate={true}
+                            dataCy="transaction-to"
                         />
                     </Grid>
                 </Grid>
