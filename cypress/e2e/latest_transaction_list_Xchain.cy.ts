@@ -87,7 +87,7 @@ let transactionsBody= {
                     "stakeableout": false,
                     "genesisutxo": false,
                     "outputType": 7,
-                    "amount": "0000000000",
+                    "amount": "000000000",
                     "locktime": 0,
                     "stakeLocktime": 0,
                     "threshold": 1,
