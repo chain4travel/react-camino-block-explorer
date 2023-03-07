@@ -25,16 +25,27 @@ export function CamAmount({
     style,
     camAmountStyle,
     abbreviate = true,
+    type
 }: {
     amount: number
     currency?: string
     style?: React.CSSProperties
     camAmountStyle?: React.CSSProperties
     abbreviate?: boolean
+    type?: string
 }) {
     const tooltipAmount = customToLocaleString(getDisplayAmount(amount).value, 20, false)
     const tooltipCurrency = getDisplayAmount(getACamAmount(amount, currency)).currency
     const tooltipText = `${tooltipAmount} ${tooltipCurrency}`
+
+    const getDataCYAmount = () => {
+        let strDataCY = "cam-amount"
+        if(type != undefined && type != null)
+        {
+            strDataCY = strDataCY + "-" + type
+        }
+        return strDataCY
+    }
 
     return (
         <AmountTooltip value={tooltipText} show={abbreviate} style={style}>
@@ -47,7 +58,7 @@ export function CamAmount({
                     ...camAmountStyle,
                 }}
             >
-                <Typography variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography data-cy={getDataCYAmount()} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
                     {roundedToLocaleString(
                         getDisplayAmount(amount).value,
                         abbreviate ? 4 : 20,
