@@ -126,6 +126,7 @@ const XPTransactionSecondSection = ({
                                             '#616161',
                                     }}
                                     style={{ marginLeft: !isMobile ? 'auto' : '' }}
+                                    type={type}
                                 />
                             </Grid>
                             {index === 4 && dataLeft > 0 && (
@@ -170,7 +171,7 @@ const XPTransactionThirdSection = ({ value }: { value: number }) => {
                     </Grid>
                 )}
                 <Grid item xs={6} lg={12}>
-                    <CamAmount amount={value} currency="nCam" style={{ marginLeft: 'auto' }} />
+                    <CamAmount amount={value} currency="nCam" style={{ marginLeft: 'auto' }} type="Fees" />
                 </Grid>
             </Grid>
         </>

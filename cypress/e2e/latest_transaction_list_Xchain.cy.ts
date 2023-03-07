@@ -87,7 +87,7 @@ let transactionsBody= {
                     "stakeableout": false,
                     "genesisutxo": false,
                     "outputType": 7,
-                    "amount": "2001000000",
+                    "amount": "000000000",
                     "locktime": 0,
                     "stakeLocktime": 0,
                     "threshold": 1,
@@ -261,9 +261,9 @@ describe('latest transaction list Xchainet', () => {
         .then(textV => {
             var numberV =parseInt(textV)
             if(numberV == validators.value.length){
-                cy.log('success')
+                cy.log('success validators number')
             }else{
-                cy.log('failed number validators')
+                throw new Error("failed validators number")
             }
         })
         })
@@ -275,7 +275,7 @@ describe('latest transaction list Xchainet', () => {
                 if(txC == txcount.aggregates.transactionCount){
                     cy.log('success tx count')
                 }else{
-                    cy.log('failed tx count')
+                    throw new Error("failed tx count")
                 }
             })
         })
@@ -286,7 +286,7 @@ describe('latest transaction list Xchainet', () => {
                 if(textId == transactionsBody.transactions[0].id){
                     cy.log('success txId')
                 }else{
-                    cy.log('failed txId')
+                    throw new Error("failed tx id")
                 }
             })
             cy.get('.MuiGrid-grid-xs-4 > .MuiChip-root > .MuiChip-label').invoke('text')
@@ -294,7 +294,7 @@ describe('latest transaction list Xchainet', () => {
                 if(textType == transactionsBody.transactions[0].type){
                     cy.log('success type')
                 }else{
-                    cy.log('failed type')
+                    throw new Error("failed type")
                 }
             })
             cy.get(':nth-child(1) > .MuiGrid-grid-md-8 > .MuiGrid-grid-lg-8 > :nth-child(1) > [style="width: 100%;"] > .MuiGrid-grid-xs-9 > .MuiGrid-container > .MuiGrid-grid-xl-7 > a > .MuiTypography-root').invoke('text')
@@ -302,7 +302,7 @@ describe('latest transaction list Xchainet', () => {
                 if(textFrom == transactionsBody.transactions[0].inputs[0].output.addresses){
                     cy.log('success address from')
                 }else{
-                    cy.log('failed address from')
+                    throw new Error("failed address from")
                 }
             })
             cy.get(':nth-child(1) > .MuiGrid-grid-md-8 > .MuiGrid-grid-lg-8 > :nth-child(2) > [style="width: 100%;"] > .MuiGrid-grid-xs-9 > :nth-child(1) > .MuiGrid-grid-xl-7 > a > .MuiTypography-root').invoke('text')
@@ -310,25 +310,37 @@ describe('latest transaction list Xchainet', () => {
                 if(textTo == transactionsBody.transactions[0].outputs[0].addresses){
                     cy.log('success adress to')
                 }else{
-                    cy.log('failde address to')
+                    throw new Error("failed address to")
                 }
             })
-            cy.get(':nth-child(1) > [style="width: 100%;"] > .MuiGrid-grid-xs-9 > .MuiGrid-container > .MuiGrid-grid-xl-5 > .MuiBox-root > .MuiTypography-subtitle1').invoke('text')
+            cy.get('[data-cy="cam-amount-From"]').invoke('text')
             .then(textIF =>{
-                let numberFix =textIF.substring(0,6) 
+                console.log(transactionsBody.transactions[0].inputs[0].output.amount)
+                console.log(textIF)
+                let numberFix =parseInt(transactionsBody.transactions[0].inputs[0].output.amount)/1000000000
                 if(textIF == numberFix){
                     cy.log('success amount from')
                 }else{
-                    cy.log('failed amount from')
+                    throw new Error("failed amount from")
                 }
             })
-            cy.get(':nth-child(2) > [style="width: 100%;"] > .MuiGrid-grid-xs-9 > :nth-child(1) > .MuiGrid-grid-xl-5 > .MuiBox-root > .MuiTypography-subtitle1').invoke('text')
+            cy.get('[data-cy="cam-amount-To"]').invoke('text')
             .then(textIT =>{
-                let numberFixed = textIT.substring(0,7)
-                if(textIT == numberFixed){
+                let numberFix =parseInt(transactionsBody.transactions[0].outputs[0].amount)/1000000000
+                console.log(textIT)
+                console.log(numberFix)
+                if(textIT == numberFix){
                     cy.log('succes amount to')
                 }else{
-                    cy.log('failed amount to')
+                throw new Error("failed amount to")
+                }
+            })
+            cy.get('[data-cy="cam-amount-Fees"]').invoke('text')
+            .then(textFee =>{
+                if(textFee == transactionsBody.transactions[0].txFee){
+                    cy.log('succes tx fee')
+                }else{
+                throw new Error("failed tx fee")
                 }
             })
         })
@@ -340,7 +352,7 @@ describe('latest transaction list Xchainet', () => {
                 if(fee == txFee.aggregates.txfee){
                     cy.log('success fee')
                 }else{
-                    cy.log('failed fee')
+                    throw new Error("failed fee")
                 }
             })
         })
