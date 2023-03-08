@@ -222,7 +222,6 @@ describe('latest transaction list Pchainet', () => {
     })
     it('latest transaction list Xchain', () => {    
         addKopernikusNetwork(cy)
-        accessWallet(cy, 'privateKey')
         cy.get('[data-cy="app-selector-menu"] > .MuiSelect-select').should('be.visible')
         cy.get('[data-cy="app-selector-menu"] > .MuiSelect-select').click()
         cy.get('[data-cy="app-selector-Explorer"] > .css-8atqhb > .MuiBox-root').should('be.visible')
@@ -232,6 +231,7 @@ describe('latest transaction list Pchainet', () => {
         cy.wait('@ValidatorsInfo').then( ()=>{
         cy.get(':nth-child(1) > .MuiPaper-root > .MuiCardContent-root').should('be.visible')
         cy.get(':nth-child(1) > .MuiPaper-root > .MuiCardContent-root > .MuiBox-root > .MuiTypography-h4').invoke("text")
+        // cy.contains('Number Of Validators').siblings('div').first().invoke('text')
         .then(textV => {
             var numberV =parseInt(textV)
             if(numberV == validators.value.length){
@@ -291,8 +291,6 @@ describe('latest transaction list Pchainet', () => {
             })
             cy.get('[data-cy="cam-amount-From"]').invoke('text')
             .then(textIF =>{
-                console.log(transactionsBody.transactions[0].inputs[0].output.amount)
-                console.log(textIF)
                 let numberFix =parseInt(transactionsBody.transactions[0].inputs[0].output.amount)/1000000000
                 if(textIF == numberFix){
                     cy.log('success amount from')

@@ -232,7 +232,6 @@ describe('latest transaction list Xchainet', () => {
 
         
         cy.intercept('GET', '**/v2/transactions*', (req) => {
-            console.log("soy el address ttv3",req.body.address)
             req.reply({
                 statusCode: 200,
                 body: transactionsBody,
@@ -248,7 +247,6 @@ describe('latest transaction list Xchainet', () => {
     })
     it('latest transaction list Xchain', () => {    
         addKopernikusNetwork(cy)
-        accessWallet(cy, 'privateKey')
         cy.get('[data-cy="app-selector-menu"] > .MuiSelect-select').should('be.visible')
         cy.get('[data-cy="app-selector-menu"] > .MuiSelect-select').click()
         cy.get('[data-cy="app-selector-Explorer"] > .css-8atqhb > .MuiBox-root').should('be.visible')
@@ -315,8 +313,6 @@ describe('latest transaction list Xchainet', () => {
             })
             cy.get('[data-cy="cam-amount-From"]').invoke('text')
             .then(textIF =>{
-                console.log(transactionsBody.transactions[0].inputs[0].output.amount)
-                console.log(textIF)
                 let numberFix =parseInt(transactionsBody.transactions[0].inputs[0].output.amount)/1000000000
                 if(textIF == numberFix){
                     cy.log('success amount from')
@@ -327,8 +323,6 @@ describe('latest transaction list Xchainet', () => {
             cy.get('[data-cy="cam-amount-To"]').invoke('text')
             .then(textIT =>{
                 let numberFix =parseInt(transactionsBody.transactions[0].outputs[0].amount)/1000000000
-                console.log(textIT)
-                console.log(numberFix)
                 if(textIT == numberFix){
                     cy.log('succes amount to')
                 }else{
