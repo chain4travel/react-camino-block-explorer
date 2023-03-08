@@ -20,6 +20,7 @@ export function NavBar() {
                     boxShadow: 'none',
                     px: '1.5rem',
                     top: '65px',
+                    zIndex: 9,
                     [theme.breakpoints.up('md')]: { top: '69px' },
                 }}
                 position="fixed"

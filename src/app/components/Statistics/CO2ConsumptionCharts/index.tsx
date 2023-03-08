@@ -21,6 +21,12 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
 import { useTheme } from '@mui/material'
+import '../../../../styles/scrollbarModal.css'
+
+type DatesChart = {
+    starterDate: Date
+    endingDate: Date
+}
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -46,7 +52,7 @@ const CO2ConsumptionCharts = ({
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 
-    const { isWidescreen } = useWidth()
+    const { isSmallMobile, isWidescreen } = useWidth()
 
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
@@ -59,19 +65,13 @@ const CO2ConsumptionCharts = ({
 
     useEffect(() => {
         if (startDate !== undefined && endDate !== undefined) {
-            dispatch(
-                utilSlice({
-                    startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
-                    endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
-                }),
-            )
+            CO2EmissionsDate()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
 
     useEffect(() => {
-        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        defaultDatesCO2Emissions()
     }, [])
 
     const meterCO2: any = useAppSelector(sliceGetter)
@@ -83,6 +83,61 @@ const CO2ConsumptionCharts = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meterCO2])
+
+    function defaultDatesCO2Emissions() {
+        let todayDay = new Date().getDate()
+
+        //First 5 days of Month
+        if (todayDay <= 5) {
+            setStartDate(
+                new Date(
+                    moment()
+                        .add(-7, 'days')
+                        .startOf('month')
+                        .startOf('day')
+                        .format('YYYY-MM-DD HH:mm:ss'),
+                ),
+            )
+            setEndDate(
+                new Date(
+                    moment()
+                        .add(-7, 'days')
+                        .endOf('month')
+                        .endOf('day')
+                        .format('YYYY-MM-DD HH:mm:ss'),
+                ),
+            )
+        } else {
+            setStartDate(
+                new Date(moment().startOf('month').startOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        }
+    }
+
+    function CO2EmissionsDate(): DatesChart {
+        let datesChart: DatesChart = {
+            // @ts-ignore
+            starterDate: startDate,
+            // @ts-ignore
+            endingDate: endDate,
+        }
+
+        let diffDays = moment(datesChart.endingDate).diff(moment(datesChart.starterDate), 'days')
+
+        if (diffDays <= 0) {
+            let newStarterDate = moment(datesChart.endingDate).add(-1, 'days').toDate()
+            setStartDate(newStarterDate)
+        } else {
+            dispatch(
+                utilSlice({
+                    startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
+                    endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
+                }),
+            )
+        }
+        return datesChart
+    }
 
     return (
         <Fragment>
@@ -163,10 +218,11 @@ const CO2ConsumptionCharts = ({
                             sx={{
                                 backgroundColor: 'transparent',
                                 borderRadius: '7px',
-                                padding: '1.5rem',
+                                padding: 0,
                                 minWidth: isWidescreen ? '1300px' : '0px',
                             }}
                             style={{
+                                maxHeight: isSmallMobile ? 550 : '90%',
                                 overflowY: 'auto',
                             }}
                         >

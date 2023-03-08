@@ -26,7 +26,7 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
         },
         title: {
             align: 'left',
-            text: titleText,
+            text: '',
             style: {
                 color: darkMode ? 'white' : 'black',
             },

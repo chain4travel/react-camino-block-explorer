@@ -141,7 +141,7 @@ class ChartConfig {
             }
         }
         if (
-            highestDate.getDay() === lowestDate.getDay() &&
+            highestDate.getDate() === lowestDate.getDate() &&
             highestDate.getMonth() === lowestDate.getMonth() &&
             highestDate.getFullYear() === lowestDate.getFullYear()
         ) {

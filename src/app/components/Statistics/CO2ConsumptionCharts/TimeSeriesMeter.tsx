@@ -14,9 +14,9 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }) => {
                 backgroundColor: 'rgba(0,0,0,0)',
             },
             title: {
-                text: '',
+                text: titleText,
                 style: {
-                    color: darkMode ? 'white' : 'black',
+                    display: 'none',
                 },
             },
             yAxis: {
