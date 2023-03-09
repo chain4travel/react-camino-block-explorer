@@ -19,6 +19,7 @@ export default function DetailsField({
     allowCopy,
     style,
     abbreviate,
+    dataCy,
 }: {
     field: string
     value: string | number | object | Element | undefined
@@ -29,6 +30,7 @@ export default function DetailsField({
     allowCopy?: boolean
     style?: React.CSSProperties
     abbreviate?: boolean
+    dataCy?: string
 }) {
     const getTooltip = (field: string): string | undefined => {
         if (Object.keys(tooltips).includes(field?.toLowerCase())) {
@@ -37,6 +39,7 @@ export default function DetailsField({
         return undefined
     }
     const { isMobile } = useWidth()
+
     return (
         <Grid container alignItems="center" spacing={1} sx={{ ...style }}>
             <Grid
@@ -77,12 +80,19 @@ export default function DetailsField({
                     fontWeight="fontWeightBold"
                     noWrap={true}
                     sx={{ textTransform: 'capitalize', pl: '5px' }}
+                    data-cy={dataCy}
                 >
                     {field}
                 </Typography>
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
-                <Field type={type} value={value} abbreviate={abbreviate} />
+                <Field
+                    type={type}
+                    value={value}
+                    abbreviate={abbreviate}
+                    field={field}
+                    dataCy={dataCy}
+                />
             </Grid>
             <>
                 {(detailsLink || allowCopy) &&
@@ -147,11 +157,15 @@ export const Field = ({
     value,
     fontWeight = 'fontWeightRegular',
     abbreviate,
+    field,
+    dataCy,
 }: {
     type: string
     value: string | number | object | undefined
     fontWeight?: string
     abbreviate?: boolean
+    field?: string
+    dataCy?: string
 }) => {
     const { isMobile } = useWidth()
     if (type === 'number') {
@@ -161,6 +175,7 @@ export const Field = ({
                 component="span"
                 noWrap={true}
                 fontWeight={fontWeight}
+                data-cy={dataCy || field}
                 sx={{ width: '100%', display: 'block' }}
             >
                 {roundedToLocaleString(value as number)}
@@ -174,6 +189,7 @@ export const Field = ({
                 noWrap={true}
                 fontWeight={fontWeight}
                 sx={{ width: '100%', display: 'block' }}
+                data-cy={dataCy || field}
             >
                 {value as string}
             </Typography>
