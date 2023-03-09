@@ -26,7 +26,7 @@ export function CamAmount({
     camAmountStyle,
     abbreviate = true,
     dataCy,
-    type
+    type,
 }: {
     amount: number
     currency?: string
@@ -41,10 +41,9 @@ export function CamAmount({
     const tooltipText = `${tooltipAmount} ${tooltipCurrency}`
 
     const getDataCYAmount = () => {
-        let strDataCY = "cam-amount"
-        if(type != undefined && type != null)
-        {
-            strDataCY = strDataCY + "-" + type
+        let strDataCY = 'cam-amount'
+        if (type != undefined && type != null) {
+            strDataCY = strDataCY + '-' + type
         }
         return strDataCY
     }
@@ -60,7 +59,11 @@ export function CamAmount({
                     ...camAmountStyle,
                 }}
             >
-                <Typography data-cy={dataCy || getDataCYAmount()} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography
+                    data-cy={dataCy || getDataCYAmount()}
+                    variant="subtitle2"
+                    sx={{ whiteSpace: 'nowrap' }}
+                >
                     {roundedToLocaleString(
                         getDisplayAmount(amount).value,
                         abbreviate ? 4 : 20,
@@ -82,11 +85,11 @@ export function CamAmount({
 export function GasAmount({
     amount,
     abbreviate = false,
-    dataCy
+    dataCy,
 }: {
     amount: number
     abbreviate?: boolean
-    dataCy?:string
+    dataCy?: string
 }) {
     return (
         <AmountTooltip value={customToLocaleString(amount, 20, false)} show={abbreviate}>

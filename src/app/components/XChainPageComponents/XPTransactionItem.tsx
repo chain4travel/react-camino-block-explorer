@@ -171,7 +171,12 @@ const XPTransactionThirdSection = ({ value }: { value: number }) => {
                     </Grid>
                 )}
                 <Grid item xs={6} lg={12}>
-                    <CamAmount amount={value} currency="nCam" style={{ marginLeft: 'auto' }} type="Fees" />
+                    <CamAmount
+                        amount={value}
+                        currency="nCam"
+                        style={{ marginLeft: 'auto' }}
+                        type="Fees"
+                    />
                 </Grid>
             </Grid>
         </>

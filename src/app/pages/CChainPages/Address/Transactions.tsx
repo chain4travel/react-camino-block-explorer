@@ -8,7 +8,7 @@ import TableView from 'app/components/Table/TableView'
 import useWidth from 'app/hooks/useWidth'
 import LoadingWrapper from 'app/components/LoadingWrapper'
 import { Status } from 'types'
-import { queryClient } from '../../../../App.tsx'
+import { queryClient } from '../../../../App'
 import { getAddressFromUrl } from 'utils/route-utils'
 
 const Transactions: FC = () => {
@@ -27,7 +27,7 @@ const Transactions: FC = () => {
     } = useInfiniteQuery(
         `/c-address}`,
         async ({ pageParam = 0 }) =>
-            await loadCAddressTransactions({
+            loadCAddressTransactions({
                 address: getAddressFromUrl(),
                 allPages: pageParam,
             }),

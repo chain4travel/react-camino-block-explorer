@@ -1,4 +1,4 @@
-import { store } from '../App.tsx'
+import { store } from '../App'
 import { XPTransaction, XPTransactionTableData } from 'types/transaction'
 
 function getValue(outputTotal?: object, inputTotal?: object): number {

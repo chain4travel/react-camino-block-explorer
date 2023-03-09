@@ -27,7 +27,7 @@ export function createTransaction(magellanTransaction: MagellanXPTransaction) {
 }
 
 export async function loadBlocksAndTransactions({ address, offset, limit, chainID }) {
-    return await axios.get(
+    return axios.get(
         `${getBaseUrl()}${xpTransactionApi}?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
     )
 }

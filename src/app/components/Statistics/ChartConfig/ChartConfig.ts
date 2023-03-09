@@ -16,10 +16,15 @@ import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 
 class ChartConfig {
     title: string
+
     categories: any[] = []
+
     typeChartData: any
+
     data: any[] = []
+
     highestAndLowestInfo: any
+
     timeSeeAxis: any
 
     constructor(typeChartData: any, title: string, dataChart: any, timeSeeAxis: String) {

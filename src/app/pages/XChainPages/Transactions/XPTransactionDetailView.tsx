@@ -17,7 +17,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                             <DetailsField
                                 field="Status"
                                 value={
-                                    detailTr['status'] === 'accepted' ? (
+                                    detailTr.status === 'accepted' ? (
                                         <Icon
                                             path={mdiCheckboxMarkedCircleOutline}
                                             size={0.8}
@@ -39,7 +39,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Type"
-                                value={detailTr['type']}
+                                value={detailTr.type}
                                 type="ctxtype"
                                 style={{ padding: '1rem' }}
                             />
@@ -48,7 +48,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Timestamp"
-                                value={detailTr['timestamp'].toString()}
+                                value={detailTr.timestamp.toString()}
                                 type="timestamp"
                                 tooltip="date"
                                 style={{ padding: '1rem' }}
@@ -58,7 +58,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Fee"
-                                value={detailTr['fee']}
+                                value={detailTr.fee}
                                 type="ncam"
                                 style={{ padding: '1rem' }}
                             />
@@ -67,7 +67,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Memo"
-                                value={detailTr['memo']}
+                                value={detailTr.memo}
                                 type="string"
                                 style={{ padding: '1rem' }}
                             />

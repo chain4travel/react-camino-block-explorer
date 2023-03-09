@@ -26,7 +26,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Type"
-                                value={detailTr['type']}
+                                value={detailTr.type}
                                 type="ctxtype"
                                 style={{ padding: '1rem' }}
                             />
@@ -35,7 +35,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Block"
-                                value={detailTr['block']}
+                                value={detailTr.block}
                                 type="string"
                                 detailsLink={`${CBLOCKS}/${detailTr.block}`}
                                 style={{ padding: '1rem' }}
@@ -45,7 +45,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Timestamp"
-                                value={detailTr['createdAt'].toString()}
+                                value={detailTr.createdAt.toString()}
                                 type="timestamp"
                                 tooltip="date"
                                 style={{ padding: '1rem' }}
@@ -55,7 +55,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="From"
-                                value={detailTr['fromAddr']}
+                                value={detailTr.fromAddr}
                                 type="hexdata"
                                 allowCopy={true}
                                 style={{ padding: '1rem' }}
@@ -65,7 +65,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="To"
-                                value={detailTr['toAddr']}
+                                value={detailTr.toAddr}
                                 type="hexdata"
                                 allowCopy={true}
                                 style={{ padding: '1rem' }}
@@ -77,23 +77,23 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
             {detailCr && (
                 <OutlinedContainer>
                     <Grid item container alignItems="center">
-                        {detailCr['gasPrice'] ? (
+                        {detailCr.gasPrice ? (
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Gas Price"
-                                    value={detailCr['gasPrice']}
+                                    value={detailCr.gasPrice}
                                     type="wei"
                                     style={{ padding: '1rem' }}
                                 />
                                 <Divider variant="fullWidth" />
                             </Grid>
                         ) : null}
-                        {detailCr['maxFeePerGas'] && detailCr['maxPriorityFeePerGas'] ? (
+                        {detailCr.maxFeePerGas && detailCr.maxPriorityFeePerGas ? (
                             <>
                                 <Grid item xs={12}>
                                     <DetailsField
                                         field="Max fee per gas"
-                                        value={detailCr['maxFeePerGas']}
+                                        value={detailCr.maxFeePerGas}
                                         type="wei"
                                         style={{ padding: '1rem' }}
                                     />
@@ -102,7 +102,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                                 <Grid item xs={12}>
                                     <DetailsField
                                         field="Max Priority fee per gas"
-                                        value={detailCr['maxPriorityFeePerGas']}
+                                        value={detailCr.maxPriorityFeePerGas}
                                         type="wei"
                                         style={{ padding: '1rem' }}
                                     />
@@ -113,7 +113,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Gas Used"
-                                value={detailCr['gasUsed']}
+                                value={detailCr.gasUsed}
                                 type="number"
                                 style={{ padding: '1rem' }}
                                 dataCy="Gas Used"
@@ -123,7 +123,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Effective Gas Price"
-                                value={detailCr['effectiveGasPrice']}
+                                value={detailCr.effectiveGasPrice}
                                 type="wei"
                                 style={{ padding: '1rem' }}
                             />
@@ -132,7 +132,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Transaction Value"
-                                value={detailCr['value'] ? detailCr['value'] : '0'}
+                                value={detailCr.value ? detailCr.value : '0'}
                                 type="wei"
                                 style={{ padding: '1rem' }}
                                 abbreviate={false}
@@ -142,7 +142,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Transaction Cost"
-                                value={detailCr['transactionCost']}
+                                value={detailCr.transactionCost}
                                 type="wei"
                                 style={{ padding: '1rem' }}
                                 abbreviate={false}

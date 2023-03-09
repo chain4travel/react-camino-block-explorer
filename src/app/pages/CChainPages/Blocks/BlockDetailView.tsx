@@ -21,7 +21,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                 <>
                     <CopyTitleCard
                         label="Block"
-                        value={blockDetails['hash']}
+                        value={blockDetails.hash}
                         icon={mdiCubeOutline}
                         data-cy="block-id"
                     />
@@ -30,7 +30,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Number"
-                                    value={blockDetails['number']}
+                                    value={blockDetails.number}
                                     type="string"
                                     style={{ padding: '1rem' }}
                                 />
@@ -39,7 +39,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Timestamp"
-                                    value={blockDetails['time']}
+                                    value={blockDetails.time}
                                     type="timestamp"
                                     style={{ padding: '1rem' }}
                                 />
@@ -48,7 +48,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Parent Hash"
-                                    value={blockDetails['parentHash']}
+                                    value={blockDetails.parentHash}
                                     type="string"
                                     allowCopy={true}
                                     detailsLink={`${CBLOCKS}/${blockDetails.number - 1}`}
@@ -59,7 +59,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Transaction Count"
-                                    value={blockDetails['transactionsCount']}
+                                    value={blockDetails.transactionsCount}
                                     type="string"
                                     style={{ padding: '1rem' }}
                                     data-cy="transaction-count"
@@ -69,7 +69,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Mined By"
-                                    value={blockDetails['miner']}
+                                    value={blockDetails.miner}
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />
@@ -78,7 +78,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Difficulty"
-                                    value={blockDetails['difficulty']}
+                                    value={blockDetails.difficulty}
                                     type="number"
                                     style={{ padding: '1rem' }}
                                 />
@@ -87,7 +87,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Gas Used"
-                                    value={blockDetails['gasUsed']}
+                                    value={blockDetails.gasUsed}
                                     type="number"
                                     style={{ padding: '1rem' }}
                                     data-cy="gas-used"
@@ -97,7 +97,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Gas Limit"
-                                    value={blockDetails['gasLimit']}
+                                    value={blockDetails.gasLimit}
                                     type="number"
                                     style={{ padding: '1rem' }}
                                 />
@@ -106,7 +106,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Fees"
-                                    value={blockDetails['fees']}
+                                    value={blockDetails.fees}
                                     type="wei"
                                     style={{ padding: '1rem' }}
                                 />
@@ -115,7 +115,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Base Gas Fee"
-                                    value={blockDetails['baseGaseFee']}
+                                    value={blockDetails.baseGaseFee}
                                     type="wei"
                                     style={{ padding: '1rem' }}
                                 />
@@ -124,7 +124,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Extra Data"
-                                    value={blockDetails['extData']}
+                                    value={blockDetails.extData}
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />
@@ -133,7 +133,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Sha3 Uncles"
-                                    value={blockDetails['sha3Uncles']}
+                                    value={blockDetails.sha3Uncles}
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />
@@ -142,7 +142,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="State Root"
-                                    value={blockDetails['stateRoot']}
+                                    value={blockDetails.stateRoot}
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />
@@ -151,7 +151,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                             <Grid item xs={12}>
                                 <DetailsField
                                     field="Nonce"
-                                    value={blockDetails['nonce']}
+                                    value={blockDetails.nonce}
                                     type="hexdata"
                                     style={{ padding: '1rem' }}
                                 />

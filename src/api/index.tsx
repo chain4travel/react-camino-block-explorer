@@ -121,7 +121,7 @@ export async function loadCAddressTransactions({ address, allPages }) {
 }
 
 export async function loadXPTransactions(offset: number, chainID: string) {
-    return await axios.get(
+    return axios.get(
         `${getBaseUrl()}${baseEndpoint}/transactions?chainID=${chainID}&offset=${offset}&limit=50&sort=timestamp-desc`,
     )
 }
