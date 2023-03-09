@@ -11,6 +11,7 @@
 //
 
 import { Interception } from 'cypress/types/net-stubbing'
+import { getDisplayValueForGewi } from 'utils/currency-utils'
 
 // -- This is a parent command --
 Cypress.Commands.add('changeNetwork', (network: string = 'Columbus') => {
@@ -283,6 +284,59 @@ Cypress.Commands.add('entryExplorer', (network: string = 'Kopernikus') => {
         "startTime": "2023-03-01T19:36:39Z",
         "endTime": "2023-03-02T19:36:39Z"
     }
+})
+
+Cypress.Commands.add('checkValidatorsTxsGasFee', () => {
+    cy.contains('Number Of Validators').siblings('div').as('numberOfValidatorsBlock')
+    cy.contains('Number of Transactions').siblings('div').as('numberOfTransactionsBlock')
+    cy.contains('Total Gas Fees').siblings('div').as('totalGasFeesBlock')
+    cy.wait('@aggregates').then((intercept) => {
+        return intercept.response?.body.aggregates
+    }).then(({transactionCount}) => {
+        cy.get('@numberOfTransactionsBlock')
+        .first()
+        .should('have.text', transactionCount)
+    })
+    
+    cy.wait('@validatorsInfo').then((intercept) => {
+        return intercept.response?.body.value
+    }).then((validators) => {
+        // numberOfValidators
+        const numberOfValidators = validators.length
+
+        // numberOfActiveValidators
+        const numberOfActiveValidators = validators.filter(
+            (v: any) => v.connected,
+        ).length
+
+        // numberOfActiveValidators
+        const percentageOfActiveValidators = parseInt(
+            ((numberOfActiveValidators / numberOfValidators) * 100).toFixed(0),
+        )
+        
+        return {
+            numberOfValidators,
+            numberOfActiveValidators,
+            percentageOfActiveValidators
+        }
+    }).then(({
+        numberOfValidators,
+        numberOfActiveValidators,
+        percentageOfActiveValidators
+    }) => {
+        cy.get('@numberOfValidatorsBlock')
+        .first()
+        .should('have.text', `${numberOfValidators}(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`);
+    })
+
+    cy.wait('@txfeeAggregates').then((intercept) => {
+        return intercept.response?.body.aggregates
+    }).then(({txfee}) => {
+        console.log(txfee)
+        cy.get('@totalGasFeesBlock')
+        .first()
+        .should('have.text', getDisplayValueForGewi(txfee))
+    })
 })
 
 Cypress.Commands.add('switchToWalletFunctionTab', (func) => {
