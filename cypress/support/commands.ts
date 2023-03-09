@@ -139,6 +139,152 @@ Cypress.Commands.add(
     }
 )
 
+Cypress.Commands.add('addCustomNetwork', (networkConfig: NetworkConfig) => {
+    const { networkName, rpcUrl, magellanUrl, explorerUrl } = networkConfig
+    cy.get('[data-cy="network-selector"]').click()
+    cy.get('[data-cy="add-custom-network"]').click()
+    // Wait for re-rendering ??
+    cy.wait(2000)
+    cy.get('[data-cy="add-network-field-network-name"]', { timeout: 30000 }).type(networkName)
+    cy.get('[data-cy="add-network-field-url"]').type(rpcUrl)
+    cy.get('[data-cy="add-network-field-magellan-address"]').type(magellanUrl || '')
+    // cy.get('[data-cy="add-network-field-explorerSiteUrl-address"]').type(explorerUrl || '')
+    cy.get('[data-cy="btn-add-network"]').click()
+    // Wait to connecting network
+    cy.wait(5000)
+    // Click backdrop to close menu
+    cy.get(`body > div[role="presentation"].MuiPopover-root`, {timeout: 12000}).click()
+})
+
+Cypress.Commands.add('entryExplorer', (network: string = 'Kopernikus') => {
+    cy.visit('/')
+
+    cy.intercept('GET', '**/v2/txfeeAggregates*', (request) => {
+        request.reply({
+            statusCode: 200,
+            body: txFee,
+        })
+    }).as('txfeeAggregates')
+
+    cy.intercept('GET', '**/v2/aggregates*', (request) => {
+        request.reply({
+            statusCode: 200,
+            body: txCount,
+        })
+    }).as('aggregates')
+
+    cy.intercept('POST', '**/v2/validatorsInfo', (request) => {
+        request.reply({
+            statusCode: 200,
+            body: validators,
+        })
+    }).as('validatorsInfo')
+
+    // Close cookie dialog
+    cy.get('[aria-labelledby="cc-nb-title"] button.cc-nb-okagree').click()
+
+    // header - app(left) menu aliases
+    cy.get('[data-cy="app-selector-menu"]').as('elAppMenu')
+
+    // header - preference(right) menu aliases
+    cy.get('header > .MuiToolbar-root > .MuiBox-root:nth-child(2)').as('elPreferenceMenu')
+    cy.get('@elPreferenceMenu')
+        .find('.MuiInputBase-root > .MuiSelect-select', { timeout: 30000 })
+        .as('btnNetworkSwitcher')
+    cy.get('@btnNetworkSwitcher').find('.MuiTypography-root').as('txtSelectedNetwork')
+    cy.get('@elPreferenceMenu').find('> .MuiBox-root').as('btnWallet')
+
+    // Only add non-default networks
+    if (network === 'Kopernikus') {
+        cy.fixture(`${network.toLowerCase()}/network`).then((networkConfig: NetworkConfig) => {
+            if (networkConfig) {
+                cy.addCustomNetwork(networkConfig)
+            }
+        })
+    }
+
+    cy.changeNetwork(network)
+
+    cy.get('@txtSelectedNetwork').should('have.text', network)
+
+    let validators =  {
+        "name": "GeoIPInfo",
+        "value": [
+            {
+                "nodeID": "NodeID-6fPA2ZK4W8xE8zKuYYNS34nftFxp8UPQ8",
+                "txID": "KbsVKunggkQWhX3rRYx8aWHvgB1muaCjq8LPsARvaMJ6AHbJB",
+                "connected": true,
+                "uptime": 0.905,
+                "lng": 0,
+                "lat": 0,
+                "IP": "10.9.2.30",
+                "startTime": "2023-02-23 13:14:23 +0000 UTC",
+                "endTime": "2023-03-16 13:28:48 +0000 UTC",
+                "duration": "21 Days",
+                "country": "",
+                "countryISO": "",
+                "city": ""
+            },
+            {
+                "nodeID": "NodeID-6XD16eZ22fadTKq3qsxro9TPFZyxTiFv3",
+                "txID": "28hjHTEeKm14sYwJzyaXGjxQ3CVfDPv8Unzs6o3WRwJGsbZcGt",
+                "connected": true,
+                "uptime": 1,
+                "lng": 0,
+                "lat": 0,
+                "IP": "10.10.197.192",
+                "startTime": "2022-12-15 00:00:00 +0000 UTC",
+                "endTime": "2023-12-09 23:00:00 +0000 UTC",
+                "duration": "359 Days",
+                "country": "",
+                "countryISO": "",
+                "city": ""
+            },
+            {
+                "nodeID": "NodeID-6rsqgkg4F1i3SBjzj4tS5ucQWH7JMEouj",
+                "txID": "gnymBKM4F44ygtTPF26WeTgpHTonLNgrDQJ7pDQsMdZpsjnkr",
+                "connected": true,
+                "uptime": 1,
+                "lng": 0,
+                "lat": 0,
+                "IP": "10.9.4.26",
+                "startTime": "2022-12-15 00:00:00 +0000 UTC",
+                "endTime": "2024-12-03 22:00:00 +0000 UTC",
+                "duration": "719 Days",
+                "country": "",
+                "countryISO": "",
+                "city": ""
+            }
+        ]
+    } 
+
+    let txFee = {
+        "aggregates": {
+            "AggregateMerge": null,
+            "startTime": "2023-03-08T05:49:39Z",
+            "endTime": "2023-03-07T05:49:39Z",
+            "txfee": 1
+        },
+        "startTime": "2023-03-08T05:49:39Z",
+        "endTime": "2023-03-07T05:49:39Z"
+    }
+
+    let txCount= {
+        "aggregates": {
+            "AggregateMerge": null,
+            "startTime": "2023-03-01T19:36:39Z",
+            "endTime": "2023-03-02T19:36:39Z",
+            "transactionVolume": "",
+            "transactionCount": 1,
+            "addressCount": 0,
+            "outputCount": 0,
+            "assetCount": 0
+        },
+        "startTime": "2023-03-01T19:36:39Z",
+        "endTime": "2023-03-02T19:36:39Z"
+    }
+})
+
 Cypress.Commands.add('switchToWalletFunctionTab', (func) => {
     let funcKey
     switch (func) {

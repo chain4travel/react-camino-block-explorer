@@ -9,6 +9,7 @@ declare global {
             accessWallet(type: WalletAccessType, keyName?: string): Chainable<Element>
             switchToWalletApp(): Chainable<Element>
             switchToWalletFunctionTab(func: string): Chainable<Element>
+            entryExplorer(network?: string): Chainable<Element>
             /**
              * combo of commands in sequence:
              * - cy.visit('/')
