@@ -6,7 +6,6 @@ on:
         - c4t
         - dev
         - suite
-        - TECH-680_Add_Custom_Network
   push:
     branches:
         - c4t
