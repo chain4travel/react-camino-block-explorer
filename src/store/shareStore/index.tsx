@@ -11,6 +11,14 @@ export const useStore = () => {
     const state = useAppSelector(state => state)
     const selectedThemeExplorer = useAppSelector(selectedTheme)
     const dispatch = useAppDispatch()
+
+    function switchNetwork(network) {
+        dispatch(resetCChainReducer())
+        dispatch(resetValidatorsReducer())
+        dispatch(resetXPChainReducer())
+        dispatch(changeNetwork(network))
+    }
+
     return {
         state,
         selectedThemeExplorer,
@@ -20,16 +28,7 @@ export const useStore = () => {
         updateNetworks: networks => {
             dispatch(updateNetworks(networks))
         },
-        resetCChainReducer: () => {
-            dispatch(resetCChainReducer())
-        },
-        resetValidatorsReducer: () => {
-            dispatch(resetValidatorsReducer())
-        },
-        resetXPChainReducer: () => {
-            dispatch(resetXPChainReducer())
-        },
-        changeNetworkExplorer: (network: string) => dispatch(changeNetwork(network)),
+        changeNetworkExplorer: (network: string) => switchNetwork(network),
     }
 }
 
