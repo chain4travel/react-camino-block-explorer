@@ -111,7 +111,9 @@ const CO2ConsumptionCharts = ({
             setStartDate(
                 new Date(moment().startOf('month').startOf('day').format('YYYY-MM-DD HH:mm:ss')),
             )
-            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+            setEndDate(
+                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
         }
     }
 
@@ -136,6 +138,7 @@ const CO2ConsumptionCharts = ({
                 }),
             )
         }
+
         return datesChart
     }
 
@@ -255,6 +258,7 @@ const CO2ConsumptionCharts = ({
                                                 setSeeTimeAxis={setSeeTimeAxis}
                                                 disableFuture={true}
                                                 seeTimeAxis={seeTimeAxis}
+                                                disableCurrentDay={true}
                                             />
 
                                             {typeMeter === typesMeter.BAR && (

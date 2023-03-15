@@ -49,6 +49,7 @@ const DateRange = ({
     setSeeTimeAxis,
     disableFuture,
     seeTimeAxis,
+    disableCurrentDay,
 }) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
@@ -62,7 +63,11 @@ const DateRange = ({
         setSeeTimeAxis('month')
         setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
 
-        if (disableFuture) {
+        if (disableCurrentDay) {
+            setEndDate(
+                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
+        } else if (disableFuture) {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         } else {
             setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
@@ -73,7 +78,11 @@ const DateRange = ({
         setSeeTimeAxis('year')
         setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
 
-        if (disableFuture) {
+        if (disableCurrentDay) {
+            setEndDate(
+                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
+        } else if (disableFuture) {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         } else {
             setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
@@ -87,7 +96,14 @@ const DateRange = ({
                 moment('01/01/2000', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
             ),
         )
-        setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+
+        if (disableCurrentDay) {
+            setEndDate(
+                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
+        } else {
+            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        }
     }
 
     const handleChangeStartDate = (date: any) => {
@@ -141,7 +157,10 @@ const DateRange = ({
             return InitianEndDate
         }
 
-        if (disableFuture) {
+        if (disableCurrentDay) {
+            let yesterday = moment().add(-1, 'days').toDate()
+            return yesterday
+        } else if (disableFuture) {
             return new Date()
         }
     }
@@ -182,6 +201,7 @@ const DateRange = ({
                             <FormControlLabel
                                 key={0}
                                 value={'day'}
+                                style={{ display: disableCurrentDay ? 'none' : 'block' }}
                                 control={
                                     <Radio
                                         sx={{
@@ -193,6 +213,7 @@ const DateRange = ({
                                 }
                                 label={'1 Day'}
                             />
+
                             <FormControlLabel
                                 key={0}
                                 value={'month'}
