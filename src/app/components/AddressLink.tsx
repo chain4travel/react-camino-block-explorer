@@ -7,6 +7,7 @@ export default function AddressLink({
     value,
     typographyVariant,
     truncate,
+    dataCy,
 }: {
     to: string
     value: string | number
@@ -27,6 +28,7 @@ export default function AddressLink({
         | 'inherit'
         | undefined
     truncate?: boolean
+    dataCy?: string
 }) {
     return (
         <Link to={to} style={{ textDecoration: 'none' }} rel="noopener noreferrer">
@@ -35,11 +37,16 @@ export default function AddressLink({
                     variant={typographyVariant}
                     color="latestList.blockNumber"
                     noWrap={true}
+                    data-cy={dataCy}
                 >
                     {value}
                 </Typography>
             ) : (
-                <Typography variant={typographyVariant} color="latestList.blockNumber">
+                <Typography
+                    variant={typographyVariant}
+                    color="latestList.blockNumber"
+                    data-cy={dataCy}
+                >
                     {value}
                 </Typography>
             )}

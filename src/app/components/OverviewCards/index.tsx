@@ -36,6 +36,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
                     value={customToLocaleString(numberOfValidators, 0)}
                     loading={validatorsLoading}
                     subValue={`(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`}
+                    dataCy="activeValidators"
                     onClick={() => navigate(VALIDATORS)}
                 />
             </Grid>

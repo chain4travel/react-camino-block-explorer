@@ -116,6 +116,8 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
+        "@cypress/grep": "^3.1.4",
+        "cypress": "^12.6.0",
         "@ethersproject/bignumber": "^5.7.0",
         "bignumber.js": "^9.1.1",
         "bn.js": "^5.2.1",

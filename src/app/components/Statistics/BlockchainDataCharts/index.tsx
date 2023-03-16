@@ -255,6 +255,7 @@ const BlockchainCharts = ({
                                             setSeeTimeAxis={setSeeTimeAxis}
                                             disableFuture={false}
                                             seeTimeAxis={seeTimeAxis}
+                                            disableCurrentDay={false}
                                         />
                                     </DateRangeContainer>
                                     <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
