@@ -82,7 +82,10 @@ export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
 }
 
 //Gas Average Price
-export const averageGasPriceTooltip = (data: GasAveragePriceInfo, highestAndLowestInfo: any) => {
+export const averageGasPriceTooltip = (
+    data: GasAveragePriceInfo,
+    highestAndLowestInfo: { highestValue: string; lowerValue: string },
+) => {
     const header = `<span>
     ${moment(data.date, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
@@ -116,7 +119,7 @@ export const averageBlockSizeTooltip = (data: AverageBlockSize) => {
 }
 
 //CO2 Emissions
-export const co2EmissionsTooltip = (data: any) => {
+export const co2EmissionsTooltip = (data: { time: string; value: string }) => {
     const header = `<span>
     ${moment(data.time, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>

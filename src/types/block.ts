@@ -25,7 +25,7 @@ export interface BlockDetail {
     parentHash: string
     baseGaseFee: number
     fees: number
-    gasUsed: string
+    gasUsed: number
     time: string
     transactionsCount: number
     extData: string

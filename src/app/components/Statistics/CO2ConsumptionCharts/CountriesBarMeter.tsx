@@ -2,18 +2,21 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import sortBy from 'lodash/sortBy'
+import { Data, IDataChart, Meter, Value } from 'types/statistics'
 
-const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
-    const sortByAndLoadBar = data => {
-        let sortedData = sortBy(data, o => -o.Value)
-        let dataChart = sortedData.map((dat, index) => {
+const CountriesBarMeter = ({ darkMode, titleText, dataSeries }: Meter) => {
+    const sortByAndLoadBar = (data: Value): Data[] => {
+        // @ts-ignore:next-line
+        let sortedData: Value[] = sortBy(data, object => object && -object.Value)
+        let dataChart = sortedData.map((dat, index): Data => {
+            const country = dat.Country || ''
             return {
-                name: dat.Country.replace('_', ' '),
+                name: country.replace('_', ' '),
                 y: dat.Value,
-                drilldown: dat.Country.replace('_', ''),
+                drilldown: country.replace('_', ''),
                 color: `hsl(221, 48%, ${(index + 1) * (90 / sortedData.length)}%)`,
                 value: dat.Value,
-                country: dat.Country.replace('_', ''),
+                country: country.replace('_', ''),
             }
         })
         return dataChart
@@ -35,7 +38,7 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
             type: 'category',
             labels: {
                 useHTML: true,
-                formatter: function (obj) {
+                formatter: function (obj: IDataChart) {
                     return `<div style="text-align: center;color:${
                         darkMode === true ? 'white' : 'black'
                     }">
@@ -52,7 +55,7 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }) => {
             },
             labels: {
                 useHTML: true,
-                formatter: function (obj) {
+                formatter: function (obj: IDataChart) {
                     return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
                         obj.value
                     }</span>`

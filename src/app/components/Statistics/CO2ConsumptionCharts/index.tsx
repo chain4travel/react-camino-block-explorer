@@ -22,6 +22,7 @@ import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
 import { useTheme } from '@mui/material'
 import '../../../../styles/scrollbarModal.css'
+import { ConsumptionCharts, Emissions } from 'types/statistics'
 
 type DatesChart = {
     starterDate: Date
@@ -48,7 +49,7 @@ const CO2ConsumptionCharts = ({
     sliceGetter,
     sliceGetterLoader,
     titleText,
-}) => {
+}: ConsumptionCharts) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 
@@ -56,9 +57,9 @@ const CO2ConsumptionCharts = ({
 
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
-    const [endDate, setEndDate] = useState<Date>()
+    const [endDate, setEndDate] = useState<Date>(new Date())
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
     const [firstLoad, setFirstLoad] = useState(false)
 
     const dispatch = useAppDispatch()
@@ -74,7 +75,7 @@ const CO2ConsumptionCharts = ({
         defaultDatesCO2Emissions()
     }, [])
 
-    const meterCO2: any = useAppSelector(sliceGetter)
+    const meterCO2: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
     useEffect(() => {

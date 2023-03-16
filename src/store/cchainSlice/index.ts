@@ -16,6 +16,7 @@ import {
     fetchPrevTransactionDetails,
 } from 'app/pages/CChainPages/Transactions/utils'
 import BigNumber from 'bignumber.js'
+import { IItem } from 'types/statistics'
 
 const initialState: initialCchainStateType = {
     transactionCount: NaN,
@@ -127,7 +128,7 @@ const cchainSlice = createSlice({
                     // extDataGasUsed: action.payload.header.extDataGasUsed,
                     // blockGasCost: action.payload.header.blockGasCost,
                     transactions: action.payload.transactions
-                        ? action.payload.transactions.map(item => ({
+                        ? action.payload.transactions.map((item: IItem) => ({
                               block: item.block,
                               index: parseInt(item.receipt.transactionIndex),
                               from: item.fromAddr,
@@ -192,7 +193,7 @@ const cchainSlice = createSlice({
             })
             .addCase(fetchPrevTransactionDetails.fulfilled, (state, { payload }) => {
                 if (payload && payload.length > 0) {
-                    let res = payload.map(item => {
+                    let res = payload.map((item: { block: string; hash: string; from: string }) => {
                         return {
                             block: parseInt(item.block),
                             hash: item.hash,
@@ -214,7 +215,7 @@ const cchainSlice = createSlice({
             })
             .addCase(fetchNextTransactionDetails.fulfilled, (state, { payload }) => {
                 if (payload && payload.length > 0) {
-                    let res = payload.map(item => {
+                    let res = payload.map((item: { block: string; hash: string; from: string }) => {
                         return {
                             block: parseInt(item.block),
                             hash: item.hash,
