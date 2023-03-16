@@ -10,6 +10,7 @@ declare global {
             switchToWalletApp(): Chainable<Element>
             switchToWalletFunctionTab(func: string): Chainable<Element>
             entryExplorer(network?: string): Chainable<Element>
+            checkValidatorsTxsGasFee(): Chainable<Element>
             /**
              * combo of commands in sequence:
              * - cy.visit('/')
