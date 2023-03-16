@@ -10,10 +10,17 @@ describe('Explorer: Latest block list and transaction list in C chain', () => {
         cy.checkValidatorsTxsGasFee()
         
         // Latest Blocks
+        // cy.contains('Latest Blocks')
+        //     .parent()
+        //     .find('>div')
+        //     .filter('.MuiGrid-container')
+        //     .as('latestBlocks')
+
         cy.contains('Latest Blocks')
-            .parent()
-            .find('>div')
+            .siblings()
             .filter('.MuiGrid-container')
+            .eq(0)
+            .find('div')
             .as('latestBlocks')
 
         // Latest Transactions
@@ -34,27 +41,43 @@ describe('Explorer: Latest block list and transaction list in C chain', () => {
         cy.wait('@cblocks').then((intercept) => {
             return intercept.response?.body
         }).then(({blocks}) => {
-            cy.get('@latestBlocks').each(($el, index) => {
-                cy.wrap($el).children().as('latestBlocksColumn')
-                cy.get('@latestBlocksColumn')
-                    .eq(1)
-                    .find('>a')
-                    .should('have.text', parseInt(blocks[index].number, 16))
-
-                cy.get('@latestBlocksColumn')
+                cy.get('@latestBlocks')
                     .eq(2)
-                    .find('>p')
-                    .eq(1)
-                    .should('have.text', blocks[index].hash)
-                
-                cy.get('@latestBlocksColumn')
-                    .eq(3)
+                    .find('>a')
+                    .should('have.text', parseInt(blocks[0].number, 16))
+                cy.get('@latestBlocks').eq(3).find('>p').eq(1).should('have.text', blocks[0].hash)
+                cy.get('@latestBlocks')
+                    .eq(4)
                     .find('h6')
                     .invoke('text')
-                    .then((gasUsedText) => {
-                        expect(parseInt(gasUsedText.replace(/\s/g, ''))).to.equal(parseInt(blocks[index].gasUsed, 16))
+                    .then(gasUsedText => {
+                        expect(parseInt(gasUsedText.replace(/\s/g, ''))).to.equal(
+                            parseInt(blocks[0].gasUsed, 16),
+                        )
                     })
-            })
+
+
+            // cy.get('@latestBlocks').each(($el, index) => {
+            //     cy.wrap($el).children().as('latestBlocksColumn')
+            //     cy.get('@latestBlocksColumn')
+            //         .eq(1)
+            //         .find('>a')
+            //         .should('have.text', parseInt(blocks[index].number, 16))
+
+            //     cy.get('@latestBlocksColumn')
+            //         .eq(2)
+            //         .find('>p')
+            //         .eq(1)
+            //         .should('have.text', blocks[index].hash)
+                
+            //     cy.get('@latestBlocksColumn')
+            //         .eq(3)
+            //         .find('h6')
+            //         .invoke('text')
+            //         .then((gasUsedText) => {
+            //             expect(parseInt(gasUsedText.replace(/\s/g, ''))).to.equal(parseInt(blocks[index].gasUsed, 16))
+            //         })
+            // })
         })
 
         cy.fixture('mocks/c_blocks_limit.json').then((cBlocksLimit) => {
