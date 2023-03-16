@@ -139,6 +139,81 @@ Cypress.Commands.add(
     }
 )
 
+Cypress.Commands.add('addCustomNetwork', (networkConfig: NetworkConfig) => {
+    const { networkName, rpcUrl, magellanUrl, explorerUrl } = networkConfig
+    cy.get('[data-cy="network-selector"]').click()
+    cy.get('[data-cy="add-custom-network"]').click()
+    // Wait for re-rendering ??
+    cy.wait(2000)
+    cy.get('[data-cy="add-network-field-network-name"]', { timeout: 30000 }).type(networkName)
+    cy.get('[data-cy="add-network-field-url"]').type(rpcUrl)
+    cy.get('[data-cy="add-network-field-magellan-address"]').type(magellanUrl || '')
+    // cy.get('[data-cy="add-network-field-explorerSiteUrl-address"]').type(explorerUrl || '')
+    cy.get('[data-cy="btn-add-network"]').click()
+    // Wait to connecting network
+    cy.wait(5000)
+    // Click backdrop to close menu
+    cy.get(`body > div[role="presentation"].MuiPopover-root`, {timeout: 12000}).click()
+})
+
+Cypress.Commands.add('entryExplorer', (network: string = 'Kopernikus') => {
+    cy.visit('/')
+
+    cy.fixture('mocks/txfee_aggregates.json').then((txfeeAggregates) => {
+        cy.intercept('GET', '**/v2/txfeeAggregates*', (request) => {
+            request.reply({
+                statusCode: 200,
+                body: txfeeAggregates,
+            })
+        }).as('txfeeAggregates')
+    })
+
+    cy.fixture('mocks/tx_count_aggregates.json').then((aggregates) => {
+        cy.intercept('GET', '**/v2/aggregates*', (request) => {
+            request.reply({
+                statusCode: 200,
+                body: aggregates,
+            })
+        }).as('aggregates')
+    })
+
+    cy.fixture('mocks/validators_info.json').then((validatorsInfo) => {
+        cy.intercept('POST', '**/v2/validatorsInfo', (request) => {
+            request.reply({
+                statusCode: 200,
+                body: validatorsInfo,
+            })
+        }).as('validatorsInfo')
+    })
+
+    // Close cookie dialog
+    cy.get('[aria-labelledby="cc-nb-title"] button.cc-nb-okagree').click()
+
+    // header - app(left) menu aliases
+    cy.get('[data-cy="app-selector-menu"]').as('elAppMenu')
+
+    // header - preference(right) menu aliases
+    cy.get('header > .MuiToolbar-root > .MuiBox-root:nth-child(2)').as('elPreferenceMenu')
+    cy.get('@elPreferenceMenu')
+        .find('.MuiInputBase-root > .MuiSelect-select', { timeout: 30000 })
+        .as('btnNetworkSwitcher')
+    cy.get('@btnNetworkSwitcher').find('.MuiTypography-root').as('txtSelectedNetwork')
+    cy.get('@elPreferenceMenu').find('> .MuiBox-root').as('btnWallet')
+
+    // Only add non-default networks
+    if (network === 'Kopernikus') {
+        cy.fixture(`${network.toLowerCase()}/network`).then((networkConfig: NetworkConfig) => {
+            if (networkConfig) {
+                cy.addCustomNetwork(networkConfig)
+            }
+        })
+    }
+
+    cy.changeNetwork(network)
+
+    cy.get('@txtSelectedNetwork').should('have.text', network)
+})
+
 Cypress.Commands.add('switchToWalletFunctionTab', (func) => {
     let funcKey
     switch (func) {
