@@ -6,3 +6,8 @@ src/reportWebVitals.ts
 src/service-worker.ts
 src/serviceWorkerRegistration.ts
 src/setupTests.ts
+
+node_modules/
+dist/
+commitlint.config.js
+lint-staged.config.js
