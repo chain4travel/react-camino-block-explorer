@@ -16,13 +16,23 @@ import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 
 class ChartConfig {
     title: string
-    categories: any[] = []
-    typeChartData: any
-    data: any[] = []
-    highestAndLowestInfo: any
-    timeSeeAxis: any
+    categories: string[] = []
+    typeChartData: string
+    data
+    highestAndLowestInfo: {
+        highestValue: string
+        highestDate: string
+        lowerValue: string
+        lowerDate: string
+    } = {
+        highestValue: '',
+        highestDate: '',
+        lowerValue: '',
+        lowerDate: '',
+    }
+    timeSeeAxis: string = ''
 
-    constructor(typeChartData: any, title: string, dataChart: any, timeSeeAxis: String) {
+    constructor(typeChartData: string, title: string, dataChart: any, timeSeeAxis: string) {
         this.typeChartData = typeChartData
         this.title = title
         switch (this.typeChartData) {
@@ -67,27 +77,45 @@ class ChartConfig {
     public getCategories() {
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
+                return this.data.map((value: { date: string }, index: number) =>
+                    this.getCheckTimeCategories(value.date),
+                )
             case typesStatistic.UNIQUE_ADRESSES:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
+                return this.data.map((value: { dateAt: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateAt),
+                )
             case typesStatistic.GAS_USED:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
+                return this.data.map((value: { date: string }, index: number) =>
+                    this.getCheckTimeCategories(value.date),
+                )
             case typesStatistic.ACTIVE_ADDRESSES:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
+                return this.data.map((value: { dateAt: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateAt),
+                )
             case typesStatistic.AVERAGE_BLOCK_SIZE:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateInfo))
+                return this.data.map((value: { dateInfo: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateInfo),
+                )
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.date))
+                return this.data.map((value: { date: string }, index: number) =>
+                    this.getCheckTimeCategories(value.date),
+                )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.dateAt))
+                return this.data.map((value: { dateAt: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateAt),
+                )
             case typesStatistic.CO2_EMISSIONS:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.time))
+                return this.data.map((value: { time: string }, index: number) =>
+                    this.getCheckTimeCategories(value.time),
+                )
             default:
-                return this.data.map((value, index) => this.getCheckTimeCategories(value.Date))
+                return this.data.map((value: { Date: string }, index: number) =>
+                    this.getCheckTimeCategories(value.Date),
+                )
         }
     }
 
-    private checkRangeTimeString(timeSeeAxis: String) {
+    private checkRangeTimeString(timeSeeAxis: string) {
         if (timeSeeAxis === 'custom') {
             this.timeSeeAxis = this.verifyRangeTime()
         } else {
@@ -163,7 +191,7 @@ class ChartConfig {
         }
     }
 
-    private getCheckTimeCategories(date: any) {
+    private getCheckTimeCategories(date: string) {
         switch (this.timeSeeAxis) {
             case seeTimeAxis.day:
                 return moment(date, 'YYYY-MM-DD').format('D MMM')
@@ -176,7 +204,7 @@ class ChartConfig {
         }
     }
 
-    public getTooltip(index: any) {
+    public getTooltip(index: number) {
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return dailyTransactionsTooltip(this.data[index])
@@ -202,43 +230,56 @@ class ChartConfig {
     public getMappedSeries() {
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                return this.data.map((value, index) => {
-                    return { y: value.totalTransactions, name: value.date }
-                })
+                return this.data.map(
+                    (value: { totalTransactions: string; date: string }, index: number) => {
+                        return { y: value.totalTransactions, name: value.date }
+                    },
+                )
             case typesStatistic.UNIQUE_ADRESSES:
-                return this.data.map((value, index) => {
-                    return { y: value.dailyIncrease, name: value.dateAt }
-                })
+                return this.data.map(
+                    (value: { dailyIncrease: string; dateAt: string }, index: number) => {
+                        return { y: value.dailyIncrease, name: value.dateAt }
+                    },
+                )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return this.data.map((value, index) => {
-                    let convertedCounter = parseFloat(
-                        ethers.formatEther(value.counter.toString()),
-                    ).toFixed(3)
-                    return { y: parseInt(convertedCounter), name: value.dateAt }
-                })
+                return this.data.map(
+                    (
+                        value: { counter: { toString: () => ethers.BigNumberish }; dateAt: any },
+                        index: any,
+                    ) => {
+                        let convertedCounter = parseFloat(
+                            ethers.formatEther(value.counter.toString()),
+                        ).toFixed(3)
+                        return { y: parseInt(convertedCounter), name: value.dateAt }
+                    },
+                )
             case typesStatistic.GAS_USED:
-                return this.data.map((value, index) => {
+                return this.data.map((value: { avgGas: string; date: string }, index: number) => {
                     return { y: value.avgGas, name: value.date }
                 })
             case typesStatistic.ACTIVE_ADDRESSES:
-                return this.data.map((value, index) => {
+                return this.data.map((value: { total: string; dateAt: string }, index: number) => {
                     return { y: value.total, name: value.dateAt }
                 })
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return this.data.map((value, index) => {
+                return this.data.map((value: { avgGas: string; date: string }, index: number) => {
                     return { y: value.avgGas, name: value.date }
                 })
             case typesStatistic.GAS_AVERAGE_LIMIT:
-                return this.data.map((value, index) => {
-                    return { y: value.AverageGasLimit, name: value.Date }
-                })
+                return this.data.map(
+                    (value: { AverageGasLimit: string; Date: string }, index: number) => {
+                        return { y: value.AverageGasLimit, name: value.Date }
+                    },
+                )
             case typesStatistic.AVERAGE_BLOCK_SIZE:
-                return this.data.map((value, index) => {
-                    return { y: value.blockSize, name: value.dateInfo }
-                })
+                return this.data.map(
+                    (value: { blockSize: string; dateInfo: string }, index: number) => {
+                        return { y: value.blockSize, name: value.dateInfo }
+                    },
+                )
 
             case typesStatistic.CO2_EMISSIONS:
-                return this.data.map((value, index) => {
+                return this.data.map((value: { value: string }, index: number) => {
                     return {
                         name: index,
                         y: value.value,

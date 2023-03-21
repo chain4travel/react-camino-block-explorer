@@ -25,13 +25,13 @@ export const useStore = () => {
         changeTheme: (theme: string) => {
             dispatch(changeTheme(theme))
         },
-        updateNetworks: networks => {
+        updateNetworks: (networks: string) => {
             dispatch(updateNetworks(networks))
         },
         changeNetworkExplorer: (network: string) => switchNetwork(network),
     }
 }
 
-export function ExplorerStoreProvider({ children }) {
+export function ExplorerStoreProvider({ children }: { children: React.ReactElement }) {
     return <Provider store={store}>{children}</Provider>
 }

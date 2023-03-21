@@ -2,16 +2,18 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import sortBy from 'lodash/sortBy'
+import { IDataChart, Meter, Value } from 'types/statistics'
 
-const BarMeter = ({ dataSeries, darkMode }) => {
-    const sortByAndLoadBar = data => {
+const BarMeter = ({ dataSeries, darkMode }: Meter) => {
+    const sortByAndLoadBar = (data: Value) => {
         try {
-            let sortedData = sortBy(data, o => -o.value)
-            let dataChart = sortedData.map((dat, index) => {
+            // @ts-ignore:next-line
+            let sortedData: Value[] = sortBy(data, object => object && -object.Value)
+            let dataChart = sortedData.map((data, index) => {
                 return {
-                    name: dat.chain,
-                    y: dat.value,
-                    drilldown: dat.chain,
+                    name: data.chain,
+                    y: data.value,
+                    drilldown: data.chain,
                     color: `hsl(221, 48%, ${(index + 1) * (80 / sortedData.length)}%)`,
                 }
             })
@@ -37,7 +39,7 @@ const BarMeter = ({ dataSeries, darkMode }) => {
             type: 'category',
             labels: {
                 useHTML: true,
-                formatter: function (obj) {
+                formatter: function (obj: IDataChart) {
                     return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
                         obj.value
                     }</span>`
@@ -53,7 +55,7 @@ const BarMeter = ({ dataSeries, darkMode }) => {
             },
             labels: {
                 useHTML: true,
-                formatter: function (obj) {
+                formatter: function (obj: IDataChart) {
                     return `<span style="color:${darkMode === true ? 'white' : 'black'}">${
                         obj.value
                     }</span>`

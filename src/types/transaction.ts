@@ -97,7 +97,7 @@ export interface TransactionCurrency {
     maxFeePerGas: number
     maxPriorityFeePerGas: number
     gasPrice: number
-    gasUsed: string
+    gasUsed: number
     effectiveGasPrice: number
     transactionCost: number
     value: number

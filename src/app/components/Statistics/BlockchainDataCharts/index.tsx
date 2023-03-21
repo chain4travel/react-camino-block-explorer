@@ -23,6 +23,7 @@ import { Grid, useTheme } from '@mui/material'
 import moment from 'moment'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
 import '../../../../styles/scrollbarModal.css'
+import { ConsumptionCharts, Emissions } from 'types/statistics'
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -61,14 +62,14 @@ const BlockchainCharts = ({
     sliceGetterLoader,
     typeStatistic,
     tooltipTitle,
-}) => {
+}: ConsumptionCharts) => {
     const theme = useTheme()
 
     const isDark = theme.palette.mode === 'dark'
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
-    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
     const [firstLoad, setFirstLoad] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
@@ -92,7 +93,7 @@ const BlockchainCharts = ({
         setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 
-    const dataStatistics: any = useAppSelector(sliceGetter)
+    const dataStatistics: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
     useEffect(() => {

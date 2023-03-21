@@ -3,9 +3,15 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import ChartConfig from '../ChartConfig/ChartConfig'
 import { typeChartData } from '../../../../utils/statistics/ChartSelector'
+import { IDataChart, Meter } from 'types/statistics'
 
-const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }) => {
-    let config = new ChartConfig(typeChartData.CO2_EMISSIONS, titleText, dataSeries, seeTimeAxis)
+const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }: Meter) => {
+    let config = new ChartConfig(
+        typeChartData.CO2_EMISSIONS,
+        (titleText = ''),
+        dataSeries,
+        (seeTimeAxis = ''),
+    )
 
     if (config.data !== undefined && config.data) {
         const options = {
@@ -41,7 +47,7 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }) => {
 
                 labels: {
                     useHTML: true,
-                    formatter: function (obj: any) {
+                    formatter: function (obj: IDataChart) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -65,6 +71,7 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }) => {
                             [0, '#41547C'],
                             [
                                 1,
+                                // @ts-ignore:next-line
                                 Highcharts.color(Highcharts.getOptions().colors[0])
                                     .setOpacity(0)
                                     .get('rgba'),
@@ -88,7 +95,7 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }) => {
             },
 
             tooltip: {
-                formatter: function (tooltip) {
+                formatter: function (this: Highcharts.TooltipFormatterContextObject) {
                     let indexData = this.point.index
                     return config.getTooltip(indexData)
                 },

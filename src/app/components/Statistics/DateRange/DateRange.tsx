@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { ForwardedRef, forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
 import '../../../../styles/custompicker.css'
 import styled from 'styled-components'
@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import useWidth from '../../../hooks/useWidth'
 import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material'
 import { seeTimeAxis as typeSeeTimeAxis } from '../DateRange/SeeTimeAxis'
+import { IDataRef, IDateRange } from 'types/statistics'
 
 const PickerContainer = styled.div`
     display: flex;
@@ -50,7 +51,7 @@ const DateRange = ({
     disableFuture,
     seeTimeAxis,
     disableCurrentDay,
-}) => {
+}: IDateRange) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
 
     const handleClickOneDay = () => {
@@ -106,17 +107,17 @@ const DateRange = ({
         }
     }
 
-    const handleChangeStartDate = (date: any) => {
+    const handleChangeStartDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setStartDate(date)
     }
 
-    const handleChangeEndDate = (date: any) => {
+    const handleChangeEndDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setEndDate(date)
     }
 
-    const handleChangeRadioButtons = (value: any) => {
+    const handleChangeRadioButtons = (value: string) => {
         switch (value) {
             case typeSeeTimeAxis.day:
                 handleClickOneDay()
@@ -133,24 +134,26 @@ const DateRange = ({
         }
     }
 
-    const CustomInput = forwardRef(({ value, onClick, label }: any, ref: any) => (
-        <CustomInputContainer style={{ cursor: 'default' }}>
-            <NewTextField
-                id="standard-basic"
-                label={label}
-                variant="outlined"
-                value={value}
-                ref={ref}
-                onClick={onClick}
-                color="secondary"
-                style={{ cursor: 'default', width: 250 }}
-            />
-            <CalendarMonthIcon
-                onClick={onClick}
-                style={{ cursor: 'default', position: 'relative', top: 10 }}
-            />
-        </CustomInputContainer>
-    ))
+    const CustomInput = forwardRef(
+        ({ value, onClick, label }: IDataRef, ref: ForwardedRef<HTMLInputElement>) => (
+            <CustomInputContainer style={{ cursor: 'default' }}>
+                <NewTextField
+                    id="standard-basic"
+                    label={label}
+                    variant="outlined"
+                    value={value}
+                    ref={ref}
+                    onClick={onClick}
+                    color="secondary"
+                    style={{ cursor: 'default', width: 250 }}
+                />
+                <CalendarMonthIcon
+                    onClick={onClick}
+                    style={{ cursor: 'default', position: 'relative', top: 10 }}
+                />
+            </CustomInputContainer>
+        ),
+    )
 
     const getMaxDate = (isStartDate: boolean) => {
         if (InitianEndDate !== null && InitianEndDate !== undefined && isStartDate === true) {
@@ -165,7 +168,7 @@ const DateRange = ({
         }
     }
 
-    const CustomInputMobile = forwardRef(({ value, onClick, label }: any, refMobile: any) => (
+    const CustomInputMobile = forwardRef(({ value, onClick, label }: IDataRef, refMobile: any) => (
         <CustomInputContainer style={{ cursor: 'default' }}>
             <TextField
                 id="standard-basic"
@@ -265,7 +268,7 @@ const DateRange = ({
                     >
                         <DatePicker
                             selected={initialStartDate}
-                            onChange={(date: any) => handleChangeStartDate(date)}
+                            onChange={(date: Date) => handleChangeStartDate(date)}
                             selectsStart
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
@@ -275,7 +278,7 @@ const DateRange = ({
                         />
                         <DatePicker
                             selected={InitianEndDate}
-                            onChange={(date: any) => handleChangeEndDate(date)}
+                            onChange={(date: Date) => handleChangeEndDate(date)}
                             selectsEnd
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
@@ -362,7 +365,7 @@ const DateRange = ({
                     <FilterContainerMobile className={darkMode ? 'picker-container' : ''}>
                         <DatePicker
                             selected={initialStartDate}
-                            onChange={date => setStartDate(date)}
+                            onChange={(date: Date) => setStartDate(date)}
                             selectsStart
                             startDate={initialStartDate}
                             endDate={InitianEndDate}
@@ -373,7 +376,7 @@ const DateRange = ({
                         />
                         <DatePicker
                             selected={InitianEndDate}
-                            onChange={date => setEndDate(date)}
+                            onChange={(date: Date) => setEndDate(date)}
                             selectsEnd
                             startDate={initialStartDate}
                             endDate={InitianEndDate}

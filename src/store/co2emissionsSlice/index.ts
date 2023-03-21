@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'store/configureStore'
 import { Status } from 'types'
+import { Emissions } from 'types/statistics'
 import {
     loadCountryEmissions,
     loadDailyEmissions,
@@ -111,20 +112,23 @@ const co2EmissionsSlice = createSlice({
     },
 })
 
-export const getDailyEmissions = (state: RootState) => state.co2emissions.dailyEmissions
-export const getDailyEmissionsStatus = (state: RootState) => state.co2emissions.dailyEmissionsStatus
+export const getDailyEmissions = (state: RootState): Emissions => state.co2emissions.dailyEmissions
+export const getDailyEmissionsStatus = (state: RootState): string =>
+    state.co2emissions.dailyEmissionsStatus
 
-export const getNetworkEmissions = (state: RootState) => state.co2emissions.networkEmissions
-export const getNetworkEmissionsStatus = (state: RootState) =>
+export const getNetworkEmissions = (state: RootState): Emissions =>
+    state.co2emissions.networkEmissions
+export const getNetworkEmissionsStatus = (state: RootState): string =>
     state.co2emissions.networkEmissionsStatus
 
-export const getTransactionsEmissions = (state: RootState) =>
+export const getTransactionsEmissions = (state: RootState): Emissions =>
     state.co2emissions.transactionsEmissions
-export const getTransactionsEmissionsStatus = (state: RootState) =>
+export const getTransactionsEmissionsStatus = (state: RootState): string =>
     state.co2emissions.transactionsEmissionsStatus
 
-export const getCountryEmissions = (state: RootState) => state.co2emissions.countryEmissions
-export const getCountryEmissionsStatus = (state: RootState) =>
+export const getCountryEmissions = (state: RootState): Emissions =>
+    state.co2emissions.countryEmissions
+export const getCountryEmissionsStatus = (state: RootState): string =>
     state.co2emissions.countryEmissionsStatus
 
 export const { co2EmissionsReducer } = co2EmissionsSlice.actions
