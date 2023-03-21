@@ -9,11 +9,11 @@ const BarMeter = ({ dataSeries, darkMode }: Meter) => {
         try {
             // @ts-ignore:next-line
             let sortedData: Value[] = sortBy(data, object => object && -object.Value)
-            let dataChart = sortedData.map((dat, index) => {
+            let dataChart = sortedData.map((data, index) => {
                 return {
-                    name: dat.chain,
-                    y: dat.value,
-                    drilldown: dat.chain,
+                    name: data.chain,
+                    y: data.value,
+                    drilldown: data.chain,
                     color: `hsl(221, 48%, ${(index + 1) * (80 / sortedData.length)}%)`,
                 }
             })
