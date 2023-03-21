@@ -50,7 +50,7 @@ export interface IDateRange {
     darkMode: boolean
     setSeeTimeAxis: Dispatch<React.SetStateAction<string>>
     disableFuture: boolean
-    seeTimeAxis: string,
+    seeTimeAxis: string
     disableCurrentDay: boolean
 }
 

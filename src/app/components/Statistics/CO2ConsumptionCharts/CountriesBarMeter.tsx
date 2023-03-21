@@ -48,7 +48,7 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }: Meter) => {
         },
         yAxis: {
             title: {
-                text: 'CO2',
+                text: 'gCO2',
                 style: {
                     color: darkMode ? 'white' : 'black',
                 },

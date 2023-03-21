@@ -8,11 +8,11 @@ const BarMeter = ({ dataSeries, darkMode }: Meter) => {
     const sortByAndLoadBar = (data: Value) => {
         try {
             // @ts-ignore:next-line
-            let sortedData: Value[] = sortBy(data, object => object && -object.Value)
+            let sortedData: Value[] = sortBy(data, object => object && -object.value)
             let dataChart = sortedData.map((data, index) => {
                 return {
                     name: data.chain,
-                    y: data.value,
+                    y: data.value / 1000,
                     drilldown: data.chain,
                     color: `hsl(221, 48%, ${(index + 1) * (80 / sortedData.length)}%)`,
                 }
@@ -47,8 +47,12 @@ const BarMeter = ({ dataSeries, darkMode }: Meter) => {
             },
         },
         yAxis: {
+            type: 'logarithmic',
+            min: 1,
+            max: 1000000000,
+            tickInterval: 1,
             title: {
-                text: 'gCO2',
+                text: 'KgCO2',
                 style: {
                     color: darkMode ? 'white' : 'black',
                 },
@@ -68,6 +72,12 @@ const BarMeter = ({ dataSeries, darkMode }: Meter) => {
 
         tooltip: {
             enabled: false,
+            formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+                const header = `<span>
+                    [<label style="color: blue">CO2 Emissions:</label> <b>${this.y} KgCO2</b>]
+                    <br/>`
+                return header
+            },
         },
         credits: {
             enabled: false,
