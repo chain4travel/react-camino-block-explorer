@@ -141,9 +141,9 @@ const Statistics: FC = () => {
                         </Grid>
                         <Grid item md={6} xs={12}>
                             <BlockchainCharts
-                                tooltipTitle="The Camino Average Gas Price Chart shows the daily average gas price used of the Camino network."
+                                tooltipTitle="The Camino Average Gas Price Chart shows the daily average gas price, including the gas unit and gas tip used of the Camino Network."
                                 darkMode={dark}
-                                titleText={'Gas Average Price'}
+                                titleText={'Average gas price'}
                                 utilSlice={(dates: Date) => loadGasAveragePrice(dates)}
                                 sliceGetter={getGasAveragePrice}
                                 sliceGetterLoader={getGasAveragePriceInfo}
