@@ -122,3 +122,8 @@ export interface ChartData {
     time: string
     Date: string
 }
+
+export type FilterDates = {
+    startDate: string
+    endDate: string
+}
