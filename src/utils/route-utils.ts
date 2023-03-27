@@ -43,15 +43,15 @@ export function getAddressLink(chaintype: ChainType, value: string): string {
     return value
 }
 
-export function getAddressFromUrl(): string {
+export function getAddressFromUrl(): string | undefined {
     return window.location.pathname.split('/').pop()
 }
 
-export function getTransactionFromUrl(): string {
+export function getTransactionFromUrl(): string | undefined {
     return window.location.pathname.split('/').pop()
 }
 
-export function getBlockNumber(): string {
+export function getBlockNumber(): string | undefined {
     return window.location.pathname.split('/').pop()
 }
 
@@ -67,7 +67,7 @@ export function getChainTypeFromUrl(): ChainType {
     return ChainType.C_CHAIN
 }
 
-export function getTransactionType(chainType) {
+export function getTransactionType(chainType: ChainType) {
     switch (chainType) {
         case ChainType.X_CHAIN:
             return XTRANSACTION
@@ -78,7 +78,7 @@ export function getTransactionType(chainType) {
     }
 }
 
-export function getAddressType(chainType) {
+export function getAddressType(chainType: ChainType) {
     switch (chainType) {
         case ChainType.X_CHAIN:
             return XADDRESS

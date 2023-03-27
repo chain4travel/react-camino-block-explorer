@@ -42,24 +42,37 @@ export async function getTransactionsPage(
     const response = await axios.get(
         `${getBaseUrl()}${baseEndpoint}/cblocks?limit=${0}&limit=${50}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
     )
-    return response.data.transactions.map(transaction => {
-        return {
-            blockNumber: parseInt(transaction.block),
-            transactionIndex: parseInt(transaction.index),
-            from: transaction.from,
-            hash: transaction.hash,
-            status:
-                parseInt(transaction.status) === 1
-                    ? 'Success'
-                    : `Failed-${parseInt(transaction.status)}`,
-            timestamp: parseInt(transaction.timestamp) * 1000,
-            to: transaction.to,
-            value: parseInt(transaction.value),
-            transactionCost: BigNumber(transaction.gasUsed)
-                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                .toNumber(),
-        }
-    })
+    return response.data.transactions.map(
+        (transaction: {
+            block: string
+            index: string
+            from: string
+            hash: string
+            status: string
+            timestamp: string
+            to: string
+            value: string
+            gasUsed: BigNumber.Value
+            effectiveGasPrice: BigNumber.Value
+        }) => {
+            return {
+                blockNumber: parseInt(transaction.block),
+                transactionIndex: parseInt(transaction.index),
+                from: transaction.from,
+                hash: transaction.hash,
+                status:
+                    parseInt(transaction.status) === 1
+                        ? 'Success'
+                        : `Failed-${parseInt(transaction.status)}`,
+                timestamp: parseInt(transaction.timestamp) * 1000,
+                to: transaction.to,
+                value: parseInt(transaction.value),
+                transactionCost: BigNumber(transaction.gasUsed)
+                    .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                    .toNumber(),
+            }
+        },
+    )
 }
 
 export async function loadTransactionAggregates(
@@ -80,7 +93,13 @@ export async function loadTransactionFeesAggregates(
     return (await axios.get(url)).data
 }
 
-export async function loadBlocksAndTransactions({ address, offset }) {
+export async function loadBlocksAndTransactions({
+    address,
+    offset,
+}: {
+    address?: string
+    offset: number
+}) {
     try {
         let res = await axios.get(
             `${getBaseUrl()}${baseEndpoint}/cblocks?address=${address}&limit=0&limit=${offset}`,
@@ -91,30 +110,49 @@ export async function loadBlocksAndTransactions({ address, offset }) {
     }
 }
 
-export async function loadCAddressTransactions({ address, allPages }) {
+export async function loadCAddressTransactions({
+    address,
+    allPages,
+}: {
+    address?: string
+    allPages: number
+}) {
     try {
         let res = await loadBlocksAndTransactions({ address, offset: (allPages + 1) * 50 })
         let transactions = res?.transactions?.slice(allPages * 50)
         if (transactions)
-            return transactions.map(transaction => {
-                return {
-                    blockNumber: parseInt(transaction.block),
-                    transactionIndex: parseInt(transaction.index),
-                    from: transaction.from,
-                    hash: transaction.hash,
-                    status:
-                        parseInt(transaction.status) === 1
-                            ? 'Success'
-                            : `Failed-${parseInt(transaction.status)}`,
-                    timestamp: parseInt(transaction.timestamp) * 1000,
-                    to: transaction.to,
-                    value: parseInt(transaction.value),
-                    transactionCost: BigNumber(transaction.gasUsed)
-                        .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                        .toNumber(),
-                    direction: transaction.from === address ? 'out' : 'in',
-                }
-            })
+            return transactions.map(
+                (transaction: {
+                    block: string
+                    index: string
+                    from: string
+                    hash: string
+                    status: string
+                    timestamp: string
+                    to: string
+                    value: string
+                    gasUsed: BigNumber.Value
+                    effectiveGasPrice: BigNumber.Value
+                }) => {
+                    return {
+                        blockNumber: parseInt(transaction.block),
+                        transactionIndex: parseInt(transaction.index),
+                        from: transaction.from,
+                        hash: transaction.hash,
+                        status:
+                            parseInt(transaction.status) === 1
+                                ? 'Success'
+                                : `Failed-${parseInt(transaction.status)}`,
+                        timestamp: parseInt(transaction.timestamp) * 1000,
+                        to: transaction.to,
+                        value: parseInt(transaction.value),
+                        transactionCost: BigNumber(transaction.gasUsed)
+                            .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                            .toNumber(),
+                        direction: transaction.from === address ? 'out' : 'in',
+                    }
+                },
+            )
     } catch (e) {
         throw new Error(e.message)
     }
@@ -210,7 +248,7 @@ export async function loadValidatorsInfo() {
         }
 
         axios(request)
-            .then(function (response: any) {
+            .then(function (response) {
                 resolve(response.data.value)
             })
             .catch(e => {
@@ -220,7 +258,7 @@ export async function loadValidatorsInfo() {
     })
 }
 
-export const fetchDailyEmissions = (dates: any) => {
+export const fetchDailyEmissions = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -245,7 +283,7 @@ export const fetchDailyEmissions = (dates: any) => {
     })
 }
 
-export const fetchNetworkEmissions = dates => {
+export const fetchNetworkEmissions = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -270,7 +308,7 @@ export const fetchNetworkEmissions = dates => {
     })
 }
 
-export const fetchTransactionsEmissions = dates => {
+export const fetchTransactionsEmissions = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -295,7 +333,7 @@ export const fetchTransactionsEmissions = dates => {
     })
 }
 
-export const fetchCountryEmissions = dates => {
+export const fetchCountryEmissions = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -320,7 +358,10 @@ export const fetchCountryEmissions = dates => {
     })
 }
 
-export const fetchBlockchainChartDailyTransactions = dates => {
+export const fetchBlockchainChartDailyTransactions = (dates: {
+    startDate: string
+    endDate: string
+}) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -348,7 +389,10 @@ export const fetchBlockchainChartDailyTransactions = dates => {
     })
 }
 
-export const fetchBlockchainChartUniqueAddresses = dates => {
+export const fetchBlockchainChartUniqueAddresses = (dates: {
+    startDate: string
+    endDate: string
+}) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -376,7 +420,7 @@ export const fetchBlockchainChartUniqueAddresses = dates => {
     })
 }
 
-export const fetchBlockchainDailyGasUsed = dates => {
+export const fetchBlockchainDailyGasUsed = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -404,7 +448,7 @@ export const fetchBlockchainDailyGasUsed = dates => {
     })
 }
 
-export const fetchBlockchainActiveAddresses = dates => {
+export const fetchBlockchainActiveAddresses = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -432,7 +476,7 @@ export const fetchBlockchainActiveAddresses = dates => {
     })
 }
 
-export const fetchBlockchainAverageBlockSize = dates => {
+export const fetchBlockchainAverageBlockSize = (dates: { startDate: string; endDate: string }) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -454,7 +498,10 @@ export const fetchBlockchainAverageBlockSize = dates => {
     })
 }
 
-export const fetchBlockchainAverageGasPriceUsed = dates => {
+export const fetchBlockchainAverageGasPriceUsed = (dates: {
+    startDate: string
+    endDate: string
+}) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -482,7 +529,10 @@ export const fetchBlockchainAverageGasPriceUsed = dates => {
     })
 }
 
-export const fetchBlockchainDailyTokenTransfer = dates => {
+export const fetchBlockchainDailyTokenTransfer = (dates: {
+    startDate: string
+    endDate: string
+}) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',

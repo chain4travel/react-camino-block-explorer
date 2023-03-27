@@ -27,7 +27,7 @@ async function loadAssets() {
     const loadedAssets = (await axios.get(`${getBaseUrl()}${assetsApi}`)).data
     const newElements = new Map()
     if (loadedAssets.assets) {
-        loadedAssets.assets.forEach(element => {
+        loadedAssets.assets.forEach((element: { id: string; name: string; symbol: string }) => {
             newElements.set(element.id, {
                 name: element.name,
                 symbol: element.symbol,
@@ -51,7 +51,7 @@ export default function XAddressDetail() {
     const [balance, setBalance] = useState(0)
     // const dispatch = useAppDispatch();
     const location = useLocation()
-    async function loadBalances(address) {
+    async function loadBalances(address: string | undefined) {
         const assets = await loadAssets()
         const addressInfo = await (
             await axios.get(`${getBaseUrl()}${addressesApi}/${address}`)

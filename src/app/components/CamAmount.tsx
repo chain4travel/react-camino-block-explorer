@@ -11,7 +11,7 @@ import {
     roundedToLocaleString,
 } from '../../utils/currency-utils'
 
-export function AmountIcon({ currency }) {
+export function AmountIcon({ currency }: { currency: string }) {
     return (
         <Box sx={{ width: '26px', height: '26px', marginLeft: '6px', marginRight: '6px' }}>
             {currency === 'nCAM' ? <NCamIcon /> : currency === 'aCAM' ? <ACamIcon /> : <CamIcon />}

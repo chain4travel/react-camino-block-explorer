@@ -11,7 +11,7 @@ export default function CopyTitleCard({
     mixedStyle = false,
 }: {
     label: string
-    value: string
+    value?: string
     icon: string
     mixedStyle?: boolean
 }) {

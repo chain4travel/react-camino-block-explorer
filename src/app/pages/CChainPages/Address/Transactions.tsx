@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, FC } from 'react'
+import React, { useRef, useEffect, useCallback, FC, Ref } from 'react'
 import { Grid, TableContainer, Box, LinearProgress } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { useInfiniteQuery } from 'react-query'
@@ -8,8 +8,9 @@ import TableView from 'app/components/Table/TableView'
 import useWidth from 'app/hooks/useWidth'
 import LoadingWrapper from 'app/components/LoadingWrapper'
 import { Status } from 'types'
-import { queryClient } from '../../../../App.tsx'
+import { queryClient } from '../../../../App'
 import { getAddressFromUrl } from 'utils/route-utils'
+import { CAddressTransactionTableData } from 'types/transaction'
 
 const Transactions: FC = () => {
     const location = useLocation()
@@ -40,7 +41,7 @@ const Transactions: FC = () => {
     )
     const intObserver = useRef<IntersectionObserver | null>(null)
     const lastPostRef = useCallback(
-        address => {
+        (address: Element) => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(blocks => {
@@ -54,7 +55,7 @@ const Transactions: FC = () => {
     )
 
     const content = data?.pages?.map(pg => {
-        return pg.map((transaction, i) => {
+        return pg.map((transaction: CAddressTransactionTableData, i: number) => {
             if (pg.length === i + 1)
                 return <Address ref={lastPostRef} key={i} transaction={transaction} />
             return <Address key={i} transaction={transaction} />

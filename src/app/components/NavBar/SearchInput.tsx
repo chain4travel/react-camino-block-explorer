@@ -9,7 +9,7 @@ import useWidth from 'app/hooks/useWidth'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { MenuItem, MenuList, ListItemIcon, Avatar, ClickAwayListener } from '@mui/material'
 import { useTheme } from '@mui/material'
-import { SearchMenuItem } from 'types/search-menu'
+import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
 import { mapToItem } from './utils/search-utils'
 import { debounce } from './utils/debounce'
 import { useNavigate } from 'react-router-dom'
@@ -39,7 +39,7 @@ function OutlinedSearchInput() {
     }
 
     const debouncedSearch = debounce(
-        async search => {
+        async (search: string | string[]) => {
             if (!search || search.length < 1) {
                 setMenuItems([])
                 return
@@ -252,11 +252,12 @@ const SearchResultMenu = ({ children }: { children?: React.ReactNode }) => {
     )
 }
 
-const SearchResultMenuList = ({ menuItems }) => {
+const SearchResultMenuList = ({ menuItems }: { menuItems: SearchMenuItem[] }) => {
+    console.log(menuItems)
     const navigate = useNavigate()
     return (
         <MenuList>
-            {menuItems.map(item => (
+            {menuItems.map((item: SearchMenuItem) => (
                 <MenuItem
                     key={item.label + Math.random().toString(36).substring(2, 15)}
                     onClick={() => {
@@ -286,7 +287,7 @@ const SearchResultMenuList = ({ menuItems }) => {
     )
 }
 
-const SearchResult = ({ open, loading, menuItems, search }) => {
+const SearchResult = ({ open, loading, menuItems, search }: ISearchMenu) => {
     if (open && loading) {
         return (
             <SearchResultMenu>

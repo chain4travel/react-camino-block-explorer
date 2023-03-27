@@ -5,3 +5,10 @@ export interface SearchMenuItem {
     avatar: string
     avatarColor: string
 }
+
+export interface ISearchMenu {
+    open: boolean
+    loading: boolean
+    menuItems: SearchMenuItem[]
+    search: string
+}

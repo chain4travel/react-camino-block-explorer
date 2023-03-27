@@ -1,4 +1,4 @@
-import { store } from '../App.tsx'
+import { store } from '../App'
 import { XPTransaction, XPTransactionTableData } from 'types/transaction'
 
 function getValue(outputTotal?: object, inputTotal?: object): number {
@@ -29,6 +29,7 @@ export function mapToTableData(transaction: XPTransaction): XPTransactionTableDa
 
 export const getBaseUrl = (): string | undefined => {
     let activeNetwork = store.getState().appConfig.activeNetwork
+    console.log(activeNetwork)
     return activeNetwork?.explorerUrl
 }
 

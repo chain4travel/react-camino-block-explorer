@@ -1,7 +1,14 @@
-export function debounce(func, wait, immediate = false) {
-    var timeout
+export function debounce(
+    func: {
+        (search: string | string[]): Promise<void>
+        apply: (arg0: string, arg1: string[]) => void
+    },
+    wait: number | undefined,
+    immediate = false,
+) {
+    var timeout: string | number | NodeJS.Timeout | null | undefined
 
-    return (...args) => {
+    return (...args: string[]) => {
         // let context = this;
         let context = args[0]
         let later = () => {

@@ -9,7 +9,7 @@ export interface ConsumptionCharts {
     utilSlice: Function
     sliceGetter: (state: RootState) => Emissions
     sliceGetterLoader: (state: RootState) => string
-    typeStatistic?: string
+    typeStatistic: string
     tooltipTitle?: string
 }
 
