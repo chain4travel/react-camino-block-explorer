@@ -52,7 +52,7 @@ let initialState: initialStateAppConfigType = {
       id: 'mainnet-testnet',
       displayName: 'Mainnet',
       protocol: 'https',
-      host: 'mainnet.camino.network',
+      host: 'api.camino.network',
       magellanAddress: 'https://magellan.camino.network',
       port: 443,
       predefined: true,
