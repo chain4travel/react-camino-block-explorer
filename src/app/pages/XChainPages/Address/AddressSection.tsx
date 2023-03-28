@@ -4,8 +4,9 @@ import AddressLink from 'app/components/AddressLink'
 import moment from 'utils/helpers/moment'
 import { getAddressFromUrl } from 'utils/route-utils'
 import { BASE_PATH, TRANSACTION } from 'utils/route-paths'
+import { IAddress } from 'types/address'
 
-export const AddressSection = ({ type, timestamp, id, chainType }) => {
+export const AddressSection = ({ type, timestamp, id, chainType }: IAddress) => {
     return (
         <>
             <Grid container item xs={12} lg={6} alignItems="center" justifyContent="center">

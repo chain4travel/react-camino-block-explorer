@@ -106,7 +106,9 @@ export async function loadBlocksAndTransactions({
         )
         return res.data
     } catch (e) {
-        throw new Error(e.message)
+        if (e instanceof Error) {
+            throw new Error(e.message)
+        }
     }
 }
 
@@ -154,7 +156,9 @@ export async function loadCAddressTransactions({
                 },
             )
     } catch (e) {
-        throw new Error(e.message)
+        if (e instanceof Error) {
+            throw new Error(e.message)
+        }
     }
 }
 

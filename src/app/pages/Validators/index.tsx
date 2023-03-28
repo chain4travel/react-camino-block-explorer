@@ -25,6 +25,8 @@ import Tab from '@mui/material/Tab'
 import CircularProgress from '@mui/material/CircularProgress'
 import '../../components/ValidatorsMap/styles/NotoFont.css'
 import Statistics from 'app/components/ValidatorsMap/Statistics'
+import { ValidatorType } from 'types/store'
+import { NodesPerCity } from 'types/locationNode'
 
 const Validators: FC = () => {
     const theme = useTheme()
@@ -131,7 +133,7 @@ const Validators: FC = () => {
                                         <TableContainer sx={{ minHeight: '400px' }}>
                                             {isWidescreen || isDesktop ? (
                                                 <TableView columns={columns}>
-                                                    {validators?.map(validator => (
+                                                    {validators?.map((validator: ValidatorType) => (
                                                         <TableViewRow
                                                             key={validator.nodeID}
                                                             validator={validator}
@@ -140,7 +142,7 @@ const Validators: FC = () => {
                                                 </TableView>
                                             ) : (
                                                 <Grid item container alignItems="center">
-                                                    {validators.map(validator => (
+                                                    {validators.map((validator: ValidatorType) => (
                                                         <GridViewItem
                                                             key={validator.nodeID}
                                                             validator={validator}
@@ -186,17 +188,30 @@ const Validators: FC = () => {
                                                     pointerEvents={'none'}
                                                 >
                                                     {({ geographies }) =>
-                                                        geographies.map(geo => (
-                                                            <Geography
-                                                                key={geo.rsmKey}
-                                                                geography={geo}
-                                                                fill="#41547C"
-                                                            />
-                                                        ))
+                                                        geographies.map(
+                                                            (geo: {
+                                                                rsmKey: React.Key | null | undefined
+                                                            }) => (
+                                                                <Geography
+                                                                    key={geo.rsmKey}
+                                                                    geography={geo}
+                                                                    fill="#41547C"
+                                                                />
+                                                            ),
+                                                        )
                                                     }
                                                 </Geographies>
                                                 {nodesPerCity.map(
-                                                    ({ lng, lat, nodes, country, city }, index) => {
+                                                    (
+                                                        {
+                                                            lng,
+                                                            lat,
+                                                            nodes,
+                                                            country,
+                                                            city,
+                                                        }: NodesPerCity,
+                                                        index: number,
+                                                    ) => {
                                                         return (
                                                             <CircleMarker
                                                                 key={index}

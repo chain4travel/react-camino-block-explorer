@@ -10,7 +10,7 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
 })
 
 export const ColorModeContext = React.createContext<{
-    toggleColorMode?: (v: string) => void
+    toggleColorMode?: (v: PaletteMode) => void
 }>({})
 
 export const ThemeProvider = (props: { children: React.ReactChild }) => {
@@ -19,7 +19,7 @@ export const ThemeProvider = (props: { children: React.ReactChild }) => {
     const colorMode = useMemo(
         () => ({
             // The dark mode switch would invoke this method
-            toggleColorMode: s => {
+            toggleColorMode: (s: PaletteMode) => {
                 setMode(() => {
                     return s
                 })

@@ -2,8 +2,9 @@ import React from 'react'
 import { Grid, Paper, Typography } from '@mui/material'
 import DetailsField from 'app/components/DetailsField'
 import useWidth from 'app/hooks/useWidth'
+import { ICards, IInputOutput } from 'types/address'
 
-export const InputOutputSection = ({ inputs, outputs }) => {
+export const InputOutputSection = ({ inputs, outputs }: IInputOutput) => {
     const { isTablet } = useWidth()
     return (
         <>
@@ -69,7 +70,7 @@ export const InputOutputSection = ({ inputs, outputs }) => {
     )
 }
 
-const InputCard = ({ address, value }) => {
+const InputCard = ({ address, value }: ICards) => {
     return (
         <Paper
             sx={{
@@ -103,7 +104,7 @@ const InputCard = ({ address, value }) => {
     )
 }
 
-const OutputCard = ({ address, value }) => {
+const OutputCard = ({ address, value }: ICards) => {
     return (
         <Paper
             sx={{

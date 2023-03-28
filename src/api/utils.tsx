@@ -29,7 +29,6 @@ export function mapToTableData(transaction: XPTransaction): XPTransactionTableDa
 
 export const getBaseUrl = (): string | undefined => {
     let activeNetwork = store.getState().appConfig.activeNetwork
-    console.log(activeNetwork)
     return activeNetwork?.explorerUrl
 }
 

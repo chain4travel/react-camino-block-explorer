@@ -8,6 +8,7 @@ import useWidth from 'app/hooks/useWidth'
 import Transaction from './Transaction'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { CCHAIN } from 'utils/route-paths'
+import { TransactionTableData } from 'types/transaction'
 
 const Transactions: FC = () => {
     const intObserver = useRef<IntersectionObserver | null>(null)
@@ -41,7 +42,7 @@ const Transactions: FC = () => {
     )
 
     const content = data?.pages.map(pg => {
-        return pg.map((transaction, i) => {
+        return pg.map((transaction: TransactionTableData, i: number) => {
             if (pg.length === i + 1) {
                 return (
                     <Transaction

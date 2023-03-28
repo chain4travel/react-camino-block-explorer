@@ -43,15 +43,15 @@ export function getAddressLink(chaintype: ChainType, value: string): string {
     return value
 }
 
-export function getAddressFromUrl(): string | undefined {
+export function getAddressFromUrl(): string {
     return window.location.pathname.split('/').pop()
 }
 
-export function getTransactionFromUrl(): string | undefined {
+export function getTransactionFromUrl(): string {
     return window.location.pathname.split('/').pop()
 }
 
-export function getBlockNumber(): string | undefined {
+export function getBlockNumber(): string {
     return window.location.pathname.split('/').pop()
 }
 

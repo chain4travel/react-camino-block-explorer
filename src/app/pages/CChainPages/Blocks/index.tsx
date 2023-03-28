@@ -8,6 +8,7 @@ import Block from './Block'
 import TableView from 'app/components/Table/TableView'
 import useWidth from 'app/hooks/useWidth'
 import SubPageTitle from 'app/components/SubPageTitle'
+import { BlockTableData } from 'types/block'
 
 const Blocks: FC = () => {
     const intObserver = React.useRef<IntersectionObserver | null>(null)
@@ -41,7 +42,7 @@ const Blocks: FC = () => {
     )
 
     const content = data?.pages.map(pg => {
-        return pg.map((block, i) => {
+        return pg.map((block: BlockTableData, i: number) => {
             if (pg.length === i + 1)
                 return <Block ref={lastPostRef} key={block.number} block={block} />
             return <Block key={block.number} block={block} />

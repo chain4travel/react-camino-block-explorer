@@ -7,6 +7,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp'
 import BlockTxIcon from '../XChainPageComponents/BlockTxIcon'
 import { CBLOCKS } from 'utils/route-paths'
+import { IRowContainer } from 'types/rowDetailsContainer'
 
 function getNameFromType(type: string): string {
     switch (type) {
@@ -95,7 +96,8 @@ function checkHash(type: string): boolean {
     return false
 }
 
-export function RowContainer({ theme, head, type, content, parent }) {
+export function RowContainer({ theme, head, type, content, parent }: IRowContainer) {
+    console.log(theme, head, type, content, parent)
     const isMobile = useMediaQuery('@media (max-width:899px)')
     return (
         <Grid

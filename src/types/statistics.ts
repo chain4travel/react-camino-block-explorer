@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
 import { Dispatch } from 'react'
+import { NodesPerCountry } from './locationNode'
 import { RootState } from './RootState'
 
 export interface ConsumptionCharts {
@@ -9,7 +10,7 @@ export interface ConsumptionCharts {
     utilSlice: Function
     sliceGetter: (state: RootState) => Emissions
     sliceGetterLoader: (state: RootState) => string
-    typeStatistic: string
+    typeStatistic?: string
     tooltipTitle?: string
 }
 
@@ -121,4 +122,9 @@ export interface ChartData {
     dateInfo: string
     time: string
     Date: string
+}
+
+export interface IStatistics {
+    nodesPerCountry: NodesPerCountry[]
+    darkMode: boolean
 }

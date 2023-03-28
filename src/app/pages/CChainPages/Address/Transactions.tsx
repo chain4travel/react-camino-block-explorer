@@ -41,7 +41,7 @@ const Transactions: FC = () => {
     )
     const intObserver = useRef<IntersectionObserver | null>(null)
     const lastPostRef = useCallback(
-        (address: Element) => {
+        address => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(blocks => {
