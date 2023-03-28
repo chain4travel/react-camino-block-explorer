@@ -10,7 +10,7 @@ export interface ConsumptionCharts {
     utilSlice: Function
     sliceGetter: (state: RootState) => Emissions
     sliceGetterLoader: (state: RootState) => string
-    typeStatistic?: string
+    typeStatistic: string
     tooltipTitle?: string
 }
 
@@ -127,4 +127,9 @@ export interface ChartData {
 export interface IStatistics {
     nodesPerCountry: NodesPerCountry[]
     darkMode: boolean
+}
+
+export type FilterDates = {
+    startDate: string
+    endDate: string
 }

@@ -14,6 +14,7 @@ import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
 import BigNumber from 'bignumber.js'
+import { FilterDates } from '../types/statistics'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -262,7 +263,7 @@ export async function loadValidatorsInfo() {
     })
 }
 
-export const fetchDailyEmissions = (dates: { startDate: string; endDate: string }) => {
+export const fetchDailyEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -287,7 +288,7 @@ export const fetchDailyEmissions = (dates: { startDate: string; endDate: string 
     })
 }
 
-export const fetchNetworkEmissions = (dates: { startDate: string; endDate: string }) => {
+export const fetchNetworkEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -312,7 +313,7 @@ export const fetchNetworkEmissions = (dates: { startDate: string; endDate: strin
     })
 }
 
-export const fetchTransactionsEmissions = (dates: { startDate: string; endDate: string }) => {
+export const fetchTransactionsEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -337,7 +338,7 @@ export const fetchTransactionsEmissions = (dates: { startDate: string; endDate: 
     })
 }
 
-export const fetchCountryEmissions = (dates: { startDate: string; endDate: string }) => {
+export const fetchCountryEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -362,10 +363,7 @@ export const fetchCountryEmissions = (dates: { startDate: string; endDate: strin
     })
 }
 
-export const fetchBlockchainChartDailyTransactions = (dates: {
-    startDate: string
-    endDate: string
-}) => {
+export const fetchBlockchainChartDailyTransactions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -393,10 +391,7 @@ export const fetchBlockchainChartDailyTransactions = (dates: {
     })
 }
 
-export const fetchBlockchainChartUniqueAddresses = (dates: {
-    startDate: string
-    endDate: string
-}) => {
+export const fetchBlockchainChartUniqueAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -424,7 +419,7 @@ export const fetchBlockchainChartUniqueAddresses = (dates: {
     })
 }
 
-export const fetchBlockchainDailyGasUsed = (dates: { startDate: string; endDate: string }) => {
+export const fetchBlockchainDailyGasUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -452,7 +447,7 @@ export const fetchBlockchainDailyGasUsed = (dates: { startDate: string; endDate:
     })
 }
 
-export const fetchBlockchainActiveAddresses = (dates: { startDate: string; endDate: string }) => {
+export const fetchBlockchainActiveAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -480,7 +475,7 @@ export const fetchBlockchainActiveAddresses = (dates: { startDate: string; endDa
     })
 }
 
-export const fetchBlockchainAverageBlockSize = (dates: { startDate: string; endDate: string }) => {
+export const fetchBlockchainAverageBlockSize = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -502,10 +497,7 @@ export const fetchBlockchainAverageBlockSize = (dates: { startDate: string; endD
     })
 }
 
-export const fetchBlockchainAverageGasPriceUsed = (dates: {
-    startDate: string
-    endDate: string
-}) => {
+export const fetchBlockchainAverageGasPriceUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -533,10 +525,7 @@ export const fetchBlockchainAverageGasPriceUsed = (dates: {
     })
 }
 
-export const fetchBlockchainDailyTokenTransfer = (dates: {
-    startDate: string
-    endDate: string
-}) => {
+export const fetchBlockchainDailyTokenTransfer = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
