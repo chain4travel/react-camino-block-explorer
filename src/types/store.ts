@@ -3,6 +3,7 @@ import { BlockDetail, BlockTableData } from './block'
 import { MagellanTransaction } from './magellan-types'
 import { CTransaction, TranscationDetails, XPTransaction } from './transaction'
 import { LocationNode, NodesPerCountry, NodesPerCity } from './locationNode'
+import { Moment } from 'moment'
 
 export interface Chain {
     chainID: string
@@ -74,10 +75,18 @@ export interface initialValidatorsStateType {
 export interface ValidatorType {
     status: string
     nodeID: string
-    startTime: Date
-    endTime: Date
+    startTime: Moment
+    endTime: Moment
     txID: string
     uptime: string
+    lng: number
+    lat: number
+    country: string
+    city: string
+    alpha2: string
+    ip: string
+    connected?: boolean
+    nodeIdentity: string
 }
 
 interface assets {

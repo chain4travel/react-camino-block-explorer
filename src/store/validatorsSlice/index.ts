@@ -4,7 +4,12 @@ import { Status } from 'types'
 import { initialValidatorsStateType, ValidatorType } from 'types/store'
 import { loadValidators } from './utils'
 import moment from 'moment'
-import { LocationNode, NodesPerCountry, NodesPerCity } from '../../types/locationNode'
+import {
+    LocationNode,
+    NodesPerCountry,
+    NodesPerCity,
+    ValidatorReponse,
+} from '../../types/locationNode'
 import sortBy from 'lodash/sortBy'
 
 let initialState: initialValidatorsStateType = {
@@ -18,8 +23,8 @@ let initialState: initialValidatorsStateType = {
     nodesPerCity: [],
 }
 
-function mapToTableDataMagelland(item): ValidatorType {
-    let uptime = Math.round(item.uptime * 100) + '%'
+function mapToTableDataMagelland(item: ValidatorReponse): ValidatorType {
+    let uptime = Math.round(parseFloat(item.uptime) * 100) + '%'
     return {
         status: item.connected ? 'Connected' : 'Disconnected',
         nodeID: item.nodeID,
@@ -61,9 +66,11 @@ function sumNodesPerCountry(info: LocationNode[]): NodesPerCountry[] {
 function sumNodesPerCity(info: LocationNode[]): NodesPerCity[] {
     let dataCity: NodesPerCity[] = []
     for (let i = 0; i < info.length; i++) {
-        if (dataCity.some((dat: any) => dat.city === info[i].city)) {
+        if (dataCity.some((dat: NodesPerCity) => dat.city === info[i].city)) {
             let locationNode: LocationNode = info[i]
-            let indexdataCity = dataCity.findIndex((dat: any) => dat.city === info[i].city)
+            let indexdataCity: number = dataCity.findIndex(
+                (dat: NodesPerCity) => dat.city === info[i].city,
+            )
             dataCity[indexdataCity].nodes.push(locationNode.nodeIdentity)
         } else {
             let nodePerCountry: NodesPerCity = {
@@ -77,7 +84,7 @@ function sumNodesPerCity(info: LocationNode[]): NodesPerCity[] {
             dataCity.push(nodePerCountry)
         }
     }
-    return sortBy(dataCity, o => -o.nodes.length)
+    return sortBy(dataCity, (o: NodesPerCity) => -o.nodes.length)
 }
 
 const validatorsSlice = createSlice({
@@ -91,22 +98,29 @@ const validatorsSlice = createSlice({
             state.validatorsLoading = Status.LOADING
         })
         builder.addCase(loadValidators.fulfilled, (state, { payload }) => {
-            let responsePayload: any = payload
-            if (responsePayload !== null && responsePayload !== undefined) {
-                state.numberOfValidators = responsePayload.length
-                state.numberOfActiveValidators = responsePayload.filter(
-                    (v: any) => v.connected,
-                ).length
-                state.percentageOfActiveValidators = parseInt(
-                    ((state.numberOfActiveValidators / state.numberOfValidators) * 100).toFixed(0),
-                )
-                state.validators = responsePayload.map(mapToTableDataMagelland)
-                state.locationNodes = state.validators.filter(
-                    (v: any) => v.status === 'Connected' && v.lng !== 0 && v.lat !== 0,
-                )
-                state.nodesPerCountry = sumNodesPerCountry(state.locationNodes)
-                state.nodesPerCity = sumNodesPerCity(state.locationNodes)
-                state.validatorsLoading = Status.SUCCEEDED
+            if (Array.isArray(payload)) {
+                let responsePayload: ValidatorReponse[] = payload
+                if (responsePayload !== null && responsePayload !== undefined) {
+                    state.numberOfValidators = responsePayload.length
+                    state.numberOfActiveValidators = responsePayload.filter(
+                        (v: ValidatorReponse) => v.connected,
+                    ).length
+                    state.percentageOfActiveValidators = parseInt(
+                        ((state.numberOfActiveValidators / state.numberOfValidators) * 100).toFixed(
+                            0,
+                        ),
+                    )
+                    state.validators = responsePayload.map(mapToTableDataMagelland)
+                    state.locationNodes = state.validators.filter(
+                        (v: ValidatorType) =>
+                            v.status === 'Connected' && v.lng !== 0 && v.lat !== 0,
+                    )
+                    state.nodesPerCountry = sumNodesPerCountry(state.locationNodes)
+                    state.nodesPerCity = sumNodesPerCity(state.locationNodes)
+                    state.validatorsLoading = Status.SUCCEEDED
+                } else {
+                    state.validatorsLoading = Status.FAILED
+                }
             } else {
                 state.validatorsLoading = Status.FAILED
             }

@@ -1,3 +1,5 @@
+import { Moment } from 'moment'
+
 export type LocationNode = {
     city_code?: string
     lng: number
@@ -19,4 +21,21 @@ export type NodesPerCity = NodesPerCountry & {
     city: string
     lng?: number
     lat?: number
+}
+
+export type ValidatorReponse = {
+    status: string
+    nodeID: string
+    startTime: Moment
+    endTime: Moment
+    txID: string
+    uptime: string
+    lng: number
+    lat: number
+    country: string
+    city: string
+    countryISO: string
+    IP: string
+    nodeIdentity: string
+    connected: boolean
 }

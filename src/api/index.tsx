@@ -14,6 +14,7 @@ import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
 import BigNumber from 'bignumber.js'
+import { FilterDates } from '../types/statistics'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -210,7 +211,7 @@ export async function loadValidatorsInfo() {
         }
 
         axios(request)
-            .then(function (response: any) {
+            .then(function (response) {
                 resolve(response.data.value)
             })
             .catch(e => {
@@ -220,7 +221,7 @@ export async function loadValidatorsInfo() {
     })
 }
 
-export const fetchDailyEmissions = (dates: any) => {
+export const fetchDailyEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -245,7 +246,7 @@ export const fetchDailyEmissions = (dates: any) => {
     })
 }
 
-export const fetchNetworkEmissions = dates => {
+export const fetchNetworkEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -270,7 +271,7 @@ export const fetchNetworkEmissions = dates => {
     })
 }
 
-export const fetchTransactionsEmissions = dates => {
+export const fetchTransactionsEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -295,7 +296,7 @@ export const fetchTransactionsEmissions = dates => {
     })
 }
 
-export const fetchCountryEmissions = dates => {
+export const fetchCountryEmissions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -320,7 +321,7 @@ export const fetchCountryEmissions = dates => {
     })
 }
 
-export const fetchBlockchainChartDailyTransactions = dates => {
+export const fetchBlockchainChartDailyTransactions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -348,7 +349,7 @@ export const fetchBlockchainChartDailyTransactions = dates => {
     })
 }
 
-export const fetchBlockchainChartUniqueAddresses = dates => {
+export const fetchBlockchainChartUniqueAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -376,7 +377,7 @@ export const fetchBlockchainChartUniqueAddresses = dates => {
     })
 }
 
-export const fetchBlockchainDailyGasUsed = dates => {
+export const fetchBlockchainDailyGasUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -404,7 +405,7 @@ export const fetchBlockchainDailyGasUsed = dates => {
     })
 }
 
-export const fetchBlockchainActiveAddresses = dates => {
+export const fetchBlockchainActiveAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -432,7 +433,7 @@ export const fetchBlockchainActiveAddresses = dates => {
     })
 }
 
-export const fetchBlockchainAverageBlockSize = dates => {
+export const fetchBlockchainAverageBlockSize = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -454,7 +455,7 @@ export const fetchBlockchainAverageBlockSize = dates => {
     })
 }
 
-export const fetchBlockchainAverageGasPriceUsed = dates => {
+export const fetchBlockchainAverageGasPriceUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
@@ -482,7 +483,7 @@ export const fetchBlockchainAverageGasPriceUsed = dates => {
     })
 }
 
-export const fetchBlockchainDailyTokenTransfer = dates => {
+export const fetchBlockchainDailyTokenTransfer = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
