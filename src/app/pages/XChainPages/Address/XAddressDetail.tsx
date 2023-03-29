@@ -27,7 +27,7 @@ async function loadAssets() {
     const loadedAssets = (await axios.get(`${getBaseUrl()}${assetsApi}`)).data
     const newElements = new Map()
     if (loadedAssets.assets) {
-        loadedAssets.assets.forEach((element: { id: string; name: string; symbol: string }) => {
+        loadedAssets.assets.forEach((element: AddressBalance) => {
             newElements.set(element.id, {
                 name: element.name,
                 symbol: element.symbol,
@@ -38,7 +38,7 @@ async function loadAssets() {
 }
 export interface AddressBalance {
     id: string
-    balance: any
+    balance: number
     symbol: string
     name: string
 }

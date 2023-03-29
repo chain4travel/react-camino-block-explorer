@@ -196,7 +196,7 @@ const TransactionDetails: FC = () => {
 
 export default TransactionDetails
 
-const RoundButton = ({ sx, children, disabled, onClick, ...props }: ITransactionDetails) => {
+const RoundButton = ({ sx, children, disabled, onClick, ...props }) => {
     return (
         <Button
             disableRipple

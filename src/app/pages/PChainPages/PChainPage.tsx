@@ -45,7 +45,7 @@ export default function PChainPage() {
             />
             <XPTransactionList ShowAllLink={PTRANSACTIONS}>
                 <LoadingWrapper loading={status} failedLoadingMsg="Failed to load transactions">
-                    {transactions?.map((transaction: ITransaction, index: number) => (
+                    {transactions?.map((transaction, index) => (
                         <XPItemDivider index={index} max={transactions.length - 1} key={index}>
                             <XPTransactionItem chainType={ChainType.P_CHAIN} data={transaction} />
                         </XPItemDivider>

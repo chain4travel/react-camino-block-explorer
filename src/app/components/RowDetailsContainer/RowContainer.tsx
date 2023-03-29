@@ -97,7 +97,6 @@ function checkHash(type: string): boolean {
 }
 
 export function RowContainer({ theme, head, type, content, parent }: IRowContainer) {
-    console.log(theme, head, type, content, parent)
     const isMobile = useMediaQuery('@media (max-width:899px)')
     return (
         <Grid

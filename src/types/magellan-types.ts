@@ -139,7 +139,7 @@ export interface MagellanXPTransaction {
     timestamp: string
     inputs: MagellanXPInput[]
     outputs: MagellanXPOutput[]
-    txFee: number
+    txFee: string
     type: string
     chainID: string
     inputTotals: object
@@ -149,7 +149,7 @@ export interface MagellanXPTransaction {
 
 export interface MagellanXPOutput {
     id: string
-    amount: number
+    amount: string
     addresses: string[]
 }
 

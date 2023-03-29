@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
 import { Dispatch } from 'react'
+import { StyledComponent } from 'styled-components'
 import { NodesPerCountry } from './locationNode'
 import { RootState } from './RootState'
 
@@ -10,7 +11,7 @@ export interface ConsumptionCharts {
     utilSlice: Function
     sliceGetter: (state: RootState) => Emissions
     sliceGetterLoader: (state: RootState) => string
-    typeStatistic: string
+    typeStatistic?: string
     tooltipTitle?: string
 }
 
@@ -26,13 +27,16 @@ export interface IMeter {
     titleText: string
     timeSeeAxis: string
     data: Emissions
-    typeStatistic: string
+    typeStatistic?: string
 }
 
 export interface Emissions {
     Filter: string
     name: string
     value: Value
+    highestValue?: string
+    lowerValue?: string
+    lowestValue?: string
 }
 
 export interface Value {
@@ -132,4 +136,17 @@ export interface IStatistics {
 export type FilterDates = {
     startDate: string
     endDate: string
+}
+
+export interface IBlockChainDataChart {
+    typeStatistic?: string
+    startDate?: Date
+    endDate: Date
+    dataStatistics: Emissions
+    Text: StyledComponent<'p', any, TextProps, never>
+    isDescriptionOfHighest: boolean
+}
+
+export interface TextProps {
+    backgroundColor: string
 }

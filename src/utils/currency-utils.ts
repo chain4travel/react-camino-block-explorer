@@ -87,7 +87,7 @@ export function abbreviateNumber(value: number): string {
     }
 }
 
-export function customToLocaleString(value, toFixed = 4, abbreviate = false) {
+export function customToLocaleString(value: number, toFixed = 4, abbreviate = false): string {
     if (!abbreviate) {
         let unrounded = new BigNumber(value).toFixed(20)
         let split = unrounded.split('.')
@@ -121,12 +121,12 @@ export function customToLocaleString(value, toFixed = 4, abbreviate = false) {
     }
 }
 
-export function roundedToLocaleString(value, toFixed = 4, abbreviate = false) {
+export function roundedToLocaleString(value: number, toFixed = 4, abbreviate = false) {
     let result = customToLocaleString(value, toFixed, abbreviate)
     if (result.includes('.')) {
         let [wholeStr, trimmed] = result.split('.')
 
-        if (trimmed.split('').every(char => char === '0')) {
+        if (trimmed.split('').every((char: string) => char === '0')) {
             return '~' + wholeStr
         }
     }

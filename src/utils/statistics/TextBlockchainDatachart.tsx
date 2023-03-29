@@ -2,6 +2,7 @@ import React from 'react'
 import { typeChartData } from './ChartSelector'
 import { useTheme } from '@mui/material'
 import moment from 'moment'
+import { IBlockChainDataChart } from 'types/statistics'
 
 export const TextBlockchainDatachart = ({
     typeStatistic,
@@ -10,7 +11,7 @@ export const TextBlockchainDatachart = ({
     dataStatistics,
     Text,
     isDescriptionOfHighest,
-}) => {
+}: IBlockChainDataChart) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 

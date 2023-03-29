@@ -8,7 +8,7 @@ import useWidth from 'app/hooks/useWidth'
 import moment from 'utils/helpers/moment'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
 import { getChainTypeFromUrl } from 'utils/route-utils'
-import { ITransaction } from 'types/xpTransactions'
+import { XPTransaction } from 'types/transaction'
 
 interface Props {
     transaction: any
@@ -64,7 +64,7 @@ const Transaction = React.forwardRef<Ref, Props>((props, ref) => {
 
 export default Transaction
 
-const GridItem = ({ transaction }: { transaction: ITransaction }) => {
+const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
     const chainType = getChainTypeFromUrl() as ChainType
 
     return (
@@ -150,7 +150,7 @@ const GridItem = ({ transaction }: { transaction: ITransaction }) => {
     )
 }
 
-const CustomRow = ({ transaction }: { transaction: ITransaction }) => {
+const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
     const chainType = getChainTypeFromUrl() as ChainType
 
     return (

@@ -8,7 +8,7 @@ import { mdiAlertCircleOutline } from '@mdi/js'
 import Icon from '@mdi/react'
 import { ITransactionDetailView } from 'types/xpTransactions'
 
-function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetailView) {
+function TransactionDetailView({ detailTr, inputs, outputs }) {
     console.log(detailTr, inputs, outputs)
     return (
         <>

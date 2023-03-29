@@ -20,6 +20,8 @@ export interface XPTransaction {
     inputTotals: Record<string, number>
     outputTotals: Record<string, number>
     memo?: string
+    status?: string
+    hash?: number | string
 }
 
 export interface Fund {

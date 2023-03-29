@@ -10,7 +10,7 @@ export default function AddressLink({
     dataCy,
 }: {
     to: string
-    value: string | number
+    value?: string | number
     typographyVariant?:
         | 'button'
         | 'caption'

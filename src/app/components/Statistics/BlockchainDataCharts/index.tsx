@@ -23,7 +23,7 @@ import { Grid, useTheme } from '@mui/material'
 import moment from 'moment'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
 import '../../../../styles/scrollbarModal.css'
-import { ConsumptionCharts, Emissions } from 'types/statistics'
+import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -40,9 +40,6 @@ const DateRangeContainer = styled.div`
         margin-right: 11rem;
     }
 `
-interface TextProps {
-    backgroundColor: string
-}
 
 const Text = styled('p')<TextProps>`
     margin-left: 3rem !important;

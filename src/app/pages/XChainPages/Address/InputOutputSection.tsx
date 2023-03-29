@@ -4,7 +4,7 @@ import DetailsField from 'app/components/DetailsField'
 import useWidth from 'app/hooks/useWidth'
 import { ICards, IInputOutput } from 'types/address'
 
-export const InputOutputSection = ({ inputs, outputs }: IInputOutput) => {
+export const InputOutputSection = ({ inputs, outputs }) => {
     const { isTablet } = useWidth()
     return (
         <>
@@ -70,7 +70,7 @@ export const InputOutputSection = ({ inputs, outputs }: IInputOutput) => {
     )
 }
 
-const InputCard = ({ address, value }: ICards) => {
+const InputCard = ({ address, value }) => {
     return (
         <Paper
             sx={{
@@ -104,7 +104,7 @@ const InputCard = ({ address, value }: ICards) => {
     )
 }
 
-const OutputCard = ({ address, value }: ICards) => {
+const OutputCard = ({ address, value }) => {
     return (
         <Paper
             sx={{
