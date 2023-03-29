@@ -7,6 +7,7 @@ import {
     TRANSACTION,
     BLOCK,
     ADDRESS,
+    BASE_PATH,
 } from './route-paths'
 
 export function getPathElement(type: ChainType): string {
@@ -14,7 +15,7 @@ export function getPathElement(type: ChainType): string {
 }
 
 export function getTransactionDetailsPath(chaintype: ChainType, transactionId: string): string {
-    const basePath = `/${getPathElement(chaintype)}${TRANSACTION}/`
+    const basePath = `${BASE_PATH}/${getPathElement(chaintype)}${TRANSACTION}/`
     if (transactionId) {
         return basePath + transactionId
     }
@@ -22,11 +23,11 @@ export function getTransactionDetailsPath(chaintype: ChainType, transactionId: s
 }
 
 export function getAddressDetailsPath(chaintype: ChainType, addressId: string): string {
-    return `/${getPathElement(chaintype)}${ADDRESS}/${addressId}`
+    return `${BASE_PATH}/${getPathElement(chaintype)}${ADDRESS}/${addressId}`
 }
 
 export function getBlockDetailsPath(chaintype: ChainType, blockId: string | number): string {
-    const basePath = `/${getPathElement(chaintype)}${BLOCK}/`
+    const basePath = `${BASE_PATH}/${getPathElement(chaintype)}${BLOCK}/`
     if (blockId !== undefined) {
         return basePath + blockId
     }

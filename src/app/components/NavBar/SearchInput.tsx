@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store/configureStore'
 import { selectMagellanAddress } from 'store/app-config'
 import { searchApi } from 'utils/magellan-api-utils'
-import { BASE_PATH } from 'utils/route-paths'
 
 function OutlinedSearchInput() {
     const theme = useTheme()
@@ -260,7 +259,7 @@ const SearchResultMenuList = ({ menuItems }) => {
                 <MenuItem
                     key={item.label + Math.random().toString(36).substring(2, 15)}
                     onClick={() => {
-                        navigate(`${BASE_PATH}${item.link}`)
+                        navigate(`${item.link}`)
                     }}
                     sx={{ gap: '10px' }}
                 >
