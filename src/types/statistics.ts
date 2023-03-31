@@ -13,6 +13,7 @@ export interface ConsumptionCharts {
     sliceGetterLoader: (state: RootState) => string
     typeStatistic?: string
     tooltipTitle?: string
+    description?: string
 }
 
 export interface Meter {

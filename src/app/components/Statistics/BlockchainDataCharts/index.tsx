@@ -42,10 +42,10 @@ const DateRangeContainer = styled.div`
 `
 
 const Text = styled('p')<TextProps>`
-    margin-left: 3rem !important;
-    margin-right: 1rem !important;
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-left: 3rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     background: ${({ backgroundColor }) => backgroundColor};
     padding: 0.5rem;

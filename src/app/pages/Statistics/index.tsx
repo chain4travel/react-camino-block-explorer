@@ -57,6 +57,9 @@ const Statistics: FC = () => {
     const theme = useTheme()
     const dark = theme.palette.mode === 'light' ? false : true
 
+    let descriptionDefaultCO2 =
+        'The CO2 emissions shown are summarized of both the Camino and the Columbus network. Moreover, if a particular network is selected, the CO2 emissions will be displayed collectively.'
+
     return (
         <PageContainer pageTitle="Statistics" metaContent="statistics">
             <Paper
@@ -196,6 +199,7 @@ const Statistics: FC = () => {
                                 sliceGetter={getDailyEmissions}
                                 sliceGetterLoader={getDailyEmissionsStatus}
                                 titleText="Daily Emissions"
+                                description={descriptionDefaultCO2}
                             />
                         </Grid>
 
@@ -207,6 +211,7 @@ const Statistics: FC = () => {
                                 sliceGetter={getNetworkEmissions}
                                 sliceGetterLoader={getNetworkEmissionsStatus}
                                 titleText="Network Emissions"
+                                description={descriptionDefaultCO2}
                             />
                         </Grid>
 
@@ -218,6 +223,7 @@ const Statistics: FC = () => {
                                 sliceGetter={getTransactionsEmissions}
                                 sliceGetterLoader={getTransactionsEmissionsStatus}
                                 titleText="Network Emissions Per Transaction"
+                                description={descriptionDefaultCO2}
                             />
                         </Grid>
 
@@ -229,6 +235,7 @@ const Statistics: FC = () => {
                                 sliceGetter={getCountryEmissions}
                                 sliceGetterLoader={getCountryEmissionsStatus}
                                 titleText="Country Emissions"
+                                description={descriptionDefaultCO2}
                             />
                         </Grid>
                     </Grid>
