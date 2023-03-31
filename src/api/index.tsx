@@ -9,7 +9,7 @@ import {
     MagellanTxFeeAggregatesResponse,
     MagellanXPTransactionResponse,
 } from 'types/magellan-types'
-import { CTransaction } from 'types/transaction'
+import { CTransaction, ITransaction } from 'types/transaction'
 import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
@@ -43,37 +43,24 @@ export async function getTransactionsPage(
     const response = await axios.get(
         `${getBaseUrl()}${baseEndpoint}/cblocks?limit=${0}&limit=${50}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
     )
-    return response.data.transactions.map(
-        (transaction: {
-            block: string
-            index: string
-            from: string
-            hash: string
-            status: string
-            timestamp: string
-            to: string
-            value: string
-            gasUsed: BigNumber.Value
-            effectiveGasPrice: BigNumber.Value
-        }) => {
-            return {
-                blockNumber: parseInt(transaction.block),
-                transactionIndex: parseInt(transaction.index),
-                from: transaction.from,
-                hash: transaction.hash,
-                status:
-                    parseInt(transaction.status) === 1
-                        ? 'Success'
-                        : `Failed-${parseInt(transaction.status)}`,
-                timestamp: parseInt(transaction.timestamp) * 1000,
-                to: transaction.to,
-                value: parseInt(transaction.value),
-                transactionCost: BigNumber(transaction.gasUsed)
-                    .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                    .toNumber(),
-            }
-        },
-    )
+    return response.data.transactions.map((transaction: ITransaction) => {
+        return {
+            blockNumber: parseInt(transaction.block),
+            transactionIndex: parseInt(transaction.index),
+            from: transaction.from,
+            hash: transaction.hash,
+            status:
+                parseInt(transaction.status) === 1
+                    ? 'Success'
+                    : `Failed-${parseInt(transaction.status)}`,
+            timestamp: parseInt(transaction.timestamp) * 1000,
+            to: transaction.to,
+            value: parseInt(transaction.value),
+            transactionCost: BigNumber(transaction.gasUsed)
+                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                .toNumber(),
+        }
+    })
 }
 
 export async function loadTransactionAggregates(
@@ -124,38 +111,25 @@ export async function loadCAddressTransactions({
         let res = await loadBlocksAndTransactions({ address, offset: (allPages + 1) * 50 })
         let transactions = res?.transactions?.slice(allPages * 50)
         if (transactions)
-            return transactions.map(
-                (transaction: {
-                    block: string
-                    index: string
-                    from: string
-                    hash: string
-                    status: string
-                    timestamp: string
-                    to: string
-                    value: string
-                    gasUsed: BigNumber.Value
-                    effectiveGasPrice: BigNumber.Value
-                }) => {
-                    return {
-                        blockNumber: parseInt(transaction.block),
-                        transactionIndex: parseInt(transaction.index),
-                        from: transaction.from,
-                        hash: transaction.hash,
-                        status:
-                            parseInt(transaction.status) === 1
-                                ? 'Success'
-                                : `Failed-${parseInt(transaction.status)}`,
-                        timestamp: parseInt(transaction.timestamp) * 1000,
-                        to: transaction.to,
-                        value: parseInt(transaction.value),
-                        transactionCost: BigNumber(transaction.gasUsed)
-                            .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                            .toNumber(),
-                        direction: transaction.from === address ? 'out' : 'in',
-                    }
-                },
-            )
+            return transactions.map((transaction: ITransaction) => {
+                return {
+                    blockNumber: parseInt(transaction.block),
+                    transactionIndex: parseInt(transaction.index),
+                    from: transaction.from,
+                    hash: transaction.hash,
+                    status:
+                        parseInt(transaction.status) === 1
+                            ? 'Success'
+                            : `Failed-${parseInt(transaction.status)}`,
+                    timestamp: parseInt(transaction.timestamp) * 1000,
+                    to: transaction.to,
+                    value: parseInt(transaction.value),
+                    transactionCost: BigNumber(transaction.gasUsed)
+                        .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                        .toNumber(),
+                    direction: transaction.from === address ? 'out' : 'in',
+                }
+            })
     } catch (e) {
         if (e instanceof Error) {
             throw new Error(e.message)

@@ -6,10 +6,9 @@ import { InputOutputSection } from '../Address/InputOutputSection'
 import { mdiCheckboxMarkedCircleOutline } from '@mdi/js'
 import { mdiAlertCircleOutline } from '@mdi/js'
 import Icon from '@mdi/react'
-import { ITransactionDetailView } from 'types/xpTransactions'
+import { ITransactionDetailView } from 'types/transaction'
 
-function TransactionDetailView({ detailTr, inputs, outputs }) {
-    console.log(detailTr, inputs, outputs)
+function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetailView) {
     return (
         <>
             {detailTr && (

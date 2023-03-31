@@ -18,7 +18,7 @@ interface RelativeTimeProps {
         | 'body1'
         | 'body2'
         | 'caption'
-    value: number
+    value: Date | number
 }
 
 export const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (

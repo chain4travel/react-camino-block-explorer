@@ -8,6 +8,7 @@ import useWidth from 'app/hooks/useWidth'
 import Transaction from './Transaction'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getChainTypeFromUrl } from 'utils/route-utils'
+import { ColumnType } from 'app/pages/Validators'
 
 export default function XPTransactions() {
     const chainType = getChainTypeFromUrl()
@@ -29,7 +30,7 @@ export default function XPTransactions() {
     )
     const intObserver = React.useRef<IntersectionObserver | null>(null)
     const lastPostRef = React.useCallback(
-        transaction => {
+        (transaction: Element) => {
             if (isFetchingNextPage) return
 
             if (intObserver.current) intObserver.current?.disconnect()
@@ -110,7 +111,7 @@ export default function XPTransactions() {
     )
 }
 
-const columns = [
+const columns: ColumnType[] = [
     {
         name: 'hash',
         label: 'Hash',

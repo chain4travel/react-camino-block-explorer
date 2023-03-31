@@ -6,12 +6,13 @@ import { CAddressTransactionTableData } from 'types/transaction'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
 import moment from 'utils/helpers/moment'
+import { Ref } from 'app/pages/XChainPages/Transactions/Transaction'
 
 interface Props {
     transaction: CAddressTransactionTableData
 }
 
-const Address = React.forwardRef<HTMLTableRowElement, Props>((props, ref) => {
+const Address = React.forwardRef<Ref, Props>((props, ref) => {
     const { isDesktop, isWidescreen } = useWidth()
     let content
     if (isDesktop || isWidescreen)

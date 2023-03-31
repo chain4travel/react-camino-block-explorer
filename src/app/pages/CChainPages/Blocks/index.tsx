@@ -28,7 +28,7 @@ const Blocks: FC = () => {
     })
 
     const lastPostRef = React.useCallback(
-        block => {
+        (block: Element) => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(blocks => {

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, FC, Ref } from 'react'
+import React, { useRef, useEffect, useCallback, FC } from 'react'
 import { Grid, TableContainer, Box, LinearProgress } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { useInfiniteQuery } from 'react-query'
@@ -11,6 +11,7 @@ import { Status } from 'types'
 import { queryClient } from '../../../../App'
 import { getAddressFromUrl } from 'utils/route-utils'
 import { CAddressTransactionTableData } from 'types/transaction'
+import { ColumnType } from 'app/pages/Validators'
 
 const Transactions: FC = () => {
     const location = useLocation()
@@ -41,7 +42,7 @@ const Transactions: FC = () => {
     )
     const intObserver = useRef<IntersectionObserver | null>(null)
     const lastPostRef = useCallback(
-        address => {
+        (address: Element) => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(blocks => {
@@ -94,7 +95,7 @@ const Transactions: FC = () => {
 
 export default Transactions
 
-const columns = [
+const columns: ColumnType[] = [
     {
         name: 'direction',
         label: 'In/Out',

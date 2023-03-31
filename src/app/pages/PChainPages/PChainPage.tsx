@@ -14,7 +14,7 @@ import LoadingWrapper from 'app/components/LoadingWrapper'
 import { getValidatorsOverreview, getValidatorsStatus } from 'store/validatorsSlice'
 import { PTRANSACTIONS } from 'utils/route-paths'
 import { getChainID } from 'api/utils'
-import { ITransaction } from 'types/xpTransactions'
+import { XPTransaction } from 'types/transaction'
 
 export default function PChainPage() {
     const dispatch = useAppDispatch()
@@ -45,7 +45,7 @@ export default function PChainPage() {
             />
             <XPTransactionList ShowAllLink={PTRANSACTIONS}>
                 <LoadingWrapper loading={status} failedLoadingMsg="Failed to load transactions">
-                    {transactions?.map((transaction, index) => (
+                    {transactions?.map((transaction: XPTransaction, index: number) => (
                         <XPItemDivider index={index} max={transactions.length - 1} key={index}>
                             <XPTransactionItem chainType={ChainType.P_CHAIN} data={transaction} />
                         </XPItemDivider>

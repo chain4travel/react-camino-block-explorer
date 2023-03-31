@@ -32,7 +32,7 @@ import Icon from '@mdi/react'
 import TransactionDetailView from './TransactionDetailView'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getTransactionFromUrl } from 'utils/route-utils'
-import { ITransactionDetails } from 'types/xpTransactions'
+import { ITransactionDetails } from 'types/transaction'
 
 const TransactionDetails: FC = () => {
     const theme = useTheme()
@@ -196,7 +196,7 @@ const TransactionDetails: FC = () => {
 
 export default TransactionDetails
 
-const RoundButton = ({ sx, children, disabled, onClick, ...props }) => {
+const RoundButton = ({ sx, children, disabled, onClick, ...props }: ITransactionDetails) => {
     return (
         <Button
             disableRipple

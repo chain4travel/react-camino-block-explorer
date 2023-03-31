@@ -10,8 +10,12 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
 })
 
 export const ColorModeContext = React.createContext<{
-    toggleColorMode?: (v: PaletteMode) => void
-}>({})
+    toggleColorMode: (v?: PaletteMode) => void
+}>({
+    toggleColorMode: function (v?: PaletteMode | undefined): void {
+        throw new Error('Function not implemented.')
+    },
+})
 
 export const ThemeProvider = (props: { children: React.ReactChild }) => {
     const [mode, setMode] = useState<PaletteMode>('dark') // light or dark default mode is light

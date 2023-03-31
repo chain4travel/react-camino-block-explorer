@@ -44,15 +44,15 @@ export function getAddressLink(chaintype: ChainType, value: string): string {
 }
 
 export function getAddressFromUrl(): string {
-    return window.location.pathname.split('/').pop()
+    return window.location.pathname.split('/').pop() || ''
 }
 
 export function getTransactionFromUrl(): string {
-    return window.location.pathname.split('/').pop()
+    return window.location.pathname.split('/').pop() || ''
 }
 
 export function getBlockNumber(): string {
-    return window.location.pathname.split('/').pop()
+    return window.location.pathname.split('/').pop() || ''
 }
 
 export function getChainTypeFromUrl(): ChainType {

@@ -8,14 +8,18 @@ import AddressLink from '../AddressLink'
 import BlockTxIcon from './BlockTxIcon'
 import useWidth from 'app/hooks/useWidth'
 import { BASE_PATH, ADDRESS, TRANSACTION } from '../../../utils/route-paths'
-import { IXPTransactionSecondSection, ITransaction } from 'types/xpTransactions'
+import {
+    IXPTransactionFirstSection,
+    IXPTransactionSecondSection,
+    XPTransaction,
+} from 'types/transaction'
 
 export default function XPTransactionItem({
     chainType,
     data,
 }: {
     chainType: ChainType
-    data: ITransaction
+    data: XPTransaction
 }) {
     return (
         <Grid container columnSpacing={{ md: 2 }} rowSpacing={{ xs: 2, md: 0 }}>
@@ -49,17 +53,7 @@ export default function XPTransactionItem({
     )
 }
 
-const XPTransactionFirstSection = ({
-    id,
-    timestamp,
-    type,
-    to,
-}: {
-    id: string
-    timestamp: number
-    type: string
-    to: string
-}) => {
+const XPTransactionFirstSection = ({ id, timestamp, type, to }: IXPTransactionFirstSection) => {
     const { isMobile } = useWidth()
     return (
         <>
@@ -102,53 +96,51 @@ const XPTransactionSecondSection = ({
                     {type}
                 </Grid>
                 <Grid item xs={9} sm={10}>
-                    {data
-                        .slice(0, 5)
-                        .map((tx: { address: string; value: number }, index: number) => (
-                            <Grid container style={{ padding: '0rem 0rem .5rem 0rem' }} key={index}>
-                                <Grid item xs={12} sm={6} xl={7}>
-                                    <AddressLink
-                                        to={`${BASE_PATH}/${chainType}${ADDRESS}/${getAddressLink(
-                                            chainType,
-                                            tx.address,
-                                        )}`}
-                                        value={tx.address}
-                                        typographyVariant="body1"
-                                        truncate={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6} xl={5}>
-                                    <CamAmount
-                                        amount={tx.value}
-                                        currency="nCam"
-                                        camAmountStyle={{
-                                            color: '#616161',
-                                        }}
-                                        style={{ marginLeft: !isMobile ? 'auto' : '' }}
-                                        type={type}
-                                    />
-                                </Grid>
-                                {index === 4 && dataLeft > 0 && (
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        sm={6}
-                                        xl={7}
-                                        sx={{
-                                            justifyContent: 'flex-end',
-                                            display: 'flex',
-                                            padding: '15px 0px 0px 0px',
-                                        }}
-                                    >
-                                        <Chip
-                                            label={`+${dataLeft} more`}
-                                            size="small"
-                                            sx={{ minWidth: '50px', height: '20px' }}
-                                        />
-                                    </Grid>
-                                )}
+                    {data.slice(0, 5).map((tx, index) => (
+                        <Grid container style={{ padding: '0rem 0rem .5rem 0rem' }} key={index}>
+                            <Grid item xs={12} sm={6} xl={7}>
+                                <AddressLink
+                                    to={`${BASE_PATH}/${chainType}${ADDRESS}/${getAddressLink(
+                                        chainType,
+                                        tx.address,
+                                    )}`}
+                                    value={tx.address}
+                                    typographyVariant="body1"
+                                    truncate={true}
+                                />
                             </Grid>
-                        ))}
+                            <Grid item xs={12} sm={6} xl={5}>
+                                <CamAmount
+                                    amount={tx.value}
+                                    currency="nCam"
+                                    camAmountStyle={{
+                                        color: '#616161',
+                                    }}
+                                    style={{ marginLeft: !isMobile ? 'auto' : '' }}
+                                    type={type}
+                                />
+                            </Grid>
+                            {index === 4 && dataLeft > 0 && (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    xl={7}
+                                    sx={{
+                                        justifyContent: 'flex-end',
+                                        display: 'flex',
+                                        padding: '15px 0px 0px 0px',
+                                    }}
+                                >
+                                    <Chip
+                                        label={`+${dataLeft} more`}
+                                        size="small"
+                                        sx={{ minWidth: '50px', height: '20px' }}
+                                    />
+                                </Grid>
+                            )}
+                        </Grid>
+                    ))}
                 </Grid>
             </Grid>
             {type === 'From' && <Divider variant="fullWidth" />}

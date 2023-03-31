@@ -264,8 +264,10 @@ export default Validators
 export interface ColumnType {
     name: string
     label: string
-    field: string
+    field?: string
     align: TableCellProps['align']
+    type?: string
+    value?: string
 }
 
 const columns: ColumnType[] = [

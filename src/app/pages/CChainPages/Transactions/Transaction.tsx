@@ -9,12 +9,13 @@ import FilledCard from 'app/components/FilledCard'
 import moment from 'utils/helpers/moment'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
 import { CTRANSACTION } from '../../../../utils/route-paths'
+import { Ref } from 'app/pages/XChainPages/Transactions/Transaction'
 
 interface TransactionProps {
     transaction: TransactionTableData
 }
 
-const Transaction = React.forwardRef<HTMLTableRowElement, TransactionProps>((props, ref) => {
+const Transaction = React.forwardRef<Ref, TransactionProps>((props, ref) => {
     const transactionBody = <CustomRow transaction={props.transaction} />
 
     const { isDesktop, isWidescreen } = useWidth()

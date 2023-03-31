@@ -9,6 +9,7 @@ import Transaction from './Transaction'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { CCHAIN } from 'utils/route-paths'
 import { TransactionTableData } from 'types/transaction'
+import { ColumnType } from 'app/pages/Validators'
 
 const Transactions: FC = () => {
     const intObserver = useRef<IntersectionObserver | null>(null)
@@ -28,7 +29,7 @@ const Transactions: FC = () => {
     })
 
     const lastPostRef = useCallback(
-        transaction => {
+        (transaction: Element) => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(transactions => {
@@ -103,7 +104,7 @@ const Transactions: FC = () => {
 
 export default Transactions
 
-const columns = [
+const columns: ColumnType[] = [
     {
         name: 'blockNumber',
         label: 'Block',

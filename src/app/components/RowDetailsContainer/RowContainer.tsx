@@ -105,7 +105,7 @@ export function RowContainer({ theme, head, type, content, parent }: IRowContain
             justifyContent="space-between"
             item
             sx={{
-                backgroundColor: head && 'latestList.iconBackground',
+                backgroundColor: head ? 'latestList.iconBackground' : '',
                 p: '.8rem',
                 gap: '10px',
                 border: head === true ? 'solid 1px' : '0px',
