@@ -20,9 +20,11 @@ import styled from 'styled-components'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
-import { useTheme } from '@mui/material'
+import { useTheme, Grid } from '@mui/material'
 import '../../../../styles/scrollbarModal.css'
 import { ConsumptionCharts, Emissions } from 'types/statistics'
+import Tooltip from '@mui/material/Tooltip'
+import InfoIcon from '@mui/icons-material/Info'
 
 type DatesChart = {
     starterDate: Date
@@ -42,6 +44,20 @@ const DateRangeContainer = styled.div`
     }
 `
 
+interface TextProps {
+    backgroundColor: string
+}
+
+const Text = styled('p')<TextProps>`
+    margin-left: 3rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background: ${({ backgroundColor }) => backgroundColor};
+    padding: 0.5rem;
+`
+
 const CO2ConsumptionCharts = ({
     utilSlice,
     typeMeter,
@@ -49,6 +65,7 @@ const CO2ConsumptionCharts = ({
     sliceGetter,
     sliceGetterLoader,
     titleText,
+    description,
 }: ConsumptionCharts) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
@@ -155,7 +172,16 @@ const CO2ConsumptionCharts = ({
                 <>
                     <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
                         <CardHeader
-                            title={titleText}
+                            title={
+                                <span>
+                                    {titleText}
+                                    <Tooltip title={description} placement="top">
+                                        <IconButton>
+                                            <InfoIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </span>
+                            }
                             style={{
                                 marginBottom: '0rem',
                                 marginLeft: '0.5rem',
@@ -248,6 +274,18 @@ const CO2ConsumptionCharts = ({
                                     }
                                 />
                                 <CardContent>
+                                    <Grid
+                                        container
+                                        spacing={2}
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Grid item xs={12}>
+                                            <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                                {description}
+                                            </Text>
+                                        </Grid>
+                                    </Grid>
                                     {meterCO2 != null && meterCO2 !== undefined && (
                                         <DateRangeContainer>
                                             <DateRange
