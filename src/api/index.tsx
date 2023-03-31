@@ -9,7 +9,7 @@ import {
     MagellanTxFeeAggregatesResponse,
     MagellanXPTransactionResponse,
 } from 'types/magellan-types'
-import { CTransaction } from 'types/transaction'
+import { CTransaction, ITransaction } from 'types/transaction'
 import { createTransaction } from 'utils/magellan'
 import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
@@ -43,7 +43,7 @@ export async function getTransactionsPage(
     const response = await axios.get(
         `${getBaseUrl()}${baseEndpoint}/cblocks?limit=${0}&limit=${50}&blockStart=${startingBlock}&blockEnd=${endingBlock}&transactionId=${transactionId}`,
     )
-    return response.data.transactions.map(transaction => {
+    return response.data.transactions.map((transaction: ITransaction) => {
         return {
             blockNumber: parseInt(transaction.block),
             transactionIndex: parseInt(transaction.index),
@@ -81,23 +81,37 @@ export async function loadTransactionFeesAggregates(
     return (await axios.get(url)).data
 }
 
-export async function loadBlocksAndTransactions({ address, offset }) {
+export async function loadBlocksAndTransactions({
+    address,
+    offset,
+}: {
+    address?: string
+    offset: number
+}) {
     try {
         let res = await axios.get(
             `${getBaseUrl()}${baseEndpoint}/cblocks?address=${address}&limit=0&limit=${offset}`,
         )
         return res.data
     } catch (e) {
-        throw new Error(e.message)
+        if (e instanceof Error) {
+            throw new Error(e.message)
+        }
     }
 }
 
-export async function loadCAddressTransactions({ address, allPages }) {
+export async function loadCAddressTransactions({
+    address,
+    allPages,
+}: {
+    address?: string
+    allPages: number
+}) {
     try {
         let res = await loadBlocksAndTransactions({ address, offset: (allPages + 1) * 50 })
         let transactions = res?.transactions?.slice(allPages * 50)
         if (transactions)
-            return transactions.map(transaction => {
+            return transactions.map((transaction: ITransaction) => {
                 return {
                     blockNumber: parseInt(transaction.block),
                     transactionIndex: parseInt(transaction.index),
@@ -117,7 +131,9 @@ export async function loadCAddressTransactions({ address, allPages }) {
                 }
             })
     } catch (e) {
-        throw new Error(e.message)
+        if (e instanceof Error) {
+            throw new Error(e.message)
+        }
     }
 }
 

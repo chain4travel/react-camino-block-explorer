@@ -12,7 +12,7 @@ export const useStore = () => {
     const selectedThemeExplorer = useAppSelector(selectedTheme)
     const dispatch = useAppDispatch()
 
-    function switchNetwork(network) {
+    function switchNetwork(network: string) {
         dispatch(resetCChainReducer())
         dispatch(resetValidatorsReducer())
         dispatch(resetXPChainReducer())

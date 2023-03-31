@@ -1,9 +1,14 @@
+import { Theme } from '@emotion/react'
+import { SxProps } from '@mui/material'
+import { ChainType } from 'utils/types/chain-type'
+import { XPTransactionDetail } from './magellan-types'
+
 export interface CTransaction {
     hash: string
     status: string // enum?
     block: number
     index: number
-    timestamp: number
+    timestamp: Date | number
     from: string
     to: string
     value: number
@@ -13,13 +18,15 @@ export interface CTransaction {
 export interface XPTransaction {
     id: string
     type: string
-    timestamp?: Date
+    timestamp: Date
     from: Fund[]
     to: Fund[]
     fee: number
-    inputTotals: Record<string, number>
-    outputTotals: Record<string, number>
+    inputTotals?: Fund[]
+    outputTotals?: Fund[]
     memo?: string
+    status?: string
+    hash?: number | string
 }
 
 export interface Fund {
@@ -123,4 +130,49 @@ export type DailyTransactions = {
     lowerValue: number
     lowerDate: string
     txInfo: DailyTransactionsInfo[]
+}
+
+export interface InputsOutputs {
+    inputs?: Fund[]
+    outputs?: Fund[]
+}
+
+export interface IXPTransactionFirstSection {
+    id: string
+    timestamp: Date
+    type: string
+    to: string
+}
+
+export interface IXPTransactionSecondSection {
+    type: string
+    from?: Fund[]
+    data: Fund[]
+    chainType: ChainType
+}
+
+export interface ITransactionDetailView {
+    detailTr?: XPTransactionDetail
+    inputs?: Fund[]
+    outputs?: Fund[]
+}
+
+export interface ITransactionDetails {
+    sx: SxProps<Theme> | undefined
+    children: JSX.Element
+    disabled: boolean
+    onClick: () => void
+}
+
+export interface ITransaction {
+    block: string
+    index: string
+    from: string
+    hash: string
+    status: string
+    timestamp: string
+    to: string
+    value: string
+    gasUsed: number
+    effectiveGasPrice: number
 }

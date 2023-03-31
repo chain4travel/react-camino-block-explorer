@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { FilterDates } from 'types/statistics'
 import {
     fetchDailyEmissions,
     fetchNetworkEmissions,
@@ -8,7 +9,7 @@ import {
 
 export const loadDailyEmissions = createAsyncThunk(
     'co2statistics/dailyEmissions',
-    async (dates: Date, thunk) => {
+    async (dates: FilterDates, thunk) => {
         let response = await fetchDailyEmissions(dates)
         return response
     },
@@ -16,7 +17,7 @@ export const loadDailyEmissions = createAsyncThunk(
 
 export const loadNetworkEmissions = createAsyncThunk(
     'co2statistics/networkEmissions',
-    async (dates: Date, thunk) => {
+    async (dates: FilterDates, thunk) => {
         let response = await fetchNetworkEmissions(dates)
         return response
     },
@@ -24,7 +25,7 @@ export const loadNetworkEmissions = createAsyncThunk(
 
 export const loadTransactionsEmissions = createAsyncThunk(
     'co2statistics/transactionsEmissions',
-    async (dates: Date, thunk) => {
+    async (dates: FilterDates, thunk) => {
         let response = await fetchTransactionsEmissions(dates)
         return response
     },
@@ -32,7 +33,7 @@ export const loadTransactionsEmissions = createAsyncThunk(
 
 export const loadCountryEmissions = createAsyncThunk(
     'co2statistics/countryEmissions',
-    async (dates: Date, thunk) => {
+    async (dates: FilterDates, thunk) => {
         let response = await fetchCountryEmissions(dates)
         return response
     },

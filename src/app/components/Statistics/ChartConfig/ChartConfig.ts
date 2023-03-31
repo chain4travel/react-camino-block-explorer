@@ -17,7 +17,7 @@ import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 class ChartConfig {
     title: string
     categories: string[] = []
-    typeChartData: string
+    typeChartData: string | undefined
     data
     highestAndLowestInfo: {
         highestValue: string
@@ -32,7 +32,12 @@ class ChartConfig {
     }
     timeSeeAxis: string = ''
 
-    constructor(typeChartData: string, title: string, dataChart: any, timeSeeAxis: string) {
+    constructor(
+        typeChartData: string | undefined,
+        title: string,
+        dataChart: any,
+        timeSeeAxis: string,
+    ) {
         this.typeChartData = typeChartData
         this.title = title
         switch (this.typeChartData) {

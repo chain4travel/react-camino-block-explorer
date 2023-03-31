@@ -10,8 +10,9 @@ import {
     customToLocaleString,
     roundedToLocaleString,
 } from '../../utils/currency-utils'
+import { ICamAmount } from 'types/filesInComponents'
 
-export function AmountIcon({ currency }) {
+export function AmountIcon({ currency }: { currency: string }) {
     return (
         <Box sx={{ width: '26px', height: '26px', marginLeft: '6px', marginRight: '6px' }}>
             {currency === 'nCAM' ? <NCamIcon /> : currency === 'aCAM' ? <ACamIcon /> : <CamIcon />}
@@ -27,15 +28,7 @@ export function CamAmount({
     abbreviate = true,
     dataCy,
     type,
-}: {
-    amount: number
-    currency?: string
-    style?: React.CSSProperties
-    camAmountStyle?: React.CSSProperties
-    abbreviate?: boolean
-    dataCy?: string
-    type?: string
-}) {
+}: ICamAmount) {
     const tooltipAmount = customToLocaleString(getDisplayAmount(amount).value, 20, false)
     const tooltipCurrency = getDisplayAmount(getACamAmount(amount, currency)).currency
     const tooltipText = `${tooltipAmount} ${tooltipCurrency}`

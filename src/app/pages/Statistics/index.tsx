@@ -51,6 +51,7 @@ import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionChar
 import { typesMeter } from '../../../utils/statistics/ChartSelector'
 import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils'
 import '../../../styles/datacharts.css'
+import { FilterDates } from 'types/statistics'
 
 const Statistics: FC = () => {
     const theme = useTheme()
@@ -194,7 +195,7 @@ const Statistics: FC = () => {
                             <CO2ConsumptionCharts
                                 typeMeter={typesMeter.BAR}
                                 darkMode={dark}
-                                utilSlice={(dates: Date) => loadDailyEmissions(dates)}
+                                utilSlice={(dates: FilterDates) => loadDailyEmissions(dates)}
                                 sliceGetter={getDailyEmissions}
                                 sliceGetterLoader={getDailyEmissionsStatus}
                                 titleText="Daily Emissions"
@@ -206,7 +207,7 @@ const Statistics: FC = () => {
                             <CO2ConsumptionCharts
                                 typeMeter={typesMeter.TIME_SERIES}
                                 darkMode={dark}
-                                utilSlice={(dates: Date) => loadNetworkEmissions(dates)}
+                                utilSlice={(dates: FilterDates) => loadNetworkEmissions(dates)}
                                 sliceGetter={getNetworkEmissions}
                                 sliceGetterLoader={getNetworkEmissionsStatus}
                                 titleText="Network Emissions"
@@ -218,7 +219,7 @@ const Statistics: FC = () => {
                             <CO2ConsumptionCharts
                                 typeMeter={typesMeter.TIME_SERIES}
                                 darkMode={dark}
-                                utilSlice={(dates: Date) => loadTransactionsEmissions(dates)}
+                                utilSlice={(dates: FilterDates) => loadTransactionsEmissions(dates)}
                                 sliceGetter={getTransactionsEmissions}
                                 sliceGetterLoader={getTransactionsEmissionsStatus}
                                 titleText="Network Emissions Per Transaction"
@@ -230,7 +231,7 @@ const Statistics: FC = () => {
                             <CO2ConsumptionCharts
                                 typeMeter={typesMeter.COUNTRIES_BAR}
                                 darkMode={dark}
-                                utilSlice={(dates: Date) => loadCountryEmissions(dates)}
+                                utilSlice={(dates: FilterDates) => loadCountryEmissions(dates)}
                                 sliceGetter={getCountryEmissions}
                                 sliceGetterLoader={getCountryEmissionsStatus}
                                 titleText="Country Emissions"

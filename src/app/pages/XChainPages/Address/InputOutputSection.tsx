@@ -2,8 +2,9 @@ import React from 'react'
 import { Grid, Paper, Typography } from '@mui/material'
 import DetailsField from 'app/components/DetailsField'
 import useWidth from 'app/hooks/useWidth'
+import { Fund, InputsOutputs } from 'types/transaction'
 
-export const InputOutputSection = ({ inputs, outputs }) => {
+export const InputOutputSection = ({ inputs, outputs }: InputsOutputs) => {
     const { isTablet } = useWidth()
     return (
         <>
@@ -28,13 +29,14 @@ export const InputOutputSection = ({ inputs, outputs }) => {
                         </Typography>
                     </Grid>
                 )}
-                {inputs.map((item, index) => {
-                    return (
-                        <Grid key={index} container item xs justifyContent="center">
-                            <InputCard address={item.address} value={item.value} />
-                        </Grid>
-                    )
-                })}
+                {inputs &&
+                    inputs.map((item, index) => {
+                        return (
+                            <Grid key={index} container item xs justifyContent="center">
+                                <InputCard address={item.address} value={item.value} />
+                            </Grid>
+                        )
+                    })}
             </Grid>
             <Grid
                 container
@@ -57,19 +59,20 @@ export const InputOutputSection = ({ inputs, outputs }) => {
                         </Typography>
                     </Grid>
                 )}
-                {outputs.map((item, index) => {
-                    return (
-                        <Grid key={index} container item xs justifyContent="center">
-                            <OutputCard address={item.address} value={item.value} />
-                        </Grid>
-                    )
-                })}
+                {outputs &&
+                    outputs.map((item, index) => {
+                        return (
+                            <Grid key={index} container item xs justifyContent="center">
+                                <OutputCard address={item.address} value={item.value} />
+                            </Grid>
+                        )
+                    })}
             </Grid>
         </>
     )
 }
 
-const InputCard = ({ address, value }) => {
+const InputCard = ({ address, value }: Fund) => {
     return (
         <Paper
             sx={{
@@ -103,7 +106,7 @@ const InputCard = ({ address, value }) => {
     )
 }
 
-const OutputCard = ({ address, value }) => {
+const OutputCard = ({ address, value }: Fund) => {
     return (
         <Paper
             sx={{

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { Field } from '../DetailsField'
+import { ColumnType } from 'app/pages/Validators'
 
 export default function TableView({
     children,
     columns,
 }: {
-    columns: any[]
+    columns: ColumnType[]
     children: React.ReactNode
 }) {
     return (

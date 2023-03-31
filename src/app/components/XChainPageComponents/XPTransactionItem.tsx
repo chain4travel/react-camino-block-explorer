@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Grid, Divider, Chip } from '@mui/material'
 import { CamAmount } from '../CamAmount'
-import { MagellanXPInput, MagellanXPOutput } from 'types/magellan-types'
 import { getAddressLink } from 'utils/route-utils'
 import { ChainType } from 'utils/types/chain-type'
 import RelativeTime from 'app/components/RelativeTime'
@@ -9,8 +8,19 @@ import AddressLink from '../AddressLink'
 import BlockTxIcon from './BlockTxIcon'
 import useWidth from 'app/hooks/useWidth'
 import { BASE_PATH, ADDRESS, TRANSACTION } from '../../../utils/route-paths'
+import {
+    IXPTransactionFirstSection,
+    IXPTransactionSecondSection,
+    XPTransaction,
+} from 'types/transaction'
 
-export default function XPTransactionItem({ chainType, data }) {
+export default function XPTransactionItem({
+    chainType,
+    data,
+}: {
+    chainType: ChainType
+    data: XPTransaction
+}) {
     return (
         <Grid container columnSpacing={{ md: 2 }} rowSpacing={{ xs: 2, md: 0 }}>
             <Grid container item xs={12} md={4}>
@@ -43,17 +53,7 @@ export default function XPTransactionItem({ chainType, data }) {
     )
 }
 
-const XPTransactionFirstSection = ({
-    id,
-    timestamp,
-    type,
-    to,
-}: {
-    id: string
-    timestamp: number
-    type: string
-    to: string
-}) => {
+const XPTransactionFirstSection = ({ id, timestamp, type, to }: IXPTransactionFirstSection) => {
     const { isMobile } = useWidth()
     return (
         <>
@@ -86,12 +86,7 @@ const XPTransactionSecondSection = ({
     from,
     data,
     chainType,
-}: {
-    type: string
-    data: MagellanXPInput[] | MagellanXPOutput[]
-    from?: MagellanXPOutput
-    chainType: ChainType
-}) => {
+}: IXPTransactionSecondSection) => {
     const { isMobile } = useWidth()
     const dataLeft = data.length - 5
     return (
@@ -119,11 +114,7 @@ const XPTransactionSecondSection = ({
                                     amount={tx.value}
                                     currency="nCam"
                                     camAmountStyle={{
-                                        color:
-                                            from &&
-                                            from[0] &&
-                                            tx.address === from[0].address &&
-                                            '#616161',
+                                        color: '#616161',
                                     }}
                                     style={{ marginLeft: !isMobile ? 'auto' : '' }}
                                     type={type}

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Typography } from '@mui/material'
+import { IAddressLink } from 'types/filesInComponents'
 
 export default function AddressLink({
     to,
@@ -8,28 +9,7 @@ export default function AddressLink({
     typographyVariant,
     truncate,
     dataCy,
-}: {
-    to: string
-    value: string | number
-    typographyVariant?:
-        | 'button'
-        | 'caption'
-        | 'h1'
-        | 'h2'
-        | 'h3'
-        | 'h4'
-        | 'h5'
-        | 'h6'
-        | 'subtitle1'
-        | 'subtitle2'
-        | 'body1'
-        | 'body2'
-        | 'overline'
-        | 'inherit'
-        | undefined
-    truncate?: boolean
-    dataCy?: string
-}) {
+}: IAddressLink) {
     return (
         <Link to={to} style={{ textDecoration: 'none' }} rel="noopener noreferrer">
             {truncate ? (

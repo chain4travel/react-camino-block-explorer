@@ -21,7 +21,7 @@ export const queryClient = new QueryClient({
     },
 })
 
-export function StoreProvider({ children }) {
+export function StoreProvider({ children }: { children: React.ReactElement }) {
     return <Provider store={store}>{children}</Provider>
 }
 

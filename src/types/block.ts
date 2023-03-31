@@ -2,7 +2,7 @@ import { CTransaction } from './transaction'
 
 export interface BlockTableData {
     number: number
-    timestamp: number
+    timestamp: Date | number
     numberOfTransactions: number
     hash: string
     gasUsed?: number

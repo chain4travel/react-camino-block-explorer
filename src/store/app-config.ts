@@ -30,7 +30,7 @@ interface chainArgs {
     chainID: string
 }
 interface initialStateAppConfigType {
-    activeNetwork?: string
+    activeNetwork?: { explorerUrl: string }
     networks: any
     chains: chainArgs[]
     activeTheme: string
@@ -70,7 +70,9 @@ const appConfigSlice = createSlice({
     initialState,
     reducers: {
         changeNetwork: (state, action) => {
-            state.activeNetwork = state.networks.find(item => item.id === action.payload.id)
+            state.activeNetwork = state.networks.find(
+                (item: { id: string }) => item.id === action.payload.id,
+            )
         },
         resetChains: state => {
             state.chains = []
