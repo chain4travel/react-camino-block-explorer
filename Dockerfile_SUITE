@@ -2,7 +2,7 @@ ARG BUILD_ENV="build:dev"
 ARG SUITE_BRANCH=suite
 ARG WALLET_BRANCH=suite
 
-FROM node:18 as stage-explorer
+FROM node:16 as stage-explorer
 ARG BUILD_ENV
 WORKDIR /app/camino-block-explorer
 

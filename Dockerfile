@@ -1,4 +1,4 @@
-ARG BUILD_ENV="build:stage"
+ARG BUILD_ENV="build:dev"
 
 FROM node:16
 ARG BUILD_ENV
