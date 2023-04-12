@@ -17,7 +17,7 @@ export function convertMemo(memo: string): string {
         // decode base64 string including special characters
         return decodeURIComponent(percentEnc)
     } catch (e) {
-        console.log('Memo was not base64 encoded, using raw value')
+        // console.log('Memo was not base64 encoded, using raw value')
         return memo
     }
 }
