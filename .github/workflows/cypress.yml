@@ -7,8 +7,8 @@ on:
     branches: [c4t, dev, suite]
 
 env:
-  suite_image: 'europe-west3-docker.pkg.dev/pwk-c4t-dev/internal-camino-dev/camino-suite-host'
-  wallet_image: 'europe-west3-docker.pkg.dev/pwk-c4t-dev/internal-camino-dev/camino-suite-wallet'
+  suite_image: 'europe-west3-docker.pkg.dev/pwk-c4t-dev/camino-suite-apps/camino-suite-host'
+  wallet_image: 'europe-west3-docker.pkg.dev/pwk-c4t-dev/camino-suite-apps/camino-suite-wallet'
 
 jobs:
   build:

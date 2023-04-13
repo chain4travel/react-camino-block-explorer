@@ -14,7 +14,7 @@ on:
 
 env:
   node_version: 16
-  module_docker_image: "europe-west3-docker.pkg.dev/pwk-c4t-dev/internal-camino-dev/camino-suite-explorer"
+  module_docker_image: "europe-west3-docker.pkg.dev/pwk-c4t-dev/camino-suite-apps/camino-suite-explorer"
 
 jobs:
   build_docker:    
