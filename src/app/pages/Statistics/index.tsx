@@ -237,9 +237,9 @@ const Statistics: FC = () => {
                                 utilSlice={(dates: FilterDates) => loadCountryEmissions(dates)}
                                 sliceGetter={getCountryEmissions}
                                 sliceGetterLoader={getCountryEmissionsStatus}
-                                titleText="Country Emissions"
+                                titleText="Carbon Intensity Factor"
                                 description={
-                                    'The country emissions chart illustrates and compares the levels of CO2 emissions from six countries around the world that have high carbon dioxide emissions.'
+                                    'The Carbon Intensity Factor chart shows the number of grams of CO2 required to generate one kWh of energy in specific countries. The Camino bar demonstrates the median amount of CO2 needed to operate a node on the Camino chain across all countries.'
                                 }
                             />
                         </Grid>
