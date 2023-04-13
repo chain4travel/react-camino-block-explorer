@@ -7,6 +7,7 @@ services:
     entrypoint: ["yarn", "start"]
     ports:
       - 5003:5003
+    container_name: camino-suite-wallet-container
   explorer:
     build:
       context: .
@@ -16,9 +17,11 @@ services:
     entrypoint: ["yarn", "start"]
     ports:
       - 5002:5002
+    container_name: camino-suite-explorer-container
   suite:
     image: ${SUITE_IMAGE}
     entrypoint: ["yarn", "start"]
     ports:
       - 5001:5001
+    container_name: camino-suite-host-container
 
