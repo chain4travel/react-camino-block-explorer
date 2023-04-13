@@ -34,16 +34,9 @@ jobs:
             echo "branch=${{ github.ref_name }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Cloud authentication
-        if: github.event_name == 'push'
-        id: auth
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
       - name: build local image
         run: |
-          gcloud auth configure-docker --quiet europe-west3-docker.pkg.dev
           docker-compose build --build-arg SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }} --build-arg WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
           export SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }}
           export WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
