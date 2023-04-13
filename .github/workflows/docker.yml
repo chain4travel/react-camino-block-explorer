@@ -11,7 +11,6 @@ on:
         - c4t
         - dev
         - suite
-        - workflow-optimize
 
 env:
   node_version: 16
@@ -37,19 +36,7 @@ jobs:
               echo "build_env=dev" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref }}" == "refs/heads/suite" ]]; then
               echo "docker_image=$DOCKER_IMAGE_NAME:dev" >> $GITHUB_OUTPUT
-              echo "build_env=dev" >> $GITHUB_OUTPUT 
-          else
-              echo "docker_image=$DOCKER_IMAGE_NAME:temp" >> $GITHUB_OUTPUT
-              echo "build_env=dev" >> $GITHUB_OUTPUT   
-          fi
-
-      - name: create docker image
-        run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.base_ref }} --build-arg WALLET_BRANCH=${{ github.base_ref }}
-          else
-            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.ref_name }} --build-arg WALLET_BRANCH=${{ github.ref_name }}
-            docker build . -t ${{ env.module_docker_image }}:${{ github.ref_name }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }}
+              echo "build_env=dev" >> $GITHUB_OUTPUT  
           fi
 
       - name: Cloud authentication
@@ -58,7 +45,18 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-          
+
+      - name: create docker image
+        run: |
+          gcloud auth configure-docker --quiet europe-west3-docker.pkg.dev
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.base_ref }} --build-arg WALLET_BRANCH=${{ github.base_ref }}
+          else
+            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.ref_name }} --build-arg WALLET_BRANCH=${{ github.ref_name }}
+            docker build . -t ${{ env.module_docker_image }}:${{ github.ref_name }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }}
+          fi
+
+              
       
       - name: push and deploy docker
         if: github.event_name == 'push'
@@ -66,4 +64,4 @@ jobs:
           gcloud auth configure-docker --quiet europe-west3-docker.pkg.dev
           docker push ${{ steps.setDefaults.outputs.docker_image }}
           docker push ${{ env.module_docker_image }}:${{ github.ref_name }}
-          # gcloud run deploy camino-suite-${{ steps.setDefaults.outputs.build_env }} --image ${{ steps.setDefaults.outputs.docker_image }} --region=europe-west1
+          gcloud run deploy camino-suite-${{ steps.setDefaults.outputs.build_env }} --image ${{ steps.setDefaults.outputs.docker_image }} --region=europe-west1
