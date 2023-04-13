@@ -37,6 +37,9 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/suite" ]]; then
               echo "docker_image=$DOCKER_IMAGE_NAME:dev" >> $GITHUB_OUTPUT
               echo "build_env=dev" >> $GITHUB_OUTPUT  
+          else
+              echo "docker_image=$DOCKER_IMAGE_NAME:temp" >> $GITHUB_OUTPUT
+              echo "build_env=dev" >> $GITHUB_OUTPUT   
           fi
 
       - name: Cloud authentication
