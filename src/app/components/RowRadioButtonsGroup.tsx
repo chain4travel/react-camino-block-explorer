@@ -32,7 +32,7 @@ export default function RowRadioButtonsGroup({
         if (getChainTypeFromUrl() === ChainType.C_CHAIN) dispatch(changetimeFrame(value))
         else if (getChainTypeFromUrl() === ChainType.X_CHAIN) dispatch(changetimeFrameXchain(value))
         else dispatch(changetimeFramePchain(value))
-  }, [value]); // eslint-disable-line
+    }, [value]) // eslint-disable-line
 
     const { gasFeesLoading: cGasFeesLoading, transactionsLoading: cTransactionsLoading } =
         useAppSelector(getCchainOverreview)

@@ -16,7 +16,7 @@
         "max-len": 0,
         "no-alert": 0,
         "no-shadow": 0,
-        "no-console": 0,
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "no-plusplus": 0,
         "react/jsx-key": 2,
         "no-unused-vars": 0,
@@ -38,31 +38,41 @@
         "import/prefer-default-export": 0,
         "react/destructuring-assignment": 0,
         "react/jsx-one-expression-per-line": 0,
-        "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/naming-convention": 0,
+        "@typescript-eslint/no-explicit-any": ["warn", { "ignoreRestArgs": true }],
+        "@typescript-eslint/naming-convention": ["warn",
+        {
+            "selector": "variable",
+            "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
+          }
+        ],
         "jsx-a11y/control-has-associated-label": 0,
         "import/no-extraneous-dependencies": 0,
         "eqeqeq": 0,
         "object-curly-spacing": [1, "always"],
         "@typescript-eslint/no-unused-vars": [
-            1,
-            {
-                "vars": "all",
-                "args": "none"
-            }
+          "warn",
+          {
+            "vars": "all",
+            "args": "none",
+            "ignoreRestSiblings": false,
+            "argsIgnorePattern": "^",
+            "caughtErrorsIgnorePattern": "^_"
+          }
         ],
         "prettier/prettier": [
-            2,
-            {
-                "trailingComma": "all",
-                "tabWidth": 4,
-                "semi": false,
-                "singleQuote": true,
-                "printWidth": 100,
-                "useTabs": false,
-                "arrowParens": "avoid"
-            }
+          2,
+          {
+            "trailingComma": "all",
+            "tabWidth": 4,
+            "semi": false,
+            "singleQuote": true,
+            "printWidth": 100,
+            "useTabs": false,
+            "arrowParens": "avoid"
+          }
         ]
-    },
-    "ignorePatterns": ["node_modules/", "dist/", "commitlint.config.js", "lint-staged.config.js"]
+      },
+        "ignorePatterns": ["node_modules/", "dist/", "commitlint.config.js", "lint-staged.config.js", "cypress/", "webpack.common.js", "webpack.dev.js", "webpack.prod.js", "cypress.config.ts"]
 }

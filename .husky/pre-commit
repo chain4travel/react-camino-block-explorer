@@ -1,5 +1,15 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Disable concurent to run `check-types` after ESLint in lint-staged
+# Disable concurrent to run `check-types` after ESLint in lint-staged
 npx lint-staged --concurrent false
+
+# Automatically fix code with ESLint
+npx eslint --fix .
+
+# Run TypeScript compiler
+# tsc
+
+# npx tsc --noEmit --strictNullChecks --noImplicitAny
+
+npx eslint --fix . --color --no-quiet
