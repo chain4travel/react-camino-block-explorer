@@ -22,6 +22,8 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }: Meter) => {
         return dataChart
     }
 
+    const data = sortByAndLoadBar(dataSeries)
+
     const options = {
         chart: {
             type: 'column',
@@ -67,7 +69,15 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }: Meter) => {
         },
 
         tooltip: {
-            enabled: false,
+            enabled: true,
+            formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+                let indexData = this.point.index
+                let dataTooltip = data[indexData]
+                const header = `<span>
+                    [<label style="color: blue">${dataTooltip.name}:</label> <b>${this.y}</b>]
+                    <br/>`
+                return header
+            },
         },
         credits: {
             enabled: false,
@@ -77,7 +87,7 @@ const CountriesBarMeter = ({ darkMode, titleText, dataSeries }: Meter) => {
                 borderColor: 'transparent',
                 name: '',
                 color: '#41547C',
-                data: sortByAndLoadBar(dataSeries),
+                data: data,
             },
         ],
     }
