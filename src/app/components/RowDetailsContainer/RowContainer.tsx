@@ -7,6 +7,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp'
 import BlockTxIcon from '../XChainPageComponents/BlockTxIcon'
 import { CBLOCKS } from 'utils/route-paths'
+import { IRowContainer } from 'types/rowDetailsContainer'
 
 function getNameFromType(type: string): string {
     switch (type) {
@@ -95,7 +96,7 @@ function checkHash(type: string): boolean {
     return false
 }
 
-export function RowContainer({ theme, head, type, content, parent }) {
+export function RowContainer({ theme, head, type, content, parent }: IRowContainer) {
     const isMobile = useMediaQuery('@media (max-width:899px)')
     return (
         <Grid
@@ -104,7 +105,7 @@ export function RowContainer({ theme, head, type, content, parent }) {
             justifyContent="space-between"
             item
             sx={{
-                backgroundColor: head && 'latestList.iconBackground',
+                backgroundColor: head ? 'latestList.iconBackground' : '',
                 p: '.8rem',
                 gap: '10px',
                 border: head === true ? 'solid 1px' : '0px',

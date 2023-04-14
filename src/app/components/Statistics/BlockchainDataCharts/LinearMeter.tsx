@@ -2,8 +2,9 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import ConfigLinearMeter from '../ChartConfig/ChartConfig'
+import { IDataChart, IMeter } from 'types/statistics'
 
-const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) => {
+const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }: IMeter) => {
     let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis)
 
     if (config.data !== undefined && config.data != null) {
@@ -27,7 +28,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
                 },
                 labels: {
                     useHTML: true,
-                    formatter: function (obj: any) {
+                    formatter: function (obj: IDataChart) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -42,7 +43,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
 
                 labels: {
                     useHTML: true,
-                    formatter: function (obj: any) {
+                    formatter: function (obj: IDataChart) {
                         return `<span style="text-align: center;color:${
                             darkMode === true ? 'white' : 'black'
                         }"> ${obj.value}</span>`
@@ -75,7 +76,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }) 
                 },
             },
             tooltip: {
-                formatter: function (tooltip) {
+                formatter: function (this: Highcharts.TooltipFormatterContextObject) {
                     let indexData = this.point.index
                     return config.getTooltip(indexData)
                 },

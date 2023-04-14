@@ -30,7 +30,7 @@ interface chainArgs {
     chainID: string
 }
 interface initialStateAppConfigType {
-    activeNetwork?: string
+    activeNetwork?: { explorerUrl: string }
     networks: any
     chains: chainArgs[]
     activeTheme: string
@@ -53,8 +53,8 @@ let initialState: initialStateAppConfigType = {
             id: 'mainnet-testnet',
             displayName: 'Mainnet',
             protocol: 'https',
-            host: 'mainnet.camino.network',
-            magellanAddress: 'https://magellan.mainnet.camino.network',
+            host: 'api.camino.network',
+            magellanAddress: 'https://magellan.camino.network',
             port: 443,
             predefined: true,
         },
@@ -70,7 +70,9 @@ const appConfigSlice = createSlice({
     initialState,
     reducers: {
         changeNetwork: (state, action) => {
-            state.activeNetwork = state.networks.find(item => item.id === action.payload.id)
+            state.activeNetwork = state.networks.find(
+                (item: { id: string }) => item.id === action.payload.id,
+            )
         },
         resetChains: state => {
             state.chains = []

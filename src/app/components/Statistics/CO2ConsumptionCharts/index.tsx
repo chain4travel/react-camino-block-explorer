@@ -20,8 +20,11 @@ import styled from 'styled-components'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
-import { useTheme } from '@mui/material'
+import { useTheme, Grid } from '@mui/material'
 import '../../../../styles/scrollbarModal.css'
+import { ConsumptionCharts, Emissions } from 'types/statistics'
+import Tooltip from '@mui/material/Tooltip'
+import InfoIcon from '@mui/icons-material/Info'
 
 type DatesChart = {
     starterDate: Date
@@ -41,6 +44,20 @@ const DateRangeContainer = styled.div`
     }
 `
 
+interface TextProps {
+    backgroundColor: string
+}
+
+const Text = styled('p')<TextProps>`
+    margin-left: 3rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background: ${({ backgroundColor }) => backgroundColor};
+    padding: 0.5rem;
+`
+
 const CO2ConsumptionCharts = ({
     utilSlice,
     typeMeter,
@@ -48,7 +65,8 @@ const CO2ConsumptionCharts = ({
     sliceGetter,
     sliceGetterLoader,
     titleText,
-}) => {
+    description,
+}: ConsumptionCharts) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 
@@ -56,9 +74,9 @@ const CO2ConsumptionCharts = ({
 
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
-    const [endDate, setEndDate] = useState<Date>()
+    const [endDate, setEndDate] = useState<Date>(new Date())
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
     const [firstLoad, setFirstLoad] = useState(false)
 
     const dispatch = useAppDispatch()
@@ -74,7 +92,7 @@ const CO2ConsumptionCharts = ({
         defaultDatesCO2Emissions()
     }, [])
 
-    const meterCO2: any = useAppSelector(sliceGetter)
+    const meterCO2: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
     useEffect(() => {
@@ -111,7 +129,9 @@ const CO2ConsumptionCharts = ({
             setStartDate(
                 new Date(moment().startOf('month').startOf('day').format('YYYY-MM-DD HH:mm:ss')),
             )
-            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+            setEndDate(
+                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
+            )
         }
     }
 
@@ -136,6 +156,7 @@ const CO2ConsumptionCharts = ({
                 }),
             )
         }
+
         return datesChart
     }
 
@@ -151,7 +172,16 @@ const CO2ConsumptionCharts = ({
                 <>
                     <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
                         <CardHeader
-                            title={titleText}
+                            title={
+                                <span>
+                                    {titleText}
+                                    <Tooltip title={description} placement="top">
+                                        <IconButton>
+                                            <InfoIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </span>
+                            }
                             style={{
                                 marginBottom: '0rem',
                                 marginLeft: '0.5rem',
@@ -244,6 +274,18 @@ const CO2ConsumptionCharts = ({
                                     }
                                 />
                                 <CardContent>
+                                    <Grid
+                                        container
+                                        spacing={2}
+                                        justifyContent="center"
+                                        alignItems="center"
+                                    >
+                                        <Grid item xs={12}>
+                                            <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                                {description}
+                                            </Text>
+                                        </Grid>
+                                    </Grid>
                                     {meterCO2 != null && meterCO2 !== undefined && (
                                         <DateRangeContainer>
                                             <DateRange
@@ -255,6 +297,7 @@ const CO2ConsumptionCharts = ({
                                                 setSeeTimeAxis={setSeeTimeAxis}
                                                 disableFuture={true}
                                                 seeTimeAxis={seeTimeAxis}
+                                                disableCurrentDay={true}
                                             />
 
                                             {typeMeter === typesMeter.BAR && (

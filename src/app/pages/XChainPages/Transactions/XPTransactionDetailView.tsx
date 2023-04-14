@@ -6,8 +6,9 @@ import { InputOutputSection } from '../Address/InputOutputSection'
 import { mdiCheckboxMarkedCircleOutline } from '@mdi/js'
 import { mdiAlertCircleOutline } from '@mdi/js'
 import Icon from '@mdi/react'
+import { ITransactionDetailView } from 'types/transaction'
 
-function TransactionDetailView({ detailTr, inputs, outputs }) {
+function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetailView) {
     return (
         <>
             {detailTr && (
@@ -48,7 +49,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }) {
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Timestamp"
-                                value={detailTr.timestamp.toString()}
+                                value={detailTr ? detailTr['timestamp'].toString() : ''}
                                 type="timestamp"
                                 tooltip="date"
                                 style={{ padding: '1rem' }}

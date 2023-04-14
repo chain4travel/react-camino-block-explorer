@@ -62,7 +62,7 @@ const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) =
                                     <li>
                                         <b>Nodes:</b>
                                         <br />
-                                        {cityNodes.map((value, index) => (
+                                        {cityNodes.map((value: string, index: number) => (
                                             <>
                                                 {index < 3 ? (
                                                     <>

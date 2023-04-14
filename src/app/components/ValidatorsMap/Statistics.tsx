@@ -2,10 +2,11 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import flags from './json/flags.json'
+import { IStatistics } from 'types/statistics'
 
-const Statistics = ({ nodesPerCountry, darkMode }) => {
-    const getUrlFlag = index => {
-        let objFlag = nodesPerCountry[index]
+const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
+    const getUrlFlag = (index: string) => {
+        let objFlag = nodesPerCountry[parseInt(index)]
         let code = flags.find(flag => flag.code === objFlag.alpha2)
         let url = `/assets/flags/${code?.code.toLowerCase()}.svg`
         return url
@@ -32,7 +33,7 @@ const Statistics = ({ nodesPerCountry, darkMode }) => {
             categories: nodesPerCountry.map(value => value.country),
             labels: {
                 useHTML: true,
-                formatter: function (obj) {
+                formatter: function (obj: { pos: string; value: string }) {
                     let index = obj.pos
                     return `<span style="color:${
                         darkMode === true ? 'white' : 'black'
@@ -63,7 +64,7 @@ const Statistics = ({ nodesPerCountry, darkMode }) => {
         },
         tooltip: {
             useHTML: true,
-            formatter: function (obj) {
+            formatter: function (obj: string) {
                 let objData: any = this
                 return '<b>' + objData.x + ':</b>' + objData.y
             },

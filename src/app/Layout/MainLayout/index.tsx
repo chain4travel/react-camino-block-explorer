@@ -58,7 +58,7 @@ export default function MainLayout() {
     }, [activeNetwork]) // eslint-disable-line
     const currentTheme = useAppSelector(selectedTheme)
     useEffect(() => {
-        themeContext?.toggleColorMode(currentTheme)
+        themeContext.toggleColorMode(currentTheme)
     }, [currentTheme]) // eslint-disable-line
     return (
         <>

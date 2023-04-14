@@ -8,7 +8,7 @@ interface SubPageTitleProps {
     backToLink: To
     style?: React.CSSProperties
     children?: React.ReactNode
-    hiddenBackButton: boolean
+    hiddenBackButton?: boolean
     styleTyphography?: React.CSSProperties
 }
 

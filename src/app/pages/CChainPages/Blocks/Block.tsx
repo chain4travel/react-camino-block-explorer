@@ -7,12 +7,13 @@ import AddressLink from 'app/components/AddressLink'
 import FilledCard from 'app/components/FilledCard'
 import { CBLOCKS } from 'utils/route-paths'
 import moment from 'moment'
+import { Ref } from 'app/pages/XChainPages/Transactions/Transaction'
 
 interface BlockProps {
     block: BlockTableData
 }
 
-const Block = React.forwardRef<HTMLTableRowElement, BlockProps>((props, ref) => {
+const Block = React.forwardRef<Ref, BlockProps>((props, ref) => {
     const blockBody = <CustomRow block={props.block} />
     const { isDesktop, isWidescreen } = useWidth()
     let content

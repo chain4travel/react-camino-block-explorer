@@ -32,7 +32,7 @@ export function createTransaction(magellanTransaction: MagellanXPTransaction): X
         fee: parseInt(magellanTransaction.txFee),
         inputTotals: magellanTransaction.inputTotals,
         outputTotals: magellanTransaction.outputTotals,
-        status: 'accepted', //TODO: set dynamically when magellan delivers this information
+        status: 'accepted',
         memo: convertMemo(magellanTransaction.memo),
     } as XPTransaction
 }

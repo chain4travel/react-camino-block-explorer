@@ -10,6 +10,8 @@ import LoadingWrapper from 'app/components/LoadingWrapper'
 import { Status } from 'types'
 import { queryClient } from '../../../../App'
 import { getAddressFromUrl } from 'utils/route-utils'
+import { CAddressTransactionTableData } from 'types/transaction'
+import { ColumnType } from 'app/pages/Validators'
 
 const Transactions: FC = () => {
     const location = useLocation()
@@ -40,7 +42,7 @@ const Transactions: FC = () => {
     )
     const intObserver = useRef<IntersectionObserver | null>(null)
     const lastPostRef = useCallback(
-        address => {
+        (address: Element) => {
             if (isFetchingNextPage) return
             if (intObserver.current) intObserver.current?.disconnect()
             intObserver.current = new IntersectionObserver(blocks => {
@@ -54,7 +56,7 @@ const Transactions: FC = () => {
     )
 
     const content = data?.pages?.map(pg => {
-        return pg.map((transaction, i) => {
+        return pg.map((transaction: CAddressTransactionTableData, i: number) => {
             if (pg.length === i + 1)
                 return <Address ref={lastPostRef} key={i} transaction={transaction} />
             return <Address key={i} transaction={transaction} />
@@ -93,7 +95,7 @@ const Transactions: FC = () => {
 
 export default Transactions
 
-const columns = [
+const columns: ColumnType[] = [
     {
         name: 'direction',
         label: 'In/Out',

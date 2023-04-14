@@ -8,6 +8,7 @@ import useWidth from '../hooks/useWidth'
 import Icon from '@mdi/react'
 import moment from '../../utils/helpers/moment'
 import { roundedToLocaleString } from '../../utils/currency-utils'
+import { IDetailsField, IField } from 'types/filesInComponents'
 
 export default function DetailsField({
     field,
@@ -20,18 +21,8 @@ export default function DetailsField({
     style,
     abbreviate,
     dataCy,
-}: {
-    field: string
-    value: string | number | object | Element | undefined
-    type: string
-    icon?: React.ReactElement
-    tooltip?: string
-    detailsLink?: string
-    allowCopy?: boolean
-    style?: React.CSSProperties
-    abbreviate?: boolean
-    dataCy?: string
-}) {
+}: IDetailsField) {
+    console.log(value)
     const getTooltip = (field: string): string | undefined => {
         if (Object.keys(tooltips).includes(field?.toLowerCase())) {
             return tooltips[field]
@@ -159,14 +150,7 @@ export const Field = ({
     abbreviate,
     field,
     dataCy,
-}: {
-    type: string
-    value: string | number | object | undefined
-    fontWeight?: string
-    abbreviate?: boolean
-    field?: string
-    dataCy?: string
-}) => {
+}: IField) => {
     const { isMobile } = useWidth()
     if (type === 'number') {
         return (

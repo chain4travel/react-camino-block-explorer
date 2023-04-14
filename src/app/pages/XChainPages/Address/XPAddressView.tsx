@@ -10,6 +10,7 @@ import { InputOutputSection } from './InputOutputSection'
 import { getBaseUrl, getChainID } from 'api/utils'
 import { xpTransactionApi } from 'utils/magellan-api-utils'
 import { getAddressFromUrl } from 'utils/route-utils'
+import { LoadsBlocksAndTransactions } from 'types/address'
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
     return {
@@ -26,16 +27,23 @@ export function createTransaction(magellanTransaction: MagellanXPTransaction) {
     }
 }
 
-export async function loadBlocksAndTransactions({ address, offset, limit, chainID }) {
-    return axios.get(
+export async function loadBlocksAndTransactions({
+    address,
+    offset,
+    limit,
+    chainID,
+}: LoadsBlocksAndTransactions) {
+    return await axios.get(
         `${getBaseUrl()}${xpTransactionApi}?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
     )
 }
 
-export async function loadTransactions(offset) {
+export async function loadTransactions(offset: LoadsBlocksAndTransactions) {
     let res = (await loadBlocksAndTransactions(offset)).data
     if (res.transactions && res.transactions.length > 0) {
-        let newItems = res.transactions.map(item => createTransaction(item))
+        let newItems = res.transactions.map((item: MagellanXPTransaction) =>
+            createTransaction(item),
+        )
         return newItems
     }
     return []

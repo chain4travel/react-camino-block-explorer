@@ -23,6 +23,7 @@ import { Grid, useTheme } from '@mui/material'
 import moment from 'moment'
 import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
 import '../../../../styles/scrollbarModal.css'
+import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
 
 const TooltipContainer = styled.div`
     display: flex;
@@ -39,15 +40,12 @@ const DateRangeContainer = styled.div`
         margin-right: 11rem;
     }
 `
-interface TextProps {
-    backgroundColor: string
-}
 
 const Text = styled('p')<TextProps>`
-    margin-left: 3rem !important;
-    margin-right: 1rem !important;
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-left: 3rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     background: ${({ backgroundColor }) => backgroundColor};
     padding: 0.5rem;
@@ -61,14 +59,14 @@ const BlockchainCharts = ({
     sliceGetterLoader,
     typeStatistic,
     tooltipTitle,
-}) => {
+}: ConsumptionCharts) => {
     const theme = useTheme()
 
     const isDark = theme.palette.mode === 'dark'
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
-    const [seeTimeAxis, setSeeTimeAxis] = useState<String>('month')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
     const [firstLoad, setFirstLoad] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
@@ -92,7 +90,7 @@ const BlockchainCharts = ({
         setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 
-    const dataStatistics: any = useAppSelector(sliceGetter)
+    const dataStatistics: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
     useEffect(() => {
@@ -254,6 +252,7 @@ const BlockchainCharts = ({
                                             setSeeTimeAxis={setSeeTimeAxis}
                                             disableFuture={false}
                                             seeTimeAxis={seeTimeAxis}
+                                            disableCurrentDay={false}
                                         />
                                     </DateRangeContainer>
                                     <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
