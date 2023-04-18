@@ -22,13 +22,13 @@ class ChartConfig {
     highestAndLowestInfo: {
         highestValue: string
         highestDate: string
-        lowerValue: string
-        lowerDate: string
+        lowestValue: string
+        lowestDate: string
     } = {
         highestValue: '',
         highestDate: '',
-        lowerValue: '',
-        lowerDate: '',
+        lowestValue: '',
+        lowestDate: '',
     }
     timeSeeAxis: string = ''
 
@@ -60,8 +60,8 @@ class ChartConfig {
                 this.highestAndLowestInfo = {
                     highestValue: dataChart.highestValue,
                     highestDate: dataChart.highestDate,
-                    lowerValue: dataChart.lowerValue,
-                    lowerDate: dataChart.lowerDate,
+                    lowestValue: dataChart.lowestValue,
+                    lowestDate: dataChart.lowestDate,
                 }
                 this.data = dataChart.txInfo
                 break

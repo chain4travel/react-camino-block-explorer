@@ -127,8 +127,8 @@ export type DailyTransactionsInfo = {
 export type DailyTransactions = {
     highestValue: number
     highestDate: string
-    lowerValue: number
-    lowerDate: string
+    lowestValue: number
+    lowestDate: string
     txInfo: DailyTransactionsInfo[]
 }
 

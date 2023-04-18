@@ -16,9 +16,7 @@ export const TextBlockchainDatachart = ({
     const isDark = theme.palette.mode === 'dark'
 
     const getLowestDate = () => {
-        if (dataStatistics.lowerDate !== null && dataStatistics.lowerDate !== undefined) {
-            return moment(dataStatistics.lowerDate).format('dddd, MMMM DD, YYYY')
-        } else if (dataStatistics.lowestDate !== null && dataStatistics.lowestDate !== undefined) {
+        if (dataStatistics.lowestDate !== null && dataStatistics.lowestDate !== undefined) {
             return moment(dataStatistics.lowestDate).format('dddd, MMMM DD, YYYY')
         } else {
             return ''
@@ -60,7 +58,7 @@ export const TextBlockchainDatachart = ({
                 <>
                     {typeStatistic === typeChartData.DAILY_TRANSACTIONS && (
                         <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                            Lowest number of {dataStatistics.lowerValue} transactions on <br />
+                            Lowest number of {dataStatistics.lowestValue} transactions on <br />
                             {`${getLowestDate()}`}
                         </Text>
                     )}
