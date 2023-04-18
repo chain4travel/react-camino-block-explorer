@@ -1,7 +1,7 @@
 import { typeChartData as typesStatistic } from '../../../../utils/statistics/ChartSelector'
 import {
     dailyTransactionsTooltip,
-    uniqueAddressesDailyIncreaseTooltip,
+    uniqueAddressesTooltip,
     dailyTokenTransferTooltip,
     gasUsedTooltip,
     activeAddressesTooltip,
@@ -22,13 +22,13 @@ class ChartConfig {
     highestAndLowestInfo: {
         highestValue: string
         highestDate: string
-        lowerValue: string
-        lowerDate: string
+        lowestValue: string
+        lowestDate: string
     } = {
         highestValue: '',
         highestDate: '',
-        lowerValue: '',
-        lowerDate: '',
+        lowestValue: '',
+        lowestDate: '',
     }
     timeSeeAxis: string = ''
 
@@ -60,8 +60,8 @@ class ChartConfig {
                 this.highestAndLowestInfo = {
                     highestValue: dataChart.highestValue,
                     highestDate: dataChart.highestDate,
-                    lowerValue: dataChart.lowerValue,
-                    lowerDate: dataChart.lowerDate,
+                    lowestValue: dataChart.lowestValue,
+                    lowestDate: dataChart.lowestDate,
                 }
                 this.data = dataChart.txInfo
                 break
@@ -214,7 +214,7 @@ class ChartConfig {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return dailyTransactionsTooltip(this.data[index])
             case typesStatistic.UNIQUE_ADRESSES:
-                return uniqueAddressesDailyIncreaseTooltip(this.data[index])
+                return uniqueAddressesTooltip(this.data[index])
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return dailyTokenTransferTooltip(this.data[index])
             case typesStatistic.GAS_USED:
@@ -242,8 +242,8 @@ class ChartConfig {
                 )
             case typesStatistic.UNIQUE_ADRESSES:
                 return this.data.map(
-                    (value: { dailyIncrease: string; dateAt: string }, index: number) => {
-                        return { y: value.dailyIncrease, name: value.dateAt }
+                    (value: { totalAddresses: string; dateAt: string }, index: number) => {
+                        return { y: value.totalAddresses, name: value.dateAt }
                     },
                 )
             case typesStatistic.DAILY_TOKEN_TRANSFER:

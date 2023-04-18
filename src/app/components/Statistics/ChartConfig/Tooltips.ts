@@ -18,8 +18,8 @@ export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
         <br/>
         <br/>
 
-        <b>Avg Block Time:</b>${data.avgBlockTime} TH<br/>
-        <b>Avg Block Size:</b>${data.avgBlockSize} GH<br/>
+        <b>Avg Block Time:</b>${data.avgBlockTime}<br/>
+        <b>Avg Block Size:</b>${data.avgBlockSize}<br/>
         <b>Total Block Count:</b>${data.totalBlockCount} <br/>
         <b>Total Uncles Count:</b>${data.totalUnclesCount} <br/>
         <b>New Adress Seen:</b>${data.newAddressSeen}
@@ -29,7 +29,7 @@ export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
 }
 
 //Unique Addresses
-export const uniqueAddressesDailyIncreaseTooltip = (data: AddressInfo) => {
+export const uniqueAddressesTooltip = (data: AddressInfo) => {
     const header = `<span>
         ${moment(data.dateAt, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
@@ -72,7 +72,7 @@ export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
     const header = `<span>
     ${moment(data.dateAt, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">Total Gas Used:</label> <b>${data.total}</b>]
+        [<label style="color: blue">Total Camino Addresses:</label> <b>${data.total}</b>]
         <br/>
         <br/>
         <b>Receive Count:</b>${data.receiveCount}<br/>
@@ -84,7 +84,7 @@ export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
 //Gas Average Price
 export const averageGasPriceTooltip = (
     data: GasAveragePriceInfo,
-    highestAndLowestInfo: { highestValue: string; lowerValue: string },
+    highestAndLowestInfo: { highestValue: string; lowestValue: string },
 ) => {
     const header = `<span>
     ${moment(data.date, 'YYYY-MM-DD').format('MMMM Do YYYY')}
@@ -93,7 +93,7 @@ export const averageGasPriceTooltip = (
         <br/>
         <br/>
         <b>Max gas price:</b>${highestAndLowestInfo.highestValue} Gwei<br/>
-        <b>Min gas price:</b>${highestAndLowestInfo.lowerValue} Gwei<br/>
+        <b>Min gas price:</b>${highestAndLowestInfo.lowestValue} Gwei<br/>
         </span>`
     return header
 }
@@ -113,7 +113,7 @@ export const averageBlockSizeTooltip = (data: AverageBlockSize) => {
     const header = `<span>
     ${moment(data.dateInfo, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">Gas (gWei):</label> <b>${data.blockSize}</b>]
+        [<label style="color: blue">Block Size (Bytes):</label> <b>${data.blockSize}</b>]
         <br/>`
     return header
 }
