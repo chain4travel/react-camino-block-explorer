@@ -38,6 +38,9 @@ export interface Emissions {
     highestValue?: string
     lowerValue?: string
     lowestValue?: string
+    highestDate?: string
+    lowerDate?: string
+    lowestDate?: string
 }
 
 export interface Value {
