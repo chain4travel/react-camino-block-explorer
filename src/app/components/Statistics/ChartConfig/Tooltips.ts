@@ -18,12 +18,8 @@ export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
         <br/>
         <br/>
 
-        <b>Avg Block Time:</b>${data.avgBlockTime}<br/>
         <b>Avg Block Size:</b>${data.avgBlockSize}<br/>
         <b>Total Block Count:</b>${data.totalBlockCount} <br/>
-        <b>Total Uncles Count:</b>${data.totalUnclesCount} <br/>
-        <b>New Adress Seen:</b>${data.newAddressSeen}
-        
         </span><br/>`
     return header
 }
