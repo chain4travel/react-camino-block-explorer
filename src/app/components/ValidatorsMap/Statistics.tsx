@@ -65,6 +65,7 @@ const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
         tooltip: {
             useHTML: true,
             formatter: function (obj: string) {
+                // eslint-disable-next-line
                 let objData: any = this
                 return '<b>' + objData.x + ':</b>' + objData.y
             },

@@ -11,8 +11,9 @@ import { getChainTypeFromUrl } from 'utils/route-utils'
 import { XPTransaction } from 'types/transaction'
 
 interface Props {
-    transaction: any
+    transaction: XPTransaction
 }
+// eslint-disable-next-line
 export type Ref = any
 
 const Transaction = React.forwardRef<Ref, Props>((props, ref) => {

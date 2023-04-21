@@ -11,6 +11,7 @@ import { getBaseUrl, getChainID } from 'api/utils'
 import { xpTransactionApi } from 'utils/magellan-api-utils'
 import { getAddressFromUrl } from 'utils/route-utils'
 import { LoadsBlocksAndTransactions } from 'types/address'
+import { Fund } from 'types/transaction'
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
     return {
@@ -33,7 +34,7 @@ export async function loadBlocksAndTransactions({
     limit,
     chainID,
 }: LoadsBlocksAndTransactions) {
-    return await axios.get(
+    return axios.get(
         `${getBaseUrl()}${xpTransactionApi}?chainID=${chainID}&offset=${offset}&limit=${limit}&sort=timestamp-desc&address=${address}`,
     )
 }
@@ -48,13 +49,20 @@ export async function loadTransactions(offset: LoadsBlocksAndTransactions) {
     }
     return []
 }
+type rowsType = {
+    id: string
+    type: string
+    timestamp: string
+    from: Fund[]
+    to: Fund[]
+}
 
 export default function XPAddressView({ chainType }: { chainType: ChainType }) {
     const tableEl = React.useRef<HTMLDivElement>(null)
     const [distanceBottom, setDistanceBottom] = React.useState(0)
     const [hasMore] = React.useState(true)
     const [loading, setLoading] = React.useState(false)
-    const [rows, setRows] = React.useState<any[]>([])
+    const [rows, setRows] = React.useState<rowsType[]>([])
     const location = useLocation()
 
     const CHAIN_ID = getChainID(getAddressFromUrl()[0].toLowerCase())

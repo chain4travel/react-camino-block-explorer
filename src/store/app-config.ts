@@ -31,7 +31,7 @@ interface chainArgs {
 }
 interface initialStateAppConfigType {
     activeNetwork?: { explorerUrl: string }
-    networks: any
+    networks: Network[]
     chains: chainArgs[]
     activeTheme: string
     status: Status

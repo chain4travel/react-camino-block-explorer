@@ -58,14 +58,19 @@ export default function XAddressDetail() {
         ).data
         const addressBalances: AddressBalance[] = []
         if (addressInfo && addressInfo.assets) {
-            Object.entries(addressInfo.assets).forEach(([key, value]: [key: any, value: any]) => {
-                addressBalances.push({
-                    id: key,
-                    balance: value.balance,
-                    name: assets.get(key)?.name || 'UNKNOWN',
-                    symbol: assets.get(key)?.symbol || 'UNKNOWN',
-                })
-            })
+            Object.entries(addressInfo.assets).forEach(
+                ([key, value]: [key: string, value: unknown]) => {
+                    if (typeof value === 'object' && value !== null && 'balance' in value) {
+                        const balance: number = (value as { balance: number }).balance
+                        addressBalances.push({
+                            id: key,
+                            balance,
+                            name: assets.get(key)?.name || 'UNKNOWN',
+                            symbol: assets.get(key)?.symbol || 'UNKNOWN',
+                        })
+                    }
+                },
+            )
             setBalance(addressBalances[0]?.balance)
             return addressBalances
         }

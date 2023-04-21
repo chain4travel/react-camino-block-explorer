@@ -29,7 +29,7 @@ const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) =
                     r={rValue / 2}
                     strokeOpacity="0.4"
                     cursor="pointer"
-                    onMouseOver={(e: any) => {
+                    onMouseOver={() => {
                         setOpen(true)
                         setChangeColor(true)
                     }}

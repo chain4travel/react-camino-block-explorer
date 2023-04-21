@@ -4,7 +4,7 @@ interface Opts {
     fallback: React.ReactNode
 }
 type Unpromisify<T> = T extends Promise<infer P> ? P : never
-
+// eslint-disable-next-line
 export const lazyLoad = <T extends Promise<any>, U extends React.ComponentType<any>>(
     importFunc: () => T,
     selectorFunc?: (s: Unpromisify<T>) => U,

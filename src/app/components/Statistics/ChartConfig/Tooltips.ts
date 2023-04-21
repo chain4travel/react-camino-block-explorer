@@ -84,7 +84,12 @@ export const activeAddressesTooltip = (data: ActiveAddresesInfo) => {
 //Gas Average Price
 export const averageGasPriceTooltip = (
     data: GasAveragePriceInfo,
-    highestAndLowestInfo: { highestValue: string; lowerValue: string },
+    highestAndLowestInfo: {
+        highestValue: number
+        highestDate: string
+        lowerValue: number
+        lowerDate: string
+    },
 ) => {
     const header = `<span>
     ${moment(data.date, 'YYYY-MM-DD').format('MMMM Do YYYY')}

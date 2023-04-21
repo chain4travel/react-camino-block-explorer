@@ -49,7 +49,7 @@ function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetail
                         <Grid item xs={12}>
                             <DetailsField
                                 field="Timestamp"
-                                value={detailTr ? detailTr['timestamp'].toString() : ''}
+                                value={detailTr ? detailTr.timestamp.toString() : ''}
                                 type="timestamp"
                                 tooltip="date"
                                 style={{ padding: '1rem' }}

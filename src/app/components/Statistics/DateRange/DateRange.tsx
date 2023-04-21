@@ -168,24 +168,30 @@ const DateRange = ({
         }
     }
 
-    const CustomInputMobile = forwardRef(({ value, onClick, label }: IDataRef, refMobile: any) => (
-        <CustomInputContainer style={{ cursor: 'default' }}>
-            <TextField
-                id="standard-basic"
-                label={label}
-                variant="outlined"
-                value={value}
-                ref={refMobile}
-                onClick={onClick}
-                color="secondary"
-                style={{ cursor: 'default', width: '80%' }}
-            />
-            <CalendarMonthIcon
-                onClick={onClick}
-                style={{ cursor: 'default', position: 'relative', top: 10 }}
-            />
-        </CustomInputContainer>
-    ))
+    const CustomInputMobile = forwardRef(
+        (
+            { value, onClick, label }: IDataRef,
+            // eslint-disable-next-line
+            refMobile: any,
+        ) => (
+            <CustomInputContainer style={{ cursor: 'default' }}>
+                <TextField
+                    id="standard-basic"
+                    label={label}
+                    variant="outlined"
+                    value={value}
+                    ref={refMobile}
+                    onClick={onClick}
+                    color="secondary"
+                    style={{ cursor: 'default', width: '80%' }}
+                />
+                <CalendarMonthIcon
+                    onClick={onClick}
+                    style={{ cursor: 'default', position: 'relative', top: 10 }}
+                />
+            </CustomInputContainer>
+        ),
+    )
 
     return (
         <Container>

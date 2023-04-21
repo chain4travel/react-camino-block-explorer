@@ -22,7 +22,6 @@ export default function DetailsField({
     abbreviate,
     dataCy,
 }: IDetailsField) {
-    console.log(value)
     const getTooltip = (field: string): string | undefined => {
         if (Object.keys(tooltips).includes(field?.toLowerCase())) {
             return tooltips[field]

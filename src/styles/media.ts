@@ -26,7 +26,14 @@ export const sizes = {
 
 // Iterate through the sizes and create a media template
 export const media = (Object.keys(sizes) as Array<keyof typeof sizes>).reduce((acc, label) => {
-    acc[label] = (first: any, ...interpolations: any[]) => css`
+    acc[label] = (
+        first:
+            | TemplateStringsArray
+            | CSSObject
+            // eslint-disable-next-line
+            | InterpolationFunction<ThemedStyledProps<any, DefaultTheme>>,
+        ...interpolations: Array<Interpolation<ThemedStyledProps<any, DefaultTheme>>>
+    ) => css`
         @media (min-width: ${sizes[label]}px) {
             ${css(first, ...interpolations)}
         }

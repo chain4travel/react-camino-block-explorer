@@ -45,11 +45,9 @@ function mapToTableDataMagelland(item: ValidatorReponse): ValidatorType {
 function sumNodesPerCountry(info: LocationNode[]): NodesPerCountry[] {
     let dataCountry: NodesPerCountry[] = []
     for (let i = 0; i < info.length; i++) {
-        if (dataCountry.some((dat: any) => dat.alpha2 === info[i].alpha2)) {
+        if (dataCountry.some(dat => dat.alpha2 === info[i].alpha2)) {
             let locationNode: LocationNode = info[i]
-            let indexDataCountry = dataCountry.findIndex(
-                (dat: any) => dat.alpha2 === info[i].alpha2,
-            )
+            let indexDataCountry = dataCountry.findIndex(dat => dat.alpha2 === info[i].alpha2)
             dataCountry[indexDataCountry].nodes.push(locationNode.nodeIdentity)
         } else {
             let nodePerCountry: NodesPerCountry = {
@@ -60,7 +58,7 @@ function sumNodesPerCountry(info: LocationNode[]): NodesPerCountry[] {
             dataCountry.push(nodePerCountry)
         }
     }
-    return sortBy(dataCountry, o => -o.nodes.length)
+    return sortBy(dataCountry, (o: NodesPerCountry) => -o.nodes.length)
 }
 
 function sumNodesPerCity(info: LocationNode[]): NodesPerCity[] {

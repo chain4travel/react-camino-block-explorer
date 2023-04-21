@@ -12,6 +12,7 @@ import PageContainer from 'app/components/PageContainer'
 import BlockDetailView from './BlockDetailView'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getBlockNumber } from 'utils/route-utils'
+import { CTransaction } from '../../../../types/transaction'
 
 const BlockDetails: FC = () => {
     const dispatch = useAppDispatch()
@@ -77,7 +78,7 @@ export default BlockDetails
 
 interface TransactionsViewProps {
     loading: Status
-    blockDetails: any
+    blockDetails: { transactions: CTransaction[] }
 }
 
 const TransactionsView: FC<TransactionsViewProps> = ({ loading, blockDetails }) => {

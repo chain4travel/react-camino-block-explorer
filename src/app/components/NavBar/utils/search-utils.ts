@@ -95,7 +95,7 @@ export async function mapToItem(
                 }
             }
         default:
-            console.log('Got unknown response type from search', +type)
+            console.info('Got unknown response type from search', +type)
             return undefined
     }
 }

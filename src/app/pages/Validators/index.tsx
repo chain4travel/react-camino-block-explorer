@@ -166,7 +166,7 @@ const Validators: FC = () => {
                                             <ZoomableGroup
                                                 center={[0, 40]}
                                                 zoom={zoomValue}
-                                                onMove={(e: any) => {
+                                                onMove={(e: { zoom: number }) => {
                                                     if (e.zoom <= 3) {
                                                         setSizeCircle(10)
                                                         setSizeStroke(7)
@@ -189,9 +189,7 @@ const Validators: FC = () => {
                                                 >
                                                     {({ geographies }) =>
                                                         geographies.map(
-                                                            (geo: {
-                                                                rsmKey: React.Key | null | undefined
-                                                            }) => (
+                                                            (geo: { rsmKey: React.Key }) => (
                                                                 <Geography
                                                                     key={geo.rsmKey}
                                                                     geography={geo}

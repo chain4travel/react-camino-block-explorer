@@ -252,7 +252,6 @@ const SearchResultMenu = ({ children }: { children?: React.ReactNode }) => {
 }
 
 const SearchResultMenuList = ({ menuItems }: { menuItems: SearchMenuItem[] }) => {
-    console.log(menuItems)
     const navigate = useNavigate()
     return (
         <MenuList>
