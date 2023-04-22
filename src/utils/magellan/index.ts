@@ -2,7 +2,24 @@ import { MagellanXPOutput, MagellanXPTransaction } from 'types/magellan-types'
 import { Fund, XPTransaction } from 'types/transaction'
 
 function sortByAddress(a: Fund, b: Fund): number {
-    return a.address.localeCompare(b.address)
+    try {
+        if (!a || !b) {
+            throw new Error('Both funds must be provided')
+        }
+
+        if (!a.address || !b.address) {
+            throw new Error('Both funds must have an address property')
+        }
+
+        if (typeof a.address !== 'string' || typeof b.address !== 'string') {
+            throw new Error('Both funds must have a string address property')
+        }
+
+        return a.address.localeCompare(b.address)
+    } catch (error: any) {
+        console.error(`Error in sortByAddress function: ${error.message}`)
+        return 0
+    }
 }
 
 export function convertMemo(memo: string): string {
