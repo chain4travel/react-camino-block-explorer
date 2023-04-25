@@ -1,6 +1,6 @@
 module.exports = {
     '*.{ts,tsx}': [
-        'eslint --ext ./src/**/*.{ts,tsx} --max-warnings=79',
+        'eslint --ext ./src/**/*.{ts,tsx}',
         'eslint',
         'prettier --write ./src/**/*.{js,jsx,ts,tsx}',
     ],

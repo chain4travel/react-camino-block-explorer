@@ -16,8 +16,10 @@ function sortByAddress(a: Fund, b: Fund): number {
         }
 
         return a.address.localeCompare(b.address)
-    } catch (error: any) {
-        console.error(`Error in sortByAddress function: ${error.message}`)
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(`Error in sortByAddress function: ${error.message}`)
+        }
         return 0
     }
 }

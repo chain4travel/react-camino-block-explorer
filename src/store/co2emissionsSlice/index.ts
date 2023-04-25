@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'store/configureStore'
 import { Status } from 'types'
-import { Emissions } from 'types/statistics'
+import { Emissions, EmissionsDataInitialState } from 'types/statistics'
 import {
     loadCountryEmissions,
     loadDailyEmissions,
@@ -9,21 +9,16 @@ import {
     loadTransactionsEmissions,
 } from './utils'
 
-let initialStateCO2Data = {
-    name: '',
-    value: [],
-}
-
-let initialState = {
-    dailyEmissions: initialStateCO2Data,
+let initialState: EmissionsDataInitialState = {
+    dailyEmissions: null,
     dailyEmissionsStatus: Status.IDLE,
-    networkEmissions: initialStateCO2Data,
+    networkEmissions: null,
     networkEmissionsStatus: Status.IDLE,
-    transactionsEmissions: initialStateCO2Data,
+    transactionsEmissions: null,
     transactionsEmissionsStatus: Status.IDLE,
     carbonIntensityFactor: {},
     carbonIntensityFactorStatus: Status.IDLE,
-    countryEmissions: initialStateCO2Data,
+    countryEmissions: null,
     countryEmissionsStatus: Status.IDLE,
 }
 
@@ -39,12 +34,10 @@ const co2EmissionsSlice = createSlice({
             state.dailyEmissionsStatus = Status.LOADING
         })
         builder.addCase(loadDailyEmissions.fulfilled, (state, { payload }) => {
-            let data: any = payload
-
-            if (data != null && data !== undefined) {
-                state.dailyEmissions = data
+            if (payload != null && payload !== undefined) {
+                state.dailyEmissions = payload
             } else {
-                state.dailyEmissions = initialStateCO2Data
+                state.dailyEmissions = null
             }
 
             state.dailyEmissionsStatus = Status.SUCCEEDED
@@ -58,12 +51,10 @@ const co2EmissionsSlice = createSlice({
             state.networkEmissionsStatus = Status.LOADING
         })
         builder.addCase(loadNetworkEmissions.fulfilled, (state, { payload }) => {
-            let data: any = payload
-
-            if (data != null && data !== undefined) {
-                state.networkEmissions = data
+            if (payload != null && payload !== undefined) {
+                state.networkEmissions = payload
             } else {
-                state.networkEmissions = initialStateCO2Data
+                state.networkEmissions = null
             }
 
             state.networkEmissionsStatus = Status.SUCCEEDED
@@ -77,12 +68,10 @@ const co2EmissionsSlice = createSlice({
             state.transactionsEmissionsStatus = Status.LOADING
         })
         builder.addCase(loadTransactionsEmissions.fulfilled, (state, { payload }) => {
-            let data: any = payload
-
-            if (data != null && data !== undefined) {
-                state.transactionsEmissions = data
+            if (payload != null && payload !== undefined) {
+                state.transactionsEmissions = payload
             } else {
-                state.transactionsEmissions = initialStateCO2Data
+                state.transactionsEmissions = null
             }
 
             state.transactionsEmissionsStatus = Status.SUCCEEDED
@@ -96,12 +85,10 @@ const co2EmissionsSlice = createSlice({
             state.countryEmissionsStatus = Status.LOADING
         })
         builder.addCase(loadCountryEmissions.fulfilled, (state, { payload }) => {
-            let data: any = payload
-
-            if (data != null && data !== undefined) {
-                state.countryEmissions = data
+            if (payload != null && payload !== undefined) {
+                state.countryEmissions = payload
             } else {
-                state.countryEmissions = initialStateCO2Data
+                state.countryEmissions = null
             }
 
             state.countryEmissionsStatus = Status.SUCCEEDED

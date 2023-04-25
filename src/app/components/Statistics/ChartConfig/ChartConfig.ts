@@ -13,55 +13,23 @@ import {
 import moment from 'moment'
 import { ethers } from 'ethers'
 import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
-interface AddressInfo {
-    totalAddresses: number
-    dateAt: string
-    dailyIncrease: number
-}
 
-interface IAddressData {
-    addressInfo: AddressInfo[]
-    highestDate: string
-    highestValue: number
-    lowestDate: string
-    lowestValue: number
-}
-
-interface ICounter {
-    counter: number
-    dateAt: string
-}
-
-interface MyTxInfo extends ICounter {
-    avgGas: number
-    date: string
-}
-
-interface ItxInfo {
-    highestValue: number
-    highestDate: string
-    lowerValue: number
-    lowerDate: string
-    txInfo: MyTxInfo[]
-}
-
-class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
+class ChartConfig {
     title: string
 
     categories: string[] = []
 
     typeChartData: string | undefined
 
-    // eslint-disable-next-line
-    data: any
+    data
 
     highestAndLowestInfo: {
-        highestValue: number
+        highestValue: string
         highestDate: string
         lowestValue: string
         lowestDate: string
     } = {
-        highestValue: 0,
+        highestValue: '',
         highestDate: '',
         lowestValue: '',
         lowestDate: '',
@@ -72,52 +40,36 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
     constructor(
         typeChartData: string | undefined,
         title: string,
-        dataChart: T,
+        // eslint-disable-next-line
+        dataChart: any,
         timeSeeAxis: string,
     ) {
         this.typeChartData = typeChartData
         this.title = title
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                if ('txInfo' in dataChart) {
-                    this.data = dataChart.txInfo
-                }
+                this.data = dataChart.txInfo
                 break
             case typesStatistic.UNIQUE_ADRESSES:
-                if ('addressInfo' in dataChart) {
-                    this.data = dataChart.addressInfo
-                }
+                this.data = dataChart.addressInfo
                 break
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 this.data = dataChart
                 break
             case typesStatistic.GAS_USED:
-                if ('txInfo' in dataChart) {
-                    this.data = dataChart.txInfo
-                }
+                this.data = dataChart.txInfo
                 break
             case typesStatistic.ACTIVE_ADDRESSES:
-                if ('addressInfo' in dataChart) {
-                    this.data = dataChart.addressInfo
-                }
+                this.data = dataChart.addressInfo
                 break
             case typesStatistic.GAS_AVERAGE_PRICE:
-                if ('txInfo' in dataChart) {
-                    this.data = dataChart.txInfo
+                this.highestAndLowestInfo = {
+                    highestValue: dataChart.highestValue,
+                    highestDate: dataChart.highestDate,
+                    lowestValue: dataChart.lowestValue,
+                    lowestDate: dataChart.lowestDate,
                 }
-                if (
-                    'highestValue' in dataChart &&
-                    'highestDate' in dataChart &&
-                    'lowerValue' in dataChart &&
-                    'lowerDate' in dataChart
-                ) {
-                    this.highestAndLowestInfo = {
-                        highestValue: dataChart.highestValue,
-                        highestDate: dataChart.highestDate,
-                        lowerValue: dataChart.lowerValue,
-                        lowerDate: dataChart.lowerDate,
-                    }
-                }
+                this.data = dataChart.txInfo
                 break
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 this.data = dataChart
@@ -136,41 +88,41 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
     public getCategories() {
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
-                return (this.data as MyTxInfo[]).map((value: MyTxInfo, index: number) =>
+                return this.data.map((value: { date: string }, index: number) =>
                     this.getCheckTimeCategories(value.date),
                 )
             case typesStatistic.UNIQUE_ADRESSES:
-                return (this.data as IAddressData).addressInfo.map(
-                    (value: AddressInfo, index: number) =>
-                        this.getCheckTimeCategories(value.dateAt),
+                return this.data.map((value: { dateAt: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateAt),
                 )
             case typesStatistic.GAS_USED:
-                return (this.data as MyTxInfo[]).map((value: MyTxInfo, index: number) =>
+                return this.data.map((value: { date: string }, index: number) =>
                     this.getCheckTimeCategories(value.date),
                 )
             case typesStatistic.ACTIVE_ADDRESSES:
-                return (this.data as IAddressData).addressInfo.map(
-                    (value: AddressInfo, index: number) =>
-                        this.getCheckTimeCategories(value.dateAt),
-                )
-            case typesStatistic.AVERAGE_BLOCK_SIZE:
-                return (this.data as ICounter[]).map((value: ICounter, index: number) =>
+                return this.data.map((value: { dateAt: string }, index: number) =>
                     this.getCheckTimeCategories(value.dateAt),
                 )
+            case typesStatistic.AVERAGE_BLOCK_SIZE:
+                return this.data.map((value: { dateInfo: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateInfo),
+                )
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return (this.data as MyTxInfo[]).map((value: MyTxInfo, index: number) =>
+                return this.data.map((value: { date: string }, index: number) =>
                     this.getCheckTimeCategories(value.date),
                 )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return (this.data as MyTxInfo[]).map((value: MyTxInfo, index: number) =>
-                    this.getCheckTimeCategories(value.date),
+                return this.data.map((value: { dateAt: string }, index: number) =>
+                    this.getCheckTimeCategories(value.dateAt),
                 )
             case typesStatistic.CO2_EMISSIONS:
-                return (this.data as ItxInfo).txInfo.map((value: MyTxInfo, index: number) =>
-                    this.getCheckTimeCategories(value.date),
+                return this.data.map((value: { time: string }, index: number) =>
+                    this.getCheckTimeCategories(value.time),
                 )
             default:
-                return []
+                return this.data.map((value: { Date: string }, index: number) =>
+                    this.getCheckTimeCategories(value.Date),
+                )
         }
     }
 
@@ -187,49 +139,46 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
         let highestDate: Date = new Date('2000/01/01')
 
         for (let i = 0; i < this.data.length; i++) {
-            let data
-            if (this.data[i]) {
-                switch (this.typeChartData) {
-                    case typesStatistic.DAILY_TRANSACTIONS:
-                        data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.UNIQUE_ADRESSES:
-                        data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.DAILY_TOKEN_TRANSFER:
-                        data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.GAS_USED:
-                        data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.ACTIVE_ADDRESSES:
-                        data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.GAS_AVERAGE_PRICE:
-                        data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.GAS_AVERAGE_LIMIT:
-                        data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.AVERAGE_BLOCK_SIZE:
-                        data = moment(this.data[i].dateInfo, 'YYYY-MM-DD').toDate()
-                        break
-                    case typesStatistic.CO2_EMISSIONS:
-                        data = moment(this.data[i].time, 'YYYY-MM-DD').toDate()
-                        break
-                    default:
-                        data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
-                        break
-                }
+            let data: Date
+            switch (this.typeChartData) {
+                case typesStatistic.DAILY_TRANSACTIONS:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.UNIQUE_ADRESSES:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.DAILY_TOKEN_TRANSFER:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_USED:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.ACTIVE_ADDRESSES:
+                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_AVERAGE_PRICE:
+                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.GAS_AVERAGE_LIMIT:
+                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.AVERAGE_BLOCK_SIZE:
+                    data = moment(this.data[i].dateInfo, 'YYYY-MM-DD').toDate()
+                    break
+                case typesStatistic.CO2_EMISSIONS:
+                    data = moment(this.data[i].time, 'YYYY-MM-DD').toDate()
+                    break
+                default:
+                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
+                    break
             }
-            if (data !== undefined && data < lowestDate) {
+            if (data < lowestDate) {
                 lowestDate = data
             }
-            if (data !== undefined && data > highestDate) {
+            if (data > highestDate) {
                 highestDate = data
             }
         }
-
         if (
             highestDate.getDate() === lowestDate.getDate() &&
             highestDate.getMonth() === lowestDate.getMonth() &&
@@ -293,7 +242,7 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
         switch (this.typeChartData) {
             case typesStatistic.DAILY_TRANSACTIONS:
                 return this.data.map(
-                    (value: { totalTransactions: string; date: string }, _index: number) => {
+                    (value: { totalTransactions: string; date: string }, index: number) => {
                         return { y: value.totalTransactions, name: value.date }
                     },
                 )
@@ -305,11 +254,7 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
                 )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
                 return this.data.map(
-                    (
-                        // eslint-disable-next-line
-                        value: { counter: { toString: () => ethers.BigNumberish }; dateAt: any },
-                        _index: any,
-                    ) => {
+                    (value: { counter: { toString: () => ethers.BigNumberish }; dateAt: Date }) => {
                         let convertedCounter = parseFloat(
                             ethers.formatEther(value.counter.toString()),
                         ).toFixed(3)
@@ -317,26 +262,26 @@ class ChartConfig<T extends ICounter[] | IAddressData | ItxInfo> {
                     },
                 )
             case typesStatistic.GAS_USED:
-                return this.data.map((value: { avgGas: string; date: string }, _index: number) => {
+                return this.data.map((value: { avgGas: string; date: string }, index: number) => {
                     return { y: value.avgGas, name: value.date }
                 })
             case typesStatistic.ACTIVE_ADDRESSES:
-                return this.data.map((value: { total: string; dateAt: string }, _index: number) => {
+                return this.data.map((value: { total: string; dateAt: string }, index: number) => {
                     return { y: value.total, name: value.dateAt }
                 })
             case typesStatistic.GAS_AVERAGE_PRICE:
-                return this.data.map((value: { avgGas: string; date: string }, _index: number) => {
+                return this.data.map((value: { avgGas: string; date: string }, index: number) => {
                     return { y: value.avgGas, name: value.date }
                 })
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 return this.data.map(
-                    (value: { AverageGasLimit: string; Date: string }, _index: number) => {
+                    (value: { AverageGasLimit: string; Date: string }, index: number) => {
                         return { y: value.AverageGasLimit, name: value.Date }
                     },
                 )
             case typesStatistic.AVERAGE_BLOCK_SIZE:
                 return this.data.map(
-                    (value: { blockSize: string; dateInfo: string }, _index: number) => {
+                    (value: { blockSize: string; dateInfo: string }, index: number) => {
                         return { y: value.blockSize, name: value.dateInfo }
                     },
                 )

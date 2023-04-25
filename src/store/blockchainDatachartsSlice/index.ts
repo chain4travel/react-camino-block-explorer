@@ -11,8 +11,9 @@ import {
     loadGasAverageLimit,
     loadAverageBlockSize,
 } from './utils'
+import { BlockchainDataInitialState } from 'types/statistics'
 
-let initialState: any = {
+let initialState: BlockchainDataInitialState = {
     transactionsPerDay: null,
     transactionsPerDayLoading: Status.IDLE,
     uniqueAddressesInfo: null,
@@ -43,8 +44,7 @@ const blockchainDataChartsSlice = createSlice({
             state.transactionsPerDayLoading = Status.LOADING
         })
         builder.addCase(loadDailyTransactionsStatistics.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.transactionsPerDay = data
+            state.transactionsPerDay = payload
             state.transactionsPerDayLoading = Status.SUCCEEDED
         })
         builder.addCase(loadDailyTransactionsStatistics.rejected, state => {
@@ -56,8 +56,7 @@ const blockchainDataChartsSlice = createSlice({
             state.uniqueAddressesInfoLoading = Status.LOADING
         })
         builder.addCase(loadUniqueAddresses.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.uniqueAddressesInfo = data
+            state.uniqueAddressesInfo = payload
             state.uniqueAddressesInfoLoading = Status.SUCCEEDED
         })
         builder.addCase(loadUniqueAddresses.rejected, state => {
@@ -69,8 +68,7 @@ const blockchainDataChartsSlice = createSlice({
             state.dailyTokenTransfersLoading = Status.LOADING
         })
         builder.addCase(loadDailyTokenTransfer.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.dailyTokenTransfers = data
+            state.dailyTokenTransfers = payload
             state.dailyTokenTransfersLoading = Status.SUCCEEDED
         })
         builder.addCase(loadDailyTokenTransfer.rejected, state => {
@@ -82,8 +80,7 @@ const blockchainDataChartsSlice = createSlice({
             state.gasUsedLoading = Status.LOADING
         })
         builder.addCase(loadGasUsed.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.gasUsed = data
+            state.gasUsed = payload
             state.gasUsedLoading = Status.SUCCEEDED
         })
         builder.addCase(loadGasUsed.rejected, state => {
@@ -95,8 +92,7 @@ const blockchainDataChartsSlice = createSlice({
             state.activeAdressesLoading = Status.LOADING
         })
         builder.addCase(loadActiveAddresses.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.activeAdresses = data
+            state.activeAdresses = payload
             state.activeAdressesLoading = Status.SUCCEEDED
         })
         builder.addCase(loadActiveAddresses.rejected, state => {
@@ -107,8 +103,7 @@ const blockchainDataChartsSlice = createSlice({
             state.gasAveragePriceLoading = Status.LOADING
         })
         builder.addCase(loadGasAveragePrice.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.gasAveragePrice = data
+            state.gasAveragePrice = payload
             state.gasAveragePriceLoading = Status.SUCCEEDED
         })
         builder.addCase(loadGasAveragePrice.rejected, state => {
@@ -119,8 +114,7 @@ const blockchainDataChartsSlice = createSlice({
             state.gasAverageLimitLoading = Status.LOADING
         })
         builder.addCase(loadGasAverageLimit.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.gasAverageLimit = data
+            state.gasAverageLimit = payload
             state.gasAverageLimitLoading = Status.SUCCEEDED
         })
         builder.addCase(loadGasAverageLimit.rejected, state => {
@@ -132,8 +126,7 @@ const blockchainDataChartsSlice = createSlice({
             state.averageBlockSizeLoading = Status.LOADING
         })
         builder.addCase(loadAverageBlockSize.fulfilled, (state, { payload }) => {
-            let data: any = payload
-            state.averageBlockSize = data
+            state.averageBlockSize = payload
             state.averageBlockSizeLoading = Status.SUCCEEDED
         })
         builder.addCase(loadAverageBlockSize.rejected, state => {

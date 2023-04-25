@@ -145,10 +145,43 @@ export interface IBlockChainDataChart {
     startDate?: Date
     endDate: Date
     dataStatistics: Emissions
-    Text: StyledComponent<'p', TextProps, never>
+    // eslint-disable-next-line
+    Text: StyledComponent<'p', any, TextProps, never>
     isDescriptionOfHighest: boolean
 }
 
 export interface TextProps {
     backgroundColor: string
+}
+
+export interface BlockchainDataInitialState {
+    activeAdresses: null | unknown
+    activeAdressesLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    averageBlockSize: null | unknown
+    averageBlockSizeLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    dailyTokenTransfers: null | unknown
+    dailyTokenTransfersLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    gasAverageLimit: null | unknown
+    gasAverageLimitLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    gasAveragePrice: null | unknown
+    gasAveragePriceLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    gasUsed: null | unknown
+    gasUsedLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    transactionsPerDay: null | unknown
+    transactionsPerDayLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+    uniqueAddressesInfo: null | unknown
+    uniqueAddressesInfoLoading: 'idle' | 'loading' | 'succeeded' | 'failed'
+}
+
+export interface EmissionsDataInitialState {
+    carbonIntensityFactor: Record<string, unknown>
+    carbonIntensityFactorStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+    countryEmissions: null | unknown
+    countryEmissionsStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+    dailyEmissions: null | unknown
+    dailyEmissionsStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+    networkEmissions: null | unknown
+    networkEmissionsStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+    transactionsEmissions: null | unknown
+    transactionsEmissionsStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
 }

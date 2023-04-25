@@ -16,7 +16,7 @@
         "max-len": 0,
         "no-alert": 0,
         "no-shadow": 0,
-        "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+        "no-console": ["error", { "allow": ["warn", "error", "info"] }],
         "no-plusplus": 0,
         "react/jsx-key": 2,
         "no-unused-vars": 0,
@@ -38,8 +38,8 @@
         "import/prefer-default-export": 0,
         "react/destructuring-assignment": 0,
         "react/jsx-one-expression-per-line": 0,
-        "@typescript-eslint/no-explicit-any": ["warn", { "ignoreRestArgs": true }],
-        "@typescript-eslint/naming-convention": ["warn",
+        "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
+        "@typescript-eslint/naming-convention": ["error",
         {
             "selector": "variable",
             "format": ["camelCase", "PascalCase", "UPPER_CASE"],
@@ -52,7 +52,7 @@
         "eqeqeq": 0,
         "object-curly-spacing": [1, "always"],
         "@typescript-eslint/no-unused-vars": [
-          "warn",
+          "error",
           {
             "vars": "all",
             "args": "none",

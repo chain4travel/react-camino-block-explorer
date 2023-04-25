@@ -52,7 +52,6 @@ import { typesMeter } from '../../../utils/statistics/ChartSelector'
 import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils'
 import '../../../styles/datacharts.css'
 import { FilterDates } from 'types/statistics'
-import { Filter } from 'ethers'
 
 const Statistics: FC = () => {
     const theme = useTheme()
