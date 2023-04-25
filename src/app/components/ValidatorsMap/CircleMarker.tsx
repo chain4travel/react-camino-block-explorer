@@ -6,7 +6,26 @@ import Popper, { PopperPlacementType } from '@mui/material/Popper'
 import Fade from '@mui/material/Fade'
 import Paper from '@mui/material/Paper'
 
-const CircleMarker = ({ country, lng, lat, rValue, city, sValue, nodes }: any) => {
+interface nodes {
+    value: string
+}
+const CircleMarker = ({
+    country,
+    lng,
+    lat,
+    rValue,
+    city,
+    sValue,
+    nodes,
+}: {
+    country: string
+    lng: string
+    lat: string
+    rValue: number
+    city: string
+    sValue: number
+    nodes: nodes[]
+}) => {
     let cityNodes = nodes
     const [changeColor, setChangeColor] = useState(false)
     const anchorEl = useRef(null)

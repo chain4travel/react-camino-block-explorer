@@ -32,6 +32,7 @@ export const media = (Object.keys(sizes) as Array<keyof typeof sizes>).reduce((a
             | CSSObject
             // eslint-disable-next-line
             | InterpolationFunction<ThemedStyledProps<any, DefaultTheme>>,
+        // eslint-disable-next-line
         ...interpolations: Array<Interpolation<ThemedStyledProps<any, DefaultTheme>>>
     ) => css`
         @media (min-width: ${sizes[label]}px) {
