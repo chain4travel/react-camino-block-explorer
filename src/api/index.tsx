@@ -357,8 +357,8 @@ export const fetchBlockchainChartDailyTransactions = (dates: FilterDates) => {
                 resolve({
                     highestValue: 0,
                     highestDate: '',
-                    lowerValue: 0,
-                    lowerDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
                     txInfo: [],
                 })
             })
@@ -413,8 +413,8 @@ export const fetchBlockchainDailyGasUsed = (dates: FilterDates) => {
                 resolve({
                     highestValue: 0,
                     highestDate: '',
-                    lowerValue: 0,
-                    lowerDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
                     txInfo: [],
                 })
             })
@@ -491,8 +491,8 @@ export const fetchBlockchainAverageGasPriceUsed = (dates: FilterDates) => {
                 resolve({
                     highestValue: 0,
                     highestDate: '',
-                    lowerValue: 0,
-                    lowerDate: '',
+                    lowestValue: 0,
+                    lowestDate: '',
                     txInfo: [],
                 })
             })

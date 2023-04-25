@@ -6,7 +6,7 @@ export interface GasAveragePriceInfo {
 export interface GasAveragePrice {
     highestValue: number
     highestDate: string
-    lowerValue: number
-    lowerDate: string
+    lowestValue: number
+    lowestDate: string
     txInfo: GasAveragePriceInfo[]
 }
