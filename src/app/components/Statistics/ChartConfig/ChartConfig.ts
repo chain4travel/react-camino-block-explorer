@@ -11,7 +11,6 @@ import {
     co2EmissionsTooltip,
 } from './Tooltips'
 import moment from 'moment'
-import { ethers } from 'ethers'
 import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
 
 class ChartConfig {
@@ -247,17 +246,9 @@ class ChartConfig {
                     },
                 )
             case typesStatistic.DAILY_TOKEN_TRANSFER:
-                return this.data.map(
-                    (
-                        value: { counter: { toString: () => ethers.BigNumberish }; dateAt: any },
-                        index: any,
-                    ) => {
-                        let convertedCounter = parseFloat(
-                            ethers.formatEther(value.counter.toString()),
-                        ).toFixed(3)
-                        return { y: parseInt(convertedCounter), name: value.dateAt }
-                    },
-                )
+                return this.data.map((value: { counter: number; dateAt: string }, index: any) => {
+                    return { y: value.counter, name: value.dateAt }
+                })
             case typesStatistic.GAS_USED:
                 return this.data.map((value: { avgGas: string; date: string }, index: number) => {
                     return { y: value.avgGas, name: value.date }
