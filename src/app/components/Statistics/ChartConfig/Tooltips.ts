@@ -7,7 +7,6 @@ import { ActiveAddresesInfo } from '../../../../types/activeAddresses'
 import { GasAveragePriceInfo } from '../../../../types/gasAveragePrice'
 import { GasAverageLimit } from '../../../../types/gasAverageLimit'
 import { AverageBlockSize } from '../../../../types/averageBlockSize'
-import { ethers } from 'ethers'
 
 //Transactions
 export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
@@ -44,11 +43,7 @@ export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
     const header = `<span>
     ${moment(data.dateAt, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">Total Token Transfer:</label> <b>${parseFloat(
-            ethers.formatEther(data.counter.toString()),
-        )
-            .toFixed(3)
-            .toString()} CAM</b>]
+        [<label style="color: blue">Total Token Transfer:</label> <b>${data.counter.toString()} CAM</b>]
         </span>`
     return header
 }
