@@ -8,7 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import 'react-datepicker/dist/react-datepicker.css'
 import useWidth from '../../../hooks/useWidth'
 import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material'
-import { seeTimeAxis as typeSeeTimeAxis } from '../DateRange/SeeTimeAxis'
+import { seeTimeAxis as typeSeeTimeAxis } from '../ChartConfig/SeeTimeAxis'
 import { IDataRef, IDateRange } from 'types/statistics'
 
 const PickerContainer = styled.div`
