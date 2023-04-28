@@ -3,11 +3,7 @@ import { typeChartData } from './ChartSelector'
 import { useTheme } from '@mui/material'
 import moment from 'moment'
 import { IBlockChainDataChart } from 'types/statistics'
-import {
-    seeTimeAxis,
-    verifyRangeTime,
-    verifyDataChart,
-} from '../../app/components/Statistics/ChartConfig/SeeTimeAxis'
+import { seeTimeAxis } from '../../app/components/Statistics/ChartConfig/SeeTimeAxis'
 
 export const TextBlockchainDatachart = ({
     typeStatistic,
@@ -52,13 +48,33 @@ export const TextBlockchainDatachart = ({
                 case seeTimeAxis.all:
                     return moment(dateString).format('YYYY')
                 case seeTimeAxis.custom:
-                    return moment(dateString).format('YYYY')
+                    return validateCustomDateText(dateString)
                 default:
                     return defaultStringDate
             }
         } catch (e) {
             console.error('Text Chart Error:', e)
             return dateString
+        }
+    }
+
+    function validateCustomDateText(dateString: string): string {
+        try {
+            let monthsBetween =
+                moment(endDate).toDate().getMonth() - moment(startDate).toDate().getMonth()
+
+            let yearsBetween =
+                moment(endDate).toDate().getFullYear() - moment(startDate).toDate().getFullYear()
+
+            if ((monthsBetween >= 1 || monthsBetween < 0) && yearsBetween === 0) {
+                return moment(dateString).format('MMMM, YYYY')
+            } else if (yearsBetween > 0) {
+                return moment(dateString).format('YYYY')
+            } else {
+                return moment(dateString).format('dddd, MMMM DD, YYYY')
+            }
+        } catch (e) {
+            return moment(dateString).format('YYYY')
         }
     }
 

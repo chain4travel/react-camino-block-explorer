@@ -76,38 +76,3 @@ export function verifyRangeTime(typeChartData: string | undefined, dataChart: an
         return 'month'
     }
 }
-
-export function verifyDataChart(typeChartData: string | undefined, dataChart: any) {
-    let data: any[] = []
-    switch (typeChartData) {
-        case typesStatistic.DAILY_TRANSACTIONS:
-            data = dataChart.txInfo
-            return data
-        case typesStatistic.UNIQUE_ADRESSES:
-            data = dataChart.addressInfo
-            return data
-        case typesStatistic.DAILY_TOKEN_TRANSFER:
-            data = dataChart
-            return data
-        case typesStatistic.GAS_USED:
-            data = dataChart.txInfo
-            return data
-        case typesStatistic.ACTIVE_ADDRESSES:
-            data = dataChart.addressInfo
-            return data
-        case typesStatistic.GAS_AVERAGE_PRICE:
-            data = dataChart.txInfo
-            return data
-        case typesStatistic.GAS_AVERAGE_LIMIT:
-            data = dataChart
-            return data
-        case typesStatistic.AVERAGE_BLOCK_SIZE:
-            data = dataChart
-            return data
-        case typesStatistic.CO2_EMISSIONS:
-            data = dataChart
-            return data
-        default:
-            return data
-    }
-}
