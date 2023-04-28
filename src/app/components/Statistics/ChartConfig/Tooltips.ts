@@ -80,7 +80,7 @@ export const averageGasPriceTooltip = (
     const header = `<span>
     ${moment(data.date, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">Average gas price:</label> <b>${data.avgGas} Gwei</b>]
+        [<label style="color: blue">Average gas price:</label> <b>${data.avgGas / 1000000000} Gwei</b>]
         <br/>
         <br/>
         <b>Max gas price:</b>${highestAndLowestInfo.highestValue} Gwei<br/>
