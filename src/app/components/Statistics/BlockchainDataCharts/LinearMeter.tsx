@@ -17,6 +17,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }: 
                     },
                 },
                 chart: {
+                    zoomType: 'x',
                     backgroundColor: 'rgba(0,0,0,0)',
                 },
                 credits: {
@@ -75,6 +76,37 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }: 
                             },
                         },
                     },
+                    area: {
+                        color: '#41547C',
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1,
+                            },
+                            stops: [
+                                [0, '#41547C'],
+                                [
+                                    1,
+                                    // @ts-ignore:next-line
+                                    Highcharts.color(Highcharts.getOptions().colors[0])
+                                        .setOpacity(0)
+                                        .get('rgba'),
+                                ],
+                            ],
+                        },
+                        marker: {
+                            radius: 2,
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1,
+                            },
+                        },
+                        threshold: null,
+                    },
                 },
                 tooltip: {
                     formatter: function (this: Highcharts.TooltipFormatterContextObject) {
@@ -84,6 +116,7 @@ const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }: 
                 },
                 series: [
                     {
+                        type: 'area',
                         name: titleText,
                         data: config.getMappedSeries(),
                         color: 'hsl(221, 48%, 75%)',
