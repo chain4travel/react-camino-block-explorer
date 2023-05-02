@@ -26,6 +26,7 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }: Meter
                 },
             },
             yAxis: {
+                gridLineColor: darkMode ? 'hsl(221, 0%, 20%)' : 'hsl(221, 0%, 80%)',
                 title: {
                     text: 'gCO2',
                     style: {
@@ -56,6 +57,14 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }: Meter
             },
             legend: {
                 enabled: false,
+                align: 'center',
+                verticalAlign: 'bottom',
+                itemStyle: {
+                    color: darkMode ? 'white' : 'black',
+                },
+                itemHoverStyle: {
+                    color: darkMode ? 'white' : 'black',
+                },
             },
             plotOptions: {
                 area: {
@@ -89,6 +98,18 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }: Meter
                     },
                     threshold: null,
                 },
+                series: {
+                    label: {
+                        connectorAllowed: false,
+                    },
+                    marker: {
+                        states: {
+                            hover: {
+                                radius: 3,
+                            },
+                        },
+                    },
+                },
             },
             credits: {
                 enabled: false,
@@ -106,8 +127,25 @@ const TimeSeriesMeter = ({ dataSeries, darkMode, titleText, seeTimeAxis }: Meter
                     type: 'area',
                     name: 'CO2',
                     data: config.getMappedSeries(),
+                    color: 'hsl(221, 48%, 75%)',
                 },
             ],
+            responsive: {
+                rules: [
+                    {
+                        condition: {
+                            maxWidth: 500,
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom',
+                            },
+                        },
+                    },
+                ],
+            },
         }
 
         return (
