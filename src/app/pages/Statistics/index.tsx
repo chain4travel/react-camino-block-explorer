@@ -144,7 +144,7 @@ const Statistics: FC = () => {
                             <BlockchainCharts
                                 tooltipTitle="The Camino Average Gas Price Chart shows the daily average gas price, including the gas unit and gas tip used of the Camino Network."
                                 darkMode={dark}
-                                titleText={'Average gas price'}
+                                titleText={'Average gas price (Gweis)'}
                                 utilSlice={(dates: Date) => loadGasAveragePrice(dates)}
                                 sliceGetter={getGasAveragePrice}
                                 sliceGetterLoader={getGasAveragePriceInfo}

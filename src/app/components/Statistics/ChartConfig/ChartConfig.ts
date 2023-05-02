@@ -191,7 +191,7 @@ class ChartConfig {
                 })
             case typesStatistic.GAS_AVERAGE_PRICE:
                 return this.data.map((value: { avgGas: string; date: string }, index: number) => {
-                    return { y: value.avgGas, name: value.date }
+                    return { y: parseInt(value.avgGas)/1000000000, name: value.date }
                 })
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 return this.data.map(
