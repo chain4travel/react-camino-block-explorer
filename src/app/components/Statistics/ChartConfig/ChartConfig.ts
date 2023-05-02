@@ -11,7 +11,7 @@ import {
     co2EmissionsTooltip,
 } from './Tooltips'
 import moment from 'moment'
-import { seeTimeAxis } from '../DateRange/SeeTimeAxis'
+import { seeTimeAxis, verifyRangeTime } from './SeeTimeAxis'
 
 class ChartConfig {
     title: string
@@ -121,77 +121,9 @@ class ChartConfig {
 
     private checkRangeTimeString(timeSeeAxis: string) {
         if (timeSeeAxis === 'custom') {
-            this.timeSeeAxis = this.verifyRangeTime()
+            this.timeSeeAxis = verifyRangeTime(this.typeChartData, this.data)
         } else {
             this.timeSeeAxis = timeSeeAxis
-        }
-    }
-
-    private verifyRangeTime() {
-        let lowestDate: Date = new Date('2099/12/31')
-        let highestDate: Date = new Date('2000/01/01')
-
-        for (let i = 0; i < this.data.length; i++) {
-            let data: Date
-            switch (this.typeChartData) {
-                case typesStatistic.DAILY_TRANSACTIONS:
-                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.UNIQUE_ADRESSES:
-                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.DAILY_TOKEN_TRANSFER:
-                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.GAS_USED:
-                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.ACTIVE_ADDRESSES:
-                    data = moment(this.data[i].dateAt, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.GAS_AVERAGE_PRICE:
-                    data = moment(this.data[i].date, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.GAS_AVERAGE_LIMIT:
-                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.AVERAGE_BLOCK_SIZE:
-                    data = moment(this.data[i].dateInfo, 'YYYY-MM-DD').toDate()
-                    break
-                case typesStatistic.CO2_EMISSIONS:
-                    data = moment(this.data[i].time, 'YYYY-MM-DD').toDate()
-                    break
-                default:
-                    data = moment(this.data[i].Date, 'YYYY-MM-DD').toDate()
-                    break
-            }
-            if (data < lowestDate) {
-                lowestDate = data
-            }
-            if (data > highestDate) {
-                highestDate = data
-            }
-        }
-        if (
-            highestDate.getDate() === lowestDate.getDate() &&
-            highestDate.getMonth() === lowestDate.getMonth() &&
-            highestDate.getFullYear() === lowestDate.getFullYear()
-        ) {
-            return 'day'
-        } else if (
-            highestDate.getMonth() === lowestDate.getMonth() &&
-            highestDate.getFullYear() === lowestDate.getFullYear()
-        ) {
-            return 'month'
-        } else if (
-            highestDate.getMonth() !== lowestDate.getMonth() &&
-            highestDate.getFullYear() === lowestDate.getFullYear()
-        ) {
-            return 'year'
-        } else if (highestDate.getFullYear() !== lowestDate.getFullYear()) {
-            return 'all'
-        } else {
-            return 'month'
         }
     }
 

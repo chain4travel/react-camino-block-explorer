@@ -3,6 +3,7 @@ import { typeChartData } from './ChartSelector'
 import { useTheme } from '@mui/material'
 import moment from 'moment'
 import { IBlockChainDataChart } from 'types/statistics'
+import { seeTimeAxis } from '../../app/components/Statistics/ChartConfig/SeeTimeAxis'
 
 export const TextBlockchainDatachart = ({
     typeStatistic,
@@ -11,13 +12,15 @@ export const TextBlockchainDatachart = ({
     dataStatistics,
     Text,
     isDescriptionOfHighest,
+    timeSeeAxis,
 }: IBlockChainDataChart) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
 
     const getLowestDate = () => {
         if (dataStatistics.lowestDate !== null && dataStatistics.lowestDate !== undefined) {
-            return moment(dataStatistics.lowestDate).format('dddd, MMMM DD, YYYY')
+            let dateString = validateTypeTimeFilter(dataStatistics.lowestDate)
+            return dateString
         } else {
             return ''
         }
@@ -25,9 +28,53 @@ export const TextBlockchainDatachart = ({
 
     const getHighestDate = () => {
         if (dataStatistics.highestDate != null && dataStatistics.highestDate !== undefined) {
-            return moment(dataStatistics.highestDate).format('dddd, MMMM DD, YYYY')
+            let dateString = validateTypeTimeFilter(dataStatistics.highestDate)
+            return dateString
         } else {
             return ''
+        }
+    }
+
+    function validateTypeTimeFilter(dateString: string): string {
+        try {
+            let defaultStringDate = moment(dateString).format('dddd, MMMM DD, YYYY')
+            switch (timeSeeAxis) {
+                case seeTimeAxis.day:
+                    return defaultStringDate
+                case seeTimeAxis.month:
+                    return defaultStringDate
+                case seeTimeAxis.year:
+                    return moment(dateString).format('MMMM, YYYY')
+                case seeTimeAxis.all:
+                    return moment(dateString).format('YYYY')
+                case seeTimeAxis.custom:
+                    return validateCustomDateText(dateString)
+                default:
+                    return defaultStringDate
+            }
+        } catch (e) {
+            console.error('Text Chart Error:', e)
+            return dateString
+        }
+    }
+
+    function validateCustomDateText(dateString: string): string {
+        try {
+            let monthsBetween =
+                moment(endDate).toDate().getMonth() - moment(startDate).toDate().getMonth()
+
+            let yearsBetween =
+                moment(endDate).toDate().getFullYear() - moment(startDate).toDate().getFullYear()
+
+            if ((monthsBetween >= 1 || monthsBetween < 0) && yearsBetween === 0) {
+                return moment(dateString).format('MMMM, YYYY')
+            } else if (yearsBetween > 0) {
+                return moment(dateString).format('YYYY')
+            } else {
+                return moment(dateString).format('dddd, MMMM DD, YYYY')
+            }
+        } catch (e) {
+            return moment(dateString).format('YYYY')
         }
     }
 

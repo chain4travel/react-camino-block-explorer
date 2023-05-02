@@ -144,9 +144,10 @@ export interface IBlockChainDataChart {
     typeStatistic?: string
     startDate?: Date
     endDate: Date
-    dataStatistics: Emissions
+    dataStatistics: any
     Text: StyledComponent<'p', any, TextProps, never>
     isDescriptionOfHighest: boolean
+    timeSeeAxis?: string
 }
 
 export interface TextProps {

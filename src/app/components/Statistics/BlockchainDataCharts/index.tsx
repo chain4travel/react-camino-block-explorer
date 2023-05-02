@@ -229,6 +229,7 @@ const BlockchainCharts = ({
                                                 startDate={startDate}
                                                 typeStatistic={typeStatistic}
                                                 isDescriptionOfHighest={true}
+                                                timeSeeAxis={seeTimeAxis}
                                             />
                                         </Grid>
                                         <Grid item xs={12} md={6}>
@@ -239,6 +240,7 @@ const BlockchainCharts = ({
                                                 startDate={startDate}
                                                 typeStatistic={typeStatistic}
                                                 isDescriptionOfHighest={false}
+                                                timeSeeAxis={seeTimeAxis}
                                             />
                                         </Grid>
                                     </Grid>
