@@ -1,9 +1,12 @@
+import { ChainType } from './types/chain-type'
 import { Amount } from './types/currency-type'
 import BigNumber from 'bignumber.js'
 
 const conversionACamPerCam = 1000000000000000000
 
 const conversionACamPerNCam = 1000000000
+
+const conversionNCamPerCam = 1000000000
 
 export const ACAM_CAM_CONVERSION_THRESHHOLD = 1000000000000000
 
@@ -27,6 +30,12 @@ export function nCamToACam(nCam: number) {
     return value.dividedBy(converter).toNumber()
 }
 
+export function nCamToCam(nCam: number) {
+    let value = new BigNumber(nCam)
+    let converter = new BigNumber(conversionNCamPerCam)
+    return value.dividedBy(converter).toNumber()
+}
+
 export function getDisplayValueForGewi(nCamVal: number): string {
     let value = new BigNumber(nCamVal)
     let converter = new BigNumber(conversionACamPerNCam)
@@ -38,9 +47,15 @@ export function getDisplayValue(aCam: number): string {
     return formatAmount(amount.value, amount.currency)
 }
 
-export function getACamAmount(value: number, currency: string): number {
+export function getACamAmount(value: number, currency: string, chainType: string): number {
     if (currency.toLowerCase() === 'cam') {
-        return new BigNumber(value).multipliedBy(new BigNumber(conversionACamPerCam)).toNumber()
+        return new BigNumber(value)
+            .multipliedBy(
+                new BigNumber(
+                    chainType === ChainType.C_CHAIN ? conversionACamPerCam : conversionACamPerNCam,
+                ),
+            )
+            .toNumber()
     } else if (currency.toLowerCase() === 'ncam') {
         return new BigNumber(value).multipliedBy(new BigNumber(conversionACamPerNCam)).toNumber()
     } else {
@@ -48,19 +63,27 @@ export function getACamAmount(value: number, currency: string): number {
     }
 }
 
-export function getDisplayAmount(aCam: number): Amount {
-    if (aCam === 0 || aCam >= ACAM_CAM_CONVERSION_THRESHHOLD) {
+export function getDisplayAmount(aCam: number, chainType?: string): Amount {
+    if (chainType === ChainType.C_CHAIN) {
+        if (aCam === 0 || aCam >= ACAM_CAM_CONVERSION_THRESHHOLD) {
+            return {
+                value: aCamToCam(aCam),
+                currency: 'CAM',
+                currencyIcon: 'img:/images/camino-coin-logo.png',
+            }
+        }
+        if (aCam >= ACAM_NCAM_CONVERSION_THRESHHOLD) {
+            return {
+                value: aCamToNCam(aCam),
+                currency: 'nCAM',
+                currencyIcon: 'img:/images/camino-ncam-coin-logo.png',
+            }
+        }
+    } else if (aCam === 0 || aCam >= ACAM_NCAM_CONVERSION_THRESHHOLD) {
         return {
-            value: aCamToCam(aCam),
+            value: nCamToCam(aCam),
             currency: 'CAM',
             currencyIcon: 'img:/images/camino-coin-logo.png',
-        }
-    }
-    if (aCam >= ACAM_NCAM_CONVERSION_THRESHHOLD) {
-        return {
-            value: aCamToNCam(aCam),
-            currency: 'nCAM',
-            currencyIcon: 'img:/images/camino-ncam-coin-logo.png',
         }
     }
     return {

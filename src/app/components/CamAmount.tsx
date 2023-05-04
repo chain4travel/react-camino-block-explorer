@@ -11,6 +11,7 @@ import {
     roundedToLocaleString,
 } from '../../utils/currency-utils'
 import { ICamAmount } from 'types/filesInComponents'
+import { useLocation } from 'react-router-dom'
 
 export function AmountIcon({ currency }: { currency: string }) {
     return (
@@ -29,10 +30,13 @@ export function CamAmount({
     dataCy,
     type,
 }: ICamAmount) {
-    const tooltipAmount = customToLocaleString(getDisplayAmount(amount).value, 20, false)
-    const tooltipCurrency = getDisplayAmount(getACamAmount(amount, currency)).currency
+    const chainType = useLocation().pathname.split('/')[2]
+    const tooltipAmount = customToLocaleString(getDisplayAmount(amount, chainType).value, 20, false)
+    const tooltipCurrency = getDisplayAmount(
+        getACamAmount(amount, currency, chainType),
+        chainType,
+    ).currency
     const tooltipText = `${tooltipAmount} ${tooltipCurrency}`
-
     const getDataCYAmount = () => {
         let strDataCY = 'cam-amount'
         if (type !== undefined && type != null) {
@@ -58,17 +62,25 @@ export function CamAmount({
                     sx={{ whiteSpace: 'nowrap' }}
                 >
                     {roundedToLocaleString(
-                        getDisplayAmount(amount).value,
+                        getDisplayAmount(amount, chainType).value,
                         abbreviate ? 4 : 20,
                         abbreviate,
                     )}
                 </Typography>
-                <AmountIcon currency={getDisplayAmount(getACamAmount(amount, currency)).currency} />
+                <AmountIcon
+                    currency={
+                        getDisplayAmount(getACamAmount(amount, currency, chainType), chainType)
+                            .currency
+                    }
+                />
                 <Typography
                     variant="caption"
                     sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
                 >
-                    {getDisplayAmount(getACamAmount(amount, currency)).currency}
+                    {
+                        getDisplayAmount(getACamAmount(amount, currency, chainType), chainType)
+                            .currency
+                    }
                 </Typography>
             </Box>
         </AmountTooltip>
