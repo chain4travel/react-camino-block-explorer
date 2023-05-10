@@ -2,11 +2,11 @@ import { ChainType } from './types/chain-type'
 import { Amount } from './types/currency-type'
 import BigNumber from 'bignumber.js'
 
-const conversionACamPerCam = 1000000000000000000
+export const conversionACamPerCam = 1000000000000000000
 
-const conversionACamPerNCam = 1000000000
+export const conversionACamPerNCam = 1000000000
 
-const conversionNCamPerCam = 1000000000
+export const conversionNCamPerCam = 1000000000
 
 export const ACAM_CAM_CONVERSION_THRESHHOLD = 1000000000000000
 
