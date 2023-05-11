@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import { Grid } from '@mui/material'
 import { Status } from 'types'
-import { getDisplayValueForGewi, customToLocaleString } from 'utils/currency-utils'
+import { customToLocaleString } from 'utils/currency-utils'
+import { getOverviewValueForGewi } from 'utils/overview-utils'
 import OverviewCard from './OverviewCard'
 import { useNavigate } from 'react-router-dom'
 import { VALIDATORS } from 'utils/route-paths'
@@ -50,7 +51,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
             <Grid item xs={12} lg={4}>
                 <OverviewCard
                     title="Total Gas Fees"
-                    value={getDisplayValueForGewi(totalGasFees)}
+                    value={getOverviewValueForGewi(totalGasFees)}
                     loading={gasFeesLoading}
                 />
             </Grid>
