@@ -57,7 +57,8 @@ export default function CopyButton({
                         onClose={handleClose}
                         TransitionComponent={transition}
                         key={transition ? transition.name : ''}
-                        autoHideDuration={1500}
+                        autoHideDuration={5000}
+                        sx={{ top: { xs: '74px !important', md: '84px !important' } }}
                     >
                         <Alert severity="success" sx={{ borderRadius: '12px' }}>
                             Copied to clipboard
@@ -90,7 +91,8 @@ export default function CopyButton({
                         onClose={handleClose}
                         TransitionComponent={transition}
                         key={transition ? transition.name : ''}
-                        autoHideDuration={1500}
+                        autoHideDuration={5000}
+                        sx={{ top: { xs: '74px !important', md: '84px !important' } }}
                     >
                         <Alert severity="success" sx={{ borderRadius: '12px' }}>
                             Copied to clipboard
