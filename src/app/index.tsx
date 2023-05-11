@@ -26,7 +26,7 @@ export function App() {
                 <Route path={`${BASE_PATH}`} element={<MainLayout />}>
                     <Route
                         path={`${BASE_PATH}`}
-                        element={<Navigate to={`${BASE_PATH}/c-chain`} />}
+                        element={<Navigate replace={true} to={`${BASE_PATH}/c-chain`} />}
                     />
                     <Route path="c-chain">
                         <Route index element={<CChainPage />} />
