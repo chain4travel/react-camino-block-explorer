@@ -142,18 +142,6 @@ const Statistics: FC = () => {
                         </Grid>
                         <Grid item md={6} xs={12}>
                             <BlockchainCharts
-                                tooltipTitle="The Camino Average Gas Price Chart shows the daily average gas price, including the gas unit and gas tip used of the Camino Network."
-                                darkMode={dark}
-                                titleText={'Average gas price (Gweis)'}
-                                utilSlice={(dates: Date) => loadGasAveragePrice(dates)}
-                                sliceGetter={getGasAveragePrice}
-                                sliceGetterLoader={getGasAveragePriceInfo}
-                                typeStatistic={typeChartData.GAS_AVERAGE_PRICE}
-                            />
-                        </Grid>
-
-                        <Grid item md={6} xs={12}>
-                            <BlockchainCharts
                                 tooltipTitle="The chart shows the number of Camino tokens transferred daily."
                                 darkMode={dark}
                                 titleText={'Daily Token Transfer'}
