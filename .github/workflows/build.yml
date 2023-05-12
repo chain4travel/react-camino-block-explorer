@@ -1,12 +1,13 @@
 name: build explorer
 
 on:
-  workflow_dispatch:
-  push:    
+  workflow_dispatch: 
   pull_request:
     branches:
         - c4t
         - dev
+        - suite
+        - suite-c4t
 
 env:
   node_version: 16
