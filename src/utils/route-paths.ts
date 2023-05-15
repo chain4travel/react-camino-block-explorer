@@ -1,4 +1,6 @@
-export const BASE_PATH = '/explorer'
+export const BASE_NETWORK = localStorage.getItem('network-name-min')
+
+export const BASE_PATH = '/explorer' + '/' + BASE_NETWORK
 
 export const CCHAIN = BASE_PATH + '/c-chain'
 
