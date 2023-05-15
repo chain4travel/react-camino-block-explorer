@@ -12,6 +12,8 @@ import {
 } from './Tooltips'
 import moment from 'moment'
 import { seeTimeAxis, verifyRangeTime } from './SeeTimeAxis'
+import { ChainType } from 'utils/types/chain-type'
+import { getDisplayAmount } from 'utils/currency-utils'
 
 class ChartConfig {
     title: string
@@ -183,7 +185,7 @@ class ChartConfig {
                 })
             case typesStatistic.GAS_USED:
                 return this.data.map((value: { avgGas: string; date: string }, index: number) => {
-                    return { y: value.avgGas, name: value.date }
+                    return { y: getDisplayAmount(parseInt(value.avgGas), ChainType.C_CHAIN).value, name: value.date }
                 })
             case typesStatistic.ACTIVE_ADDRESSES:
                 return this.data.map((value: { total: string; dateAt: string }, index: number) => {
