@@ -19,7 +19,7 @@ import {
 import { fetchTransactionDetails } from 'store/cchainSlice/utils'
 import { useAppDispatch, useAppSelector } from 'store/configureStore'
 import { Grid, Paper, useTheme, Box, Button } from '@mui/material'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Status } from 'types'
 import { mdiTransfer } from '@mdi/js'
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
@@ -32,11 +32,10 @@ import Icon from '@mdi/react'
 import TransactionDetailView from './TransactionDetailView'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getTransactionFromUrl } from 'utils/route-utils'
-import { ITransactionDetails } from 'types/transaction'
+import RoundButton from 'app/components/RoundButton'
 
 const TransactionDetails: FC = () => {
     const theme = useTheme()
-    const location = useLocation()
     const detailTr = useAppSelector(getCTransactionInformations)
     const detailCr = useAppSelector(getCTransactionCurrency)
 
@@ -63,7 +62,7 @@ const TransactionDetails: FC = () => {
             dispatch(resetLoadingStatusForNPTransactions())
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location])
+    }, [])
 
     useEffect(() => {
         if (detailTr && getNPStatus === Status.IDLE) {
@@ -195,23 +194,3 @@ const TransactionDetails: FC = () => {
 }
 
 export default TransactionDetails
-
-const RoundButton = ({ sx, children, disabled, onClick, ...props }: ITransactionDetails) => {
-    return (
-        <Button
-            disableRipple
-            sx={{
-                color: 'white',
-                borderColor: 'secondary.main',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderRadius: '100%',
-                minWidth: 'min-content',
-                ...sx,
-            }}
-            {...props}
-        >
-            {children}
-        </Button>
-    )
-}
