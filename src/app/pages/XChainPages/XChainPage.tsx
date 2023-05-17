@@ -46,7 +46,7 @@ export default function XChainPage() {
                 transactionsLoading={transactionsLoading}
                 validatorsLoading={validatorsLoading}
             />
-            <XPTransactionList ShowAllLink={XTRANSACTIONS}>
+            <XPTransactionList ShowAllLink={routesConfig.XTRANSACTIONS}>
                 <LoadingWrapper loading={status} failedLoadingMsg="Failed to load transactions">
                     {transactions?.map((transaction: XPTransaction, index: number) => (
                         <XPItemDivider index={index} max={transactions.length - 1} key={index}>
