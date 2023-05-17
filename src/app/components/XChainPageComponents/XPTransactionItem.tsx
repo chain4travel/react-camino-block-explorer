@@ -7,7 +7,7 @@ import RelativeTime from 'app/components/RelativeTime'
 import AddressLink from '../AddressLink'
 import BlockTxIcon from './BlockTxIcon'
 import useWidth from 'app/hooks/useWidth'
-import { BASE_PATH, ADDRESS, TRANSACTION } from '../../../utils/route-paths'
+import { RoutesConfig } from '../../../utils/route-paths'
 import {
     IXPTransactionFirstSection,
     IXPTransactionSecondSection,
@@ -21,6 +21,7 @@ export default function XPTransactionItem({
     chainType: ChainType
     data: XPTransaction
 }) {
+    const routesConfig = RoutesConfig()
     return (
         <Grid container columnSpacing={{ md: 2 }} rowSpacing={{ xs: 2, md: 0 }}>
             <Grid container item xs={12} md={4}>
@@ -28,7 +29,7 @@ export default function XPTransactionItem({
                     id={data.id}
                     timestamp={data.timestamp}
                     type={data.type}
-                    to={`${BASE_PATH}/${chainType}${TRANSACTION}/${data.id}`}
+                    to={`${routesConfig.BASE_PATH}/${chainType}${routesConfig.TRANSACTION}/${data.id}`}
                 />
             </Grid>
             <Grid container item xs={12} md={8} columnSpacing={2}>
@@ -87,6 +88,7 @@ const XPTransactionSecondSection = ({
     data,
     chainType,
 }: IXPTransactionSecondSection) => {
+    const routesConfig = RoutesConfig()
     const { isMobile } = useWidth()
     const dataLeft = data.length - 5
     return (
@@ -100,10 +102,9 @@ const XPTransactionSecondSection = ({
                         <Grid container style={{ padding: '0rem 0rem .5rem 0rem' }} key={index}>
                             <Grid item xs={12} sm={6} xl={7}>
                                 <AddressLink
-                                    to={`${BASE_PATH}/${chainType}${ADDRESS}/${getAddressLink(
-                                        chainType,
-                                        tx.address,
-                                    )}`}
+                                    to={`${routesConfig.BASE_PATH}/${chainType}${
+                                        routesConfig.ADDRESS
+                                    }/${getAddressLink(chainType, tx.address)}`}
                                     value={tx.address}
                                     typographyVariant="body1"
                                     truncate={true}

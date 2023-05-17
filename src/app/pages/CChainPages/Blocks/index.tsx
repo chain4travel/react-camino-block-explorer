@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Grid, Paper, TableContainer, TableCellProps, Box, LinearProgress } from '@mui/material'
 import { useInfiniteQuery } from 'react-query'
 import { getBlocksPage } from 'api'
-import { CCHAIN } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import PageContainer from 'app/components/PageContainer'
 import Block from './Block'
 import TableView from 'app/components/Table/TableView'
@@ -11,6 +11,8 @@ import SubPageTitle from 'app/components/SubPageTitle'
 import { BlockTableData } from 'types/block'
 
 const Blocks: FC = () => {
+
+    const routesConfig = RoutesConfig()
     const intObserver = React.useRef<IntersectionObserver | null>(null)
     const { isDesktop, isWidescreen } = useWidth()
 
@@ -71,7 +73,7 @@ const Blocks: FC = () => {
                     alignItems="center"
                     sx={{ width: 1, gap: '20px' }}
                 >
-                    <SubPageTitle title="C-Blocks" backToLink={CCHAIN} />
+                    <SubPageTitle title="C-Blocks" backToLink={routesConfig.CCHAIN} />
                     {status === 'success' && data && (
                         <TableContainer sx={{ height: '750px' }}>
                             {isWidescreen || isDesktop ? (

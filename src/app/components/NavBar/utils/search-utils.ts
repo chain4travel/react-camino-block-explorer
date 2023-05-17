@@ -7,9 +7,9 @@ import {
     MagellanAddressResponse,
 } from 'types/magellan-types'
 import {
-    getBlockDetailsPath,
-    getAddressDetailsPath,
-    getTransactionDetailsPath,
+    GetBlockDetailsPath,
+    GetAddressDetailsPath,
+    GetTransactionDetailsPath,
 } from 'utils/route-utils'
 import { ChainType } from 'utils/types/chain-type'
 import { getChainID } from 'api/utils'
@@ -28,7 +28,7 @@ export async function mapToItem(
             return {
                 label: cBlockData.hash,
                 type: type,
-                link: getBlockDetailsPath(ChainType.C_CHAIN, cBlockData.number),
+                link: GetBlockDetailsPath(ChainType.C_CHAIN, cBlockData.number),
                 avatar: 'CB',
                 avatarColor: 'searchResultItem.bg_CB',
             }
@@ -37,7 +37,7 @@ export async function mapToItem(
             return {
                 label: cAddressData.hash,
                 type: type,
-                link: getAddressDetailsPath(ChainType.C_CHAIN, cAddressData.hash),
+                link: GetAddressDetailsPath(ChainType.C_CHAIN, cAddressData.hash),
                 avatar: 'AD',
                 avatarColor: 'searchResultItem.bg_AD',
             }
@@ -47,7 +47,7 @@ export async function mapToItem(
             return {
                 label: cTransaction.hash,
                 type: type,
-                link: getTransactionDetailsPath(ChainType.C_CHAIN, cTransaction.hash),
+                link: GetTransactionDetailsPath(ChainType.C_CHAIN, cTransaction.hash),
                 avatar: 'CT',
                 avatarColor: 'searchResultItem.bg_CT',
             }
@@ -59,11 +59,11 @@ export async function mapToItem(
             let avatarColor = ''
             const actualChainId = xpTransaction.chainID
             if (actualChainId === (await getChainID('p'))) {
-                detailsLink = getTransactionDetailsPath(ChainType.P_CHAIN, xpTransaction.id)
+                detailsLink = GetTransactionDetailsPath(ChainType.P_CHAIN, xpTransaction.id)
                 avatar = 'PT'
                 avatarColor = 'searchResultItem.bg_PT'
             } else {
-                detailsLink = getTransactionDetailsPath(ChainType.X_CHAIN, xpTransaction.id)
+                detailsLink = GetTransactionDetailsPath(ChainType.X_CHAIN, xpTransaction.id)
                 avatar = 'XT'
                 avatarColor = 'searchResultItem.bg_XT'
             }
@@ -81,7 +81,7 @@ export async function mapToItem(
                 return {
                     label: `P-${xpAddressData.address}`,
                     type: type,
-                    link: getAddressDetailsPath(ChainType.P_CHAIN, `P-${xpAddressData.address}`),
+                    link: GetAddressDetailsPath(ChainType.P_CHAIN, `P-${xpAddressData.address}`),
                     avatar: 'AD',
                     avatarColor: 'searchResultItem.bg_PAD',
                 }
@@ -89,7 +89,7 @@ export async function mapToItem(
                 return {
                     label: `X-${xpAddressData.address}`,
                     type: type,
-                    link: getAddressDetailsPath(ChainType.X_CHAIN, `X-${xpAddressData.address}`),
+                    link: GetAddressDetailsPath(ChainType.X_CHAIN, `X-${xpAddressData.address}`),
                     avatar: 'AD',
                     avatarColor: 'searchResultItem.bg_XAD',
                 }

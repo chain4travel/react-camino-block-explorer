@@ -3,7 +3,7 @@ import { Box, Typography, Grid } from '@mui/material'
 import { mdiTransfer } from '@mdi/js'
 import { CamAmount } from '../../../../components/CamAmount'
 import { CTransaction } from 'types/transaction'
-import { CADDRESS, CTRANSACTION } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import Icon from '@mdi/react'
 import AddressLink from '../../../../components/AddressLink'
 import RelativeTime from '../../../../components/RelativeTime'
@@ -15,6 +15,8 @@ interface TransactionItemProps {
 
 const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
     const { isMobile, isTablet, isDesktop } = useWidth()
+    const routesConfig = RoutesConfig()
+    
     return (
         <Grid
             container
@@ -45,7 +47,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
             )}
             <Grid item xs={12} md={4} lg={2.5} xl={3} justifyContent="flex-start">
                 <AddressLink
-                    to={`${CTRANSACTION}/${transaction.hash}`}
+                    to={`${routesConfig.CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
@@ -60,7 +62,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                     </Grid>
                     <Grid item xs={10} md={8}>
                         <AddressLink
-                            to={`${CADDRESS}/${transaction.from}`}
+                            to={`${routesConfig.CADDRESS}/${transaction.from}`}
                             value={transaction.from}
                             typographyVariant="body1"
                             truncate={true}
@@ -74,7 +76,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                     </Grid>
                     <Grid item xs={10} md={8}>
                         <AddressLink
-                            to={`${CADDRESS}/${transaction.to}`}
+                            to={`${routesConfig.CADDRESS}/${transaction.to}`}
                             value={transaction.to}
                             typographyVariant="body1"
                             truncate={true}

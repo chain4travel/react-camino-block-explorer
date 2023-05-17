@@ -13,7 +13,7 @@ import { ChainType } from 'utils/types/chain-type'
 import { mdiFileDocumentOutline } from '@mdi/js'
 import { getBaseUrl } from 'api/utils'
 import { addressesApi, assetsApi } from 'utils/magellan-api-utils'
-import { BASE_PATH } from '../../../../utils/route-paths'
+import { RoutesConfig } from '../../../../utils/route-paths'
 import { getChainTypeFromUrl, getAddressFromUrl } from 'utils/route-utils'
 
 const tabOptions = [
@@ -44,6 +44,7 @@ export interface AddressBalance {
 }
 
 export default function XAddressDetail() {
+    const routesConfig = RoutesConfig()
     // getting the address from the url by getting what comes after the last slash
     const address = getAddressFromUrl()
     const chainType = getChainTypeFromUrl() as ChainType
@@ -92,7 +93,10 @@ export default function XAddressDetail() {
             pageTitle={getChainPageTitle(chainType)}
             metaContent={`chain-overview ${chainType}`}
         >
-            <SubPageTitle title="Address Detail" backToLink={BASE_PATH + '/' + chainType} />
+            <SubPageTitle
+                title="Address Detail"
+                backToLink={routesConfig.BASE_PATH + '/' + chainType}
+            />
             <CopyTitleCard
                 label="Address"
                 value={address}

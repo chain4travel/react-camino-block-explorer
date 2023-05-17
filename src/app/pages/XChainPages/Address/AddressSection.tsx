@@ -3,16 +3,17 @@ import { Grid, Box, Chip } from '@mui/material'
 import AddressLink from 'app/components/AddressLink'
 import moment from 'utils/helpers/moment'
 import { getAddressFromUrl } from 'utils/route-utils'
-import { BASE_PATH, TRANSACTION } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { IAddress } from 'types/address'
 
 export const AddressSection = ({ type, timestamp, id, chainType }: IAddress) => {
+    const routesConfig = RoutesConfig()
     return (
         <>
             <Grid container item xs={12} lg={6} alignItems="center" justifyContent="center">
                 <Grid item xs={12}>
                     <AddressLink
-                        to={`${BASE_PATH}/${chainType}${TRANSACTION}/${id}`}
+                        to={`${routesConfig.BASE_PATH}/${chainType}${routesConfig.TRANSACTION}/${id}`}
                         value={id}
                         typographyVariant="subtitle1"
                         truncate={true}

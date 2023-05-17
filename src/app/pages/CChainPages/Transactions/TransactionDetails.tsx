@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Status } from 'types'
 import { mdiTransfer } from '@mdi/js'
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
-import { CCHAIN, CTRANSACTION } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import PageContainer from 'app/components/PageContainer'
 import BackButton from 'app/components/BackButton'
 import OutlinedContainer from 'app/components/OutlinedContainer'
@@ -35,6 +35,7 @@ import { getTransactionFromUrl } from 'utils/route-utils'
 import { ITransactionDetails } from 'types/transaction'
 
 const TransactionDetails: FC = () => {
+    const routesConfig = RoutesConfig()
     const theme = useTheme()
     const location = useLocation()
     const detailTr = useAppSelector(getCTransactionInformations)
@@ -105,7 +106,7 @@ const TransactionDetails: FC = () => {
                 }}
             >
                 <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-                    <SubPageTitle title="C-Chain Transaction" backToLink={CCHAIN}>
+                    <SubPageTitle title="C-Chain Transaction" backToLink={routesConfig.CCHAIN}>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -186,7 +187,7 @@ const TransactionDetails: FC = () => {
                 </Grid>
                 {(detailTr || detailCr) && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                        <BackButton backToLink={CCHAIN} />
+                        <BackButton backToLink={routesConfig.CCHAIN} />
                     </Box>
                 )}
             </Paper>

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'store/configureStore'
 import { fetchCBlockDetail } from 'store/cchainSlice/utils'
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice'
-import { CCHAIN } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { Status } from 'types'
 import LoadingWrapper from 'app/components/LoadingWrapper'
 import TransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList/TransactionsList'
@@ -14,6 +14,7 @@ import SubPageTitle from 'app/components/SubPageTitle'
 import { getBlockNumber } from 'utils/route-utils'
 
 const BlockDetails: FC = () => {
+    const routesConfig = RoutesConfig()
     const dispatch = useAppDispatch()
     const location = useLocation()
     const blockDetails = useAppSelector(getCBlockDetail)
@@ -51,7 +52,10 @@ const BlockDetails: FC = () => {
                             gap: '20px',
                         }}
                     >
-                        <SubPageTitle title={`Block ${getBlockNumber()}`} backToLink={CCHAIN} />
+                        <SubPageTitle
+                            title={`Block ${getBlockNumber()}`}
+                            backToLink={routesConfig.CCHAIN}
+                        />
                         <Box
                             sx={{
                                 display: 'flex',

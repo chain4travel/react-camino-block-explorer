@@ -6,7 +6,7 @@ import ContentCopySharpIcon from '@mui/icons-material/ContentCopySharp'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import LaunchSharpIcon from '@mui/icons-material/LaunchSharp'
 import BlockTxIcon from '../XChainPageComponents/BlockTxIcon'
-import { CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { IRowContainer } from 'types/rowDetailsContainer'
 
 function getNameFromType(type: string): string {
@@ -97,6 +97,8 @@ function checkHash(type: string): boolean {
 }
 
 export function RowContainer({ theme, head, type, content, parent }: IRowContainer) {
+
+    const routesConfig = RoutesConfig()
     const isMobile = useMediaQuery('@media (max-width:899px)')
     return (
         <Grid
@@ -199,7 +201,7 @@ export function RowContainer({ theme, head, type, content, parent }: IRowContain
                         {(type === 'parentHash' || type === 'block') && (
                             <Link
                                 style={{ textDecoration: 'none' }}
-                                to={`${CBLOCKS}/${parent}`}
+                                to={`${routesConfig.CBLOCKS}/${parent}`}
                                 replace={true}
                                 rel="noopener noreferrer"
                             >
