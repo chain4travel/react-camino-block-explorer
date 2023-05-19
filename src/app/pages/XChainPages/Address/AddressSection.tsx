@@ -1,3 +1,4 @@
+import React from 'react'
 import { Grid, Box, Chip } from '@mui/material'
 import AddressLink from 'app/components/AddressLink'
 import moment from 'utils/helpers/moment'
