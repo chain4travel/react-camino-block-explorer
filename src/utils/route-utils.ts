@@ -55,7 +55,7 @@ export function getBlockNumber(): string {
 }
 
 export function getChainTypeFromUrl(): ChainType {
-    const chainType = window.location.pathname.split('/')[2]
+    const chainType = window.location.pathname.split('/')[3]
 
     if (chainType === ChainType.X_CHAIN) {
         return ChainType.X_CHAIN
