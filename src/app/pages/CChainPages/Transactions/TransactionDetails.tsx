@@ -84,7 +84,7 @@ const TransactionDetails: FC = () => {
             nextPrevTX[currentIndex] &&
             getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash
         )
-            navigate(`${CTRANSACTION}/${nextPrevTX[currentIndex]?.hash}`)
+            navigate(`${routesConfig.CTRANSACTION}/${nextPrevTX[currentIndex]?.hash}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
 
