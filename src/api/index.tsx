@@ -126,10 +126,12 @@ export async function loadCAddressTransactions({
                             : `Failed-${parseInt(transaction.status)}`,
                     timestamp: parseInt(transaction.timestamp) * 1000,
                     to: transaction.to,
-                    value: parseInt(transaction.value),
-                    transactionCost: BigNumber(transaction.gasUsed)
-                        .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                        .toNumber(),
+                    value: getDisplayAmount(parseInt(transaction.value)).value,
+                    transactionCost: getDisplayAmount(
+                        BigNumber(transaction.gasUsed)
+                            .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                            .toNumber(),
+                    ).value,
                     direction: transaction.from === address ? 'out' : 'in',
                 }
             })
@@ -205,10 +207,12 @@ export const fetchBlocksTransactionsCChain = async (): Promise<loadBlocksTransac
                                 : `Failed-${parseInt(element.status)}`,
                         timestamp: parseInt(element.timestamp) * 1000,
                         to: element.to,
-                        value: parseInt(element.value),
-                        transactionCost: BigNumber(element.gasUsed)
-                            .multipliedBy(BigNumber(element.effectiveGasPrice))
-                            .toNumber(),
+                        value: getDisplayAmount(parseInt(element.value)).value,
+                        transactionCost: getDisplayAmount(
+                            BigNumber(element.gasUsed)
+                                .multipliedBy(BigNumber(element.effectiveGasPrice))
+                                .toNumber(),
+                        ).value,
                     }
                     return result
                 },
