@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper, TableCell, TableRow, Typography, Chip } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
-import { getAddressLink, getTransactionType, getAddressType } from 'utils/route-utils'
+import { getAddressLink, GetTransactionType, GetAddressType } from 'utils/route-utils'
 import { ChainType } from 'utils/types/chain-type'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
@@ -74,7 +74,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                     Hash
                 </Typography>
                 <AddressLink
-                    to={`${getTransactionType(chainType)}/${transaction.hash}`}
+                    to={`${GetTransactionType(chainType)}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
@@ -86,7 +86,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                 </Typography>
                 {transaction.from[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType)}/${getAddressLink(
                             chainType,
                             transaction.from[0]?.address,
                         )}`}
@@ -104,7 +104,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                 </Typography>
                 {transaction.to[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType)}/${getAddressLink(
                             chainType,
                             transaction.to[0]?.address,
                         )}`}
@@ -161,7 +161,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
                 width="20%"
             >
                 <AddressLink
-                    to={`${getTransactionType(chainType)}/${transaction.hash}`}
+                    to={`${GetTransactionType(chainType)}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
@@ -174,7 +174,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
             >
                 {transaction.from[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType)}/${getAddressLink(
                             chainType,
                             transaction.from[0]?.address,
                         )}`}
@@ -193,7 +193,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
             >
                 {transaction.to[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType)}/${getAddressLink(
                             chainType,
                             transaction.to[0]?.address,
                         )}`}

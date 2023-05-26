@@ -5,8 +5,11 @@ export function getPathElement(type: ChainType): string {
     return type.toLowerCase()
 }
 
-export function GetTransactionDetailsPath(chaintype: ChainType, transactionId: string): string {
-    const routesConfig = RoutesConfig()
+export const GetTransactionDetailsPath = (
+    chaintype: ChainType,
+    transactionId: string,
+    routesConfig: any,
+): string => {
     const basePath = `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${
         routesConfig.TRANSACTION
     }/`
@@ -16,15 +19,21 @@ export function GetTransactionDetailsPath(chaintype: ChainType, transactionId: s
     return basePath
 }
 
-export function GetAddressDetailsPath(chaintype: ChainType, addressId: string): string {
-    const routesConfig = RoutesConfig()
+export const GetAddressDetailsPath = (
+    chaintype: ChainType,
+    addressId: string,
+    routesConfig: any,
+): string => {
     return `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${
         routesConfig.ADDRESS
     }/${addressId}`
 }
 
-export function GetBlockDetailsPath(chaintype: ChainType, blockId: string | number): string {
-    const routesConfig = RoutesConfig()
+export const GetBlockDetailsPath = (
+    chaintype: ChainType,
+    blockId: string | number,
+    routesConfig: any,
+): string => {
     const basePath = `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${routesConfig.BLOCK}/`
     if (blockId !== undefined) {
         return basePath + blockId
@@ -66,8 +75,7 @@ export function getChainTypeFromUrl(): ChainType {
     return ChainType.C_CHAIN
 }
 
-export function getTransactionType(chainType: ChainType) {
-    const routesConfig = RoutesConfig()
+export const GetTransactionType = (chainType: ChainType, routesConfig: any) => {
     switch (chainType) {
         case ChainType.X_CHAIN:
             return routesConfig.XTRANSACTION
@@ -78,8 +86,7 @@ export function getTransactionType(chainType: ChainType) {
     }
 }
 
-export function getAddressType(chainType: ChainType) {
-    const routesConfig = RoutesConfig()
+export const GetAddressType = (chainType: ChainType, routesConfig: any) => {
     switch (chainType) {
         case ChainType.X_CHAIN:
             return routesConfig.XADDRESS
