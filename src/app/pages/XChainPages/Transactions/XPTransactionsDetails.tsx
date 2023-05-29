@@ -52,10 +52,11 @@ export default function XPTransactionDetails() {
         fetchTransactionDetail()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
+
     return (
         <PageContainer
             pageTitle={`${location.pathname
-                .split('/')[2][0]
+                .split('/')[3][0]
                 .toLocaleUpperCase()} TransactionDetails`}
             metaContent="chain-overview x-chain"
         >
@@ -87,7 +88,7 @@ export default function XPTransactionDetails() {
                         />
                         <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
                             {`${location.pathname
-                                .split('/')[2][0]
+                                .split('/')[3][0]
                                 .toLocaleUpperCase()}-Chain Transaction`}
                         </Typography>
                     </Grid>

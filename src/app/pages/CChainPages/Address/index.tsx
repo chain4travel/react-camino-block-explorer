@@ -24,10 +24,10 @@ const CAddressDetails: FC = () => {
 
     const [value, setValue] = React.useState(0)
     const location = useLocation()
-    const [address, setAddress] = React.useState(location.pathname.split('/')[4])
+    const [address, setAddress] = React.useState(location.pathname.split('/')[5])
 
     useEffect(() => {
-        setAddress(location.pathname.split('/')[4])
+        setAddress(location.pathname.split('/')[5])
     }, [location])
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue)
