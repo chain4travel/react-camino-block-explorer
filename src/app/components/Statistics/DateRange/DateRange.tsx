@@ -51,13 +51,22 @@ const DateRange = ({
     disableFuture,
     seeTimeAxis,
     disableCurrentDay,
+    firstLoad,
+    setFirstLoad,
 }: IDateRange) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
+
+    const validateFirstLoad = () => {
+        if (firstLoad !== undefined && firstLoad !== null && setFirstLoad !== undefined) {
+            setFirstLoad(false)
+        }
+    }
 
     const handleClickOneDay = () => {
         setSeeTimeAxis('day')
         setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
+        validateFirstLoad()
     }
 
     const handleClickOneMonth = () => {
@@ -73,6 +82,8 @@ const DateRange = ({
         } else {
             setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
         }
+
+        validateFirstLoad()
     }
 
     const handleClickOneYear = () => {
@@ -88,6 +99,8 @@ const DateRange = ({
         } else {
             setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
         }
+
+        validateFirstLoad()
     }
 
     const handleClickOneAllTime = () => {
@@ -105,16 +118,20 @@ const DateRange = ({
         } else {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         }
+
+        validateFirstLoad()
     }
 
     const handleChangeStartDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setStartDate(date)
+        validateFirstLoad()
     }
 
     const handleChangeEndDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setEndDate(date)
+        validateFirstLoad()
     }
 
     const handleChangeRadioButtons = (value: string) => {

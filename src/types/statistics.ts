@@ -29,6 +29,7 @@ export interface IMeter {
     timeSeeAxis: string
     data: Emissions
     typeStatistic?: string
+    firstLoad?: boolean
 }
 
 export interface Emissions {
@@ -59,6 +60,8 @@ export interface IDateRange {
     disableFuture: boolean
     seeTimeAxis: string
     disableCurrentDay: boolean
+    firstLoad?: boolean
+    setFirstLoad?: Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface Data {
