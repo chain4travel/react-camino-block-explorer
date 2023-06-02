@@ -39,3 +39,5 @@ export const getChainID = (alias: string): string => {
     if (chainID) return chainID
     return ''
 }
+
+export function orderTxStatistics(results: any) {}

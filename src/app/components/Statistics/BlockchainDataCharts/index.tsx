@@ -66,8 +66,9 @@ const BlockchainCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
-    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('custom')
     const [firstLoad, setFirstLoad] = useState(false)
+    const [applyFilterLimit, setApplyFilterLimit] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
@@ -79,15 +80,24 @@ const BlockchainCharts = ({
                 utilSlice({
                     startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
                     endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
+                    limit: applyFilterLimit ? 30 : 0,
                 }),
             )
+
+            //First query apply the limit
+            if (applyFilterLimit === true) {
+                setApplyFilterLimit(false)
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
 
     useEffect(() => {
-        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        //setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        //setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        setApplyFilterLimit(true)
+        setStartDate(new Date(moment().add(-30, 'days').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 
     const dataStatistics: Emissions = useAppSelector(sliceGetter)

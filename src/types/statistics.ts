@@ -138,6 +138,7 @@ export interface IStatistics {
 export type FilterDates = {
     startDate: string
     endDate: string
+    limit: number
 }
 
 export interface IBlockChainDataChart {
