@@ -117,13 +117,13 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Transaction Cost
                 </Typography>
-                <Field type="gwei" value={transaction.transactionCost} />
+                <Field type="ncam" value={transaction.transactionCost} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Value
                 </Typography>
-                <Field type="gwei" value={transaction.value} />
+                <Field type="ncam" value={transaction.value} />
             </Grid>
         </>
     )
@@ -188,10 +188,10 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
                 />
             </TableCell>
             <TableCell>
-                <Field type="gwei" value={transaction.transactionCost} />
+                <Field type="ncam" value={transaction.transactionCost} />
             </TableCell>
             <TableCell>
-                <Field type="gwei" value={transaction.value} />
+                <Field type="ncam" value={transaction.value} />
             </TableCell>
         </>
     )
