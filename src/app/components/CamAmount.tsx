@@ -23,7 +23,7 @@ export function AmountIcon({ currency }: { currency: string }) {
 
 export function CamAmount({
     amount,
-    currency = 'aCam',
+    currency = 'nCam',
     style,
     camAmountStyle,
     abbreviate = true,
