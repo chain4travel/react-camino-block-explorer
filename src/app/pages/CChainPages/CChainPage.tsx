@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { getCchainOverreview } from 'store/cchainSlice'
-import { Typography, CircularProgress, Container } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useAppSelector } from 'store/configureStore'
 import LatestBlocksAndTransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList'
 import OverviewCards from 'app/components/OverviewCards'
@@ -13,14 +13,6 @@ import { Status } from 'types'
 import LoadingWrapper from 'app/components/LoadingWrapper'
 
 export default function CChainPage() {
-    const [componentLoaded, setComponentLoaded] = React.useState(false)
-
-    React.useEffect(() => {
-        setTimeout(() => {
-            setComponentLoaded(true)
-        }, 400)
-    }, [])
-
     const validatorsLoading = useAppSelector(getValidatorsStatus)
     const { percentageOfActiveValidators, numberOfValidators, numberOfActiveValidators } =
         useAppSelector(getValidatorsOverreview)
@@ -37,54 +29,42 @@ export default function CChainPage() {
         refetchIntervalInBackground: true,
     })
     return (
-        <>
-            {componentLoaded ? (
-                <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
-                    {isError && error ? (
-                        <Typography
-                            variant="h4"
-                            color="error"
-                            sx={{ textAlign: 'center', marginTop: '1rem' }}
-                        >
-                            {error as string}
-                        </Typography>
-                    ) : (
-                        <>
-                            <DataControllers />
-                            <OverviewCards
-                                numberOfTransactions={numberOfTransactions}
-                                totalGasFees={totalGasFees}
-                                numberOfActiveValidators={numberOfActiveValidators}
-                                numberOfValidators={numberOfValidators}
-                                percentageOfActiveValidators={percentageOfActiveValidators}
-                                gasFeesLoading={gasFeesLoading}
-                                transactionsLoading={transactionsLoading}
-                                validatorsLoading={validatorsLoading}
-                            />
-                            <LoadingWrapper
-                                loading={isLoading === true ? Status.LOADING : Status.SUCCEEDED}
-                                failedLoadingMsg="Failed to load blocks and transactions"
-                                loadingBoxStyle={{ minHeight: '500px' }}
-                            >
-                                {data && (
-                                    <LatestBlocksAndTransactionsList
-                                        blocks={data.blocks}
-                                        transactions={data.transactions}
-                                    />
-                                )}
-                            </LoadingWrapper>
-                        </>
-                    )}
-                </PageContainer>
+        <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
+            {isError && error ? (
+                <Typography
+                    variant="h4"
+                    color="error"
+                    sx={{ textAlign: 'center', marginTop: '1rem' }}
+                >
+                    {error as string}
+                </Typography>
             ) : (
-                <Container fixed maxWidth="xl">
-                    <CircularProgress
-                        color="secondary"
-                        size={75}
-                        style={{ margin: 'auto', display: 'block' }}
+                <>
+                    <DataControllers />
+                    <OverviewCards
+                        numberOfTransactions={numberOfTransactions}
+                        totalGasFees={totalGasFees}
+                        numberOfActiveValidators={numberOfActiveValidators}
+                        numberOfValidators={numberOfValidators}
+                        percentageOfActiveValidators={percentageOfActiveValidators}
+                        gasFeesLoading={gasFeesLoading}
+                        transactionsLoading={transactionsLoading}
+                        validatorsLoading={validatorsLoading}
                     />
-                </Container>
+                    <LoadingWrapper
+                        loading={isLoading === true ? Status.LOADING : Status.SUCCEEDED}
+                        failedLoadingMsg="Failed to load blocks and transactions"
+                        loadingBoxStyle={{ minHeight: '500px' }}
+                    >
+                        {data && (
+                            <LatestBlocksAndTransactionsList
+                                blocks={data.blocks}
+                                transactions={data.transactions}
+                            />
+                        )}
+                    </LoadingWrapper>
+                </>
             )}
-        </>
+        </PageContainer>
     )
 }

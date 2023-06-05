@@ -23,15 +23,15 @@ export function App() {
 
     return (
         <>
-            {activeNetwork ? (
-                <BrowserRouter>
-                    <CssBaseline enableColorScheme />
-                    <Helmet
-                        titleTemplate="%s | Camino Block Explorer"
-                        defaultTitle="Camino Block Explorer"
-                    >
-                        <meta name="description" content="Camino Block Explorer" />
-                    </Helmet>
+            <BrowserRouter>
+                <CssBaseline enableColorScheme />
+                <Helmet
+                    titleTemplate="%s | Camino Block Explorer"
+                    defaultTitle="Camino Block Explorer"
+                >
+                    <meta name="description" content="Camino Block Explorer" />
+                </Helmet>
+                {activeNetwork ? (
                     <Routes>
                         <Route path={`${routesConfig.BASE_PATH}`} element={<MainLayout />}>
                             <Route
@@ -78,9 +78,9 @@ export function App() {
                             <Route path="*" element={<NotFoundPage />}></Route>
                         </Route>
                     </Routes>
-                    <GlobalStyle />
-                </BrowserRouter>
-            ) : null}
+                ) : null}
+                <GlobalStyle />
+            </BrowserRouter>
         </>
     )
 }

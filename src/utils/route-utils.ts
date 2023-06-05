@@ -1,5 +1,4 @@
 import { ChainType } from './types/chain-type'
-import { RoutesConfig } from './route-paths'
 
 export function getPathElement(type: ChainType): string {
     return type.toLowerCase()
