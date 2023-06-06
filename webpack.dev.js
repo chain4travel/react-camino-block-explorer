@@ -4,7 +4,8 @@ const common = require('./webpack.common.js')
 const publicPath = process.env.PUBLIC_PATH
 
 module.exports = merge(common, {
-    mode: 'production',
+    mode: 'development',
+    devtool: 'inline-source-map',
 
     output: {
         publicPath: publicPath,
