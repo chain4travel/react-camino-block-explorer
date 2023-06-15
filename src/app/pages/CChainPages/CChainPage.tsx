@@ -34,7 +34,7 @@ export default function CChainPage() {
             let errorData: any = error
             if (errorData !== null && errorData !== undefined) {
                 if (errorData instanceof Object) {
-                    return ''
+                    return 'Something went wrong, Please Try Again!'
                 } else {
                     return errorData as string
                 }
@@ -42,7 +42,7 @@ export default function CChainPage() {
                 return ''
             }
         } catch (e) {
-            return ''
+            return 'Something went wrong, Please Try Again!'
         }
     }
 
