@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { CCHAIN, XCHAIN, PCHAIN, MAINNET, STATISTICS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { ChainType } from 'utils/types/chain-type'
 import { getChainTypeFromUrl } from 'utils/route-utils'
 import { STATISTICS_LINK } from '../../../utils/types/statistics-type'
@@ -29,23 +29,25 @@ const activeTab = (path: string): number => {
 }
 
 export default function Links() {
+
+    const routes = RoutesConfig()
     const location = useLocation()
     const [value, setValue] = useState(activeTab(getChainTypeFromUrl()))
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        if (location.pathname !== MAINNET) {
-            if (newValue === 0) navigate(CCHAIN)
-            else if (newValue === 1) navigate(XCHAIN)
-            else if (newValue === 2) navigate(PCHAIN)
-            else if (newValue === 5) navigate(STATISTICS)
+        if (location.pathname !== routes.MAINNET) {
+            if (newValue === 0) navigate(routes.CCHAIN)
+            else if (newValue === 1) navigate(routes.XCHAIN)
+            else if (newValue === 2) navigate(routes.PCHAIN)
+            else if (newValue === 5) navigate(routes.STATISTICS)
             if (newValue !== 3 && newValue !== 4) setValue(newValue)
         }
     }
     useEffect(() => {
-        if (location.pathname === MAINNET) setValue(0)
-        else if (location.pathname === CCHAIN) setValue(0)
-        else if (location.pathname === XCHAIN) setValue(1)
-        else if (location.pathname === PCHAIN) setValue(2)
-        else if (location.pathname === STATISTICS) setValue(5)
+        if (location.pathname === routes.MAINNET) setValue(0)
+        else if (location.pathname === routes.CCHAIN) setValue(0)
+        else if (location.pathname === routes.XCHAIN) setValue(1)
+        else if (location.pathname === routes.PCHAIN) setValue(2)
+        else if (location.pathname === routes.STATISTICS) setValue(5)
     }, [location])
 
     let navigate = useNavigate()

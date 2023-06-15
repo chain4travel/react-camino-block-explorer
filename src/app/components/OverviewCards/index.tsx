@@ -5,7 +5,7 @@ import { customToLocaleString } from 'utils/currency-utils'
 import { getOverviewValueForGewi } from 'utils/overview-utils'
 import OverviewCard from './OverviewCard'
 import { useNavigate } from 'react-router-dom'
-import { VALIDATORS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 
 interface OverviewCardsProps {
     numberOfTransactions: number
@@ -29,6 +29,8 @@ const OverviewCards: FC<OverviewCardsProps> = ({
     validatorsLoading,
 }) => {
     const navigate = useNavigate()
+    const routesConfig = RoutesConfig()
+
     return (
         <Grid container rowSpacing={{ xs: 4, lg: '0!important' }} columnSpacing={{ xs: 0, lg: 4 }}>
             <Grid item xs={12} lg={4}>
@@ -38,7 +40,7 @@ const OverviewCards: FC<OverviewCardsProps> = ({
                     loading={validatorsLoading}
                     subValue={`(${numberOfActiveValidators} / ${percentageOfActiveValidators}% active)`}
                     dataCy="activeValidators"
-                    onClick={() => navigate(VALIDATORS)}
+                    onClick={() => navigate(routesConfig.VALIDATORS)}
                 />
             </Grid>
             <Grid item xs={12} lg={4}>

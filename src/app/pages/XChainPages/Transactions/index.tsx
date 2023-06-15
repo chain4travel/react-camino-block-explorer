@@ -9,8 +9,10 @@ import Transaction from './Transaction'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getChainTypeFromUrl } from 'utils/route-utils'
 import { ColumnType } from 'app/pages/Validators'
+import { RoutesConfig } from 'utils/route-paths'
 
-export default function XPTransactions() {
+const XPTransactions = () => {
+    const routesConfig = RoutesConfig()
     const chainType = getChainTypeFromUrl()
     const {
         fetchNextPage, //function
@@ -87,7 +89,7 @@ export default function XPTransactions() {
                 >
                     <SubPageTitle
                         title={`${chainType[0].toLocaleUpperCase()}-Transactions`}
-                        backToLink={'/explorer/' + chainType}
+                        backToLink={routesConfig.BASE_PATH + '/' + chainType}
                     />
                     {status === 'success' && data && (
                         <TableContainer sx={{ height: '650px' }}>
@@ -157,3 +159,5 @@ const columns: ColumnType[] = [
         type: 'currency',
     },
 ]
+
+export default XPTransactions

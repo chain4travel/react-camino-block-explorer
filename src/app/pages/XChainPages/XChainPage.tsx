@@ -12,11 +12,13 @@ import XPTransactionItem from 'app/components/XChainPageComponents/XPTransaction
 import XPTransactionList from 'app/components/XChainPageComponents/XPTransactionList'
 import DataControllers from 'app/components/DataControllers'
 import { getValidatorsOverreview, getValidatorsStatus } from 'store/validatorsSlice'
-import { XTRANSACTIONS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { getChainID } from 'api/utils'
 import { XPTransaction } from 'types/transaction'
 
 export default function XChainPage() {
+
+    const routesConfig = RoutesConfig()
     const dispatch = useAppDispatch()
     const CHAIN_ID = getChainID('x')
     const transactions = useAppSelector(selectAllXTransactions)
@@ -44,7 +46,7 @@ export default function XChainPage() {
                 transactionsLoading={transactionsLoading}
                 validatorsLoading={validatorsLoading}
             />
-            <XPTransactionList ShowAllLink={XTRANSACTIONS}>
+            <XPTransactionList ShowAllLink={routesConfig.XTRANSACTIONS}>
                 <LoadingWrapper loading={status} failedLoadingMsg="Failed to load transactions">
                     {transactions?.map((transaction: XPTransaction, index: number) => (
                         <XPItemDivider index={index} max={transactions.length - 1} key={index}>
