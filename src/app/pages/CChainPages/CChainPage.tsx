@@ -28,16 +28,36 @@ export default function CChainPage() {
         refetchOnMount: true,
         refetchIntervalInBackground: true,
     })
+
+    const validateErrorString = (): String => {
+        try {
+            let errorData: any = error
+            if (errorData !== null && errorData !== undefined) {
+                if (errorData instanceof Object) {
+                    return ''
+                } else {
+                    return errorData as string
+                }
+            } else {
+                return ''
+            }
+        } catch (e) {
+            return ''
+        }
+    }
+
     return (
         <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
             {isError && error ? (
-                <Typography
-                    variant="h4"
-                    color="error"
-                    sx={{ textAlign: 'center', marginTop: '1rem' }}
-                >
-                    {error as string}
-                </Typography>
+                <>
+                    <Typography
+                        variant="h4"
+                        color="error"
+                        sx={{ textAlign: 'center', marginTop: '1rem' }}
+                    >
+                        {validateErrorString()}
+                    </Typography>
+                </>
             ) : (
                 <>
                     <DataControllers />
