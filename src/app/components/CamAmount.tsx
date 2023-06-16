@@ -30,7 +30,7 @@ export function CamAmount({
     dataCy,
     type,
 }: ICamAmount) {
-    const chainType = useLocation().pathname.split('/')[2]
+    const chainType = useLocation().pathname.split('/')[3]
     const tooltipAmount = customToLocaleString(getDisplayAmount(amount, chainType).value, 20, false)
     const tooltipCurrency = getDisplayAmount(
         getACamAmount(amount, currency, chainType),

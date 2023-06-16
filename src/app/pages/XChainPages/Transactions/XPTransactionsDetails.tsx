@@ -14,9 +14,10 @@ import { transactionApi } from 'utils/magellan-api-utils'
 import { useAppSelector } from 'store/configureStore'
 import { selectMagellanAddress } from 'store/app-config'
 import { getChainTypeFromUrl, getAddressFromUrl } from 'utils/route-utils'
-import { BASE_PATH } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 
 export default function XPTransactionDetails() {
+    const routesConfig = RoutesConfig()
     const [result, setResult] = React.useState<XPTransaction>()
     const [details, setDetails] = React.useState<XPTransactionDetail>()
     const location = useLocation()
@@ -51,10 +52,11 @@ export default function XPTransactionDetails() {
         fetchTransactionDetail()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location])
+
     return (
         <PageContainer
             pageTitle={`${location.pathname
-                .split('/')[2][0]
+                .split('/')[3][0]
                 .toLocaleUpperCase()} TransactionDetails`}
             metaContent="chain-overview x-chain"
         >
@@ -81,10 +83,12 @@ export default function XPTransactionDetails() {
                             gap: '20px',
                         }}
                     >
-                        <BackButton backToLink={`${BASE_PATH}/${getChainTypeFromUrl()}`} />
+                        <BackButton
+                            backToLink={`${routesConfig.BASE_PATH}/${getChainTypeFromUrl()}`}
+                        />
                         <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
                             {`${location.pathname
-                                .split('/')[2][0]
+                                .split('/')[3][0]
                                 .toLocaleUpperCase()}-Chain Transaction`}
                         </Typography>
                     </Grid>
@@ -99,7 +103,9 @@ export default function XPTransactionDetails() {
                 </Grid>
                 {details && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                        <BackButton backToLink={`${BASE_PATH}/${getChainTypeFromUrl()}`} />
+                        <BackButton
+                            backToLink={`${routesConfig.BASE_PATH}/${getChainTypeFromUrl()}`}
+                        />
                     </Box>
                 )}
             </Paper>

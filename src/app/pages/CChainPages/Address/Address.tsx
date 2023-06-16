@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Grid, Paper, TableCell, TableRow, Typography, Chip } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
-import { CADDRESS, CTRANSACTION, CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { CAddressTransactionTableData } from 'types/transaction'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Address = React.forwardRef<Ref, Props>((props, ref) => {
+
     const { isDesktop, isWidescreen } = useWidth()
     let content
     if (isDesktop || isWidescreen)
@@ -67,6 +68,8 @@ interface GridItemProps {
 }
 
 const CustomRow: FC<GridItemProps> = ({ transaction }) => {
+
+    const routesConfig = RoutesConfig()
     return (
         <>
             <TableCell>
@@ -85,7 +88,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CTRANSACTION}/${transaction.hash}`}
+                    to={`${routesConfig.CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -93,7 +96,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
             </TableCell>
             <TableCell>
                 <AddressLink
-                    to={`${CBLOCKS}/${transaction.blockNumber}`}
+                    to={`${routesConfig.CBLOCKS}/${transaction.blockNumber}`}
                     value={transaction.blockNumber}
                     typographyVariant="body2"
                     truncate={true}
@@ -106,7 +109,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.from}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.from}`}
                     value={transaction.from}
                     typographyVariant="body2"
                     truncate={true}
@@ -114,7 +117,7 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.to}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.to}`}
                     value={transaction.to}
                     typographyVariant="body2"
                     truncate={true}
@@ -131,6 +134,8 @@ const CustomRow: FC<GridItemProps> = ({ transaction }) => {
 }
 
 const GridItem: FC<GridItemProps> = ({ transaction }) => {
+
+    const routesConfig = RoutesConfig()
     return (
         <>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -156,7 +161,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
                     Txn Hash
                 </Typography>
                 <AddressLink
-                    to={`${CTRANSACTION}/${transaction.hash}`}
+                    to={`${routesConfig.CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -167,7 +172,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
                     Block
                 </Typography>
                 <AddressLink
-                    to={`${CBLOCKS}/${transaction.blockNumber}`}
+                    to={`${routesConfig.CBLOCKS}/${transaction.blockNumber}`}
                     value={transaction.blockNumber}
                     typographyVariant="body2"
                     truncate={true}
@@ -184,7 +189,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
                     From
                 </Typography>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.from}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.from}`}
                     value={transaction.from}
                     typographyVariant="body2"
                     truncate={true}
@@ -195,7 +200,7 @@ const GridItem: FC<GridItemProps> = ({ transaction }) => {
                     To
                 </Typography>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.to}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.to}`}
                     value={transaction.to}
                     typographyVariant="body2"
                     truncate={true}

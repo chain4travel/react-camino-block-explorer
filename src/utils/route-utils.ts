@@ -1,33 +1,39 @@
 import { ChainType } from './types/chain-type'
-import {
-    XADDRESS,
-    PADDRESS,
-    XTRANSACTION,
-    PTRANSACTION,
-    TRANSACTION,
-    BLOCK,
-    ADDRESS,
-    BASE_PATH,
-} from './route-paths'
 
 export function getPathElement(type: ChainType): string {
     return type.toLowerCase()
 }
 
-export function getTransactionDetailsPath(chaintype: ChainType, transactionId: string): string {
-    const basePath = `${BASE_PATH}/${getPathElement(chaintype)}${TRANSACTION}/`
+export const GetTransactionDetailsPath = (
+    chaintype: ChainType,
+    transactionId: string,
+    routesConfig: any,
+): string => {
+    const basePath = `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${
+        routesConfig.TRANSACTION
+    }/`
     if (transactionId) {
         return basePath + transactionId
     }
     return basePath
 }
 
-export function getAddressDetailsPath(chaintype: ChainType, addressId: string): string {
-    return `${BASE_PATH}/${getPathElement(chaintype)}${ADDRESS}/${addressId}`
+export const GetAddressDetailsPath = (
+    chaintype: ChainType,
+    addressId: string,
+    routesConfig: any,
+): string => {
+    return `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${
+        routesConfig.ADDRESS
+    }/${addressId}`
 }
 
-export function getBlockDetailsPath(chaintype: ChainType, blockId: string | number): string {
-    const basePath = `${BASE_PATH}/${getPathElement(chaintype)}${BLOCK}/`
+export const GetBlockDetailsPath = (
+    chaintype: ChainType,
+    blockId: string | number,
+    routesConfig: any,
+): string => {
+    const basePath = `${routesConfig.BASE_PATH}/${getPathElement(chaintype)}${routesConfig.BLOCK}/`
     if (blockId !== undefined) {
         return basePath + blockId
     }
@@ -57,7 +63,7 @@ export function getBlockNumber(): string {
 }
 
 export function getChainTypeFromUrl(): ChainType {
-    const chainType = window.location.pathname.split('/')[2]
+    const chainType = window.location.pathname.split('/')[3]
 
     if (chainType === ChainType.X_CHAIN) {
         return ChainType.X_CHAIN
@@ -68,24 +74,24 @@ export function getChainTypeFromUrl(): ChainType {
     return ChainType.C_CHAIN
 }
 
-export function getTransactionType(chainType: ChainType) {
+export const GetTransactionType = (chainType: ChainType, routesConfig: any) => {
     switch (chainType) {
         case ChainType.X_CHAIN:
-            return XTRANSACTION
+            return routesConfig.XTRANSACTION
         case ChainType.P_CHAIN:
-            return PTRANSACTION
+            return routesConfig.PTRANSACTION
         default:
-            return XTRANSACTION
+            return routesConfig.XTRANSACTION
     }
 }
 
-export function getAddressType(chainType: ChainType) {
+export const GetAddressType = (chainType: ChainType, routesConfig: any) => {
     switch (chainType) {
         case ChainType.X_CHAIN:
-            return XADDRESS
+            return routesConfig.XADDRESS
         case ChainType.P_CHAIN:
-            return PADDRESS
+            return routesConfig.PADDRESS
         default:
-            return XADDRESS
+            return routesConfig.XADDRESS
     }
 }

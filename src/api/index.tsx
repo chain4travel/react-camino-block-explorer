@@ -15,6 +15,7 @@ import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
 import BigNumber from 'bignumber.js'
 import { FilterDates } from '../types/statistics'
+import { getDisplayAmount } from 'utils/currency-utils'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -55,10 +56,12 @@ export async function getTransactionsPage(
                     : `Failed-${parseInt(transaction.status)}`,
             timestamp: parseInt(transaction.timestamp) * 1000,
             to: transaction.to,
-            value: parseInt(transaction.value),
-            transactionCost: BigNumber(transaction.gasUsed)
-                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                .toNumber(),
+            value: getDisplayAmount(parseInt(transaction.value)).value,
+            transactionCost: getDisplayAmount(
+                BigNumber(transaction.gasUsed)
+                    .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                    .toNumber(),
+            ).value,
         }
     })
 }

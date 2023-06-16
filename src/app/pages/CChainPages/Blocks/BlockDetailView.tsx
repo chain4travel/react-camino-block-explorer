@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Divider, Grid } from '@mui/material'
 import { mdiCubeOutline } from '@mdi/js'
-import { CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { BlockDetail } from 'types/block'
 import { Status } from 'types'
 import LoadingWrapper from 'app/components/LoadingWrapper'
@@ -15,6 +15,8 @@ interface BlockDetailViewProps {
 }
 
 const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) => {
+
+    const routesConfig = RoutesConfig()
     return (
         <LoadingWrapper loading={loading} failedLoadingMsg="Failed to load the block detail">
             {blockDetails && (
@@ -51,7 +53,7 @@ const BlockDetailView: FC<BlockDetailViewProps> = ({ blockDetails, loading }) =>
                                     value={blockDetails['parentHash']}
                                     type="string"
                                     allowCopy={true}
-                                    detailsLink={`${CBLOCKS}/${blockDetails.number - 1}`}
+                                    detailsLink={`${routesConfig.CBLOCKS}/${blockDetails.number - 1}`}
                                     style={{ padding: '1rem' }}
                                 />
                                 <Divider variant="fullWidth" />

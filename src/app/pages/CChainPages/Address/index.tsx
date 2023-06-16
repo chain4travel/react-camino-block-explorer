@@ -7,7 +7,7 @@ import TabPanel from 'app/components/TabComponent/TabPanel'
 import Transactions from './Transactions'
 import SubPageTitle from 'app/components/SubPageTitle'
 import useWidth from 'app/hooks/useWidth'
-import { CCHAIN } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import CopyTitleCard from 'app/components/CopyTitleCard'
 import { useLocation } from 'react-router-dom'
 
@@ -20,19 +20,21 @@ const tabOptions = [
 
 const CAddressDetails: FC = () => {
     const { isDesktop } = useWidth()
+    const routesConfig = RoutesConfig()
+
     const [value, setValue] = React.useState(0)
     const location = useLocation()
-    const [address, setAddress] = React.useState(location.pathname.split('/')[4])
+    const [address, setAddress] = React.useState(location.pathname.split('/')[5])
 
     useEffect(() => {
-        setAddress(location.pathname.split('/')[4])
+        setAddress(location.pathname.split('/')[5])
     }, [location])
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue)
     }
     return (
         <PageContainer pageTitle="C Address Detail" metaContent="Address Detail C-Chain">
-            <SubPageTitle title="Address Detail" backToLink={CCHAIN} />
+            <SubPageTitle title="Address Detail" backToLink={routesConfig.CCHAIN} />
             <CopyTitleCard
                 label="Address"
                 value={address}

@@ -7,13 +7,14 @@ import TableView from 'app/components/Table/TableView'
 import useWidth from 'app/hooks/useWidth'
 import Transaction from './Transaction'
 import SubPageTitle from 'app/components/SubPageTitle'
-import { CCHAIN } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { TransactionTableData } from 'types/transaction'
 import { ColumnType } from 'app/pages/Validators'
 
 const Transactions: FC = () => {
     const intObserver = useRef<IntersectionObserver | null>(null)
     const { isDesktop, isWidescreen } = useWidth()
+    const routesConfig = RoutesConfig()
 
     const {
         fetchNextPage, //function
@@ -79,7 +80,7 @@ const Transactions: FC = () => {
                     alignItems="center"
                     sx={{ width: 1, gap: '20px' }}
                 >
-                    <SubPageTitle title="C-Transactions" backToLink={CCHAIN} />
+                    <SubPageTitle title="C-Transactions" backToLink={routesConfig.CCHAIN} />
                     {status === 'success' && data && (
                         <TableContainer sx={{ height: '750px' }}>
                             {isWidescreen || isDesktop ? (

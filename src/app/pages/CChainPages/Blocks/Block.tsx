@@ -5,7 +5,7 @@ import { BlockTableData } from 'types/block'
 import useWidth from 'app/hooks/useWidth'
 import AddressLink from 'app/components/AddressLink'
 import FilledCard from 'app/components/FilledCard'
-import { CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import moment from 'moment'
 import { Ref } from 'app/pages/XChainPages/Transactions/Transaction'
 
@@ -39,6 +39,8 @@ const Block = React.forwardRef<Ref, BlockProps>((props, ref) => {
 export default Block
 
 const GridItem = ({ block }: { block: BlockTableData }) => {
+    const routesConfig = RoutesConfig()
+
     return (
         <>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -46,7 +48,7 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
                     Block
                 </Typography>
                 <AddressLink
-                    to={`${CBLOCKS}/${block.number}`}
+                    to={`${routesConfig.CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}
@@ -87,11 +89,12 @@ const GridItem = ({ block }: { block: BlockTableData }) => {
 }
 
 const CustomRow = ({ block }: { block: BlockTableData }) => {
+    const routesConfig = RoutesConfig()
     return (
         <>
             <TableCell>
                 <AddressLink
-                    to={`${CBLOCKS}/${block.number}`}
+                    to={`${routesConfig.CBLOCKS}/${block.number}`}
                     value={block.number}
                     typographyVariant="body1"
                     truncate={false}

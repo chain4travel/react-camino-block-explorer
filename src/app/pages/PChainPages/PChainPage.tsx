@@ -12,11 +12,13 @@ import XPItemDivider from 'app/components/XChainPageComponents/XPItemDivider'
 import DataControllers from 'app/components/DataControllers'
 import LoadingWrapper from 'app/components/LoadingWrapper'
 import { getValidatorsOverreview, getValidatorsStatus } from 'store/validatorsSlice'
-import { PTRANSACTIONS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { getChainID } from 'api/utils'
 import { XPTransaction } from 'types/transaction'
 
 export default function PChainPage() {
+
+    const routesConfig = RoutesConfig()
     const dispatch = useAppDispatch()
     const CHAIN_ID = getChainID('p')
     const transactions = useAppSelector(selectAllPTransactions)
@@ -43,7 +45,7 @@ export default function PChainPage() {
                 transactionsLoading={transactionsLoading}
                 validatorsLoading={validatorsLoading}
             />
-            <XPTransactionList ShowAllLink={PTRANSACTIONS}>
+            <XPTransactionList ShowAllLink={routesConfig.PTRANSACTIONS}>
                 <LoadingWrapper loading={status} failedLoadingMsg="Failed to load transactions">
                     {transactions?.map((transaction: XPTransaction, index: number) => (
                         <XPItemDivider index={index} max={transactions.length - 1} key={index}>
