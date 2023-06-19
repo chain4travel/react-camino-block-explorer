@@ -16,8 +16,8 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                 // Format base on version: v0.4.10-rc1
                 // TODO Remove Feature flag when no longer needed
                 const value = checkNodeVersionFlag('0.4.10-rc3')
-                    ? Math.round(parseFloat(uptime)) + ' %'
-                    : Math.round(parseFloat(uptime) * 100) + ' %'
+                    ? Math.round(parseFloat(uptime)) + '%'
+                    : Math.round(parseFloat(uptime) * 100) + '%'
 
                 return value
             }
