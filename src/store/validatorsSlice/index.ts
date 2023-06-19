@@ -24,14 +24,13 @@ let initialState: initialValidatorsStateType = {
 }
 
 function mapToTableDataMagelland(item: ValidatorReponse): ValidatorType {
-    let uptime = Math.round(parseFloat(item.uptime) * 100) + '%'
     return {
         status: item.connected ? 'Connected' : 'Disconnected',
         nodeID: item.nodeID,
         startTime: moment(item.startTime, 'YYYY-MM-DD HH:mm:ss'),
         endTime: moment(item.endTime, 'YYYY-MM-DD HH:mm:ss'),
         txID: item.txID,
-        uptime: uptime,
+        uptime: item.uptime,
         lng: item.lng,
         lat: item.lat,
         country: item.country,

@@ -11,6 +11,7 @@ import { ThemeProvider } from './styles/theme/ThemeProvider'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ExplorerStoreProvider } from './store/shareStore'
+import { FeatureFlagsProvider } from './context/featureFlagProvider'
 
 export const store = configureAppStore()
 export const queryClient = new QueryClient({
@@ -31,7 +32,9 @@ const Root = () => (
             <HelmetProvider>
                 <React.StrictMode>
                     <QueryClientProvider client={queryClient}>
-                        <App />
+                        <FeatureFlagsProvider nodeBaseUrl={''}>
+                            <App />
+                        </FeatureFlagsProvider>
                     </QueryClientProvider>
                 </React.StrictMode>
             </HelmetProvider>

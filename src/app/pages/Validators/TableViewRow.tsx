@@ -5,8 +5,27 @@ import { ValidatorType } from 'types/store'
 import moment from 'utils/helpers/moment'
 import Tooltip from '@mui/material/Tooltip'
 import CopyButton from './../../components/CopyToClipboardButton'
+import useFeatureFlags from '../../../context/featureFlagProvider'
 
 export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
+    const { checkNodeVersionFlag } = useFeatureFlags()
+
+    const formatUptime = React.useCallback(
+        (uptime: string) => {
+            if (checkNodeVersionFlag) {
+                // debugger
+                // Format base on version: v0.4.10-rc1
+                // TODO Remove Feature flag when no longer needed
+                const value = checkNodeVersionFlag('0.4.10-rc3')
+                    ? Math.round(parseFloat(uptime)) + ' %'
+                    : Math.round(parseFloat(uptime) * 100) + ' %'
+
+                return value
+            }
+        },
+        [checkNodeVersionFlag],
+    )
+
     return (
         <TableRow>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '100px', lg: '80px' } }}>
@@ -62,7 +81,7 @@ export const TableViewRow = ({ validator }: { validator: ValidatorType }) => {
                 </Tooltip>
             </TableCell>
             <TableCell align="center">
-                <Field dataCy="uptime" type="string" value={validator.uptime} />
+                <Field dataCy="uptime" type="string" value={formatUptime(validator.uptime)} />
             </TableCell>
             <TableCell sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }} align="center">
                 <Box sx={{ display: 'flex', gap: '1rem' }}>

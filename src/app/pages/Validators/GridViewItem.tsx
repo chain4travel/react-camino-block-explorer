@@ -6,8 +6,27 @@ import Chip from '@mui/material/Chip'
 import moment from 'utils/helpers/moment'
 import Tooltip from '@mui/material/Tooltip'
 import CopyButton from '../../components/CopyToClipboardButton'
+import useFeatureFlags from '../../../context/featureFlagProvider'
 
 export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
+    const { checkNodeVersionFlag } = useFeatureFlags()
+
+    const formatUptime = React.useCallback(
+        (uptime: string) => {
+            if (checkNodeVersionFlag) {
+                // debugger
+                // Format base on version: v0.4.10-rc1
+                // TODO Remove Feature flag when no longer needed
+                const value = checkNodeVersionFlag('0.4.10-rc3')
+                    ? Math.round(parseFloat(uptime)) + ' %'
+                    : Math.round(parseFloat(uptime) * 100) + ' %'
+
+                return value
+            }
+        },
+        [checkNodeVersionFlag],
+    )
+
     return (
         <Paper
             sx={{
@@ -87,7 +106,7 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     UpTime
                 </Typography>
-                <Field type="string" value={validator.uptime} />
+                <Field type="string" value={formatUptime(validator?.uptime)} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
