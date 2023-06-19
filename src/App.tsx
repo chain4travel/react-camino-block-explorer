@@ -32,7 +32,7 @@ const Root = () => (
             <HelmetProvider>
                 <React.StrictMode>
                     <QueryClientProvider client={queryClient}>
-                        <FeatureFlagsProvider nodeBaseUrl={''}>
+                        <FeatureFlagsProvider>
                             <App />
                         </FeatureFlagsProvider>
                     </QueryClientProvider>

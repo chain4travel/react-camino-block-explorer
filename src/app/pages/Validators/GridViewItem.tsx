@@ -14,7 +14,6 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
     const formatUptime = React.useCallback(
         (uptime: string) => {
             if (checkNodeVersionFlag) {
-                // debugger
                 // Format base on version: v0.4.10-rc1
                 // TODO Remove Feature flag when no longer needed
                 const value = checkNodeVersionFlag('0.4.10-rc3')
