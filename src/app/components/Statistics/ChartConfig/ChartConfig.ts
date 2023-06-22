@@ -12,6 +12,8 @@ import {
 } from './Tooltips'
 import moment from 'moment'
 import { seeTimeAxis, verifyRangeTime } from './SeeTimeAxis'
+import { ChainType } from 'utils/types/chain-type'
+import { getDisplayAmount } from 'utils/currency-utils'
 
 class ChartConfig {
     title: string
@@ -30,13 +32,16 @@ class ChartConfig {
         lowestDate: '',
     }
     timeSeeAxis: string = ''
+    firstLoad: boolean = false
 
     constructor(
         typeChartData: string | undefined,
         title: string,
         dataChart: any,
         timeSeeAxis: string,
+        firstLoad?: boolean,
     ) {
+        this.firstLoad = firstLoad !== undefined && firstLoad !== null ? firstLoad : false
         this.typeChartData = typeChartData
         this.title = title
         switch (this.typeChartData) {
@@ -121,7 +126,11 @@ class ChartConfig {
 
     private checkRangeTimeString(timeSeeAxis: string) {
         if (timeSeeAxis === 'custom') {
-            this.timeSeeAxis = verifyRangeTime(this.typeChartData, this.data)
+            if (this.firstLoad === true) {
+                this.timeSeeAxis = 'month'
+            } else {
+                this.timeSeeAxis = verifyRangeTime(this.typeChartData, this.data)
+            }
         } else {
             this.timeSeeAxis = timeSeeAxis
         }
@@ -183,7 +192,10 @@ class ChartConfig {
                 })
             case typesStatistic.GAS_USED:
                 return this.data.map((value: { avgGas: string; date: string }, index: number) => {
-                    return { y: value.avgGas, name: value.date }
+                    return {
+                        y: getDisplayAmount(parseInt(value.avgGas), ChainType.C_CHAIN).value,
+                        name: value.date,
+                    }
                 })
             case typesStatistic.ACTIVE_ADDRESSES:
                 return this.data.map((value: { total: string; dateAt: string }, index: number) => {
@@ -191,7 +203,7 @@ class ChartConfig {
                 })
             case typesStatistic.GAS_AVERAGE_PRICE:
                 return this.data.map((value: { avgGas: string; date: string }, index: number) => {
-                    return { y: parseInt(value.avgGas)/1000000000, name: value.date }
+                    return { y: parseInt(value.avgGas) / 1000000000, name: value.date }
                 })
             case typesStatistic.GAS_AVERAGE_LIMIT:
                 return this.data.map(

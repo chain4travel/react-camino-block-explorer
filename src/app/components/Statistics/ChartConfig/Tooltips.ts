@@ -7,6 +7,8 @@ import { ActiveAddresesInfo } from '../../../../types/activeAddresses'
 import { GasAveragePriceInfo } from '../../../../types/gasAveragePrice'
 import { GasAverageLimit } from '../../../../types/gasAverageLimit'
 import { AverageBlockSize } from '../../../../types/averageBlockSize'
+import { getDisplayAmount } from 'utils/currency-utils'
+import { ChainType } from 'utils/types/chain-type'
 
 //Transactions
 export const dailyTransactionsTooltip = (data: DailyTransactionsInfo) => {
@@ -50,10 +52,11 @@ export const dailyTokenTransferTooltip = (data: DailyTokenTransfer) => {
 
 //Gas Used
 export const gasUsedTooltip = (data: GasUsed) => {
+    const gasUsed = getDisplayAmount(data.avgGas, ChainType.C_CHAIN)
     const header = `<span>
     ${moment(data.date, 'YYYY-MM-DD').format('MMMM Do YYYY')}
         <br/>
-        [<label style="color: blue">Total Gas Used:</label> <b>${data.avgGas}</b>]
+        [<label style="color: blue">Total Gas Used:</label> <b>${gasUsed.value} ${gasUsed.currency}</b>]
         </span>`
     return header
 }

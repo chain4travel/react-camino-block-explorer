@@ -66,8 +66,9 @@ const BlockchainCharts = ({
     const [openModal, setOpenModal] = useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
-    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
-    const [firstLoad, setFirstLoad] = useState(false)
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('custom')
+    const [firstLoad, setFirstLoad] = useState<boolean>(true)
+    const [applyFilterLimit, setApplyFilterLimit] = useState(false)
 
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
@@ -79,30 +80,30 @@ const BlockchainCharts = ({
                 utilSlice({
                     startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
                     endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
+                    limit: applyFilterLimit ? 30 : 0,
                 }),
             )
+
+            //First query apply the limit
+            if (applyFilterLimit === true) {
+                setApplyFilterLimit(false)
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
 
     useEffect(() => {
-        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
+        setApplyFilterLimit(true)
+        setStartDate(new Date(moment().add(-30, 'days').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 
     const dataStatistics: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
-    useEffect(() => {
-        if (firstLoad === false && dataStatistics !== null && dataStatistics !== undefined) {
-            setFirstLoad(true)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataStatistics])
-
     return (
         <Fragment>
-            {loader === Status.LOADING && firstLoad === false ? (
+            {loader === Status.LOADING ? (
                 <>
                     <div style={{ textAlign: 'center' }}>
                         <CircularProgress color="secondary" />
@@ -148,6 +149,7 @@ const BlockchainCharts = ({
                                         data={dataStatistics}
                                         typeStatistic={typeStatistic}
                                         timeSeeAxis={seeTimeAxis}
+                                        firstLoad={firstLoad}
                                     />
                                 </>
                             ) : null}
@@ -208,66 +210,67 @@ const BlockchainCharts = ({
                             }}
                         />
                         <CardContent>
-                            {firstLoad === true && (
-                                <Fragment>
-                                    <Grid
-                                        container
-                                        spacing={2}
-                                        justifyContent="center"
-                                        alignItems="center"
-                                    >
-                                        <Grid item xs={12}>
-                                            <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
-                                                {tooltipTitle}
-                                            </Text>
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <TextBlockchainDatachart
-                                                Text={Text}
-                                                dataStatistics={dataStatistics}
-                                                endDate={endDate}
-                                                startDate={startDate}
-                                                typeStatistic={typeStatistic}
-                                                isDescriptionOfHighest={true}
-                                                timeSeeAxis={seeTimeAxis}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} md={6}>
-                                            <TextBlockchainDatachart
-                                                Text={Text}
-                                                dataStatistics={dataStatistics}
-                                                endDate={endDate}
-                                                startDate={startDate}
-                                                typeStatistic={typeStatistic}
-                                                isDescriptionOfHighest={false}
-                                                timeSeeAxis={seeTimeAxis}
-                                            />
-                                        </Grid>
+                            <Fragment>
+                                <Grid
+                                    container
+                                    spacing={2}
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
+                                    <Grid item xs={12}>
+                                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                            {tooltipTitle}
+                                        </Text>
                                     </Grid>
-                                    <DateRangeContainer>
-                                        <DateRange
-                                            initialStartDate={startDate}
-                                            InitianEndDate={endDate}
-                                            setEndDate={setEndDate}
-                                            setStartDate={setStartDate}
-                                            darkMode={darkMode}
-                                            setSeeTimeAxis={setSeeTimeAxis}
-                                            disableFuture={false}
-                                            seeTimeAxis={seeTimeAxis}
-                                            disableCurrentDay={false}
-                                        />
-                                    </DateRangeContainer>
-                                    <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
-                                        <LinearMeter
-                                            darkMode={darkMode}
-                                            titleText={titleText}
-                                            data={dataStatistics}
+                                    <Grid item xs={12} md={6}>
+                                        <TextBlockchainDatachart
+                                            Text={Text}
+                                            dataStatistics={dataStatistics}
+                                            endDate={endDate}
+                                            startDate={startDate}
                                             typeStatistic={typeStatistic}
+                                            isDescriptionOfHighest={true}
                                             timeSeeAxis={seeTimeAxis}
                                         />
-                                    </LinearMeterContainer>
-                                </Fragment>
-                            )}
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        <TextBlockchainDatachart
+                                            Text={Text}
+                                            dataStatistics={dataStatistics}
+                                            endDate={endDate}
+                                            startDate={startDate}
+                                            typeStatistic={typeStatistic}
+                                            isDescriptionOfHighest={false}
+                                            timeSeeAxis={seeTimeAxis}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <DateRangeContainer>
+                                    <DateRange
+                                        initialStartDate={startDate}
+                                        InitianEndDate={endDate}
+                                        setEndDate={setEndDate}
+                                        setStartDate={setStartDate}
+                                        darkMode={darkMode}
+                                        setSeeTimeAxis={setSeeTimeAxis}
+                                        disableFuture={false}
+                                        seeTimeAxis={seeTimeAxis}
+                                        disableCurrentDay={false}
+                                        firstLoad={firstLoad}
+                                        setFirstLoad={setFirstLoad}
+                                    />
+                                </DateRangeContainer>
+                                <LinearMeterContainer style={{ marginTop: isTablet ? 20 : 0 }}>
+                                    <LinearMeter
+                                        darkMode={darkMode}
+                                        titleText={titleText}
+                                        data={dataStatistics}
+                                        typeStatistic={typeStatistic}
+                                        timeSeeAxis={seeTimeAxis}
+                                        firstLoad={firstLoad}
+                                    />
+                                </LinearMeterContainer>
+                            </Fragment>
                         </CardContent>
                     </Card>
                 </Box>

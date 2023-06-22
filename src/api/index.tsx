@@ -15,6 +15,7 @@ import { baseEndpoint } from 'utils/magellan-api-utils'
 import { getBaseUrl, getChainID, mapToTableData } from './utils'
 import BigNumber from 'bignumber.js'
 import { FilterDates } from '../types/statistics'
+import { getDisplayAmount } from 'utils/currency-utils'
 
 export const getBlocksPage = async (startingBlock: number) => {
     const response = await axios.get(
@@ -55,10 +56,12 @@ export async function getTransactionsPage(
                     : `Failed-${parseInt(transaction.status)}`,
             timestamp: parseInt(transaction.timestamp) * 1000,
             to: transaction.to,
-            value: parseInt(transaction.value),
-            transactionCost: BigNumber(transaction.gasUsed)
-                .multipliedBy(BigNumber(transaction.effectiveGasPrice))
-                .toNumber(),
+            value: getDisplayAmount(parseInt(transaction.value)).value,
+            transactionCost: getDisplayAmount(
+                BigNumber(transaction.gasUsed)
+                    .multipliedBy(BigNumber(transaction.effectiveGasPrice))
+                    .toNumber(),
+            ).value,
         }
     })
 }
@@ -339,11 +342,17 @@ export const fetchCountryEmissions = (dates: FilterDates) => {
 
 export const fetchBlockchainChartDailyTransactions = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyTransactions?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -367,11 +376,17 @@ export const fetchBlockchainChartDailyTransactions = (dates: FilterDates) => {
 
 export const fetchBlockchainChartUniqueAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/uniqueAddresses?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -395,11 +410,17 @@ export const fetchBlockchainChartUniqueAddresses = (dates: FilterDates) => {
 
 export const fetchBlockchainDailyGasUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyGasUsed?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -423,11 +444,17 @@ export const fetchBlockchainDailyGasUsed = (dates: FilterDates) => {
 
 export const fetchBlockchainActiveAddresses = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/activeAddresses?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -451,11 +478,17 @@ export const fetchBlockchainActiveAddresses = (dates: FilterDates) => {
 
 export const fetchBlockchainAverageBlockSize = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/averageBlockSize?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -473,11 +506,17 @@ export const fetchBlockchainAverageBlockSize = (dates: FilterDates) => {
 
 export const fetchBlockchainAverageGasPriceUsed = (dates: FilterDates) => {
     return new Promise((resolve, reject) => {
+        let url = `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${
+            dates.startDate
+        }&endTime=${dates.endDate}`
+
+        if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+            url = url + `&limit=${dates.limit}`
+        }
+
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/avgGasPriceUsed?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -500,12 +539,18 @@ export const fetchBlockchainAverageGasPriceUsed = (dates: FilterDates) => {
 }
 
 export const fetchBlockchainDailyTokenTransfer = (dates: FilterDates) => {
+    let url = `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${
+        dates.startDate
+    }&endTime=${dates.endDate}`
+
+    if (dates.limit > 0 && dates.limit !== undefined && dates.limit !== null) {
+        url = url + `&limit=${dates.limit}`
+    }
+
     return new Promise((resolve, reject) => {
         let config = {
             method: 'get',
-            url: `${getBaseUrl()}${baseEndpoint}/dailyTokenTransfer?startTime=${
-                dates.startDate
-            }&endTime=${dates.endDate}`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -4,7 +4,7 @@ import { BlockTableData } from 'types/block'
 import Divider from '@mui/material/Divider'
 import ShowAllButton from './ShowAllButton'
 import BlockItem from './Items/BlockItem'
-import { CCHAIN, BLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 
 interface BlockListProps {
     title: string
@@ -13,6 +13,8 @@ interface BlockListProps {
 }
 
 const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
+    
+    const routesConfig = RoutesConfig()
     return (
         <Paper
             variant="outlined"
@@ -59,7 +61,7 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
                     <CircularProgress color="secondary" />
                 </Box>
             )}
-            <ShowAllButton toLink={`${CCHAIN}${BLOCKS}`} />
+            <ShowAllButton toLink={`${routesConfig.CCHAIN}${routesConfig.BLOCKS}`} />
         </Paper>
     )
 }

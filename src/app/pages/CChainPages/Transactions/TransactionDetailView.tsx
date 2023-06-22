@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Divider, Grid } from '@mui/material'
-import { CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import OutlinedContainer from 'app/components/OutlinedContainer'
 import DetailsField from 'app/components/DetailsField'
 import { TransactionInformations, TransactionCurrency } from 'types/transaction'
@@ -14,6 +14,8 @@ interface TxDetailsViewProps {
 }
 
 const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loading }) => {
+
+    const routesConfig = RoutesConfig()
     return (
         <LoadingWrapper
             loading={loading}
@@ -37,7 +39,7 @@ const TransactionDetailView: FC<TxDetailsViewProps> = ({ detailTr, detailCr, loa
                                 field="Block"
                                 value={detailTr['block']}
                                 type="string"
-                                detailsLink={`${CBLOCKS}/${detailTr.block}`}
+                                detailsLink={`${routesConfig.CBLOCKS}/${detailTr.block}`}
                                 style={{ padding: '1rem' }}
                             />
                             <Divider variant="fullWidth" />

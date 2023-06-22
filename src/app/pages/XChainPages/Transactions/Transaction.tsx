@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper, TableCell, TableRow, Typography, Chip } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
-import { getAddressLink, getTransactionType, getAddressType } from 'utils/route-utils'
+import { getAddressLink, GetTransactionType, GetAddressType } from 'utils/route-utils'
 import { ChainType } from 'utils/types/chain-type'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
@@ -9,6 +9,7 @@ import moment from 'utils/helpers/moment'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
 import { getChainTypeFromUrl } from 'utils/route-utils'
 import { XPTransaction } from 'types/transaction'
+import { RoutesConfig } from 'utils/route-paths'
 
 interface Props {
     transaction: any
@@ -65,6 +66,7 @@ const Transaction = React.forwardRef<Ref, Props>((props, ref) => {
 export default Transaction
 
 const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
+    const routesConfig = RoutesConfig()
     const chainType = getChainTypeFromUrl() as ChainType
 
     return (
@@ -74,7 +76,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                     Hash
                 </Typography>
                 <AddressLink
-                    to={`${getTransactionType(chainType)}/${transaction.hash}`}
+                    to={`${GetTransactionType(chainType, routesConfig)}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
@@ -86,7 +88,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                 </Typography>
                 {transaction.from[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType, routesConfig)}/${getAddressLink(
                             chainType,
                             transaction.from[0]?.address,
                         )}`}
@@ -104,7 +106,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                 </Typography>
                 {transaction.to[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType, routesConfig)}/${getAddressLink(
                             chainType,
                             transaction.to[0]?.address,
                         )}`}
@@ -152,7 +154,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
 
 const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
     const chainType = getChainTypeFromUrl() as ChainType
-
+    const routesConfig = RoutesConfig()
     return (
         <>
             <TableCell
@@ -161,7 +163,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
                 width="20%"
             >
                 <AddressLink
-                    to={`${getTransactionType(chainType)}/${transaction.hash}`}
+                    to={`${GetTransactionType(chainType, routesConfig)}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body1"
                     truncate={true}
@@ -174,7 +176,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
             >
                 {transaction.from[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType, routesConfig)}/${getAddressLink(
                             chainType,
                             transaction.from[0]?.address,
                         )}`}
@@ -193,7 +195,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
             >
                 {transaction.to[0]?.address ? (
                     <AddressLink
-                        to={`${getAddressType(chainType)}/${getAddressLink(
+                        to={`${GetAddressType(chainType, routesConfig)}/${getAddressLink(
                             chainType,
                             transaction.to[0]?.address,
                         )}`}

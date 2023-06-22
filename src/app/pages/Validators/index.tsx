@@ -27,8 +27,10 @@ import '../../components/ValidatorsMap/styles/NotoFont.css'
 import Statistics from 'app/components/ValidatorsMap/Statistics'
 import { ValidatorType } from 'types/store'
 import { NodesPerCity } from 'types/locationNode'
+import { RoutesConfig } from 'utils/route-paths'
 
 const Validators: FC = () => {
+    let routesConfig = RoutesConfig()
     const theme = useTheme()
     const { isDesktop, isWidescreen } = useWidth()
 
@@ -79,7 +81,7 @@ const Validators: FC = () => {
             >
                 <SubPageTitle
                     title="Validators"
-                    backToLink={-1 as To}
+                    backToLink={routesConfig.CCHAIN}
                     style={{ marginBottom: '20px' }}
                 />
 
@@ -252,7 +254,7 @@ const Validators: FC = () => {
                 </Fragment>
 
                 <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                    <BackButton backToLink={-1 as To} />
+                    <BackButton backToLink={routesConfig.CCHAIN} />
                 </Box>
             </Paper>
         </PageContainer>

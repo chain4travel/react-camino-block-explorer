@@ -4,8 +4,15 @@ import HighchartsReact from 'highcharts-react-official'
 import ConfigLinearMeter from '../ChartConfig/ChartConfig'
 import { IDataChart, IMeter } from 'types/statistics'
 
-const LinearMeter = ({ darkMode, titleText, data, typeStatistic, timeSeeAxis }: IMeter) => {
-    let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis)
+const LinearMeter = ({
+    darkMode,
+    titleText,
+    data,
+    typeStatistic,
+    timeSeeAxis,
+    firstLoad,
+}: IMeter) => {
+    let config = new ConfigLinearMeter(typeStatistic, titleText, data, timeSeeAxis, firstLoad)
 
     if (config.data !== undefined && config.data != null) {
         try {

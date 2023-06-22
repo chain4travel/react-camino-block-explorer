@@ -19,11 +19,11 @@ import {
 import { fetchTransactionDetails } from 'store/cchainSlice/utils'
 import { useAppDispatch, useAppSelector } from 'store/configureStore'
 import { Grid, Paper, useTheme, Box, Button } from '@mui/material'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Status } from 'types'
 import { mdiTransfer } from '@mdi/js'
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
-import { CCHAIN, CTRANSACTION } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import PageContainer from 'app/components/PageContainer'
 import BackButton from 'app/components/BackButton'
 import OutlinedContainer from 'app/components/OutlinedContainer'
@@ -32,11 +32,11 @@ import Icon from '@mdi/react'
 import TransactionDetailView from './TransactionDetailView'
 import SubPageTitle from 'app/components/SubPageTitle'
 import { getTransactionFromUrl } from 'utils/route-utils'
-import { ITransactionDetails } from 'types/transaction'
+import RoundButton from 'app/components/RoundButton'
 
 const TransactionDetails: FC = () => {
+    const routesConfig = RoutesConfig()
     const theme = useTheme()
-    const location = useLocation()
     const detailTr = useAppSelector(getCTransactionInformations)
     const detailCr = useAppSelector(getCTransactionCurrency)
 
@@ -63,7 +63,7 @@ const TransactionDetails: FC = () => {
             dispatch(resetLoadingStatusForNPTransactions())
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location])
+    }, [])
 
     useEffect(() => {
         if (detailTr && getNPStatus === Status.IDLE) {
@@ -84,7 +84,7 @@ const TransactionDetails: FC = () => {
             nextPrevTX[currentIndex] &&
             getTransactionFromUrl() !== nextPrevTX[currentIndex]?.hash
         )
-            navigate(`${CTRANSACTION}/${nextPrevTX[currentIndex]?.hash}`)
+            navigate(`${routesConfig.CTRANSACTION}/${nextPrevTX[currentIndex]?.hash}`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
 
@@ -105,7 +105,7 @@ const TransactionDetails: FC = () => {
                 }}
             >
                 <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-                    <SubPageTitle title="C-Chain Transaction" backToLink={CCHAIN}>
+                    <SubPageTitle title="C-Chain Transaction" backToLink={routesConfig.CCHAIN}>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -186,7 +186,7 @@ const TransactionDetails: FC = () => {
                 </Grid>
                 {(detailTr || detailCr) && (
                     <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
-                        <BackButton backToLink={CCHAIN} />
+                        <BackButton backToLink={routesConfig.CCHAIN} />
                     </Box>
                 )}
             </Paper>
@@ -195,23 +195,3 @@ const TransactionDetails: FC = () => {
 }
 
 export default TransactionDetails
-
-const RoundButton = ({ sx, children, disabled, onClick, ...props }: ITransactionDetails) => {
-    return (
-        <Button
-            disableRipple
-            sx={{
-                color: 'white',
-                borderColor: 'secondary.main',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderRadius: '100%',
-                minWidth: 'min-content',
-                ...sx,
-            }}
-            {...props}
-        >
-            {children}
-        </Button>
-    )
-}

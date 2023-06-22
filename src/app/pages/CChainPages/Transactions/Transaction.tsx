@@ -1,14 +1,13 @@
 import React, { FC } from 'react'
 import { Grid, TableCell, TableRow, Typography, Chip } from '@mui/material'
 import { Field } from 'app/components/DetailsField'
-import { CADDRESS, CBLOCKS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import { TransactionTableData } from 'types/transaction'
 import AddressLink from 'app/components/AddressLink'
 import useWidth from 'app/hooks/useWidth'
 import FilledCard from 'app/components/FilledCard'
 import moment from 'utils/helpers/moment'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
-import { CTRANSACTION } from '../../../../utils/route-paths'
 import { Ref } from 'app/pages/XChainPages/Transactions/Transaction'
 
 interface TransactionProps {
@@ -42,6 +41,8 @@ const Transaction = React.forwardRef<Ref, TransactionProps>((props, ref) => {
 export default Transaction
 
 const GridItem: FC<TransactionProps> = ({ transaction }) => {
+
+    const routesConfig = RoutesConfig()
     return (
         <>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -49,7 +50,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                     Block
                 </Typography>
                 <AddressLink
-                    to={`${CBLOCKS}/${transaction.blockNumber}`}
+                    to={`${routesConfig.CBLOCKS}/${transaction.blockNumber}`}
                     value={transaction.blockNumber}
                     typographyVariant="body1"
                     truncate={false}
@@ -60,7 +61,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                     From
                 </Typography>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.from}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.from}`}
                     value={transaction.from}
                     typographyVariant="body2"
                     truncate={true}
@@ -71,7 +72,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                     To
                 </Typography>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.to}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.to}`}
                     value={transaction.to}
                     typographyVariant="body2"
                     truncate={true}
@@ -82,7 +83,7 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                     Hash
                 </Typography>
                 <AddressLink
-                    to={`${CTRANSACTION}/${transaction.hash}`}
+                    to={`${routesConfig.CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -116,13 +117,13 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Transaction Cost
                 </Typography>
-                <Field type="gwei" value={transaction.transactionCost} />
+                <Field type="ncam" value={transaction.transactionCost} />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
                 <Typography variant="subtitle2" color="latestList.timestamp">
                     Value
                 </Typography>
-                <Field type="gwei" value={transaction.value} />
+                <Field type="ncam" value={transaction.value} />
             </Grid>
         </>
     )
@@ -130,11 +131,13 @@ const GridItem: FC<TransactionProps> = ({ transaction }) => {
 
 const CustomRow: FC<TransactionProps> = ({ transaction }) => {
     const { isDesktop } = useWidth()
+    const routesConfig = RoutesConfig()
+
     return (
         <>
             <TableCell width="7%" align="left">
                 <AddressLink
-                    to={`${CBLOCKS}/${transaction.blockNumber}`}
+                    to={`${routesConfig.CBLOCKS}/${transaction.blockNumber}`}
                     value={transaction.blockNumber}
                     typographyVariant="body2"
                     truncate={true}
@@ -142,7 +145,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.from}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.from}`}
                     value={transaction.from}
                     typographyVariant="body2"
                     truncate={true}
@@ -150,7 +153,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CADDRESS}/${transaction.to}`}
+                    to={`${routesConfig.CADDRESS}/${transaction.to}`}
                     value={transaction.to}
                     typographyVariant="body2"
                     truncate={true}
@@ -158,7 +161,7 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
             </TableCell>
             <TableCell align="left" sx={{ maxWidth: { xs: '10px', md: '80px', lg: '165px' } }}>
                 <AddressLink
-                    to={`${CTRANSACTION}/${transaction.hash}`}
+                    to={`${routesConfig.CTRANSACTION}/${transaction.hash}`}
                     value={transaction.hash}
                     typographyVariant="body2"
                     truncate={true}
@@ -185,10 +188,10 @@ const CustomRow: FC<TransactionProps> = ({ transaction }) => {
                 />
             </TableCell>
             <TableCell>
-                <Field type="gwei" value={transaction.transactionCost} />
+                <Field type="ncam" value={transaction.transactionCost} />
             </TableCell>
             <TableCell>
-                <Field type="gwei" value={transaction.value} />
+                <Field type="ncam" value={transaction.value} />
             </TableCell>
         </>
     )

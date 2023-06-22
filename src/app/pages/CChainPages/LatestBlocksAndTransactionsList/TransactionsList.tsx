@@ -4,7 +4,7 @@ import { CTransaction } from '../../../../types/transaction'
 import Divider from '@mui/material/Divider'
 import ShowAllButton from './ShowAllButton'
 import TransactionItem from './Items/TransactionItem'
-import { CCHAIN, TRANSACTIONS } from 'utils/route-paths'
+import { RoutesConfig } from 'utils/route-paths'
 import Icon from '@mdi/react'
 import { mdiInformationOutline } from '@mdi/js'
 
@@ -15,6 +15,7 @@ interface TransactionsListProps {
 }
 
 const TransactionsList: FC<TransactionsListProps> = ({ title, items, link }) => {
+    const routesConfig = RoutesConfig()
     return (
         <Paper
             variant="outlined"
@@ -64,7 +65,9 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, link }) => 
                     <CircularProgress color="secondary" />
                 </Box>
             )}
-            {link && <ShowAllButton toLink={`${CCHAIN}${TRANSACTIONS}`} />}
+            {link && (
+                <ShowAllButton toLink={`${routesConfig.CCHAIN}${routesConfig.TRANSACTIONS}`} />
+            )}
         </Paper>
     )
 }

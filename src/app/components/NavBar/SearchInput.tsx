@@ -10,14 +10,30 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { MenuItem, MenuList, ListItemIcon, Avatar, ClickAwayListener } from '@mui/material'
 import { useTheme } from '@mui/material'
 import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
-import { mapToItem } from './utils/search-utils'
 import { debounce } from './utils/debounce'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store/configureStore'
 import { selectMagellanAddress } from 'store/app-config'
 import { searchApi } from 'utils/magellan-api-utils'
+import {
+    MagellanSearchResultElementType,
+    MagellanXPTransactionSearchResult,
+    MagellanCTransactionSearchResult,
+    MagellanCBlockSearchResult,
+    MagellanAddressSearchResult,
+    MagellanAddressResponse,
+} from 'types/magellan-types'
+import {
+    GetBlockDetailsPath,
+    GetAddressDetailsPath,
+    GetTransactionDetailsPath,
+} from 'utils/route-utils'
+import { ChainType } from 'utils/types/chain-type'
+import { getChainID } from 'api/utils'
+import { RoutesConfig } from 'utils/route-paths'
 
 function OutlinedSearchInput() {
+    const routesConfig = RoutesConfig()
     const theme = useTheme()
     const navigate = useNavigate()
     const magellanAddress = useAppSelector(selectMagellanAddress)
@@ -35,6 +51,112 @@ function OutlinedSearchInput() {
         }, 500)
         setTimer(newTimer)
         setLoading(false)
+    }
+
+    const mapToItem = (
+        type: MagellanSearchResultElementType,
+        data:
+            | MagellanXPTransactionSearchResult
+            | MagellanCTransactionSearchResult
+            | MagellanCBlockSearchResult
+            | MagellanAddressSearchResult,
+    ) => {
+        switch (type) {
+            case MagellanSearchResultElementType.C_BLOCK:
+                const cBlockData: MagellanCBlockSearchResult = data as MagellanCBlockSearchResult
+                return {
+                    label: cBlockData.hash,
+                    type: type,
+                    link: GetBlockDetailsPath(ChainType.C_CHAIN, cBlockData.number, routesConfig),
+                    avatar: 'CB',
+                    avatarColor: 'searchResultItem.bg_CB',
+                }
+            case MagellanSearchResultElementType.C_ADDRESS:
+                const cAddressData: MagellanCBlockSearchResult = data as MagellanCBlockSearchResult
+                return {
+                    label: cAddressData.hash,
+                    type: type,
+                    link: GetAddressDetailsPath(ChainType.C_CHAIN, cAddressData.hash, routesConfig),
+                    avatar: 'AD',
+                    avatarColor: 'searchResultItem.bg_AD',
+                }
+            case MagellanSearchResultElementType.C_TRANSACTION:
+                const cTransaction: MagellanCTransactionSearchResult =
+                    data as MagellanCTransactionSearchResult
+                return {
+                    label: cTransaction.hash,
+                    type: type,
+                    link: GetTransactionDetailsPath(
+                        ChainType.C_CHAIN,
+                        cTransaction.hash,
+                        routesConfig,
+                    ),
+                    avatar: 'CT',
+                    avatarColor: 'searchResultItem.bg_CT',
+                }
+            case MagellanSearchResultElementType.XP_TRANSACTION:
+                const xpTransaction: MagellanXPTransactionSearchResult =
+                    data as MagellanXPTransactionSearchResult
+                let detailsLink = ''
+                let avatar = ''
+                let avatarColor = ''
+                const actualChainId = xpTransaction.chainID
+                if (actualChainId === getChainID('p')) {
+                    detailsLink = GetTransactionDetailsPath(
+                        ChainType.P_CHAIN,
+                        xpTransaction.id,
+                        routesConfig,
+                    )
+                    avatar = 'PT'
+                    avatarColor = 'searchResultItem.bg_PT'
+                } else {
+                    detailsLink = GetTransactionDetailsPath(
+                        ChainType.X_CHAIN,
+                        xpTransaction.id,
+                        routesConfig,
+                    )
+                    avatar = 'XT'
+                    avatarColor = 'searchResultItem.bg_XT'
+                }
+                return {
+                    label: xpTransaction.id,
+                    type: type,
+                    link: detailsLink,
+                    avatar: avatar,
+                    avatarColor: avatarColor,
+                }
+            case MagellanSearchResultElementType.ADDRESS:
+                const xpAddressData: MagellanAddressResponse = data as MagellanAddressResponse
+                const ChainId = xpAddressData.chainID
+                if (ChainId === getChainID('p')) {
+                    return {
+                        label: `P-${xpAddressData.address}`,
+                        type: type,
+                        link: GetAddressDetailsPath(
+                            ChainType.P_CHAIN,
+                            `P-${xpAddressData.address}`,
+                            routesConfig,
+                        ),
+                        avatar: 'AD',
+                        avatarColor: 'searchResultItem.bg_PAD',
+                    }
+                } else {
+                    return {
+                        label: `X-${xpAddressData.address}`,
+                        type: type,
+                        link: GetAddressDetailsPath(
+                            ChainType.X_CHAIN,
+                            `X-${xpAddressData.address}`,
+                            routesConfig,
+                        ),
+                        avatar: 'AD',
+                        avatarColor: 'searchResultItem.bg_XAD',
+                    }
+                }
+            default:
+                console.log('Got unknown response type from search', +type)
+                return undefined
+        }
     }
 
     const debouncedSearch = debounce(
@@ -56,10 +178,10 @@ function OutlinedSearchInput() {
             setMenuItems([])
             const numberOfResults = data?.results?.length > 5 ? 5 : data?.results?.length
             for (let i = 0; i < numberOfResults; i++) {
-                const mapItem = (await mapToItem(
+                const mapItem = mapToItem(
                     data.results[i].type,
                     data.results[i].data,
-                )) as SearchMenuItem
+                ) as SearchMenuItem
                 if (mapItem) setMenuItems(prev => [...prev, mapItem])
             }
             setLoading(false)
