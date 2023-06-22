@@ -98,7 +98,11 @@ export const FeatureFlagsProvider = ({ children }: FeatureFlagsProviderProps): J
                 return false
             }
 
-            return rcNumber >= targetRcNumber
+            if (rcNumber === targetRcNumber) {
+                return true
+            }
+
+            return rcNumber < targetRcNumber
         },
         [initialized, nodeVersion],
     )
