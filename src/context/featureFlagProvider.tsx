@@ -76,29 +76,29 @@ export const FeatureFlagsProvider = ({ children }: FeatureFlagsProviderProps): J
                 )
             }
 
-            const [major, minor, patch, rc] = targetVersion.split(/[.-]/)
-            const [targetMajor, targetMinor, targetPatch, targetRc] = nodeVersion.split(/[.-]/)
+            const [coreTargetVersion, targetVariant] = targetVersion?.split('-')
+            const [coreNodeVersion, nodeVariant] = nodeVersion?.split('-')
 
-            if (major !== targetMajor || minor !== targetMinor || patch !== targetPatch) {
-                return false
+            const [targetMajor, targetMinor, targetPatch] = coreTargetVersion.split('.').map(Number)
+            const [nodeMajor, nodeMinor, nodePatch] = coreNodeVersion.split('.').map(Number)
+
+            if (targetMajor !== nodeMajor) {
+                return targetMajor < nodeMajor
             }
 
-            if (!rc) {
-                return true
+            if (targetMinor !== nodeMinor) {
+                return targetMinor < nodeMinor
             }
 
-            if (!targetRc) {
-                return false
+            if (targetPatch !== nodePatch) {
+                return targetPatch < nodePatch
             }
 
-            const rcNumber = parseInt(rc.replace('rc', ''))
-            const targetRcNumber = parseInt(targetRc.replace('rc', ''))
-
-            if (isNaN(rcNumber) || isNaN(targetRcNumber)) {
-                return false
+            if (nodeVariant) {
+                return targetVariant <= nodeVariant
             }
 
-            return rcNumber >= targetRcNumber
+            return true
         },
         [initialized, nodeVersion],
     )
