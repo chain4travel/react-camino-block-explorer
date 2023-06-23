@@ -95,10 +95,10 @@ export const FeatureFlagsProvider = ({ children }: FeatureFlagsProviderProps): J
             }
 
             if (nodeVariant) {
-                return !targetVariant || targetVariant <= nodeVariant
+                return targetVariant <= nodeVariant
             }
 
-            return !targetVariant
+            return true
         },
         [initialized, nodeVersion],
     )
