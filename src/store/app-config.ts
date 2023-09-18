@@ -30,6 +30,7 @@ interface chainArgs {
     chainID: string
 }
 interface initialStateAppConfigType {
+    commitHash?: string
     activeNetwork?: { explorerUrl: string }
     networks: any
     chains: chainArgs[]
@@ -38,6 +39,7 @@ interface initialStateAppConfigType {
 }
 
 let initialState: initialStateAppConfigType = {
+    commitHash: process.env.GIT_COMMIT_HASH,
     activeNetwork: getNetworkFromLocalStorage(),
     networks: [
         {
@@ -117,11 +119,5 @@ export const selectNetworkStatus = (state: RootState) => state.appConfig.status
 // Select Theme
 export const selectedTheme = (state: RootState) => state.appConfig.activeTheme
 
-export const {
-    changeNetwork,
-
-    resetChains,
-    changeTheme,
-    updateNetworks,
-} = appConfigSlice.actions
+export const { changeNetwork, resetChains, changeTheme, updateNetworks } = appConfigSlice.actions
 export default appConfigSlice.reducer

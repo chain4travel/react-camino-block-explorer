@@ -2,6 +2,17 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const path = require('path')
 const deps = require('./package.json').devDependencies
+const Dotenv = require('dotenv-webpack')
+const webpack = require('webpack')
+const packageJson = require('./package.json')
+const childProcess = require('child_process')
+let GIT_COMMIT_HASH
+
+try {
+    GIT_COMMIT_HASH = childProcess.execSync('git rev-parse --short HEAD').toString().trim()
+} catch (e) {
+    GIT_COMMIT_HASH = 'N/A'
+}
 module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
@@ -48,6 +59,11 @@ module.exports = {
     },
 
     plugins: [
+        new Dotenv(),
+        new webpack.DefinePlugin({
+            'process.env.GIT_COMMIT_HASH': JSON.stringify(GIT_COMMIT_HASH),
+            'process.env.VERSION': JSON.stringify(packageJson.version),
+        }),
         new ModuleFederationPlugin({
             name: 'Explorer',
             filename: 'remoteEntry.js',
