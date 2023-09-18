@@ -94,18 +94,20 @@ jobs:
         id: createTag
         if: ${{ (github.event_name == 'push') && (steps.setDefaults.outputs.build_env  == 'stage') }}
         run: |
+          echo "create_tag=false" >> $GITHUB_OUTPUT
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           CURRENT_TAG=$(git describe --abbrev=0 --tags)
           if [[ $CURRENT_TAG == *"-rc"* ]]; then
             TAG=$(echo "$CURRENT_TAG"|awk -F'-rc' -v OFS='-rc' '{$2=sprintf("%1d",++$2)}7')
+            git tag -a $TAG -m "create tag $TAG for staging"
+            git push --tags
+            echo "create_tag=true" >> $GITHUB_OUTPUT
+            echo "suite_tag=$TAG" >> $GITHUB_OUTPUT
           fi
-          git tag -a $TAG -m "create tag $TAG for staging"
-          git push --tags
-          echo "suite_tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Create tag
-        if: ${{ (github.event_name == 'push') && (steps.setDefaults.outputs.build_env  == 'stage') }}
+        if: ${{ (github.event_name == 'push') && (steps.setDefaults.outputs.build_env  == 'stage') && (steps.createTag.outputs.create_tag == 'true') }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
