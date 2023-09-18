@@ -92,6 +92,7 @@ jobs:
 
       - name: Create suite tag
         id: createTag
+        working-directory: ./camino-suite
         if: ${{ (github.event_name == 'push') && (steps.setDefaults.outputs.build_env  == 'stage') }}
         run: |
           echo "create_tag=false" >> $GITHUB_OUTPUT
