@@ -58,7 +58,8 @@ export function CamAmount({
             >
                 <Typography
                     data-cy={dataCy || getDataCYAmount()}
-                    variant="subtitle2"
+                    variant="body2"
+                    component="h6"
                     sx={{ whiteSpace: 'nowrap' }}
                 >
                     {roundedToLocaleString(
@@ -106,7 +107,12 @@ export function GasAmount({
                     alignItems: 'center',
                 }}
             >
-                <Typography data-cy={dataCy} variant="subtitle2" sx={{ whiteSpace: 'nowrap' }}>
+                <Typography
+                    data-cy={dataCy}
+                    variant="body2"
+                    component="h6"
+                    sx={{ whiteSpace: 'nowrap' }}
+                >
                     {roundedToLocaleString(amount, abbreviate ? 4 : 20, abbreviate)}
                 </Typography>
                 <GasStationOutline style={{ width: '24px', height: '24px', marginLeft: '3px' }} />

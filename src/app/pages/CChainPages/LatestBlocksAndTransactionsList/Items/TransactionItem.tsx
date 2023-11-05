@@ -16,7 +16,7 @@ interface TransactionItemProps {
 const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
     const { isMobile, isTablet, isDesktop } = useWidth()
     const routesConfig = RoutesConfig()
-    
+
     return (
         <Grid
             container
@@ -53,7 +53,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
                     truncate={true}
                     dataCy="transaction-hash"
                 />
-                <RelativeTime value={transaction.timestamp} variant="subtitle2" />
+                <RelativeTime value={transaction.timestamp} variant="body2" />
             </Grid>
             <Grid item xs={12} md={4} xl={5}>
                 <Grid container direction="row">
