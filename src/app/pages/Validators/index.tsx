@@ -1,5 +1,13 @@
 import React, { FC, useState, Fragment } from 'react'
-import { Grid, Paper, Box, TableContainer, TableCellProps, useTheme } from '@mui/material'
+import {
+    Grid,
+    Paper,
+    Box,
+    TableContainer,
+    TableCellProps,
+    useTheme,
+    Typography,
+} from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'store/configureStore'
 import {
     selectAllValidators,
@@ -23,7 +31,6 @@ import CircleMarker from 'app/components/ValidatorsMap/CircleMarker'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import CircularProgress from '@mui/material/CircularProgress'
-import '../../components/ValidatorsMap/styles/NotoFont.css'
 import Statistics from 'app/components/ValidatorsMap/Statistics'
 import { ValidatorType } from 'types/store'
 import { NodesPerCity } from 'types/locationNode'
@@ -234,7 +241,7 @@ const Validators: FC = () => {
                                 )}
 
                                 {activeTab === 2 && (
-                                    <div className="noto-flags">
+                                    <Typography variant="body1">
                                         {theme.palette.mode === 'light' ? (
                                             <Statistics
                                                 nodesPerCountry={nodesPerCountry}
@@ -246,7 +253,7 @@ const Validators: FC = () => {
                                                 darkMode={true}
                                             />
                                         )}
-                                    </div>
+                                    </Typography>
                                 )}
                             </>
                         )}
