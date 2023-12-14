@@ -51,7 +51,7 @@ const BlockItem: FC<BlockItemProps> = ({ block, to }) => {
                     typographyVariant="body1"
                     truncate={false}
                 />
-                <RelativeTime value={block.timestamp} variant="subtitle2" />
+                <RelativeTime value={block.timestamp} variant="body2" />
             </Grid>
             <Grid item xs={12} md={6} lg={5} xl={6.5}>
                 <Typography variant="body1">{block.numberOfTransactions} txs</Typography>
