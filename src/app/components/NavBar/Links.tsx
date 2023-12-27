@@ -91,7 +91,14 @@ export default function Links() {
                     {...a11yProps(2)}
                     sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
-                <Tab className="tab" value={5} disableRipple label="Statistics" {...a11yProps(5)} />
+                <Tab
+                    className="tab"
+                    value={5}
+                    disableRipple
+                    label="Statistics"
+                    {...a11yProps(5)}
+                    sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
+                />
             </Tabs>
         </Box>
     )
