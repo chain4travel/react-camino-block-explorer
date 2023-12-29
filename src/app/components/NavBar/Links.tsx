@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { RoutesConfig } from 'utils/route-paths'
+
+import Box from '@mui/material/Box'
 import { ChainType } from 'utils/types/chain-type'
-import { getChainTypeFromUrl } from 'utils/route-utils'
+import { RoutesConfig } from 'utils/route-paths'
 import { STATISTICS_LINK } from '../../../utils/types/statistics-type'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import { getChainTypeFromUrl } from 'utils/route-utils'
 
 function a11yProps(index: number) {
     return {
@@ -29,7 +30,6 @@ const activeTab = (path: string): number => {
 }
 
 export default function Links() {
-
     const routes = RoutesConfig()
     const location = useLocation()
     const [value, setValue] = useState(activeTab(getChainTypeFromUrl()))
@@ -58,7 +58,6 @@ export default function Links() {
                 cursor: 'pointer',
                 width: '100%',
                 height: '48px',
-                backgroundColor: 'card.navBar',
             }}
         >
             <Tabs
@@ -92,7 +91,14 @@ export default function Links() {
                     {...a11yProps(2)}
                     sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
                 />
-                <Tab className="tab" value={5} disableRipple label="Statistics" {...a11yProps(5)} />
+                <Tab
+                    className="tab"
+                    value={5}
+                    disableRipple
+                    label="Statistics"
+                    {...a11yProps(5)}
+                    sx={{ alignItems: { xs: 'baseline', sm: 'self-start' } }}
+                />
             </Tabs>
         </Box>
     )

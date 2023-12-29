@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo, useContext } from 'react'
-import { PaletteMode } from '@mui/material'
-
-import { lightTheme, darkTheme } from './themes'
-import { ThemeOptions, useTheme } from '@mui/material/styles'
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { ThemeOptions, useTheme } from '@mui/material/styles'
+import { darkTheme, lightTheme } from './themes'
+
+import { PaletteMode } from '@mui/material'
 
 const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
     ...(mode === 'light' ? lightTheme : darkTheme),
@@ -18,7 +18,9 @@ export const ColorModeContext = React.createContext<{
 })
 
 export const ThemeProvider = (props: { children: React.ReactChild }) => {
-    const [mode, setMode] = useState<PaletteMode>('dark') // light or dark default mode is light
+    const [mode, setMode] = useState<PaletteMode>(
+        (localStorage.getItem('theme') as PaletteMode) || 'dark',
+    )
 
     const colorMode = useMemo(
         () => ({

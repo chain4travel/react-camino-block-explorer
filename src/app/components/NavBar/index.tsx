@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { Box, Container, Toolbar, AppBar, useTheme } from '@mui/material'
-import SearchInput from './SearchInput'
+
+import { AppBar, Box, Container, Toolbar, useTheme } from '@mui/material'
+
 import Links from './Links'
+import SearchInput from './SearchInput'
 import useWidth from 'app/hooks/useWidth'
 
 export function NavBar() {
@@ -43,7 +45,6 @@ export function NavBar() {
                         sx={{
                             display: 'flex',
                             height: 'auto',
-                            backgroundColor: 'card.navBar',
                             py: '1rem',
                             px: '0rem !important',
                             justifyContent: 'space-between',
