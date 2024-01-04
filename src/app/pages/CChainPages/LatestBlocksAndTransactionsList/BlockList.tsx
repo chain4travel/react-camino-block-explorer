@@ -1,10 +1,11 @@
+import { Box, Paper, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import { Box, Typography, Paper, CircularProgress } from '@mui/material'
+
+import BlockItem from './Items/BlockItem'
 import { BlockTableData } from 'types/block'
 import Divider from '@mui/material/Divider'
-import ShowAllButton from './ShowAllButton'
-import BlockItem from './Items/BlockItem'
 import { RoutesConfig } from 'utils/route-paths'
+import ShowAllButton from './ShowAllButton'
 
 interface BlockListProps {
     title: string
@@ -13,7 +14,6 @@ interface BlockListProps {
 }
 
 const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
-    
     const routesConfig = RoutesConfig()
     return (
         <Paper
@@ -58,7 +58,14 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
                         alignItems: 'center',
                     }}
                 >
-                    <CircularProgress color="secondary" />
+                    <Typography
+                        variant="h4"
+                        component="h4"
+                        fontWeight="fontWeightBold"
+                        sx={{ color: 'card.subValue' }}
+                    >
+                        No blocks found
+                    </Typography>
                 </Box>
             )}
             <ShowAllButton toLink={`${routesConfig.CCHAIN}${routesConfig.BLOCKS}`} />
