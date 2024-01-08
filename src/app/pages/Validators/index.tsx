@@ -1,33 +1,34 @@
-import React, { FC, useState, Fragment } from 'react'
-import { Grid, Paper, Box, TableContainer, TableCellProps, useTheme } from '@mui/material'
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import {
-    selectAllValidators,
-    getSumNodesPerCountry,
-    getSumNodesPerCity,
-    getValidatorsStatus,
-} from 'store/validatorsSlice'
-import { useEffectOnce } from 'app/hooks/useEffectOnce'
-import { loadValidators } from 'store/validatorsSlice/utils'
-import { TableViewRow } from './TableViewRow'
-import { GridViewItem } from './GridViewItem'
-import { To } from 'react-router-dom'
-import SubPageTitle from 'app/components/SubPageTitle'
-import PageContainer from 'app/components/PageContainer'
-import BackButton from 'app/components/BackButton'
-import TableView from 'app/components/Table/TableView'
-import useWidth from 'app/hooks/useWidth'
-import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
-import features from 'app/components/ValidatorsMap/json/features.json'
-import CircleMarker from 'app/components/ValidatorsMap/CircleMarker'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import CircularProgress from '@mui/material/CircularProgress'
 import '../../components/ValidatorsMap/styles/NotoFont.css'
-import Statistics from 'app/components/ValidatorsMap/Statistics'
-import { ValidatorType } from 'types/store'
+
+import { Box, Grid, Paper, TableCellProps, TableContainer, useTheme } from '@mui/material'
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
+import React, { FC, Fragment, useState } from 'react'
+import {
+    getSumNodesPerCity,
+    getSumNodesPerCountry,
+    getValidatorsStatus,
+    selectAllValidators,
+} from 'store/validatorsSlice'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+
+import BackButton from 'app/components/BackButton'
+import CircleMarker from 'app/components/ValidatorsMap/CircleMarker'
+import CircularProgress from '@mui/material/CircularProgress'
+import { GridViewItem } from './GridViewItem'
 import { NodesPerCity } from 'types/locationNode'
+import PageContainer from 'app/components/PageContainer'
 import { RoutesConfig } from 'utils/route-paths'
+import Statistics from 'app/components/ValidatorsMap/Statistics'
+import SubPageTitle from 'app/components/SubPageTitle'
+import Tab from '@mui/material/Tab'
+import TableView from 'app/components/Table/TableView'
+import { TableViewRow } from './TableViewRow'
+import Tabs from '@mui/material/Tabs'
+import { ValidatorType } from 'types/store'
+import features from 'app/components/ValidatorsMap/json/features.json'
+import { loadValidators } from 'store/validatorsSlice/utils'
+import { useEffectOnce } from 'app/hooks/useEffectOnce'
+import useWidth from 'app/hooks/useWidth'
 
 const Validators: FC = () => {
     let routesConfig = RoutesConfig()
@@ -69,8 +70,11 @@ const Validators: FC = () => {
                 variant="outlined"
                 square
                 sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
                     minHeight: '544px',
                     width: 1,
+                    flex: 1,
                     backgroundColor: 'primary.dark',
                     borderRadius: '12px',
                     borderWidth: '1px',
@@ -86,13 +90,14 @@ const Validators: FC = () => {
                 />
 
                 <Fragment>
-                    <div style={{ position: 'relative' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                         {loading && (
                             <Box
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    flex: 1,
                                 }}
                             >
                                 <CircularProgress color="secondary" />

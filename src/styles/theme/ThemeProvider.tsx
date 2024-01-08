@@ -34,11 +34,6 @@ export const ThemeProvider = (props: { children: React.ReactChild }) => {
         [],
     )
 
-    useEffect(() => {
-        localStorage.setItem('colorMode', JSON.stringify(mode))
-    }, [mode])
-    // useEffect(()=>{},)
-
     // Update the theme only if the mode changes
     const theme = useMemo(() => {
         return createTheme(getDesignTokens(mode))
