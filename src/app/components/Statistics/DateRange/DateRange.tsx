@@ -58,20 +58,32 @@ const DateRange = ({
 
     const handleClickOneDay = () => {
         setSeeTimeAxis('day')
-        setStartDate(new Date(moment().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
+        let startDate = new Date(
+            moment().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss'),
+        ).toLocaleDateString()
+        setStartDate(new Date(startDate))
+        let endDate = new Date(moment().format('YYYY-MM-DD HH:mm:ss')).toLocaleDateString()
+        setEndDate(new Date(endDate))
     }
 
     const handleClickOneMonth = () => {
         setSeeTimeAxis('month')
-        setStartDate(new Date(moment().subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
+        let startDate = new Date(
+            moment().subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss'),
+        ).toLocaleDateString()
+        setStartDate(new Date(startDate))
+        let endDate = new Date(moment().format('YYYY-MM-DD HH:mm:ss')).toLocaleDateString()
+        setEndDate(new Date(endDate))
     }
 
     const handleClickOneYear = () => {
         setSeeTimeAxis('year')
-        setStartDate(new Date(moment().subtract(12, 'months').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
+        let startDate = new Date(
+            moment().subtract(12, 'months').format('YYYY-MM-DD HH:mm:ss'),
+        ).toLocaleDateString()
+        setStartDate(new Date(startDate))
+        let endDate = new Date(moment().format('YYYY-MM-DD HH:mm:ss')).toLocaleDateString()
+        setEndDate(new Date(endDate))
     }
 
     const handleClickOneAllTime = () => {
