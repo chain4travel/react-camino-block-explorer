@@ -27,7 +27,7 @@ export interface XPTransactionDetail {
     id: string
     type: string
     status: string
-    timestamp: Date
+    timestamp: string
     fee: number
     memo?: string
 }

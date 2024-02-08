@@ -1,20 +1,22 @@
-import * as React from 'react'
-import { Grid, Paper, Typography, Box } from '@mui/material'
-import { useLocation } from 'react-router-dom'
-import PageContainer from 'app/components/PageContainer'
-import BackButton from 'app/components/BackButton'
 import { mdiTransfer } from '@mdi/js'
-import TransactionDetailView from './XPTransactionDetailView'
-import { XPTransaction } from 'types/transaction'
-import axios from 'axios'
-import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan'
+import { Box, Grid, Paper, Typography } from '@mui/material'
+import BackButton from 'app/components/BackButton'
 import CopyTitleCard from 'app/components/CopyTitleCard'
-import { XPTransactionDetail } from 'types/magellan-types'
-import { transactionApi } from 'utils/magellan-api-utils'
-import { useAppSelector } from 'store/configureStore'
+import PageContainer from 'app/components/PageContainer'
+import axios from 'axios'
+import moment from 'moment'
+import * as React from 'react'
+import { useLocation } from 'react-router-dom'
 import { selectMagellanAddress } from 'store/app-config'
-import { getChainTypeFromUrl, getAddressFromUrl } from 'utils/route-utils'
+import { useAppSelector } from 'store/configureStore'
+import { XPTransactionDetail } from 'types/magellan-types'
+import { XPTransaction } from 'types/transaction'
+import { currentDateFormat } from 'utils/helpers/moment'
+import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan'
+import { transactionApi } from 'utils/magellan-api-utils'
 import { RoutesConfig } from 'utils/route-paths'
+import { getAddressFromUrl, getChainTypeFromUrl } from 'utils/route-utils'
+import TransactionDetailView from './XPTransactionDetailView'
 
 export default function XPTransactionDetails() {
     const routesConfig = RoutesConfig()
@@ -22,9 +24,16 @@ export default function XPTransactionDetails() {
     const [details, setDetails] = React.useState<XPTransactionDetail>()
     const location = useLocation()
     const magellanAddress = useAppSelector(selectMagellanAddress)
+
     async function fetchTransactionDetail(): Promise<void> {
         const res = (await axios.get(`${magellanAddress}${transactionApi}/${getAddressFromUrl()}`))
             .data
+        const parsedDate = moment.utc(res.timestamp)
+        let form =
+            currentDateFormat()[0] === 'd'
+                ? 'ddd DD MMM YYYY HH:mm:ss [GMT]Z (z)'
+                : 'ddd MMM DD YYYY HH:mm:ss [GMT]Z (z)'
+        const formattedDate = parsedDate.format(form)
         let transaction: XPTransaction = {
             id: res.id,
             // status: 'accepted', //TODO: set dynamically when magellan delivers this information
@@ -42,7 +51,7 @@ export default function XPTransactionDetails() {
             id: res.id,
             status: 'accepted', //TODO: set dynamically when magellan delivers this information
             type: res.type,
-            timestamp: new Date(Date.parse(res.timestamp)),
+            timestamp: formattedDate,
             fee: res.txFee,
             memo: convertMemo(res.memo),
         })

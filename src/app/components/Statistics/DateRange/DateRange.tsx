@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
 import { IDataRef, IDateRange } from 'types/statistics'
+import { currentDateFormat } from 'utils/helpers/moment'
 import '../../../../styles/custompicker.css'
 import useWidth from '../../../hooks/useWidth'
 import { seeTimeAxis as typeSeeTimeAxis } from '../ChartConfig/SeeTimeAxis'
@@ -55,7 +56,6 @@ const DateRange = ({
     setFirstLoad,
 }: IDateRange) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
-
     const handleClickOneDay = () => {
         setSeeTimeAxis('day')
         setStartDate(new Date(moment().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss')))
@@ -251,6 +251,7 @@ const DateRange = ({
                         style={{ position: 'relative', right: '6%', top: -25 }}
                     >
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={initialStartDate}
                             onChange={(date: Date) => handleChangeStartDate(date)}
                             selectsStart
@@ -261,6 +262,7 @@ const DateRange = ({
                             // readOnly
                         />
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={InitianEndDate}
                             onChange={(date: Date) => handleChangeEndDate(date)}
                             selectsEnd
@@ -348,6 +350,7 @@ const DateRange = ({
                     <br />
                     <FilterContainerMobile className={darkMode ? 'picker-container' : ''}>
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={initialStartDate}
                             onChange={(date: Date) => setStartDate(date)}
                             selectsStart
@@ -359,6 +362,7 @@ const DateRange = ({
                             // readOnly
                         />
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={InitianEndDate}
                             onChange={(date: Date) => setEndDate(date)}
                             selectsEnd
@@ -377,4 +381,4 @@ const DateRange = ({
     )
 }
 
-export default DateRange
+export default React.memo(DateRange)

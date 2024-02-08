@@ -1,5 +1,30 @@
 import moment from 'moment'
 
+export function currentDateFormat() {
+    return new Intl.DateTimeFormat(navigator.language, {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+    })
+        .formatToParts()
+        .map(part => {
+            if (part.type === 'literal') {
+                return part.value
+            }
+            switch (part.type) {
+                case 'day':
+                    return 'dd'
+                case 'month':
+                    return 'MM'
+                case 'year':
+                    return 'yyyy'
+                default:
+                    return ''
+            }
+        })
+        .join('')
+}
+
 moment.updateLocale('en', {
     relativeTime: {
         future: 'in %s',
