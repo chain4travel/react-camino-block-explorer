@@ -21,7 +21,7 @@ import styled from 'styled-components'
 import { Status } from 'types'
 import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
 import '../../../../styles/scrollbarModal.css'
-import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
+import TextBlockchainDatachart from '../../../../utils/statistics/TextBlockchainDatachart'
 import DateRange from '../DateRange/DateRange'
 import LinearMeter from './LinearMeter'
 

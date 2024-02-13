@@ -1,16 +1,16 @@
+import { mdiInformationOutline, mdiOpenInNew } from '@mdi/js'
+import Icon from '@mdi/react'
+import { Box, Button, Chip, Grid, Tooltip, Typography } from '@mui/material'
 import React from 'react'
-import { Typography, Box, Grid, Tooltip, Button, Chip } from '@mui/material'
-import { mdiOpenInNew, mdiInformationOutline } from '@mdi/js'
 import { Link } from 'react-router-dom'
+import { IDetailsField, IField } from 'types/filesInComponents'
+import { roundedToLocaleString } from '../../utils/currency-utils'
+import moment, { currentDateFormat } from '../../utils/helpers/moment'
+import useWidth from '../hooks/useWidth'
 import { CamAmount } from './CamAmount'
 import CopyToClipboardButton from './CopyToClipboardButton'
-import useWidth from '../hooks/useWidth'
-import Icon from '@mdi/react'
-import moment from '../../utils/helpers/moment'
-import { roundedToLocaleString } from '../../utils/currency-utils'
-import { IDetailsField, IField } from 'types/filesInComponents'
 
-export default function DetailsField({
+function DetailsField({
     field,
     value,
     type,
@@ -198,7 +198,11 @@ export const Field = ({
                     {moment(value as number).fromNow()}
                 </Typography>
                 <Typography variant="body2" component="span" noWrap={true}>
-                    {moment(value as number).format('MMM D, YYYY, h:mm:ss A ([GMT] ZZ)')}
+                    {moment(value as number).format(
+                        currentDateFormat()[0] !== 'd'
+                            ? 'MMM D, YYYY, h:mm:ss A ([GMT] ZZ)'
+                            : 'D MMM, YYYY, h:mm:ss A ([GMT] ZZ)',
+                    )}
                 </Typography>
             </Box>
         )
@@ -261,3 +265,5 @@ const tooltips: { [key: string]: string } = {
     nonce: 'A block nonce is a value used  to indicate proof of work for a block during mining.',
     'transaction value': 'The value being transacted in camino.',
 }
+
+export default React.memo(DetailsField)
