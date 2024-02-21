@@ -1,30 +1,31 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import { Status } from 'types'
-import CircularProgress from '@mui/material/CircularProgress'
-import LinearMeter from './LinearMeter'
-import IconButton from '@mui/material/IconButton'
-import Icon from '@mdi/react'
 import { mdiClose } from '@mdi/js'
+import Icon from '@mdi/react'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import Modal from '@mui/material/Modal'
+import InfoIcon from '@mui/icons-material/Info'
+import { Grid, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import useWidth from 'app/hooks/useWidth'
-import 'react-datepicker/dist/react-datepicker.css'
-import DateRange from '../DateRange/DateRange'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
+import CircularProgress from '@mui/material/CircularProgress'
+import IconButton from '@mui/material/IconButton'
+import Modal from '@mui/material/Modal'
 import Tooltip from '@mui/material/Tooltip'
-import InfoIcon from '@mui/icons-material/Info'
-import styled from 'styled-components'
-import { Grid, useTheme } from '@mui/material'
+import useWidth from 'app/hooks/useWidth'
 import moment from 'moment'
-import { TextBlockchainDatachart } from '../../../../utils/statistics/TextBlockchainDatachart'
-import '../../../../styles/scrollbarModal.css'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+import styled from 'styled-components'
+import { Status } from 'types'
 import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
+import '../../../../styles/scrollbarModal.css'
+import TextBlockchainDatachart from '../../../../utils/statistics/TextBlockchainDatachart'
+import DateRange from '../DateRange/DateRange'
+import LinearMeter from './LinearMeter'
 
+import React from 'react'
 const TooltipContainer = styled.div`
     display: flex;
     padding-top: 2rem;
@@ -63,38 +64,32 @@ const BlockchainCharts = ({
     const theme = useTheme()
 
     const isDark = theme.palette.mode === 'dark'
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = React.useState(false)
     const [startDate, setStartDate] = useState<Date>()
     const [endDate, setEndDate] = useState<Date>(new Date())
-    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('custom')
+    const [seeTimeAxis, setSeeTimeAxis] = useState<string>('month')
     const [firstLoad, setFirstLoad] = useState<boolean>(true)
-    const [applyFilterLimit, setApplyFilterLimit] = useState(false)
-
     const { isTablet, isSmallMobile, isWidescreen } = useWidth()
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        let startDateObject = moment(startDate)
+        let endDateObject = moment(endDate)
         if (startDate !== undefined && endDate !== undefined) {
             dispatch(
                 utilSlice({
                     startDate: `${moment(startDate).format('YYYY-MM-DD')}T00:00:00Z`,
                     endDate: `${moment(endDate).format('YYYY-MM-DD')}T23:59:59Z`,
-                    limit: applyFilterLimit ? 30 : 0,
+                    limit: endDateObject.diff(startDateObject, 'days'),
                 }),
             )
-
-            //First query apply the limit
-            if (applyFilterLimit === true) {
-                setApplyFilterLimit(false)
-            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate])
 
     useEffect(() => {
-        setApplyFilterLimit(true)
-        setStartDate(new Date(moment().add(-30, 'days').format('YYYY-MM-DD HH:mm:ss')))
+        setStartDate(new Date(moment().subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss')))
         setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }, [])
 

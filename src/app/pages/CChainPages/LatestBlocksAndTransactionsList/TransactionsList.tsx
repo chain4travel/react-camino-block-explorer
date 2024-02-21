@@ -1,11 +1,12 @@
+import { Box, Paper, Tooltip, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import { Box, Typography, Paper, CircularProgress, Tooltip } from '@mui/material'
+
 import { CTransaction } from '../../../../types/transaction'
 import Divider from '@mui/material/Divider'
+import Icon from '@mdi/react'
+import { RoutesConfig } from 'utils/route-paths'
 import ShowAllButton from './ShowAllButton'
 import TransactionItem from './Items/TransactionItem'
-import { RoutesConfig } from 'utils/route-paths'
-import Icon from '@mdi/react'
 import { mdiInformationOutline } from '@mdi/js'
 
 interface TransactionsListProps {
@@ -62,7 +63,14 @@ const TransactionsList: FC<TransactionsListProps> = ({ title, items, link }) => 
                         alignItems: 'center',
                     }}
                 >
-                    <CircularProgress color="secondary" />
+                    <Typography
+                        variant="h4"
+                        component="h4"
+                        fontWeight="fontWeightBold"
+                        sx={{ color: 'card.subValue' }}
+                    >
+                        No transactions found
+                    </Typography>
                 </Box>
             )}
             {link && (

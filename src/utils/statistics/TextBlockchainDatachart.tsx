@@ -1,11 +1,12 @@
-import React from 'react'
-import { typeChartData } from './ChartSelector'
 import { useTheme } from '@mui/material'
 import moment from 'moment'
+import React from 'react'
 import { IBlockChainDataChart } from 'types/statistics'
+import { currentDateFormat } from 'utils/helpers/moment'
 import { seeTimeAxis } from '../../app/components/Statistics/ChartConfig/SeeTimeAxis'
+import { typeChartData } from './ChartSelector'
 
-export const TextBlockchainDatachart = ({
+const TextBlockchainDatachart = ({
     typeStatistic,
     startDate,
     endDate,
@@ -16,7 +17,6 @@ export const TextBlockchainDatachart = ({
 }: IBlockChainDataChart) => {
     const theme = useTheme()
     const isDark = theme.palette.mode === 'dark'
-
     const getLowestDate = () => {
         if (dataStatistics.lowestDate !== null && dataStatistics.lowestDate !== undefined) {
             let dateString = validateTypeTimeFilter(dataStatistics.lowestDate)
@@ -37,7 +37,9 @@ export const TextBlockchainDatachart = ({
 
     function validateTypeTimeFilter(dateString: string): string {
         try {
-            let defaultStringDate = moment(dateString).format('dddd, MMMM DD, YYYY')
+            let format =
+                currentDateFormat()[0] === 'd' ? 'dddd, DD MMMM, YYYY' : 'dddd, MMMM DD, YYYY'
+            let defaultStringDate = moment(dateString).format(format)
             switch (timeSeeAxis) {
                 case seeTimeAxis.day:
                     return defaultStringDate
@@ -126,3 +128,5 @@ export const TextBlockchainDatachart = ({
         </>
     )
 }
+
+export default React.memo(TextBlockchainDatachart)

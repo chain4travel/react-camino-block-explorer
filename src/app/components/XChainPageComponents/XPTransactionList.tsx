@@ -1,7 +1,8 @@
-import React from 'react'
-import { Paper, Typography, Box, Tooltip } from '@mui/material'
-import ShowAllButton from '../../pages/CChainPages/LatestBlocksAndTransactionsList/ShowAllButton'
+import { Box, Paper, Tooltip, Typography } from '@mui/material'
+
 import Icon from '@mdi/react'
+import React from 'react'
+import ShowAllButton from '../../pages/CChainPages/LatestBlocksAndTransactionsList/ShowAllButton'
 import { mdiInformationOutline } from '@mdi/js'
 
 export default function XPTransactionList({
@@ -14,6 +15,7 @@ export default function XPTransactionList({
     return (
         <Paper
             variant="outlined"
+            aria-label="transaction-list"
             sx={{
                 display: 'flex',
                 flexDirection: 'column',

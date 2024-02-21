@@ -1,20 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { getChains } from 'api'
+import { Chain, Network } from 'types/store'
+
 import { RootState } from 'store/configureStore'
 import { Status } from 'types'
-import { Chain, Network } from 'types/store'
+import { createSlice } from '@reduxjs/toolkit'
+import { getChains } from 'api'
 
 const getNetworkFromLocalStorage = () => {
     let activeNetwork = localStorage.getItem('activeNetwork')
-    if (activeNetwork === 'undefined') {
-        localStorage.setItem('activeNetwork', JSON.stringify('camino-testnet'))
-        return 'camino-testnet'
-    }
+    if (activeNetwork === 'undefined') return 'camino-testnet'
+
     if (activeNetwork) return JSON.parse(activeNetwork)
-    else {
-        localStorage.setItem('activeNetwork', JSON.stringify('camino-testnet'))
-        return 'camino-testnet'
-    }
+    else return 'camino-testnet'
 }
 
 const getCustomNetworksFromLocalStorage = () => {

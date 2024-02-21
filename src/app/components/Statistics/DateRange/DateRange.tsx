@@ -1,15 +1,16 @@
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
+import TextField from '@mui/material/TextField'
+import moment from 'moment'
 import React, { ForwardedRef, forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
-import '../../../../styles/custompicker.css'
-import styled from 'styled-components'
-import moment from 'moment'
-import TextField from '@mui/material/TextField'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import 'react-datepicker/dist/react-datepicker.css'
-import useWidth from '../../../hooks/useWidth'
-import { Radio, RadioGroup, FormControlLabel, FormControl } from '@mui/material'
-import { seeTimeAxis as typeSeeTimeAxis } from '../ChartConfig/SeeTimeAxis'
+import styled from 'styled-components'
 import { IDataRef, IDateRange } from 'types/statistics'
+import { currentDateFormat } from 'utils/helpers/moment'
+import '../../../../styles/custompicker.css'
+import useWidth from '../../../hooks/useWidth'
+import { seeTimeAxis as typeSeeTimeAxis } from '../ChartConfig/SeeTimeAxis'
 
 const PickerContainer = styled.div`
     display: flex;
@@ -55,59 +56,29 @@ const DateRange = ({
     setFirstLoad,
 }: IDateRange) => {
     const { isWideScreenDown, isWidescreen } = useWidth()
-
-    const validateFirstLoad = () => {
-        if (firstLoad !== undefined && firstLoad !== null && setFirstLoad !== undefined) {
-            setFirstLoad(false)
-        }
-    }
-
     const handleClickOneDay = () => {
         setSeeTimeAxis('day')
-        setStartDate(new Date(moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')))
-        setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
-        validateFirstLoad()
+        setStartDate(new Date(moment().subtract(1, 'day').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneMonth = () => {
         setSeeTimeAxis('month')
-        setStartDate(new Date(moment().startOf('month').format('YYYY-MM-DD HH:mm:ss')))
-
-        if (disableCurrentDay) {
-            setEndDate(
-                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
-            )
-        } else if (disableFuture) {
-            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
-        } else {
-            setEndDate(new Date(moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')))
-        }
-
-        validateFirstLoad()
+        setStartDate(new Date(moment().subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneYear = () => {
         setSeeTimeAxis('year')
-        setStartDate(new Date(moment().startOf('year').format('YYYY-MM-DD HH:mm:ss')))
-
-        if (disableCurrentDay) {
-            setEndDate(
-                new Date(moment().add(-1, 'days').endOf('day').format('YYYY-MM-DD HH:mm:ss')),
-            )
-        } else if (disableFuture) {
-            setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
-        } else {
-            setEndDate(new Date(moment().endOf('year').format('YYYY-MM-DD HH:mm:ss')))
-        }
-
-        validateFirstLoad()
+        setStartDate(new Date(moment().subtract(12, 'months').format('YYYY-MM-DD HH:mm:ss')))
+        setEndDate(new Date(moment().format('YYYY-MM-DD HH:mm:ss')))
     }
 
     const handleClickOneAllTime = () => {
         setSeeTimeAxis('all')
         setStartDate(
             new Date(
-                moment('01/01/2000', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
+                moment('01/01/2022', 'DD/MM/YYYY').startOf('day').format('YYYY-MM-DD HH:mm:ss'),
             ),
         )
 
@@ -118,20 +89,16 @@ const DateRange = ({
         } else {
             setEndDate(new Date(moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')))
         }
-
-        validateFirstLoad()
     }
 
     const handleChangeStartDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setStartDate(date)
-        validateFirstLoad()
     }
 
     const handleChangeEndDate = (date: Date) => {
         setSeeTimeAxis('custom')
         setEndDate(date)
-        validateFirstLoad()
     }
 
     const handleChangeRadioButtons = (value: string) => {
@@ -151,7 +118,7 @@ const DateRange = ({
         }
     }
 
-    const CustomInput = forwardRef(
+    const CustomInput = React.forwardRef(
         ({ value, onClick, label }: IDataRef, ref: ForwardedRef<HTMLInputElement>) => (
             <CustomInputContainer style={{ cursor: 'default' }}>
                 <NewTextField
@@ -284,6 +251,7 @@ const DateRange = ({
                         style={{ position: 'relative', right: '6%', top: -25 }}
                     >
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={initialStartDate}
                             onChange={(date: Date) => handleChangeStartDate(date)}
                             selectsStart
@@ -294,6 +262,7 @@ const DateRange = ({
                             // readOnly
                         />
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={InitianEndDate}
                             onChange={(date: Date) => handleChangeEndDate(date)}
                             selectsEnd
@@ -381,6 +350,7 @@ const DateRange = ({
                     <br />
                     <FilterContainerMobile className={darkMode ? 'picker-container' : ''}>
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={initialStartDate}
                             onChange={(date: Date) => setStartDate(date)}
                             selectsStart
@@ -392,6 +362,7 @@ const DateRange = ({
                             // readOnly
                         />
                         <DatePicker
+                            dateFormat={currentDateFormat()}
                             selected={InitianEndDate}
                             onChange={(date: Date) => setEndDate(date)}
                             selectsEnd
@@ -410,4 +381,4 @@ const DateRange = ({
     )
 }
 
-export default DateRange
+export default React.memo(DateRange)

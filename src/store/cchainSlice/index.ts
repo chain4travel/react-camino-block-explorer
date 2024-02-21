@@ -1,22 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import {
+    fetchNextTransactionDetails,
+    fetchPrevTransactionDetails,
+} from 'app/pages/CChainPages/Transactions/utils'
+import BigNumber from 'bignumber.js'
+import moment from 'moment'
+import { RootState } from 'store/configureStore'
 import { Status, Timeframe } from 'types'
 import { BlockDetail } from 'types/block'
-import { TransactionCurrency, TransactionInformations } from 'types/transaction'
+import { IItem } from 'types/statistics'
 import { ChainOverviewType, initialCchainStateType } from 'types/store'
-import { RootState } from 'store/configureStore'
+import { TransactionCurrency, TransactionInformations } from 'types/transaction'
+import { currentDateFormat } from 'utils/helpers/moment'
 import {
     fetchCBlockDetail,
     fetchTransactionDetails,
     loadNumberOfTransactions,
     loadTotalGasFess,
 } from './utils'
-import {
-    fetchNextTransactionDetails,
-    fetchPrevTransactionDetails,
-} from 'app/pages/CChainPages/Transactions/utils'
-import BigNumber from 'bignumber.js'
-import { IItem } from 'types/statistics'
 
 const initialState: initialCchainStateType = {
     transactionCount: NaN,
@@ -101,6 +103,11 @@ const cchainSlice = createSlice({
                 state.loadBlockDetial = Status.LOADING
             })
             .addCase(fetchCBlockDetail.fulfilled, (state, action) => {
+                let form =
+                    currentDateFormat()[0] === 'd'
+                        ? 'ddd DD MMM YYYY HH:mm:ss [GMT]Z'
+                        : 'ddd MMM DD YYYY HH:mm:ss [GMT]Z'
+                let parsedDate = moment(parseInt(action.payload.header.timestamp) * 1000)
                 let block: BlockDetail = {
                     hash: action.payload.hash,
                     number: parseInt(action.payload.header.number),
@@ -109,7 +116,7 @@ const cchainSlice = createSlice({
                     baseGaseFee: parseInt(action.payload.header.baseFeePerGas),
                     fees: 0,
                     gasUsed: parseInt(action.payload.header.gasUsed),
-                    time: new Date(parseInt(action.payload.header.timestamp) * 1000).toString(),
+                    time: parsedDate.format(form),
                     transactionsCount: action.payload.transactions
                         ? action.payload.transactions.length
                         : 0,
