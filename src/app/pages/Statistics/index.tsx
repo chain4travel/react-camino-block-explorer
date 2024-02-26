@@ -1,57 +1,35 @@
-import React, { FC } from 'react'
-import SubPageTitle from 'app/components/SubPageTitle'
-import PageContainer from 'app/components/PageContainer'
 import { Paper, useTheme } from '@mui/material'
+import PageContainer from 'app/components/PageContainer'
+import SubPageTitle from 'app/components/SubPageTitle'
+import React, { FC } from 'react'
 import {
-    getDailyEmissions,
-    getDailyEmissionsStatus,
-    getNetworkEmissions,
-    getNetworkEmissionsStatus,
-    getTransactionsEmissions,
-    getTransactionsEmissionsStatus,
-    getCountryEmissions,
-    getCountryEmissionsStatus,
-} from 'store/co2emissionsSlice'
-import {
-    loadDailyEmissions,
-    loadNetworkEmissions,
-    loadTransactionsEmissions,
-} from 'store/co2emissionsSlice/utils'
-import {
-    getTransactionsPerDay,
-    getTransactionsPerDayStatus,
-    getUniqueAddresses,
-    getUniqueAddressesLoading,
+    getActiveAddresses,
+    getActiveAddressesInfo,
+    getAverageBlockSize,
+    getAverageBlockSizeInfo,
     getDailyTokenTransfers,
     getDailyTokenTransfersLoading,
     getGasUsed,
     getGasUsedLoading,
-    getActiveAddresses,
-    getActiveAddressesInfo,
-    getGasAveragePrice,
-    getGasAveragePriceInfo,
-    getAverageBlockSize,
-    getAverageBlockSizeInfo,
+    getTransactionsPerDay,
+    getTransactionsPerDayStatus,
+    getUniqueAddresses,
+    getUniqueAddressesLoading,
 } from 'store/blockchainDatachartsSlice'
 import {
-    loadDailyTransactionsStatistics,
-    loadUniqueAddresses,
-    loadDailyTokenTransfer,
-    loadGasUsed,
     loadActiveAddresses,
-    loadGasAveragePrice,
     loadAverageBlockSize,
+    loadDailyTokenTransfer,
+    loadDailyTransactionsStatistics,
+    loadGasUsed,
+    loadUniqueAddresses,
 } from 'store/blockchainDatachartsSlice/utils'
-import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts'
 import { typeChartData } from '../../../utils/statistics/ChartSelector'
+import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import CO2ConsumptionCharts from '../../components/Statistics/CO2ConsumptionCharts/index'
-import { typesMeter } from '../../../utils/statistics/ChartSelector'
-import { loadCountryEmissions } from '../../../store/co2emissionsSlice/utils'
 import '../../../styles/datacharts.css'
-import { FilterDates } from 'types/statistics'
 
 const Statistics: FC = () => {
     const theme = useTheme()
@@ -154,7 +132,7 @@ const Statistics: FC = () => {
                     </Grid>
                 </Box>
             </Paper>
-            <Paper
+            {/* <Paper
                 variant="outlined"
                 square
                 sx={{
@@ -233,9 +211,9 @@ const Statistics: FC = () => {
                         </Grid>
                     </Grid>
                 </Box>
-            </Paper>
+            </Paper> */}
         </PageContainer>
     )
 }
 
-export default Statistics
+export default React.memo(Statistics)
