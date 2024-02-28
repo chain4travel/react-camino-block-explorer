@@ -1,8 +1,8 @@
-import React from 'react'
+import DetailsField from 'app/components/DetailsField'
 import Icon from '@mdi/react'
 import OutlinedContainer from 'app/components/OutlinedContainer'
 import OutlinedFilledContainer from 'app/components/OutlinedFilledContainer'
-import DetailsField from 'app/components/DetailsField'
+import React from 'react'
 
 export default function CopyTitleCard({
     label,

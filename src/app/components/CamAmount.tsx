@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Typography, Tooltip, Box } from '@mui/material'
-import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg'
-import { ReactComponent as ACamIcon } from './assets/a-cam.svg'
-import { ReactComponent as NCamIcon } from './assets/n-cam.svg'
-import { ReactComponent as CamIcon } from './assets/cam.svg'
+
+import { Box, Tooltip, Typography } from '@mui/material'
 import {
-    getDisplayAmount,
-    getACamAmount,
     customToLocaleString,
+    getACamAmount,
+    getDisplayAmount,
     roundedToLocaleString,
 } from '../../utils/currency-utils'
+
+import { ReactComponent as ACamIcon } from './assets/a-cam.svg'
+import { ReactComponent as CamIcon } from './assets/cam.svg'
+import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg'
 import { ICamAmount } from 'types/filesInComponents'
+import { ReactComponent as NCamIcon } from './assets/n-cam.svg'
 import { useLocation } from 'react-router-dom'
 
 export function AmountIcon({ currency }: { currency: string }) {
@@ -60,7 +62,7 @@ export function CamAmount({
                     data-cy={dataCy || getDataCYAmount()}
                     variant="body2"
                     component="h6"
-                    sx={{ whiteSpace: 'nowrap' }}
+                    sx={{ color: 'grey.500', whiteSpace: 'nowrap' }}
                 >
                     {roundedToLocaleString(
                         getDisplayAmount(amount, chainType).value,
@@ -76,7 +78,12 @@ export function CamAmount({
                 />
                 <Typography
                     variant="caption"
-                    sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
+                    sx={{
+                        color: 'grey.500',
+                        fontSize: '11px',
+                        minWidth: '32px',
+                        textAlign: 'left',
+                    }}
                 >
                     {
                         getDisplayAmount(getACamAmount(amount, currency, chainType), chainType)
@@ -111,7 +118,7 @@ export function GasAmount({
                     data-cy={dataCy}
                     variant="body2"
                     component="h6"
-                    sx={{ whiteSpace: 'nowrap' }}
+                    sx={{ whiteSpace: 'nowrap', color: 'grey.500' }}
                 >
                     {roundedToLocaleString(amount, abbreviate ? 4 : 20, abbreviate)}
                 </Typography>

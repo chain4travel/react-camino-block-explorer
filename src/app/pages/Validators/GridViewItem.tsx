@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { Grid, Paper, Typography, Box } from '@mui/material'
-import { Field } from 'app/components/DetailsField'
-import { ValidatorType } from 'types/store'
+
+import { Box, Grid, Paper, Typography } from '@mui/material'
+
 import Chip from '@mui/material/Chip'
-import moment from 'utils/helpers/moment'
-import Tooltip from '@mui/material/Tooltip'
 import CopyButton from '../../components/CopyToClipboardButton'
+import { Field } from 'app/components/DetailsField'
+import Tooltip from '@mui/material/Tooltip'
+import { ValidatorType } from 'types/store'
+import moment from 'utils/helpers/moment'
 import useFeatureFlags from '../../../context/featureFlagProvider'
 
 export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
@@ -35,7 +37,6 @@ export const GridViewItem = ({ validator }: { validator: ValidatorType }) => {
                 gap: '10px',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'primary.light',
                 backgroundImage: 'none',
             }}
         >

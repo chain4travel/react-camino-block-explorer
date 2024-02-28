@@ -1,8 +1,9 @@
-import React from 'react'
-import { Grid, Paper, Typography } from '@mui/material'
-import DetailsField from 'app/components/DetailsField'
-import useWidth from 'app/hooks/useWidth'
 import { Fund, InputsOutputs } from 'types/transaction'
+import { Grid, Paper, Typography } from '@mui/material'
+
+import DetailsField from 'app/components/DetailsField'
+import React from 'react'
+import useWidth from 'app/hooks/useWidth'
 
 export const InputOutputSection = ({ inputs, outputs }: InputsOutputs) => {
     const { isTablet } = useWidth()
@@ -80,7 +81,6 @@ const InputCard = ({ address, value }: Fund) => {
                 gap: '10px',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'primary.light',
                 backgroundImage: 'none',
                 maxWidth: '500px',
                 width: '100%',
@@ -114,7 +114,6 @@ const OutputCard = ({ address, value }: Fund) => {
                 gap: '10px',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'primary.light',
                 backgroundImage: 'none',
                 maxWidth: '500px',
                 width: '100%',

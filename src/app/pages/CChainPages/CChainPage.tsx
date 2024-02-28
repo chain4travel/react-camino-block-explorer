@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { getCchainOverreview } from 'store/cchainSlice'
-import { Typography } from '@mui/material'
-import { useAppSelector } from 'store/configureStore'
-import LatestBlocksAndTransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList'
-import OverviewCards from 'app/components/OverviewCards'
-import DataControllers from 'app/components/DataControllers'
-import PageContainer from 'app/components/PageContainer'
-import { getValidatorsOverreview, getValidatorsStatus } from 'store/validatorsSlice'
-import { useQuery } from 'react-query'
+
 import { fetchBlocksTransactionsCChain, loadBlocksTransactionstype } from 'api'
-import { Status } from 'types'
+import { getValidatorsOverreview, getValidatorsStatus } from 'store/validatorsSlice'
+
+import DataControllers from 'app/components/DataControllers'
+import LatestBlocksAndTransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList'
 import LoadingWrapper from 'app/components/LoadingWrapper'
+import OverviewCards from 'app/components/OverviewCards'
+import PageContainer from 'app/components/PageContainer'
+import { Status } from 'types'
+import { Typography } from '@mui/material'
+import { getCchainOverreview } from 'store/cchainSlice'
+import { useAppSelector } from 'store/configureStore'
+import { useQuery } from 'react-query'
 
 export default function CChainPage() {
     const validatorsLoading = useAppSelector(getValidatorsStatus)

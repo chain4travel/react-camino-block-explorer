@@ -1,1 +1,56 @@
+:root {
+    --border-radius-lg: 12px;
+    --border-radius-sm: 6px;
+    --spacing-space-md: 12px;
+    --spacing-space-base: 16px;
 
+    --spacing-space-sm: 8px;
+    --spacing-space-md: 12px;
+    --spacing-space-base: 16px;
+    --spacing-space-lg: 24px;
+
+    --tailwind-slate-white: #ffffff;
+    --tailwind-slate-slate-50: #f8fafc;
+    --tailwind-slate-slate-100: #f1f5f9;
+    --tailwind-slate-slate-200: #e2e7f0;
+    --tailwind-slate-slate-300: #cbd4e2;
+    --tailwind-slate-slate-400: #94a2b8;
+    --tailwind-slate-slate-500: #64748b;
+    --tailwind-slate-slate-600: #475569;
+    --tailwind-slate-slate-700: #334155;
+    --tailwind-slate-slate-800: #1e293b;
+    --tailwind-slate-slate-900: #0f182a;
+    --tailwind-slate-slate-950: #020617;
+
+    --camino-too-blue-to-be-true: #0085ff;
+    --camino-magento: #b440fc;
+    --camino-aphrodite-teal: #35e9ad;
+    --camino-aphrodite-aqua: #b5e3fd;
+    --camino-muted-blue: #317ca5;
+
+    --camino-gradient-1: linear-gradient(90deg, #0085ff 0%, #b440fc 100%);
+    --camino-gradient-2: linear-gradient(90deg, #b440fc 0%, #35e9ad 100%);
+    --camino-gradient-3: linear-gradient(90deg, #35e9ad 0%, #0085ff 100%);
+    --camino-gradient-4: linear-gradient(90deg, #b440fc 0%, #0f182a 100%);
+
+    --camino-primary-light: #b3daff;
+    --camino-primary-dark: #012c5d;
+    --camino-secondary-light: #e9c6fe;
+    --camino-secondary-dark: #37175c;
+    --camino-success-light: #18b728;
+    --camino-success-dark: #09de6b;
+    --camino-warning-light: #e5a21f;
+    --camino-warning-dark: #e5a21f;
+    --camino-error-light: #e5431f;
+    --camino-error-dark: #e5431f;
+}
+
+html[data-theme='light'] {
+    --bg: #f1f5f9;
+    --bg-card: #ffffff;
+}
+
+html[data-theme='dark'] {
+    --bg: #020617;
+    --bg-card: #020617;
+}

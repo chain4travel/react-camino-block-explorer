@@ -1,10 +1,11 @@
-import React from 'react'
-import { Grid, Box, Chip } from '@mui/material'
+import { Box, Chip, Grid } from '@mui/material'
+
 import AddressLink from 'app/components/AddressLink'
-import moment from 'utils/helpers/moment'
-import { getAddressFromUrl } from 'utils/route-utils'
-import { RoutesConfig } from 'utils/route-paths'
 import { IAddress } from 'types/address'
+import React from 'react'
+import { RoutesConfig } from 'utils/route-paths'
+import { getAddressFromUrl } from 'utils/route-utils'
+import moment from 'utils/helpers/moment'
 
 export const AddressSection = ({ type, timestamp, id, chainType }: IAddress) => {
     const routesConfig = RoutesConfig()
@@ -50,11 +51,7 @@ export const AddressSection = ({ type, timestamp, id, chainType }: IAddress) => 
                     <Chip
                         label={type}
                         size="small"
-                        style={{
-                            minWidth: '61px',
-                            height: 'min-content',
-                            backgroundColor: '#334155',
-                        }}
+                        style={{ minWidth: '61px', height: 'min-content' }}
                     />
                 </Grid>
             </Grid>

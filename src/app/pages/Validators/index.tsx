@@ -75,10 +75,9 @@ const Validators: FC = () => {
                     minHeight: '544px',
                     width: 1,
                     flex: 1,
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}

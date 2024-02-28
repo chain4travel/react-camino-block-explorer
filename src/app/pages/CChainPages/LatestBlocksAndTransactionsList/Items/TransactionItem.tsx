@@ -1,12 +1,13 @@
+import { Box, Grid, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import { Box, Typography, Grid } from '@mui/material'
-import { mdiTransfer } from '@mdi/js'
-import { CamAmount } from '../../../../components/CamAmount'
-import { CTransaction } from 'types/transaction'
-import { RoutesConfig } from 'utils/route-paths'
-import Icon from '@mdi/react'
+
 import AddressLink from '../../../../components/AddressLink'
+import { CTransaction } from 'types/transaction'
+import { CamAmount } from '../../../../components/CamAmount'
+import Icon from '@mdi/react'
 import RelativeTime from '../../../../components/RelativeTime'
+import { RoutesConfig } from 'utils/route-paths'
+import { mdiTransfer } from '@mdi/js'
 import useWidth from 'app/hooks/useWidth'
 
 interface TransactionItemProps {
