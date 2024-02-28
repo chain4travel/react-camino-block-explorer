@@ -62,7 +62,7 @@ export function CamAmount({
                     data-cy={dataCy || getDataCYAmount()}
                     variant="body2"
                     component="h6"
-                    sx={{ color: 'grey.500', whiteSpace: 'nowrap' }}
+                    sx={{ whiteSpace: 'nowrap' }}
                 >
                     {roundedToLocaleString(
                         getDisplayAmount(amount, chainType).value,
@@ -78,12 +78,7 @@ export function CamAmount({
                 />
                 <Typography
                     variant="caption"
-                    sx={{
-                        color: 'grey.500',
-                        fontSize: '11px',
-                        minWidth: '32px',
-                        textAlign: 'left',
-                    }}
+                    sx={{ fontSize: '11px', minWidth: '32px', textAlign: 'left' }}
                 >
                     {
                         getDisplayAmount(getACamAmount(amount, currency, chainType), chainType)
@@ -118,7 +113,7 @@ export function GasAmount({
                     data-cy={dataCy}
                     variant="body2"
                     component="h6"
-                    sx={{ whiteSpace: 'nowrap', color: 'grey.500' }}
+                    sx={{ whiteSpace: 'nowrap' }}
                 >
                     {roundedToLocaleString(amount, abbreviate ? 4 : 20, abbreviate)}
                 </Typography>

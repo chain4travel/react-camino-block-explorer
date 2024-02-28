@@ -84,6 +84,11 @@ const InputCard = ({ address, value }: Fund) => {
                 backgroundImage: 'none',
                 maxWidth: '500px',
                 width: '100%',
+                borderRadius: '12px',
+                backgroundColor: 'card.background',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'card.border',
             }}
         >
             <Typography
@@ -117,6 +122,11 @@ const OutputCard = ({ address, value }: Fund) => {
                 backgroundImage: 'none',
                 maxWidth: '500px',
                 width: '100%',
+                borderRadius: '12px',
+                backgroundColor: 'card.background',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'card.border',
             }}
         >
             <Typography
