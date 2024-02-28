@@ -97,6 +97,16 @@ const BlockchainCharts = ({
     const dataStatistics: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
+    const onOpenModal = () => {
+        document.body.style.overflow = 'hidden'
+        setOpenModal(true)
+    }
+
+    const onCloseModal = () => {
+        document.body.style.overflow = 'initial'
+        setOpenModal(false)
+    }
+
     return (
         <Fragment>
             {loader === Status.LOADING ? (
@@ -136,7 +146,7 @@ const BlockchainCharts = ({
                                     <IconButton
                                         color="info"
                                         component="label"
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={onOpenModal}
                                         sx={{
                                             color: `var(--camino-too-blue-to-be-true)`,
                                             padding: '0.5rem',
@@ -170,7 +180,7 @@ const BlockchainCharts = ({
 
             <Modal
                 open={openModal}
-                onClose={e => setOpenModal(false)}
+                onClose={onCloseModal}
                 sx={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -204,11 +214,8 @@ const BlockchainCharts = ({
                                 <IconButton
                                     color="info"
                                     component="label"
-                                    onClick={() => setOpenModal(false)}
-                                    style={{
-                                        cursor: 'default',
-                                        color: isDark ? 'white' : 'black',
-                                    }}
+                                    onClick={onCloseModal}
+                                    style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
                                 >
                                     <Icon path={mdiClose} size={1} />
                                 </IconButton>
