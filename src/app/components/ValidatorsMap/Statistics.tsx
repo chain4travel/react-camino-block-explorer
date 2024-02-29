@@ -1,8 +1,8 @@
-import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import flags from './json/flags.json'
+import React from 'react'
 import { IStatistics } from 'types/statistics'
+import flags from './json/flags.json'
 
 const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
     const getUrlFlag = (index: string) => {
@@ -48,6 +48,12 @@ const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
         legend: {
             itemStyle: {
                 color: darkMode ? 'white' : 'black',
+                cursor: 'default',
+            },
+            itemHoverStyle: {
+                opacity: 1,
+                color: darkMode ? 'white' : 'black',
+                cursor: 'default',
             },
         },
         series: [
@@ -57,6 +63,12 @@ const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
                 color: '#41547C',
                 data: nodesPerCountry.map(value => value.nodes.length),
                 lineColor: 'transparent', // make the line invisible
+                showInLegend: true,
+                events: {
+                    legendItemClick: function () {
+                        return false
+                    },
+                },
             },
         ],
         credits: {
@@ -79,4 +91,4 @@ const Statistics = ({ nodesPerCountry, darkMode }: IStatistics) => {
     )
 }
 
-export default Statistics
+export default React.memo(Statistics)
