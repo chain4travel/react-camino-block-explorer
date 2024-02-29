@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
-import SearchIcon from '@mui/icons-material/Search'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
-import useWidth from 'app/hooks/useWidth'
-import axios, { AxiosError, AxiosResponse } from 'axios'
-import { MenuItem, MenuList, ListItemIcon, Avatar, ClickAwayListener } from '@mui/material'
-import { useTheme } from '@mui/material'
-import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
-import { debounce } from './utils/debounce'
-import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from 'store/configureStore'
-import { selectMagellanAddress } from 'store/app-config'
-import { searchApi } from 'utils/magellan-api-utils'
+import { Avatar, ClickAwayListener, ListItemIcon, MenuItem, MenuList } from '@mui/material'
 import {
-    MagellanSearchResultElementType,
-    MagellanXPTransactionSearchResult,
-    MagellanCTransactionSearchResult,
-    MagellanCBlockSearchResult,
-    MagellanAddressSearchResult,
-    MagellanAddressResponse,
-} from 'types/magellan-types'
-import {
-    GetBlockDetailsPath,
     GetAddressDetailsPath,
+    GetBlockDetailsPath,
     GetTransactionDetailsPath,
 } from 'utils/route-utils'
+import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
+import {
+    MagellanAddressResponse,
+    MagellanAddressSearchResult,
+    MagellanCBlockSearchResult,
+    MagellanCTransactionSearchResult,
+    MagellanSearchResultElementType,
+    MagellanXPTransactionSearchResult,
+} from 'types/magellan-types'
+import React, { useEffect, useState } from 'react'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+
+import Box from '@mui/material/Box'
 import { ChainType } from 'utils/types/chain-type'
-import { getChainID } from 'api/utils'
+import InputAdornment from '@mui/material/InputAdornment'
+import Modal from '@mui/material/Modal'
+import OutlinedInput from '@mui/material/OutlinedInput'
 import { RoutesConfig } from 'utils/route-paths'
+import SearchIcon from '@mui/icons-material/Search'
+import Typography from '@mui/material/Typography'
+import { debounce } from './utils/debounce'
+import { getChainID } from 'api/utils'
+import { searchApi } from 'utils/magellan-api-utils'
+import { selectMagellanAddress } from 'store/app-config'
+import { useAppSelector } from 'store/configureStore'
+import { useNavigate } from 'react-router-dom'
+import { useTheme } from '@mui/material'
+import useWidth from 'app/hooks/useWidth'
 
 function OutlinedSearchInput() {
     const routesConfig = RoutesConfig()
@@ -241,9 +242,13 @@ function OutlinedSearchInput() {
                             height: '100%',
                             borderRadius: '8px',
                             p: '8px 16px',
-                            backgroundColor: 'primary.light',
+                            backgroundColor: 'card.background',
+                            boxShadow: 0,
+                            backgroundImage: 'none',
+                            borderWidth: '1px',
+                            borderColor: 'card.border',
+                            borderStyle: 'solid',
                             color: 'primary.contrastText',
-                            borderWidth: '0px',
                             fontSize: '15px',
                             lineHeight: '24px',
                             fontWeight: 500,

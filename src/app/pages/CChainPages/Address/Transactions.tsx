@@ -1,17 +1,18 @@
-import React, { useRef, useEffect, useCallback, FC } from 'react'
-import { Grid, TableContainer, Box, LinearProgress } from '@mui/material'
-import { useLocation } from 'react-router-dom'
-import { useInfiniteQuery } from 'react-query'
-import { loadCAddressTransactions } from 'api'
+import { Box, Grid, LinearProgress, TableContainer } from '@mui/material'
+import React, { FC, useCallback, useEffect, useRef } from 'react'
+
 import Address from './Address'
-import TableView from 'app/components/Table/TableView'
-import useWidth from 'app/hooks/useWidth'
-import LoadingWrapper from 'app/components/LoadingWrapper'
-import { Status } from 'types'
-import { queryClient } from '../../../../App'
-import { getAddressFromUrl } from 'utils/route-utils'
 import { CAddressTransactionTableData } from 'types/transaction'
 import { ColumnType } from 'app/pages/Validators'
+import LoadingWrapper from 'app/components/LoadingWrapper'
+import { Status } from 'types'
+import TableView from 'app/components/Table/TableView'
+import { getAddressFromUrl } from 'utils/route-utils'
+import { loadCAddressTransactions } from 'api'
+import { queryClient } from '../../../../App'
+import { useInfiniteQuery } from 'react-query'
+import { useLocation } from 'react-router-dom'
+import useWidth from 'app/hooks/useWidth'
 
 const Transactions: FC = () => {
     const location = useLocation()
@@ -73,7 +74,7 @@ const Transactions: FC = () => {
                 loadingBoxStyle={{ minHeight: '500px' }}
             >
                 {status === 'success' && data && (
-                    <TableContainer sx={{ height: '680px' }}>
+                    <TableContainer sx={{ height: '680px', borderRadius: '12px' }}>
                         {isWidescreen || isDesktop ? (
                             <TableView columns={columns}>{content}</TableView>
                         ) : (

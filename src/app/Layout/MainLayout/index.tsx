@@ -1,13 +1,16 @@
+import { Box, CircularProgress, Container, Typography } from '@mui/material'
 import React, { useContext, useEffect } from 'react'
+import { getActiveNetwork, selectAllChains, selectNetworkStatus } from 'store/app-config'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+
+import { ColorModeContext } from '../../../styles/theme/ThemeProvider'
+import Icon from '@mdi/react'
 import { NavBar } from 'app/components/NavBar'
 import { Outlet } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import { Typography, Box, CircularProgress, Container } from '@mui/material'
-import { getActiveNetwork, selectAllChains, selectNetworkStatus } from 'store/app-config'
+import PageContainer from 'app/components/PageContainer'
 import { Status } from 'types'
 import { getChains } from 'api'
-import PageContainer from 'app/components/PageContainer'
-import { ColorModeContext } from '../../../styles/theme/ThemeProvider'
+import { mdiAccessPointNetworkOff } from '@mdi/js'
 import { selectedTheme } from '../../../store/app-config'
 
 const Content: React.FC = () => {
@@ -36,14 +39,32 @@ const Content: React.FC = () => {
                     gap: '20px',
                 }}
             >
-                <Typography
-                    variant="h4"
-                    component="span"
-                    fontWeight="fontWeightBold"
-                    sx={{ color: 'error.light' }}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        maxWidth: '500px',
+                        gap: '1rem',
+                    }}
                 >
-                    Something went wrong, Please Try Again!
-                </Typography>
+                    <Icon path={mdiAccessPointNetworkOff} size={3} color="#94A2B8" />
+                    <Typography variant="h4" component="span" fontWeight="fontWeightBold">
+                        Something went wrong
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        component="span"
+                        sx={{
+                            textAlign: 'center',
+                            color: theme => (theme.palette.mode === 'dark' ? '#CBD4E2' : '#64748B'),
+                        }}
+                    >
+                        We have encountered an unexpected issue with our current system. For
+                        uninterrupted service, switch over to the Camino Network.
+                    </Typography>
+                </Box>
             </Box>
         </PageContainer>
     )

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { Button } from '@mui/material'
 
 function MainButton({
@@ -17,13 +18,15 @@ function MainButton({
             variant={variant}
             onClick={onClick}
             sx={{
-                borderRadius: '12px',
-                padding: '.55rem 2rem',
+                borderRadius: '8px',
+                padding: '0.55rem 2rem',
                 backgroundColor: variant === 'outlined' ? 'transparent' : 'secondary.main',
                 color: variant === 'outlined' ? 'secondary.main' : 'white',
                 borderColor: variant === 'outlined' ? 'secondary.main' : '',
                 boxShadow: 'none',
                 borderWidth: '1.5px',
+                textTransform: 'capitalize',
+                fontWeight: 600,
                 '&:hover': {
                     boxShadow: 'none',
                     backgroundColor: variant === 'outlined' ? 'transparent' : 'secondary.main',

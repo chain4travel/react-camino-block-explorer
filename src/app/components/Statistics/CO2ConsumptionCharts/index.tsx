@@ -1,30 +1,33 @@
-import React, { useEffect, Fragment, useState } from 'react'
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import { typesMeter } from '../../../../utils/statistics/ChartSelector'
-import BarMeter from './BarMeter'
-import TimeSeriesMeter from './TimeSeriesMeter'
-import { Status } from 'types'
-import CircularProgress from '@mui/material/CircularProgress'
-import IconButton from '@mui/material/IconButton'
-import Modal from '@mui/material/Modal'
-import Box from '@mui/material/Box'
-import useWidth from 'app/hooks/useWidth'
-import DateRange from '../DateRange/DateRange'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardHeader from '@mui/material/CardHeader'
-import moment from 'moment'
-import CountriesBarMeter from './CountriesBarMeter'
 import '../../../../styles/custompicker.css'
-import styled from 'styled-components'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import Icon from '@mdi/react'
-import { mdiClose } from '@mdi/js'
-import { useTheme, Grid } from '@mui/material'
 import '../../../../styles/scrollbarModal.css'
+
+import {
+    Box,
+    Card,
+    CardContent,
+    CardHeader,
+    CircularProgress,
+    IconButton,
+    Modal,
+    Tooltip,
+    Typography,
+} from '@mui/material'
 import { ConsumptionCharts, Emissions } from 'types/statistics'
-import Tooltip from '@mui/material/Tooltip'
-import InfoIcon from '@mui/icons-material/Info'
+import { Grid, useTheme } from '@mui/material'
+import React, { Fragment, useEffect, useState } from 'react'
+import { mdiArrowExpand, mdiClose, mdiInformationOutline } from '@mdi/js'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+
+import BarMeter from './BarMeter'
+import CountriesBarMeter from './CountriesBarMeter'
+import DateRange from '../DateRange/DateRange'
+import Icon from '@mdi/react'
+import { Status } from 'types'
+import TimeSeriesMeter from './TimeSeriesMeter'
+import moment from 'moment'
+import styled from 'styled-components'
+import { typesMeter } from '../../../../utils/statistics/ChartSelector'
+import useWidth from 'app/hooks/useWidth'
 
 type DatesChart = {
     starterDate: Date
@@ -33,7 +36,6 @@ type DatesChart = {
 
 const TooltipContainer = styled.div`
     display: flex;
-    padding-top: 2rem;
 `
 const DateRangeContainer = styled.div`
     margin-top: 2rem;
@@ -42,20 +44,6 @@ const DateRangeContainer = styled.div`
         margin-left: 5rem;
         margin-right: 11rem;
     }
-`
-
-interface TextProps {
-    backgroundColor: string
-}
-
-const Text = styled('p')<TextProps>`
-    margin-left: 3rem;
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    background: ${({ backgroundColor }) => backgroundColor};
-    padding: 0.5rem;
 `
 
 const CO2ConsumptionCharts = ({
@@ -170,37 +158,47 @@ const CO2ConsumptionCharts = ({
                 </>
             ) : (
                 <>
-                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
+                    <Card
+                        sx={{
+                            backgroundColor: 'card.background',
+                            boxShadow: 0,
+                            backgroundImage: 'none',
+                            borderRadius: '12px',
+                            borderWidth: '1px',
+                            borderColor: 'primary.light',
+                            borderStyle: 'solid',
+                        }}
+                    >
                         <CardHeader
                             title={
-                                <span>
+                                <Typography
+                                    variant="h5"
+                                    component="span"
+                                    sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+                                >
                                     {titleText}
                                     <Tooltip title={description} placement="top">
-                                        <IconButton>
-                                            <InfoIcon />
-                                        </IconButton>
+                                        <Icon path={mdiInformationOutline} size={1} />
                                     </Tooltip>
-                                </span>
+                                </Typography>
                             }
-                            style={{
-                                marginBottom: '0rem',
-                                marginLeft: '0.5rem',
-                            }}
                             action={
                                 <TooltipContainer>
                                     <IconButton
                                         color="info"
                                         component="label"
                                         onClick={() => setOpenModal(true)}
-                                        style={{
-                                            cursor: 'default',
-                                            color: 'GrayText',
+                                        sx={{
+                                            color: `var(--camino-too-blue-to-be-true)`,
+                                            padding: '0.5rem',
+                                            border: '1px solid var(--camino-too-blue-to-be-true)',
                                         }}
                                     >
-                                        <ArrowOutwardIcon />
+                                        <Icon path={mdiArrowExpand} size={0.7} />
                                     </IconButton>
                                 </TooltipContainer>
                             }
+                            sx={{ '& .MuiCardHeader-action': { alignSelf: 'center' } }}
                         />
                         <CardContent>
                             {firstLoad === true && (
@@ -241,6 +239,7 @@ const CO2ConsumptionCharts = ({
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            '& .MuiPaper-root': { backgroundImage: 'none' },
                         }}
                         disableScrollLock={true}
                     >
@@ -281,9 +280,21 @@ const CO2ConsumptionCharts = ({
                                         alignItems="center"
                                     >
                                         <Grid item xs={12}>
-                                            <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                            <Typography
+                                                variant="body1"
+                                                component="p"
+                                                sx={{
+                                                    my: 2,
+                                                    mx: 1,
+                                                    border: 1,
+                                                    borderColor: 'primary.light',
+                                                    borderRadius: 1,
+                                                    backgroundColor: 'card.background',
+                                                    p: 2,
+                                                }}
+                                            >
                                                 {description}
-                                            </Text>
+                                            </Typography>
                                         </Grid>
                                     </Grid>
                                     {meterCO2 != null && meterCO2 !== undefined && (

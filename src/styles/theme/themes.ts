@@ -71,7 +71,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
         contrastText: '#0F172A',
     },
     secondary: {
-        main: '#149EED',
+        main: '#0085FF',
         light: '#B440FC',
         dark: '#7E2DB0',
         contrastText: '#0F172A',
@@ -104,7 +104,7 @@ export const LightThemePalette: Partial<PaletteWithCustomColors> = {
     card: {
         background: '#FFFFFF',
         navBar: '#FFFFFF',
-        border: '#CBD5E1',
+        border: '#CBD4E2',
         title: '#0F172A',
         subValue: '#334155',
         contrastText: '#0F172A',
@@ -146,7 +146,7 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
         contrastText: '#FFFFFF',
     },
     secondary: {
-        main: '#149EED',
+        main: '#0085FF',
         light: '#B440FC',
         dark: '#7E2DB0',
         contrastText: '#0F172A',
@@ -177,9 +177,9 @@ export const DarkThemePalette: Partial<PaletteWithCustomColors> = {
     },
     grey: grey,
     card: {
-        background: '#0F172A',
-        navBar: '#0F172A',
-        border: alpha('#919EAB', 0.24),
+        background: `var(--bg)`,
+        navBar: `var(--bg)`,
+        border: '#334155',
         title: '#64748B',
         subValue: '#64748B',
         contrastText: '#FFFFFF',
@@ -342,14 +342,16 @@ const defaultComponents = {
             },
         },
     },
-    MuiPaper: {
-        styleOverrides: {
-            root: {
-                boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-                borderRadius: '7px',
-            },
-        },
-    },
+    // MuiPaper: {
+    //     styleOverrides: {
+    //         root: {
+    //             // boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
+    //             boxShadow: 'none',
+    //             borderRadius: '7px',
+    //             borderColor: 'card.border',
+    //         },
+    //     },
+    // },
     MuiTab: {
         styleOverrides: {
             root: {
@@ -403,6 +405,15 @@ const defaultComponents = {
 export const lightTheme = createTheme({
     palette: LightThemePalette,
     components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',
+                    borderRadius: '7px',
+                    borderColor: '#CBD4E2',
+                },
+            },
+        },
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
@@ -445,10 +456,19 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
     palette: DarkThemePalette,
     components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',
+                    borderRadius: '7px',
+                    borderColor: '#334155',
+                },
+            },
+        },
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
-                    backgroundColor: '#0F172A',
+                    backgroundColor: `var(--bg)`,
                 },
             },
         },

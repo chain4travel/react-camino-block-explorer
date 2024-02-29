@@ -1,15 +1,16 @@
-import React from 'react'
-import { Grid, Paper, TableCell, TableRow, Typography, Chip } from '@mui/material'
-import { Field } from 'app/components/DetailsField'
-import { getAddressLink, GetTransactionType, GetAddressType } from 'utils/route-utils'
-import { ChainType } from 'utils/types/chain-type'
+import { Chip, Grid, Paper, TableCell, TableRow, Typography } from '@mui/material'
+import { GetAddressType, GetTransactionType, getAddressLink } from 'utils/route-utils'
+
 import AddressLink from 'app/components/AddressLink'
-import useWidth from 'app/hooks/useWidth'
-import moment from 'utils/helpers/moment'
+import { ChainType } from 'utils/types/chain-type'
+import { Field } from 'app/components/DetailsField'
 import { NoMaxWidthTooltip } from 'app/components/RelativeTime'
-import { getChainTypeFromUrl } from 'utils/route-utils'
-import { XPTransaction } from 'types/transaction'
+import React from 'react'
 import { RoutesConfig } from 'utils/route-paths'
+import { XPTransaction } from 'types/transaction'
+import { getChainTypeFromUrl } from 'utils/route-utils'
+import moment from 'utils/helpers/moment'
+import useWidth from 'app/hooks/useWidth'
 
 interface Props {
     transaction: any
@@ -37,7 +38,6 @@ const Transaction = React.forwardRef<Ref, Props>((props, ref) => {
                     gap: '10px',
                     display: 'flex',
                     flexDirection: 'column',
-                    backgroundColor: 'primary.light',
                     backgroundImage: 'none',
                 }}
                 ref={ref}
@@ -53,7 +53,6 @@ const Transaction = React.forwardRef<Ref, Props>((props, ref) => {
                     gap: '10px',
                     display: 'flex',
                     flexDirection: 'column',
-                    backgroundColor: 'primary.light',
                     backgroundImage: 'none',
                 }}
             >
@@ -139,7 +138,7 @@ const GridItem = ({ transaction }: { transaction: XPTransaction }) => {
                 <Chip
                     label={transaction.type}
                     size="small"
-                    style={{ minWidth: '61px', height: 'min-content', backgroundColor: '#334155' }}
+                    style={{ minWidth: '61px', height: 'min-content' }}
                 />
             </Grid>
             <Grid item xs={12} md zeroMinWidth order={{ xs: 3, md: 2 }}>
@@ -222,7 +221,7 @@ const CustomRow = ({ transaction }: { transaction: XPTransaction }) => {
                 <Chip
                     label={transaction.type}
                     size="small"
-                    style={{ minWidth: '61px', height: 'min-content', backgroundColor: '#334155' }}
+                    style={{ minWidth: '61px', height: 'min-content' }}
                 />
             </TableCell>
             <TableCell align="left" width="15%">

@@ -1,17 +1,17 @@
+import { Box, Grid, LinearProgress, Paper, TableCellProps, TableContainer } from '@mui/material'
 import React, { FC } from 'react'
-import { Grid, Paper, TableContainer, TableCellProps, Box, LinearProgress } from '@mui/material'
-import { useInfiniteQuery } from 'react-query'
-import { getBlocksPage } from 'api'
-import { RoutesConfig } from 'utils/route-paths'
-import PageContainer from 'app/components/PageContainer'
+
 import Block from './Block'
-import TableView from 'app/components/Table/TableView'
-import useWidth from 'app/hooks/useWidth'
-import SubPageTitle from 'app/components/SubPageTitle'
 import { BlockTableData } from 'types/block'
+import PageContainer from 'app/components/PageContainer'
+import { RoutesConfig } from 'utils/route-paths'
+import SubPageTitle from 'app/components/SubPageTitle'
+import TableView from 'app/components/Table/TableView'
+import { getBlocksPage } from 'api'
+import { useInfiniteQuery } from 'react-query'
+import useWidth from 'app/hooks/useWidth'
 
 const Blocks: FC = () => {
-
     const routesConfig = RoutesConfig()
     const intObserver = React.useRef<IntersectionObserver | null>(null)
     const { isDesktop, isWidescreen } = useWidth()
@@ -62,7 +62,6 @@ const Blocks: FC = () => {
                     backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
@@ -75,7 +74,7 @@ const Blocks: FC = () => {
                 >
                     <SubPageTitle title="C-Blocks" backToLink={routesConfig.CCHAIN} />
                     {status === 'success' && data && (
-                        <TableContainer sx={{ height: '750px' }}>
+                        <TableContainer sx={{ height: '750px', borderRadius: '12px' }}>
                             {isWidescreen || isDesktop ? (
                                 <TableView columns={columns}>{content}</TableView>
                             ) : (

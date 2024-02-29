@@ -1,22 +1,25 @@
-import { mdiTransfer } from '@mdi/js'
+import * as React from 'react'
+
 import { Box, Grid, Paper, Typography } from '@mui/material'
+import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan'
+import { getAddressFromUrl, getChainTypeFromUrl } from 'utils/route-utils'
+
 import BackButton from 'app/components/BackButton'
 import CopyTitleCard from 'app/components/CopyTitleCard'
 import PageContainer from 'app/components/PageContainer'
-import axios from 'axios'
-import moment from 'moment'
-import * as React from 'react'
-import { useLocation } from 'react-router-dom'
-import { selectMagellanAddress } from 'store/app-config'
-import { useAppSelector } from 'store/configureStore'
-import { XPTransactionDetail } from 'types/magellan-types'
-import { XPTransaction } from 'types/transaction'
-import { currentDateFormat } from 'utils/helpers/moment'
-import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan'
-import { transactionApi } from 'utils/magellan-api-utils'
 import { RoutesConfig } from 'utils/route-paths'
-import { getAddressFromUrl, getChainTypeFromUrl } from 'utils/route-utils'
+import SubPageTitle from 'app/components/SubPageTitle'
 import TransactionDetailView from './XPTransactionDetailView'
+import { XPTransaction } from 'types/transaction'
+import { XPTransactionDetail } from 'types/magellan-types'
+import axios from 'axios'
+import { currentDateFormat } from 'utils/helpers/moment'
+import { mdiTransfer } from '@mdi/js'
+import moment from 'moment'
+import { selectMagellanAddress } from 'store/app-config'
+import { transactionApi } from 'utils/magellan-api-utils'
+import { useAppSelector } from 'store/configureStore'
+import { useLocation } from 'react-router-dom'
 
 export default function XPTransactionDetails() {
     const routesConfig = RoutesConfig()
@@ -73,34 +76,24 @@ export default function XPTransactionDetails() {
                 variant="outlined"
                 square
                 sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
                     minHeight: '680px',
                     width: 1,
                     backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
             >
-                <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
-                    <Grid
-                        item
-                        container
-                        alignItems="center"
-                        sx={{
-                            gap: '20px',
-                        }}
-                    >
-                        <BackButton
-                            backToLink={`${routesConfig.BASE_PATH}/${getChainTypeFromUrl()}`}
-                        />
-                        <Typography variant="h5" component="h5" fontWeight="fontWeightBold">
-                            {`${location.pathname
-                                .split('/')[3][0]
-                                .toLocaleUpperCase()}-Chain Transaction`}
-                        </Typography>
-                    </Grid>
+                <Grid container direction="column" sx={{ width: 1, gap: '20px', flex: 1 }}>
+                    <SubPageTitle
+                        title={`${location.pathname
+                            .split('/')[3][0]
+                            .toLocaleUpperCase()}-Chain Transaction`}
+                        backToLink={`${routesConfig.BASE_PATH}/${getChainTypeFromUrl()}`}
+                    />
                     {details && (
                         <CopyTitleCard label="Transaction" value={details.id} icon={mdiTransfer} />
                     )}

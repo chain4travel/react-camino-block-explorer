@@ -1,15 +1,16 @@
-import React from 'react'
-import { Grid, Paper, TableContainer, Box, LinearProgress } from '@mui/material'
-import { useInfiniteQuery } from 'react-query'
-import { getXPTransactions } from 'api'
-import PageContainer from 'app/components/PageContainer'
-import CutomTable from 'app/components/Table/TableView'
-import useWidth from 'app/hooks/useWidth'
-import Transaction from './Transaction'
-import SubPageTitle from 'app/components/SubPageTitle'
-import { getChainTypeFromUrl } from 'utils/route-utils'
+import { Box, Grid, LinearProgress, Paper, TableContainer } from '@mui/material'
+
 import { ColumnType } from 'app/pages/Validators'
+import CutomTable from 'app/components/Table/TableView'
+import PageContainer from 'app/components/PageContainer'
+import React from 'react'
 import { RoutesConfig } from 'utils/route-paths'
+import SubPageTitle from 'app/components/SubPageTitle'
+import Transaction from './Transaction'
+import { getChainTypeFromUrl } from 'utils/route-utils'
+import { getXPTransactions } from 'api'
+import { useInfiniteQuery } from 'react-query'
+import useWidth from 'app/hooks/useWidth'
 
 const XPTransactions = () => {
     const routesConfig = RoutesConfig()
@@ -73,10 +74,9 @@ const XPTransactions = () => {
                 sx={{
                     minHeight: '680px',
                     width: 1,
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
@@ -92,7 +92,7 @@ const XPTransactions = () => {
                         backToLink={routesConfig.BASE_PATH + '/' + chainType}
                     />
                     {status === 'success' && data && (
-                        <TableContainer sx={{ height: '650px' }}>
+                        <TableContainer sx={{ height: '650px', borderRadius: '12px' }}>
                             {isWidescreen || isDesktop ? (
                                 <CutomTable columns={columns}>{content}</CutomTable>
                             ) : (

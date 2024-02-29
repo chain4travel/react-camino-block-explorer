@@ -1,12 +1,14 @@
 import * as React from 'react'
+
 import { Divider, Grid } from '@mui/material'
-import OutlinedContainer from 'app/components/OutlinedContainer'
+
 import DetailsField from 'app/components/DetailsField'
-import { InputOutputSection } from '../Address/InputOutputSection'
-import { mdiCheckboxMarkedCircleOutline } from '@mdi/js'
-import { mdiAlertCircleOutline } from '@mdi/js'
-import Icon from '@mdi/react'
 import { ITransactionDetailView } from 'types/transaction'
+import Icon from '@mdi/react'
+import { InputOutputSection } from '../Address/InputOutputSection'
+import OutlinedContainer from 'app/components/OutlinedContainer'
+import { mdiAlertCircleOutline } from '@mdi/js'
+import { mdiCheckboxMarkedCircleOutline } from '@mdi/js'
 
 function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetailView) {
     return (
@@ -72,11 +74,15 @@ function TransactionDetailView({ detailTr, inputs, outputs }: ITransactionDetail
                                 type="string"
                                 style={{ padding: '1rem' }}
                             />
-                            <Divider variant="fullWidth" />
+                            {inputs && inputs?.length > 0 && outputs && outputs?.length > 0 && (
+                                <Divider variant="fullWidth" />
+                            )}
                         </Grid>
-                        <Grid container item xs={12} spacing={2} sx={{ padding: '1rem' }}>
-                            <InputOutputSection inputs={inputs} outputs={outputs} />
-                        </Grid>
+                        {inputs && inputs?.length > 0 && outputs && outputs?.length > 0 && (
+                            <Grid container item xs={12} spacing={2} sx={{ padding: '1rem' }}>
+                                <InputOutputSection inputs={inputs} outputs={outputs} />
+                            </Grid>
+                        )}
                     </Grid>
                 </OutlinedContainer>
             )}

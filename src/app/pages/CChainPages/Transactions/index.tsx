@@ -1,15 +1,16 @@
-import React, { FC, useRef, useCallback } from 'react'
-import { Grid, Paper, TableContainer, Box, LinearProgress } from '@mui/material'
-import { useInfiniteQuery } from 'react-query'
-import { getTransactionsPage } from 'api'
-import PageContainer from 'app/components/PageContainer'
-import TableView from 'app/components/Table/TableView'
-import useWidth from 'app/hooks/useWidth'
-import Transaction from './Transaction'
-import SubPageTitle from 'app/components/SubPageTitle'
-import { RoutesConfig } from 'utils/route-paths'
-import { TransactionTableData } from 'types/transaction'
+import { Box, Grid, LinearProgress, Paper, TableContainer } from '@mui/material'
+import React, { FC, useCallback, useRef } from 'react'
+
 import { ColumnType } from 'app/pages/Validators'
+import PageContainer from 'app/components/PageContainer'
+import { RoutesConfig } from 'utils/route-paths'
+import SubPageTitle from 'app/components/SubPageTitle'
+import TableView from 'app/components/Table/TableView'
+import Transaction from './Transaction'
+import { TransactionTableData } from 'types/transaction'
+import { getTransactionsPage } from 'api'
+import { useInfiniteQuery } from 'react-query'
+import useWidth from 'app/hooks/useWidth'
 
 const Transactions: FC = () => {
     const intObserver = useRef<IntersectionObserver | null>(null)
@@ -69,7 +70,6 @@ const Transactions: FC = () => {
                     backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
@@ -82,7 +82,7 @@ const Transactions: FC = () => {
                 >
                     <SubPageTitle title="C-Transactions" backToLink={routesConfig.CCHAIN} />
                     {status === 'success' && data && (
-                        <TableContainer sx={{ height: '750px' }}>
+                        <TableContainer sx={{ height: '750px', borderRadius: '12px' }}>
                             {isWidescreen || isDesktop ? (
                                 <TableView columns={columns}>{content}</TableView>
                             ) : (

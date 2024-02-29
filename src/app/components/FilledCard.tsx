@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { Paper } from '@mui/material'
 
 interface BlockCardProps {
@@ -18,7 +19,6 @@ const FilledCard: FC<BlockCardProps> = React.forwardRef((props, ref) => {
                 gap: '10px',
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'primary.light',
                 backgroundImage: 'none',
             }}
             ref={ref}

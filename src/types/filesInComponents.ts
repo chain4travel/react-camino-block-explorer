@@ -1,6 +1,6 @@
 export interface IDetailsField {
     field: string
-    value?: string | number
+    value?: string | number | React.ReactElement
     type: string
     icon?: React.ReactElement
     tooltip?: string
@@ -13,7 +13,7 @@ export interface IDetailsField {
 
 export interface IField {
     type: string
-    value?: number | string
+    value?: number | string | React.ReactElement
     fontWeight?: string
     abbreviate?: boolean
     field?: string
