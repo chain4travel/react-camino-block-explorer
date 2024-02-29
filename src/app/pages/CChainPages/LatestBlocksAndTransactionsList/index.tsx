@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
-import { Grid } from '@mui/material'
+
+import BlockList from './BlockList'
 import { BlockTableData } from 'types/block'
 import { CTransaction } from 'types/transaction'
+import { Grid } from '@mui/material'
 import { RoutesConfig } from 'utils/route-paths'
-import BlockList from './BlockList'
 import TransactionsList from './TransactionsList'
 
 interface LatestBlocksAndTransactionsListProps {
@@ -15,7 +16,6 @@ const LatestBlocksAndTransactionsList: FC<LatestBlocksAndTransactionsListProps> 
     blocks,
     transactions,
 }) => {
-
     const routesConfig = RoutesConfig()
     return (
         <Grid container rowSpacing={{ xs: 4, lg: '0!important' }} columnSpacing={{ xs: 0, lg: 4 }}>

@@ -35,6 +35,11 @@ import {
     GetBlockDetailsPath,
     GetTransactionDetailsPath,
 } from 'utils/route-utils'
+import {
+    import
+} from { Avatar, ClickAwayListener, ListItemIcon, MenuItem, MenuList }
+from '@mui/material'
+
 import { ChainType } from 'utils/types/chain-type'
 import { debounce } from './utils/debounce'
 
@@ -247,9 +252,13 @@ function OutlinedSearchInput() {
                             height: '100%',
                             borderRadius: '8px',
                             p: '8px 16px',
-                            backgroundColor: 'primary.light',
+                            backgroundColor: 'card.background',
+                            boxShadow: 0,
+                            backgroundImage: 'none',
+                            borderWidth: '1px',
+                            borderColor: 'card.border',
+                            borderStyle: 'solid',
                             color: 'primary.contrastText',
-                            borderWidth: '0px',
                             fontSize: '15px',
                             lineHeight: '24px',
                             fontWeight: 500,

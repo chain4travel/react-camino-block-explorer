@@ -1,8 +1,8 @@
-import { useTheme } from '@mui/material'
-import moment from 'moment'
-import React from 'react'
 import { IBlockChainDataChart } from 'types/statistics'
+import React from 'react'
+import { Typography } from '@mui/material'
 import { currentDateFormat } from 'utils/helpers/moment'
+import moment from 'moment'
 import { seeTimeAxis } from '../../app/components/Statistics/ChartConfig/SeeTimeAxis'
 import { typeChartData } from './ChartSelector'
 
@@ -15,8 +15,6 @@ const TextBlockchainDatachart = ({
     isDescriptionOfHighest,
     timeSeeAxis,
 }: IBlockChainDataChart) => {
-    const theme = useTheme()
-    const isDark = theme.palette.mode === 'dark'
     const getLowestDate = () => {
         if (dataStatistics.lowestDate !== null && dataStatistics.lowestDate !== undefined) {
             let dateString = validateTypeTimeFilter(dataStatistics.lowestDate)
@@ -85,43 +83,115 @@ const TextBlockchainDatachart = ({
             {isDescriptionOfHighest ? (
                 <>
                     {typeStatistic === typeChartData.DAILY_TRANSACTIONS && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Highest number of {dataStatistics.highestValue} transactions on <br />
                             {`${getHighestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                     {typeStatistic === typeChartData.UNIQUE_ADRESSES && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Highest increase of {dataStatistics.highestValue} new addresses was
                             recorded on <br /> {`${getHighestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                     {typeStatistic === typeChartData.ACTIVE_ADDRESSES && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Highest number of {dataStatistics.highestValue} addresses on <br />
                             {`${getHighestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                 </>
             ) : (
                 <>
                     {typeStatistic === typeChartData.DAILY_TRANSACTIONS && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Lowest number of {dataStatistics.lowestValue} transactions on <br />
                             {`${getLowestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                     {typeStatistic === typeChartData.UNIQUE_ADRESSES && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Lowest increase of {dataStatistics.lowestValue} new addresses was
                             recorded on <br /> {`${getLowestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                     {typeStatistic === typeChartData.ACTIVE_ADDRESSES && (
-                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            sx={{
+                                my: 2,
+                                mx: 1,
+                                border: 1,
+                                borderColor: 'primary.light',
+                                borderRadius: 1,
+                                backgroundColor: 'card.background',
+                                p: 2,
+                            }}
+                        >
                             Lowest number of {dataStatistics.lowestValue} addresses on <br />
                             {`${getLowestDate()}`}
-                        </Text>
+                        </Typography>
                     )}
                 </>
             )}

@@ -1,20 +1,21 @@
+import { Box, Grid, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import PageContainer from 'app/components/PageContainer'
-import SubPageTitle from 'app/components/SubPageTitle'
-import CopyTitleCard from 'app/components/CopyTitleCard'
-import TabsHeader from 'app/components/TabComponent/TabsHeader'
-import TabPanel from 'app/components/TabComponent/TabPanel'
-import XPAddressView from './XPAddressView'
-import axios from 'axios'
-import { Typography, Box, Grid, Paper } from '@mui/material'
-import { useLocation } from 'react-router-dom'
+import { addressesApi, assetsApi } from 'utils/magellan-api-utils'
+import { getAddressFromUrl, getChainTypeFromUrl } from 'utils/route-utils'
+
 import { CamAmount } from 'app/components/CamAmount'
 import { ChainType } from 'utils/types/chain-type'
-import { mdiFileDocumentOutline } from '@mdi/js'
-import { getBaseUrl } from 'api/utils'
-import { addressesApi, assetsApi } from 'utils/magellan-api-utils'
+import CopyTitleCard from 'app/components/CopyTitleCard'
+import PageContainer from 'app/components/PageContainer'
 import { RoutesConfig } from '../../../../utils/route-paths'
-import { getChainTypeFromUrl, getAddressFromUrl } from 'utils/route-utils'
+import SubPageTitle from 'app/components/SubPageTitle'
+import TabPanel from 'app/components/TabComponent/TabPanel'
+import TabsHeader from 'app/components/TabComponent/TabsHeader'
+import XPAddressView from './XPAddressView'
+import axios from 'axios'
+import { getBaseUrl } from 'api/utils'
+import { mdiFileDocumentOutline } from '@mdi/js'
+import { useLocation } from 'react-router-dom'
 
 const tabOptions = [
     {
@@ -104,7 +105,7 @@ export default function XAddressDetail() {
                 mixedStyle
             />
             <AddressOverviewCard balance={balance} />
-            <Paper square variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
+            <Paper square variant="outlined" sx={{ backgroundColor: 'card.background' }}>
                 <TabsHeader tabValue={value} changeAction={handleChange} tabOptions={tabOptions}>
                     <Panels value={value} chainType={getChainTypeFromUrl() as ChainType} />
                 </TabsHeader>
@@ -126,7 +127,7 @@ const Panels = ({ value, chainType }: { value: number; chainType: ChainType }) =
 
 export const AddressOverviewCard = ({ balance }: { balance: number }) => {
     return (
-        <Paper variant="outlined" sx={{ backgroundColor: 'primary.dark' }}>
+        <Paper variant="outlined" sx={{ backgroundColor: 'card.background' }}>
             <Box p={2}>
                 <Grid container spacing={2}>
                     <Grid item xs md={6}>

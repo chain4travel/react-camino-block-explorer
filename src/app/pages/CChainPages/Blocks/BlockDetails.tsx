@@ -1,17 +1,18 @@
+import { Box, Grid, Paper } from '@mui/material'
 import React, { FC } from 'react'
-import { Grid, Paper, Box } from '@mui/material'
-import { useLocation } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import { fetchCBlockDetail } from 'store/cchainSlice/utils'
 import { getCBlockDetail, getCBlockDetailStatus } from 'store/cchainSlice'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+
+import BlockDetailView from './BlockDetailView'
+import LoadingWrapper from 'app/components/LoadingWrapper'
+import PageContainer from 'app/components/PageContainer'
 import { RoutesConfig } from 'utils/route-paths'
 import { Status } from 'types'
-import LoadingWrapper from 'app/components/LoadingWrapper'
-import TransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList/TransactionsList'
-import PageContainer from 'app/components/PageContainer'
-import BlockDetailView from './BlockDetailView'
 import SubPageTitle from 'app/components/SubPageTitle'
+import TransactionsList from 'app/pages/CChainPages/LatestBlocksAndTransactionsList/TransactionsList'
+import { fetchCBlockDetail } from 'store/cchainSlice/utils'
 import { getBlockNumber } from 'utils/route-utils'
+import { useLocation } from 'react-router-dom'
 
 const BlockDetails: FC = () => {
     const routesConfig = RoutesConfig()
@@ -38,7 +39,6 @@ const BlockDetails: FC = () => {
                         backgroundColor: 'card.background',
                         borderRadius: '12px',
                         borderWidth: '1px',
-                        borderColor: 'primary.light',
                         borderStyle: 'solid',
                         p: '1rem 1.5rem 1rem 1.5rem',
                     }}

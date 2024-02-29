@@ -1,7 +1,8 @@
+import { Box, Card, CardContent, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import { Card, CardContent, Box, Typography } from '@mui/material'
-import { Status } from 'types'
+
 import LoadingWrapper from 'app/components/LoadingWrapper'
+import { Status } from 'types'
 
 type OverviewCardProps = {
     title: string
@@ -32,6 +33,7 @@ const OverviewCard: FC<OverviewCardProps> = ({
                 p: '1rem 2rem',
                 borderRadius: '12px',
                 cursor: onClick ? 'pointer' : 'default',
+                borderColor: 'card.border',
             }}
             onClick={onClick}
         >

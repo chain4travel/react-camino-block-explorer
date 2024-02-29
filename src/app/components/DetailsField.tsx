@@ -1,14 +1,15 @@
-import { mdiInformationOutline, mdiOpenInNew } from '@mdi/js'
-import Icon from '@mdi/react'
 import { Box, Button, Chip, Grid, Tooltip, Typography } from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { IDetailsField, IField } from 'types/filesInComponents'
-import { roundedToLocaleString } from '../../utils/currency-utils'
+import { mdiInformationOutline, mdiOpenInNew } from '@mdi/js'
 import moment, { currentDateFormat } from '../../utils/helpers/moment'
-import useWidth from '../hooks/useWidth'
+
 import { CamAmount } from './CamAmount'
 import CopyToClipboardButton from './CopyToClipboardButton'
+import Icon from '@mdi/react'
+import { Link } from 'react-router-dom'
+import React from 'react'
+import { roundedToLocaleString } from '../../utils/currency-utils'
+import useWidth from '../hooks/useWidth'
 
 function DetailsField({
     field,
@@ -47,7 +48,7 @@ function DetailsField({
                 {!isMobile && (
                     <>
                         {tooltip?.toLowerCase() || getTooltip(field?.toLowerCase()) ? (
-                            <Grid item xs={2}>
+                            <Grid item xs={2} sx={{ display: 'grid', alignItems: 'center' }}>
                                 <Tooltip title={getTooltip(field?.toLowerCase()) as string}>
                                     {icon || (
                                         <Icon
@@ -58,7 +59,7 @@ function DetailsField({
                                 </Tooltip>
                             </Grid>
                         ) : (
-                            <Grid item xs={2}>
+                            <Grid item xs={2} sx={{ display: 'grid', alignItems: 'center' }}>
                                 {icon}
                             </Grid>
                         )}
