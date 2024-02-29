@@ -35,10 +35,6 @@ import {
     GetBlockDetailsPath,
     GetTransactionDetailsPath,
 } from 'utils/route-utils'
-import {
-    import
-} from { Avatar, ClickAwayListener, ListItemIcon, MenuItem, MenuList }
-from '@mui/material'
 
 import { ChainType } from 'utils/types/chain-type'
 import { debounce } from './utils/debounce'
