@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
-import { ChainType } from 'utils/types/chain-type'
-import { RoutesConfig } from 'utils/route-paths'
-import { STATISTICS_LINK } from '../../../utils/types/statistics-type'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import { getChainTypeFromUrl } from 'utils/route-utils'
+import { RoutesConfig } from 'utils/route-paths'
+import { ChainType } from 'utils/types/chain-type'
+import { STATISTICS_LINK } from '../../../utils/types/statistics-type'
 
 function a11yProps(index: number) {
     return {
@@ -32,22 +31,18 @@ const activeTab = (path: string): number => {
 export default function Links() {
     const routes = RoutesConfig()
     const location = useLocation()
-    const [value, setValue] = useState(activeTab(getChainTypeFromUrl()))
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         if (location.pathname !== routes.MAINNET) {
             if (newValue === 0) navigate(routes.CCHAIN)
             else if (newValue === 1) navigate(routes.XCHAIN)
             else if (newValue === 2) navigate(routes.PCHAIN)
             else if (newValue === 5) navigate(routes.STATISTICS)
-            if (newValue !== 3 && newValue !== 4) setValue(newValue)
         }
     }
-    useEffect(() => {
-        if (location.pathname === routes.MAINNET) setValue(0)
-        else if (location.pathname === routes.CCHAIN) setValue(0)
-        else if (location.pathname === routes.XCHAIN) setValue(1)
-        else if (location.pathname === routes.PCHAIN) setValue(2)
-        else if (location.pathname === routes.STATISTICS) setValue(5)
+
+    const activeChainTab = useMemo(() => {
+        let activeChain = location.pathname.split('/')[3]
+        return activeTab(activeChain)
     }, [location])
 
     let navigate = useNavigate()
@@ -61,7 +56,7 @@ export default function Links() {
             }}
         >
             <Tabs
-                value={value}
+                value={activeChainTab}
                 onChange={handleChange}
                 textColor="secondary"
                 // remove the underline

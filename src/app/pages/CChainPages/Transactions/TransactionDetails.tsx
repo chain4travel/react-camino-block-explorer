@@ -1,4 +1,11 @@
-import React, { FC, useState, useEffect } from 'react'
+import { Box, Button, Grid, Paper, useTheme } from '@mui/material'
+import React, { FC, useEffect, useState } from 'react'
+import {
+    TrimmedTransactionDetails,
+    fetchNextTransactionDetails,
+    fetchPrevTransactionDetails,
+    getNextPrevTransaction,
+} from './utils'
 import {
     changeCurrentIndex,
     clearTr,
@@ -10,29 +17,23 @@ import {
     getNextPrevTx,
     resetLoadingStatusForNPTransactions,
 } from 'store/cchainSlice'
-import {
-    fetchNextTransactionDetails,
-    fetchPrevTransactionDetails,
-    getNextPrevTransaction,
-    TrimmedTransactionDetails,
-} from './utils'
-import { fetchTransactionDetails } from 'store/cchainSlice/utils'
+import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
 import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import { Grid, Paper, useTheme, Box, Button } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import { Status } from 'types'
-import { mdiTransfer } from '@mdi/js'
-import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
-import { RoutesConfig } from 'utils/route-paths'
-import PageContainer from 'app/components/PageContainer'
+
 import BackButton from 'app/components/BackButton'
-import OutlinedContainer from 'app/components/OutlinedContainer'
 import DetailsField from 'app/components/DetailsField'
 import Icon from '@mdi/react'
-import TransactionDetailView from './TransactionDetailView'
-import SubPageTitle from 'app/components/SubPageTitle'
-import { getTransactionFromUrl } from 'utils/route-utils'
+import OutlinedContainer from 'app/components/OutlinedContainer'
+import PageContainer from 'app/components/PageContainer'
 import RoundButton from 'app/components/RoundButton'
+import { RoutesConfig } from 'utils/route-paths'
+import { Status } from 'types'
+import SubPageTitle from 'app/components/SubPageTitle'
+import TransactionDetailView from './TransactionDetailView'
+import { fetchTransactionDetails } from 'store/cchainSlice/utils'
+import { getTransactionFromUrl } from 'utils/route-utils'
+import { mdiTransfer } from '@mdi/js'
+import { useNavigate } from 'react-router-dom'
 
 const TransactionDetails: FC = () => {
     const routesConfig = RoutesConfig()
@@ -89,22 +90,23 @@ const TransactionDetails: FC = () => {
     }, [currentIndex])
 
     return (
-        <PageContainer pageTitle="C TransactionDetails" metaContent="chain-overview c-chain">
+        <PageContainer pageTitle="C Transaction Details" metaContent="chain-overview c-chain">
             <Paper
                 variant="outlined"
                 square
                 sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
                     minHeight: '680px',
                     width: 1,
                     backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
             >
-                <Grid container direction="column" sx={{ width: 1, gap: '20px' }}>
+                <Grid container direction="column" sx={{ width: 1, gap: '20px', flex: 1 }}>
                     <SubPageTitle title="C-Chain Transaction" backToLink={routesConfig.CCHAIN}>
                         <Box
                             sx={{
@@ -185,7 +187,14 @@ const TransactionDetails: FC = () => {
                     />
                 </Grid>
                 {(detailTr || detailCr) && (
-                    <Box sx={{ display: 'flex', width: '100%', paddingTop: '1rem' }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            width: '100%',
+                            paddingTop: '1rem',
+                            marginTop: 'auto',
+                        }}
+                    >
                         <BackButton backToLink={routesConfig.CCHAIN} />
                     </Box>
                 )}

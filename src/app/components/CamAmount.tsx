@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Typography, Tooltip, Box } from '@mui/material'
-import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg'
-import { ReactComponent as ACamIcon } from './assets/a-cam.svg'
-import { ReactComponent as NCamIcon } from './assets/n-cam.svg'
-import { ReactComponent as CamIcon } from './assets/cam.svg'
+
+import { Box, Tooltip, Typography } from '@mui/material'
 import {
-    getDisplayAmount,
-    getACamAmount,
     customToLocaleString,
+    getACamAmount,
+    getDisplayAmount,
     roundedToLocaleString,
 } from '../../utils/currency-utils'
+
+import { ReactComponent as ACamIcon } from './assets/a-cam.svg'
+import { ReactComponent as CamIcon } from './assets/cam.svg'
+import { ReactComponent as GasStationOutline } from './assets/gas-station-outline.svg'
 import { ICamAmount } from 'types/filesInComponents'
+import { ReactComponent as NCamIcon } from './assets/n-cam.svg'
 import { useLocation } from 'react-router-dom'
 
 export function AmountIcon({ currency }: { currency: string }) {

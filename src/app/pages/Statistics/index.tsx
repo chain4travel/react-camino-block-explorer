@@ -1,6 +1,6 @@
+import '../../../styles/datacharts.css'
+
 import { Paper, useTheme } from '@mui/material'
-import PageContainer from 'app/components/PageContainer'
-import SubPageTitle from 'app/components/SubPageTitle'
 import React, { FC } from 'react'
 import {
     getActiveAddresses,
@@ -24,12 +24,13 @@ import {
     loadGasUsed,
     loadUniqueAddresses,
 } from 'store/blockchainDatachartsSlice/utils'
-import { typeChartData } from '../../../utils/statistics/ChartSelector'
-import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts'
 
+import BlockchainCharts from '../../components/Statistics/BlockchainDataCharts'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import '../../../styles/datacharts.css'
+import PageContainer from 'app/components/PageContainer'
+import SubPageTitle from 'app/components/SubPageTitle'
+import { typeChartData } from '../../../utils/statistics/ChartSelector'
 
 const Statistics: FC = () => {
     const theme = useTheme()
@@ -43,10 +44,9 @@ const Statistics: FC = () => {
                 sx={{
                     minHeight: '544px',
                     width: 1,
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}
@@ -138,10 +138,9 @@ const Statistics: FC = () => {
                 sx={{
                     minHeight: '544px',
                     width: 1,
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: 'card.background',
                     borderRadius: '12px',
                     borderWidth: '1px',
-                    borderColor: 'primary.light',
                     borderStyle: 'solid',
                     p: '1rem 1.5rem 1rem 1.5rem',
                 }}

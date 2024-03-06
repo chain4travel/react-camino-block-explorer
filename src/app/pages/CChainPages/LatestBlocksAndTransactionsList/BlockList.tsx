@@ -23,7 +23,6 @@ const BlockList: FC<BlockListProps> = ({ title, items, to }) => {
                 display: 'flex',
                 backgroundColor: 'card.background',
                 borderWidth: '1px',
-                borderColor: 'primary.light',
                 borderStyle: 'solid',
                 p: '1rem 1.5rem 1rem 1.5rem',
                 flexDirection: 'column',

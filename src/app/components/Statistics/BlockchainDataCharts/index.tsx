@@ -1,34 +1,35 @@
-import { Fragment, useEffect, useState } from 'react'
-
-import { mdiClose } from '@mdi/js'
-import Icon from '@mdi/react'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import InfoIcon from '@mui/icons-material/Info'
-import { Grid, useTheme } from '@mui/material'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardHeader from '@mui/material/CardHeader'
-import CircularProgress from '@mui/material/CircularProgress'
-import IconButton from '@mui/material/IconButton'
-import Modal from '@mui/material/Modal'
-import Tooltip from '@mui/material/Tooltip'
-import useWidth from 'app/hooks/useWidth'
-import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
-import { useAppDispatch, useAppSelector } from 'store/configureStore'
-import styled from 'styled-components'
-import { Status } from 'types'
-import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
 import '../../../../styles/scrollbarModal.css'
-import TextBlockchainDatachart from '../../../../utils/statistics/TextBlockchainDatachart'
-import DateRange from '../DateRange/DateRange'
-import LinearMeter from './LinearMeter'
 
+import {
+    Box,
+    Card,
+    CardContent,
+    CardHeader,
+    CircularProgress,
+    IconButton,
+    Modal,
+    Tooltip,
+    Typography,
+} from '@mui/material'
+import { ConsumptionCharts, Emissions, TextProps } from 'types/statistics'
+import { Fragment, useEffect, useState } from 'react'
+import { Grid, useTheme } from '@mui/material'
+import { mdiArrowExpand, mdiClose, mdiInformationOutline } from '@mdi/js'
+import { useAppDispatch, useAppSelector } from 'store/configureStore'
+
+import DateRange from '../DateRange/DateRange'
+import Icon from '@mdi/react'
+import LinearMeter from './LinearMeter'
 import React from 'react'
+import { Status } from 'types'
+import TextBlockchainDatachart from '../../../../utils/statistics/TextBlockchainDatachart'
+import moment from 'moment'
+import styled from 'styled-components'
+import useWidth from 'app/hooks/useWidth'
+
 const TooltipContainer = styled.div`
     display: flex;
-    padding-top: 2rem;
 `
 const LinearMeterContainer = styled.div`
     margin-top: -3rem;
@@ -96,6 +97,16 @@ const BlockchainCharts = ({
     const dataStatistics: Emissions = useAppSelector(sliceGetter)
     const loader = useAppSelector(sliceGetterLoader)
 
+    const onOpenModal = () => {
+        document.body.style.overflow = 'hidden'
+        setOpenModal(true)
+    }
+
+    const onCloseModal = () => {
+        document.body.style.overflow = 'initial'
+        setOpenModal(false)
+    }
+
     return (
         <Fragment>
             {loader === Status.LOADING ? (
@@ -106,33 +117,47 @@ const BlockchainCharts = ({
                 </>
             ) : (
                 <>
-                    <Card style={{ backgroundColor: darkMode ? '#060F24' : 'white' }}>
+                    <Card
+                        sx={{
+                            backgroundColor: 'card.background',
+                            boxShadow: 0,
+                            backgroundImage: 'none',
+                            borderRadius: '12px',
+                            borderWidth: '1px',
+                            borderColor: 'primary.light',
+                            borderStyle: 'solid',
+                        }}
+                    >
                         <CardHeader
                             title={
-                                <span>
+                                <Typography
+                                    variant="h5"
+                                    component="span"
+                                    sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+                                >
                                     {titleText}
                                     <Tooltip title={tooltipTitle} placement="top">
-                                        <IconButton>
-                                            <InfoIcon />
-                                        </IconButton>
+                                        <Icon path={mdiInformationOutline} size={1} />
                                     </Tooltip>
-                                </span>
+                                </Typography>
                             }
                             action={
                                 <TooltipContainer>
                                     <IconButton
                                         color="info"
                                         component="label"
-                                        onClick={() => setOpenModal(true)}
-                                        style={{
-                                            cursor: 'default',
-                                            color: 'GrayText',
+                                        onClick={onOpenModal}
+                                        sx={{
+                                            color: `var(--camino-too-blue-to-be-true)`,
+                                            padding: '0.5rem',
+                                            border: '1px solid var(--camino-too-blue-to-be-true)',
                                         }}
                                     >
-                                        <ArrowOutwardIcon />
+                                        <Icon path={mdiArrowExpand} size={0.7} />
                                     </IconButton>
                                 </TooltipContainer>
                             }
+                            sx={{ '& .MuiCardHeader-action': { alignSelf: 'center' } }}
                         />
 
                         <CardContent>
@@ -155,13 +180,12 @@ const BlockchainCharts = ({
 
             <Modal
                 open={openModal}
-                onClose={e => {
-                    setOpenModal(false)
-                }}
+                onClose={onCloseModal}
                 sx={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    '& .MuiPaper-root': { backgroundImage: 'none' },
                 }}
                 disableScrollLock={true}
             >
@@ -190,11 +214,8 @@ const BlockchainCharts = ({
                                 <IconButton
                                     color="info"
                                     component="label"
-                                    onClick={() => setOpenModal(false)}
-                                    style={{
-                                        cursor: 'default',
-                                        color: isDark ? 'white' : 'black',
-                                    }}
+                                    onClick={onCloseModal}
+                                    style={{ cursor: 'default', color: isDark ? 'white' : 'black' }}
                                 >
                                     <Icon path={mdiClose} size={1} />
                                 </IconButton>
@@ -213,9 +234,21 @@ const BlockchainCharts = ({
                                     alignItems="center"
                                 >
                                     <Grid item xs={12}>
-                                        <Text backgroundColor={isDark ? '#0f172a' : '#F5F6FA'}>
+                                        <Typography
+                                            variant="body1"
+                                            component="p"
+                                            sx={{
+                                                my: 2,
+                                                mx: 1,
+                                                border: 1,
+                                                borderColor: 'primary.light',
+                                                borderRadius: 1,
+                                                backgroundColor: 'card.background',
+                                                p: 2,
+                                            }}
+                                        >
                                             {tooltipTitle}
-                                        </Text>
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextBlockchainDatachart

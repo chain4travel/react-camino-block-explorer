@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
+import {
+    Avatar,
+    ClickAwayListener,
+    ListItemIcon,
+    MenuItem,
+    MenuList,
+    useTheme,
+} from '@mui/material'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import InputAdornment from '@mui/material/InputAdornment'
 import Modal from '@mui/material/Modal'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import Typography from '@mui/material/Typography'
+import { getChainID } from 'api/utils'
 import useWidth from 'app/hooks/useWidth'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { MenuItem, MenuList, ListItemIcon, Avatar, ClickAwayListener } from '@mui/material'
-import { useTheme } from '@mui/material'
-import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
-import { debounce } from './utils/debounce'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from 'store/configureStore'
 import { selectMagellanAddress } from 'store/app-config'
-import { searchApi } from 'utils/magellan-api-utils'
+import { useAppSelector } from 'store/configureStore'
 import {
+    MagellanAddressResponse,
+    MagellanAddressSearchResult,
+    MagellanCBlockSearchResult,
+    MagellanCTransactionSearchResult,
     MagellanSearchResultElementType,
     MagellanXPTransactionSearchResult,
-    MagellanCTransactionSearchResult,
-    MagellanCBlockSearchResult,
-    MagellanAddressSearchResult,
-    MagellanAddressResponse,
 } from 'types/magellan-types'
+import { ISearchMenu, SearchMenuItem } from 'types/search-menu'
+import { searchApi } from 'utils/magellan-api-utils'
+import { RoutesConfig } from 'utils/route-paths'
 import {
-    GetBlockDetailsPath,
     GetAddressDetailsPath,
+    GetBlockDetailsPath,
     GetTransactionDetailsPath,
 } from 'utils/route-utils'
+
 import { ChainType } from 'utils/types/chain-type'
-import { getChainID } from 'api/utils'
-import { RoutesConfig } from 'utils/route-paths'
+import { debounce } from './utils/debounce'
 
 function OutlinedSearchInput() {
     const routesConfig = RoutesConfig()
@@ -241,9 +248,13 @@ function OutlinedSearchInput() {
                             height: '100%',
                             borderRadius: '8px',
                             p: '8px 16px',
-                            backgroundColor: 'primary.light',
+                            backgroundColor: 'card.background',
+                            boxShadow: 0,
+                            backgroundImage: 'none',
+                            borderWidth: '1px',
+                            borderColor: 'card.border',
+                            borderStyle: 'solid',
                             color: 'primary.contrastText',
-                            borderWidth: '0px',
                             fontSize: '15px',
                             lineHeight: '24px',
                             fontWeight: 500,
@@ -374,7 +385,6 @@ const SearchResultMenu = ({ children }: { children?: React.ReactNode }) => {
 }
 
 const SearchResultMenuList = ({ menuItems }: { menuItems: SearchMenuItem[] }) => {
-    console.log(menuItems)
     const navigate = useNavigate()
     return (
         <MenuList>

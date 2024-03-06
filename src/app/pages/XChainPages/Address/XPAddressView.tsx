@@ -1,16 +1,18 @@
 import * as React from 'react'
-import { Grid, TableContainer, Divider } from '@mui/material'
-import axios from 'axios'
+
+import { Divider, Grid, TableContainer } from '@mui/material'
 import { convertMemo, getInputFunds, getOutputFunds } from 'utils/magellan'
-import { MagellanXPTransaction } from 'types/magellan-types'
-import { useLocation } from 'react-router-dom'
-import { ChainType } from 'utils/types/chain-type'
-import { AddressSection } from './AddressSection'
-import { InputOutputSection } from './InputOutputSection'
 import { getBaseUrl, getChainID } from 'api/utils'
-import { xpTransactionApi } from 'utils/magellan-api-utils'
-import { getAddressFromUrl } from 'utils/route-utils'
+
+import { AddressSection } from './AddressSection'
+import { ChainType } from 'utils/types/chain-type'
+import { InputOutputSection } from './InputOutputSection'
 import { LoadsBlocksAndTransactions } from 'types/address'
+import { MagellanXPTransaction } from 'types/magellan-types'
+import axios from 'axios'
+import { getAddressFromUrl } from 'utils/route-utils'
+import { useLocation } from 'react-router-dom'
+import { xpTransactionApi } from 'utils/magellan-api-utils'
 
 export function createTransaction(magellanTransaction: MagellanXPTransaction) {
     return {
