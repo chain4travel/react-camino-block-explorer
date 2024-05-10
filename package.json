@@ -127,6 +127,7 @@
         "eslint-plugin-react": "^7.32.2",
         "ethers": "^6.0.2",
         "path": "^0.12.7",
+        "react-circle-flags": "^0.0.20",
         "react-datepicker": "^4.10.0"
     }
 }
