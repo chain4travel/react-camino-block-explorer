@@ -10728,6 +10728,11 @@ react-app-polyfill@3.0.0, react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-circle-flags@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/react-circle-flags/-/react-circle-flags-0.0.20.tgz#6aeffa5a74b435eb18ce3afa9f73115a7f2ccfdb"
+  integrity sha512-/Q18+veXCSA0lQWbnRo/AtR4G/NDRrukKyU6Cl7iLLXAG9KywjgFdPqHD2YJklicjfALXm2wLdbONRs0QKDITA==
+
 react-datepicker@^4.10.0:
   version "4.10.0"
   resolved "https://registry.npmjs.org/react-datepicker/-/react-datepicker-4.10.0.tgz"
