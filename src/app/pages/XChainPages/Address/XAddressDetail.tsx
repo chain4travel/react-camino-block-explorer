@@ -13,7 +13,7 @@ import TabPanel from 'app/components/TabComponent/TabPanel'
 import TabsHeader from 'app/components/TabComponent/TabsHeader'
 import XPAddressView from './XPAddressView'
 import axios from 'axios'
-import { getBaseUrl } from 'api/utils'
+import { getBaseUrl, getChainID } from 'api/utils'
 import { mdiFileDocumentOutline } from '@mdi/js'
 import { useLocation } from 'react-router-dom'
 
@@ -56,7 +56,11 @@ export default function XAddressDetail() {
     async function loadBalances(address: string | undefined) {
         const assets = await loadAssets()
         const addressInfo = await (
-            await axios.get(`${getBaseUrl()}${addressesApi}/${address}`)
+            await axios.get(
+                `${getBaseUrl()}${addressesApi}/${address}?chainID=${getChainID(
+                    getAddressFromUrl()[0].toLowerCase(),
+                )}`,
+            )
         ).data
         const addressBalances: AddressBalance[] = []
         if (addressInfo && addressInfo.assets) {
