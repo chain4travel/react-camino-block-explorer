@@ -51,11 +51,8 @@ const LinearMeter = ({
                     categories: config.getCategories(),
 
                     labels: {
-                        useHTML: true,
-                        formatter: function (obj: IDataChart) {
-                            return `<span style="text-align: center;color:${
-                                darkMode === true ? 'white' : 'black'
-                            }"> ${obj.value}</span>`
+                        style: {
+                            color: darkMode ? 'white' : 'black',
                         },
                     },
                 },
