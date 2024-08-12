@@ -147,7 +147,7 @@ function OutlinedSearchInput() {
                         avatar: 'AD',
                         avatarColor: 'searchResultItem.bg_PAD',
                     }
-                } else {
+                } else if (ChainId === getChainID('x')) {
                     return {
                         label: `X-${xpAddressData.address}`,
                         type: type,
@@ -159,7 +159,7 @@ function OutlinedSearchInput() {
                         avatar: 'AD',
                         avatarColor: 'searchResultItem.bg_XAD',
                     }
-                }
+                } else return {}
             default:
                 console.log('Got unknown response type from search', +type)
                 return undefined
@@ -189,7 +189,7 @@ function OutlinedSearchInput() {
                     data.results[i].type,
                     data.results[i].data,
                 ) as SearchMenuItem
-                if (mapItem) setMenuItems(prev => [...prev, mapItem])
+                if (Object.keys(mapItem).length) setMenuItems(prev => [...prev, mapItem])
             }
             setLoading(false)
         },
