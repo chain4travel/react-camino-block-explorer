@@ -37,10 +37,10 @@ jobs:
 
       - name: build local image
         run: |
-          docker-compose build --build-arg SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }} --build-arg WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
+          docker compose build --build-arg SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }} --build-arg WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
           export SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }}
           export WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
-          docker-compose up -d
+          docker compose up -d
           docker cp camino-suite-host-container:/app/camino-suite ./
           mkdir -p /home/runner/.cache
           docker cp camino-suite-host-container:/root/.cache/Cypress  /home/runner/.cache/
@@ -100,10 +100,10 @@ jobs:
 
       - name: build local image
         run: |
-          docker-compose build --build-arg SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }} --build-arg WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
+          docker compose build --build-arg SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }} --build-arg WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
           export SUITE_IMAGE=${{ env.suite_image }}:${{ steps.setBranch.outputs.branch }}
           export WALLET_IMAGE=${{ env.wallet_image }}:${{ steps.setBranch.outputs.branch }}
-          docker-compose up -d
+          docker compose up -d
           docker cp camino-suite-host-container:/app/camino-suite ./
           mkdir -p /home/runner/.cache
           docker cp camino-suite-host-container:/root/.cache/Cypress  /home/runner/.cache/
