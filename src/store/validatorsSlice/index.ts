@@ -11,6 +11,7 @@ import {
     ValidatorReponse,
 } from '../../types/locationNode'
 import sortBy from 'lodash/sortBy'
+import { orderBy } from 'lodash'
 
 let initialState: initialValidatorsStateType = {
     percentageOfActiveValidators: 0,
@@ -91,6 +92,50 @@ const validatorsSlice = createSlice({
     initialState,
     reducers: {
         resetValidatorsReducer: () => initialState,
+        sortValidators: (state, { payload }) => {
+            if (state.validators.length <= 1) return
+            if (payload === 'UpTime') {
+                state.validators = sortBy(state.validators, e => {
+                    if (state.validators[0].uptime > state.validators[1].uptime) return -e.uptime
+                    else return e.uptime
+                })
+            } else if (payload === 'EndTime')
+                state.validators = sortBy(state.validators, e => {
+                    if (
+                        new Date(state.validators[0].endTime) -
+                            new Date(state.validators[1].endTime) <=
+                        0
+                    )
+                        return -new Date(e.endTime)
+                    return new Date(e.endTime)
+                })
+            else if (payload === 'StartTime')
+                state.validators = sortBy(state.validators, e => {
+                    if (
+                        new Date(state.validators[0].startTime) -
+                            new Date(state.validators[1].startTime) <=
+                        0
+                    )
+                        return -new Date(e.startTime)
+                    return new Date(e.startTime)
+                })
+            else if (payload === 'NodeID') {
+                let order = state.validators[0].nodeID > state.validators[1].nodeID ? 'desc' : 'asc'
+                state.validators = orderBy(state.validators, ['nodeID'], [order as 'asc' | 'desc'])
+            } else if (payload === 'Status')
+                state.validators = sortBy(state.validators, e => {
+                    if (state.validators[0].status === 'Connected') return e.status === 'Connected'
+                    else return e.status !== 'Connected'
+                })
+            else if (payload === 'txID') {
+                let order =
+                    state.validators[0].txID.toLocaleLowerCase() >
+                    state.validators[1].txID.toLocaleLowerCase()
+                        ? 'asc'
+                        : 'desc'
+                state.validators = orderBy(state.validators, ['txID'], [order as 'asc' | 'desc'])
+            }
+        },
     },
     extraReducers(builder) {
         builder.addCase(loadValidators.pending, state => {
@@ -151,6 +196,6 @@ export const getSumNodesPerCountry = (state: RootState) => state.validators.node
 
 export const getSumNodesPerCity = (state: RootState) => state.validators.nodesPerCity
 
-export const { resetValidatorsReducer } = validatorsSlice.actions
+export const { resetValidatorsReducer, sortValidators } = validatorsSlice.actions
 
 export default validatorsSlice.reducer
