@@ -72,7 +72,14 @@ export default function XAddressDetail() {
                     symbol: assets.get(key)?.symbol || 'UNKNOWN',
                 })
             })
-            setBalance(addressBalances[0]?.balance)
+
+            let totalBalance = 0
+            addressBalances.forEach((element: AddressBalance) => {
+                totalBalance += +element.balance
+            })
+
+            setBalance(totalBalance)
+
             return addressBalances
         }
         return []
