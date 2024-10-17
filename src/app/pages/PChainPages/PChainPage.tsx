@@ -35,7 +35,11 @@ export default function PChainPage() {
     })
 
     return (
-        <PageContainer pageTitle="P chain" metaContent="chain-overview p-chain">
+        <PageContainer
+            pageTitle="P chain"
+            metaContent="Explore Camino P-Chain on-chain transactions for managing validators, network governance, and subnet development."
+            metaKeywords="Camino P-Chain"
+        >
             <DataControllers />
             <OverviewCards
                 numberOfTransactions={numberOfTransactions}
