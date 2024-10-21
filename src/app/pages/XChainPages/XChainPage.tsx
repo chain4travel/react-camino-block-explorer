@@ -17,7 +17,6 @@ import { getChainID } from 'api/utils'
 import { XPTransaction } from 'types/transaction'
 
 export default function XChainPage() {
-
     const routesConfig = RoutesConfig()
     const dispatch = useAppDispatch()
     const CHAIN_ID = getChainID('x')
@@ -34,7 +33,11 @@ export default function XChainPage() {
     })
 
     return (
-        <PageContainer pageTitle="X chain" metaContent="chain-overview x-chain">
+        <PageContainer
+            pageTitle="X chain"
+            metaContent="Explore Camino X-Chain DAG-based transaction processing for secure, efficient asset creation, management, and exchange on Camino Network."
+            metaKeywords="Camino X-Chain"
+        >
             <DataControllers />
             <OverviewCards
                 numberOfTransactions={numberOfTransactions}
