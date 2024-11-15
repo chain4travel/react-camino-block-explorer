@@ -65,7 +65,11 @@ const Validators: FC = () => {
     }
 
     return (
-        <PageContainer pageTitle="Validators" metaContent="validators">
+        <PageContainer
+            pageTitle="Camino Validators"
+            metaContent="Discover the active validators on Camino Network. View detailed node stats, uptime, and contributions to monitor the network security and governance."
+            metaKeywords="Camino Validators"
+        >
             <Paper
                 variant="outlined"
                 square

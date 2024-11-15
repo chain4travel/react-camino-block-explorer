@@ -37,7 +37,11 @@ const Statistics: FC = () => {
     const dark = theme.palette.mode === 'light' ? false : true
 
     return (
-        <PageContainer pageTitle="Statistics" metaContent="statistics">
+        <PageContainer
+            pageTitle="Camino Statistics and Blockchain Data Dashboard"
+            metaContent="Explore the Camino statistics dashboard for real-time data on network activity, transactions, gas, wallets, and more. Keep track of the travel blockchain performance."
+            metaKeywords='Camino Statistics'
+        >
             <Paper
                 variant="outlined"
                 square

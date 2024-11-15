@@ -49,7 +49,11 @@ export default function CChainPage() {
     }
 
     return (
-        <PageContainer pageTitle="C chain" metaContent="chain-overview c-chain">
+        <PageContainer
+            pageTitle="C chain"
+            metaContent="Track and analyze transactions, smart contracts, and dApps on Camino C-Chain. Explore travel-related on-chain data on Camino Network's EVM-compatible C-Chain."
+            metaKeywords="Camino C-Chain"
+        >
             {isError && error ? (
                 <>
                     <Typography
