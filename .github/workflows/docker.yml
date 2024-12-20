@@ -65,9 +65,9 @@ jobs:
       - name: create suite docker image
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.base_ref }} --build-arg WALLET_BRANCH=${{ github.base_ref }}
+            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.base_ref }} --build-arg WALLET_BRANCH=${{ github.base_ref }} --build-arg VOTING_BRANCH=${{ github.base_ref }}
           else
-            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.ref_name }} --build-arg WALLET_BRANCH=${{ github.ref_name }}  
+            docker build . -f Dockerfile_SUITE -t ${{ steps.setDefaults.outputs.docker_image }} --build-arg BUILD_ENV=build:${{ steps.setDefaults.outputs.build_env }} --build-arg SUITE_BRANCH=${{ github.ref_name }} --build-arg WALLET_BRANCH=${{ github.ref_name }} --build-arg VOTING_BRANCH=${{ github.ref_name }} 
           fi
 
               
